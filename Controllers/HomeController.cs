@@ -1,8 +1,11 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoSeguridad2024.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProyectoSeguridad2024.Controllers;
+
+[Authorize]
 
 public class HomeController : Controller
 {
