@@ -19,7 +19,6 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<JornadaLaboral> JornadaLaboral {get; set;}
     public DbSet<Localidad> Localidades {get; set;}
     public DbSet<Novedad> Novedades {get; set;}
-    public DbSet<Pais> Paises {get; set;}
     public DbSet<Persona> Personas {get; set;}
     public DbSet<Provincia> Provincias {get; set;}
     public DbSet<TipoDocumento> TipoDocumentos {get; set;}
