@@ -7,13 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ProyectoSeguridad2024</title>
-    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ProyectoSeguridad2024.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/fontawesome/css/all.min.css" />
-     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
     <body>
 
@@ -24,7 +22,8 @@
             <div class="border-end bgLayout" id="sidebar-wrapper">
                 
                 <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark" href="#!"><i class="fa-solid fa-house"></i> - Home</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark" href="~/Home/Index"><i class="fa-solid fa-house"></i> - Home</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark" href="~/Provincias/Provincias"><i class="fa-solid fa-house"></i> - Provincias</a>
                     @* <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark" href="#!">Shortcuts</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark" href="#!">Overview</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark" href="#!">Events</a>
@@ -54,12 +53,6 @@
     </div>
             </div>
         </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - ProyectoSeguridad2024 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
 }
 else
 {
@@ -73,11 +66,9 @@ else
 }
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/layout.js" asp-append-version="true"></script>
     <script src="~/fontawesome/js/all.min.js"></script>
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
