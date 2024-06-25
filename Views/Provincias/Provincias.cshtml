@@ -6,29 +6,49 @@
     <h1 class="display-4">Provincias</h1>
 </div>
 
-<div class="row">
-    <form class="col s12">
-        <div class="row">
-            <div class="input-field col s6">
-                <input id="ProvinciaID" type="hidden">
-                <input placeholder="Nombre de la provincia" id="NombreProvincia" type="text" class="validate">
-                <label for="NombreProvincia">Nombre</label>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProvincias" onclick="NuevoRegistro()">
+  NUEVA PROVINCIA
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modalProvincias" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloModal"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="input-field col s6">
-                <button type="button" class="waves-effect waves-light btn">Guardar</button>
+            <div class="modal-body">
+                <div class="row">
+                    <form>
+                        <div class="col-md-4 mb-3">
+                            <input type="hidden" id="ProvinciaID">
+                            <label for="NombreProvincia" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="NombreProvincia">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="LimpiarModal()">Close</button>
+                <button type="button" class="btn btn-primary" onclick="GuardarRegistros()">Save changes</button>
             </div>
         </div>
-    </form>
+    </div>
 </div>
 
-<table>
-        <thead>
-          <tr>
-              <th>Nombre</th>
-              <th>Editar</th>
-              <th>Eliminar</th>
-          </tr>
-        </thead>
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody id="tbody-provincias"></tbody>
+</table>
 
-        <tbody id=""></tbody>
-      </table>
+@section Scripts {
+    <script src="~/js/provincias-1.0.0.js"></script>
+}

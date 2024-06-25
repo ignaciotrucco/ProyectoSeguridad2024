@@ -1,0 +1,60 @@
+@{
+    ViewData["Title"] = "Localidades";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Localidades</h1>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLocalidades">
+  NUEVA LOCALIDAD
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modalLocalidades" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloModal"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="LimpiarModal()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form>
+                        <div class="col-md-8 mb-3">
+                            <input type="hidden" id="LocalidadID">
+                            <label for="Nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="Nombre">
+                            <label for="CP" class="form-label">Codigo Postal</label>
+                            <input type="text" class="form-control" id="CP">
+                            <label for="ProvinciaID" class="form-label">Provincia</label>
+                            @Html.DropDownList("ProvinciaID", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="LimpiarModal()">Close</button>
+                <button type="button" class="btn btn-primary" onclick="GuardarLocalidad()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Codigo Postal</th>
+            <th scope="col">Provincia</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody id="tbody-localidad"></tbody>
+</table>
+
+@section Scripts {
+    <script src="~/js/localidades-1.0.0.js"></script>
+}
