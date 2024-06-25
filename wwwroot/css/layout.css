@@ -104,6 +104,11 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+#sidebar-wrapper.sidebar-wrapper-collapsed {
+  width: 300px; /* Debe coincidir con el valor establecido en el código JavaScript */
+}
+
+
 hr {
   margin: 1rem 0;
   color: inherit;
