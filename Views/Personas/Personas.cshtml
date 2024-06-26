@@ -1,0 +1,105 @@
+@{
+    ViewData["Title"] = "People Page";
+}
+
+<link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
+
+<div class="text-center">
+    <h1 class="display-4">PERSONAS</h1>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalPersonas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    id="staticBackdrop" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloModal"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    onclick="LimpiarModal()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <input type="hidden" id="PersonaID">
+                                <label for="Nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="Nombre">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Apellido" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="Apellido">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="TipoDocumentoID" class="form-label">Tipo Doc</label>
+                                @Html.DropDownList("TipoDocumentoID", null, htmlAttributes: new
+                                    {
+                                        @class =
+                                         "form-control"
+                                    })
+                            </div>
+                            <div class="col-md-8">
+                                <label for="NroDoc" class="form-label">Numero</label>
+                                <input type="number" class="form-control" id="NroDoc">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Telefono" class="form-label">Numero de telefono</label>
+                                <input type="tel" class="form-control" id="Telefono">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Domicilio" class="form-label">Domicilio</label>
+                                <input type="text" class="form-control" id="Domicilio">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="Email">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="LocalidadID" class="form-label">Localidad</label>
+                                @Html.DropDownList("LocalidadID", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="GuardarLocalidad()">Guardar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                    onclick="LimpiarModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th style="text-align: center">Nombre</th>
+            <th style="text-align: center">Apellido</th>
+            <th style="text-align: center">Tipo Documento</th>
+            <th style="text-align: center">N° Documento</th>
+            <th scope="col" style="text-align: center">Telefono</th>
+            <th scope="col" style="text-align: center">Email</th>
+            <th scope="col" style="text-align: center">Domicilio</th>
+            <th scope="col" style="text-align: center">Localidad</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody id="tbody-personas"></tbody>
+</table>
+
+<!-- Button trigger modal -->
+<div class="btnAgregar">
+    <button type="button" class="btn btn-primary btn-circle-xl" title="Agregar" data-bs-toggle="modal"
+        data-bs-target="#modalPersonas" data-bs-target="#staticBackdrop">
+        <i class="fa-solid fa-plus"></i>
+    </button>
+</div>
+
+@section Scripts {
+    <script src="~/js/personas-1.0.0.js"></script>
+}

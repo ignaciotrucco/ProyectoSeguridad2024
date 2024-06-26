@@ -15,6 +15,7 @@ public class Persona
     public string? Telefono { get; set;}
     public string? Domicilio { get; set;}
     public string? Email { get; set;}
+    public int NumeroDocumento {get; set;}
     public virtual Localidad Localidad {get; set;}
     public virtual TipoDocumento TipoDocumentos {get; set;}
 }
