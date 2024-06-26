@@ -71,12 +71,12 @@ public class LocalidadesController : Controller
         return Json(resultado);
     }
 
-public JsonResult EliminarRegistros(int ProvinciaID)
+public JsonResult EliminarLocalidad(int LocalidadID)
 {
-    var eliminarProvincia = _context.Provincias.Find(ProvinciaID);
-    _context.Remove(eliminarProvincia);
+    var eliminarLocalidad = _context.Localidades.Find(LocalidadID);
+    _context.Remove(eliminarLocalidad);
     _context.SaveChanges();
 
-    return Json(eliminarProvincia);
+    return Json(eliminarLocalidad);
 }
 }

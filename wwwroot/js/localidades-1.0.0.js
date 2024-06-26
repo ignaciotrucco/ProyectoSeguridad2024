@@ -11,14 +11,14 @@ function NuevoRegistro() {
     $("#tituloModal").text("Nueva Provincia")
 }
 
-function ListadoLocalidades(){
- 
+function ListadoLocalidades() {
+
     $.ajax({
         // la URL para la petición
         url: '../../Localidades/ListadoLocalidades',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: {  },
+        data: {},
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -27,13 +27,13 @@ function ListadoLocalidades(){
         // la respuesta es pasada como argumento a la función
         success: function (listadoLocalidades) {
 
-            $("#modalProvincias").modal("hide");
+            $("#modalLocalidades").modal("hide");
             LimpiarModal()
-            
+
             let contenidoTabla = ``;
 
-            $.each(listadoLocalidades, function (index, localidad) {  
-                
+            $.each(listadoLocalidades, function (index, localidad) {
+
                 contenidoTabla += `
                 <tr>
                     <td>${localidad.nombre}</td>
@@ -45,7 +45,7 @@ function ListadoLocalidades(){
                     </button>
                     </td>
                     <td class="text-center">
-                    <button type="button" class="btn btn-danger btn-sm" onclick="EliminarProvincia(${localidad.localidadID})">
+                    <button type="button" class="btn btn-danger btn-sm" onclick="EliminarLocalidad(${localidad.localidadID})">
                     Eliminar
                     </button>
                     </td>
@@ -103,27 +103,29 @@ function GuardarLocalidad() {
     });
 }
 
-function ModalEditar(provinciaID) {
+function ModalEditar(localidadID) {
     $.ajax({
         // la URL para la petición
-        url: '../../Provincias/ListadoProvincias',
+        url: '../../Localidades/ListadoLocalidades',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { ProvinciaID: provinciaID },
+        data: { LocalidadID: localidadID },
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
         dataType: 'json',
         // código a ejecutar si la petición es satisfactoria;
         // la respuesta es pasada como argumento a la función
-        success: function (listadoProvincias) {
-            let listadoProvincia = listadoProvincias[0];
+        success: function (listadoLocalidades) {
+            let listadoLocalidad = listadoLocalidades[0];
 
-            document.getElementById("ProvinciaID").value = provinciaID;
-            document.getElementById("NombreProvincia").value = listadoProvincia.nombre;
-            $("#tituloModal").text("Editar Provincia")
-            $("#modalProvincias").modal("show");
-                       
+            document.getElementById("LocalidadID").value = localidadID;
+            document.getElementById("ProvinciaID").value = listadoLocalidad.provinciaID;
+            document.getElementById("Nombre").value = listadoLocalidad.nombre;
+            document.getElementById("CP").value = listadoLocalidad.codigoPostal;
+            $("#tituloModal").text("Editar Localidad")
+            $("#modalLocalidades").modal("show");
+
         },
 
         // código a ejecutar si la petición falla;
@@ -135,21 +137,21 @@ function ModalEditar(provinciaID) {
     });
 }
 
-function EliminarProvincia(provinciaID) {
+function EliminarLocalidad(localidadID) {
     $.ajax({
         // la URL para la petición
-        url: '../../Provincias/EliminarRegistros',
+        url: '../../Localidades/EliminarLocalidad',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { ProvinciaID: provinciaID },
+        data: { LocalidadID: localidadID },
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
         dataType: 'json',
         // código a ejecutar si la petición es satisfactoria;
         // la respuesta es pasada como argumento a la función
-        success: function (eliminarProvincia) {
-            ListadoProvincias()          
+        success: function (eliminarLocalidad) {
+            ListadoLocalidades()
         },
 
         // código a ejecutar si la petición falla;
