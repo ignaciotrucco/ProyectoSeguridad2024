@@ -1,0 +1,52 @@
+.btnAgregar {
+    text-align: right;
+    margin-top: 150px;
+}
+
+h1{
+    font-family: 'titulos';
+}
+
+th{
+    font-family: 'textos1';
+}
+
+td, label{
+    font-family: 'textos4';
+    font-size: larger;
+}
+
+/* Animaciones Modal */
+.modal {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+    animation: modalOpen 0.3s ease-in-out;
+}
+
+.modal-dialog{
+    width: 450px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalOpen {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

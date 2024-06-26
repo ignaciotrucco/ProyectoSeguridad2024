@@ -34,15 +34,15 @@ function ListadoProvincias(){
                 
                 contenidoTabla += `
                 <tr>
-                    <td>${provincia.nombre}</td>
-                    <td class="text-center">
-                    <button type="button" class="btn btn-success btn-sm" onclick="ModalEditar(${provincia.provinciaID})">
-                    Editar
+                    <td style="text-align: center">${provincia.nombre}</td>
+                    <td style="text-align: right">
+                    <button type="button" class="btn btn-success btn-sm" title="Editar" onclick="ModalEditar(${provincia.provinciaID})">
+                    <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
                     </button>
                     </td>
-                    <td class="text-center">
-                    <button type="button" class="btn btn-danger btn-sm" onclick="EliminarProvincia(${provincia.provinciaID})">
-                    Eliminar
+                    <td style="text-align: left">
+                    <button type="button" class="btn btn-danger btn-sm" title="Eliminar" onclick="EliminarProvincia(${provincia.provinciaID})">
+                    <i class="fa-solid fa-trash" width="20" height="20"></i>
                     </button>
                     </td>
                 </tr>

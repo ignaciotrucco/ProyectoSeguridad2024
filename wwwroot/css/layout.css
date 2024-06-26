@@ -1,15 +1,40 @@
 @charset "UTF-8";
-/*!
-* Start Bootstrap - Simple Sidebar v6.0.6 (https://startbootstrap.com/template/simple-sidebar)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-simple-sidebar/blob/master/LICENSE)
-*/
-/*!
- * Bootstrap  v5.2.3 (https://getbootstrap.com/)
- * Copyright 2011-2022 The Bootstrap Authors
- * Copyright 2011-2022 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
+
+@font-face {
+  font-family: 'titulos';
+  src: url('../fonts/Nau_Sea.otf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'textos1';
+  src: url('../fonts/Inlanders.otf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+} 
+
+@font-face {
+  font-family: 'textos2';
+  src: url('../fonts/Top_Show.otf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+} 
+
+@font-face {
+  font-family: 'textos3';
+  src: url('../fonts/Altone_Trial.ttf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+} 
+
+@font-face {
+  font-family: 'textos4';
+  src: url('../fonts/ModernSans.otf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+} 
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -108,6 +133,9 @@ body {
   width: 300px; /* Debe coincidir con el valor establecido en el código JavaScript */
 }
 
+a {
+  font-family: 'textos1';
+}
 
 hr {
   margin: 1rem 0;

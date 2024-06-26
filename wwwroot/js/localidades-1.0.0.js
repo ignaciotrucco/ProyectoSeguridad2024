@@ -36,17 +36,17 @@ function ListadoLocalidades() {
 
                 contenidoTabla += `
                 <tr>
-                    <td>${localidad.nombre}</td>
-                    <td>${localidad.codigoPostal}</td>
-                    <td>${localidad.provinciaID}</td>
-                    <td class="text-center">
-                    <button type="button" class="btn btn-success btn-sm" onclick="ModalEditar(${localidad.localidadID})">
-                    Editar
+                    <td style="text-align: center">${localidad.nombre}</td>
+                    <td style="text-align: center">${localidad.codigoPostal}</td>
+                    <td style="text-align: center">${localidad.provinciaID}</td>
+                    <td style="text-align: right">
+                    <button type="button" class="btn btn-success btn-sm" title="Editar" onclick="ModalEditar(${localidad.localidadID})">
+                    <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
                     </button>
                     </td>
-                    <td class="text-center">
-                    <button type="button" class="btn btn-danger btn-sm" onclick="EliminarLocalidad(${localidad.localidadID})">
-                    Eliminar
+                    <td style="text-align: left">
+                    <button type="button" class="btn btn-danger btn-sm" title="Eliminar" onclick="EliminarLocalidad(${localidad.localidadID})">
+                    <i class="fa-solid fa-trash" width="20" height="20"></i>
                     </button>
                     </td>
                 </tr>

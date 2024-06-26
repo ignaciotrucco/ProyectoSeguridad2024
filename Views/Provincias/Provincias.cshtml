@@ -1,18 +1,11 @@
-@{
-    ViewData["Title"] = "Provincias";
-}
+<link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
 <div class="text-center">
     <h1 class="display-4">Provincias</h1>
 </div>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProvincias" onclick="NuevoRegistro()">
-  NUEVA PROVINCIA
-</button>
-
 <!-- Modal -->
-<div class="modal fade" id="modalProvincias" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalProvincias" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -22,7 +15,7 @@
             <div class="modal-body">
                 <div class="row">
                     <form>
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-10 mb-10">
                             <input type="hidden" id="ProvinciaID">
                             <label for="NombreProvincia" class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="NombreProvincia">
@@ -31,8 +24,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="LimpiarModal()">Close</button>
-                <button type="button" class="btn btn-primary" onclick="GuardarRegistros()">Save changes</button>
+                <button type="button" class="btn btn-success" onclick="GuardarRegistros()">Guardar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="LimpiarModal()">Cancelar</button>
             </div>
         </div>
     </div>
@@ -41,13 +34,20 @@
 <table class="table table-striped mt-3">
     <thead>
         <tr>
-            <th scope="col">Nombre</th>
+            <th scope="col" style="text-align: center">Nombre</th>
             <th scope="col"></th>
             <th scope="col"></th>
         </tr>
     </thead>
     <tbody id="tbody-provincias"></tbody>
 </table>
+
+<!-- Button trigger modal -->
+<div class="btnAgregar">
+<button type="button" class="btn btn-primary btn-circle-xl" title="Agregar" data-bs-toggle="modal" data-bs-target="#modalProvincias" data-bs-target="#staticBackdrop">
+  <i class="fa-solid fa-plus"></i>
+</button>
+</div>
 
 @section Scripts {
     <script src="~/js/provincias-1.0.0.js"></script>
