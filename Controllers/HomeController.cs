@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ProyectoSeguridad2024.Controllers;
 
-[Authorize]
+// [Authorize] 
+// Una vez creado el primer usuario descomentar
+
 
 public class HomeController : Controller
 {
@@ -29,6 +31,7 @@ public class HomeController : Controller
     public async Task<IActionResult> Index()
     {
         await CrearRolesyPrimerUsuario();
+        // Una vez creado el primer usuario comentar
 
         return View();
     }
@@ -62,7 +65,7 @@ public class HomeController : Controller
         var usuario = _context.Users.Where(u => u.Email == "adminsistema@gmail.com").SingleOrDefault();
         if (usuario == null)
         {
-            var user = new IdentityUser { UserName = "IgnacioyJose", Email = "adminsistema@gmail.com" };
+            var user = new IdentityUser { UserName = "adminsistema@gmail.com", Email = "adminsistema@gmail.com" };
             var result = await _userManager.CreateAsync(user, "ignacioyjose");
 
             await _userManager.AddToRoleAsync(user, "ADMINISTRADOR");

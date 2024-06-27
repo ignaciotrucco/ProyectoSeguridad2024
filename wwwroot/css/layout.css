@@ -35,6 +35,20 @@
   font-style: normal;
 } 
 
+@font-face {
+  font-family: 'textos5';
+  src: url('../fonts/AgenorNeue.otf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+} 
+
+@font-face {
+  font-family: 'textos6';
+  src: url('../fonts/OdinRounded.otf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+} 
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -133,7 +147,7 @@ body {
   width: 300px; /* Debe coincidir con el valor establecido en el código JavaScript */
 }
 
-a {
+a, .cerrarSesion {
   font-family: 'textos1';
 }
 
