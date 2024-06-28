@@ -1,0 +1,72 @@
+@{
+    ViewData["Title"] = "Users Page";
+}
+
+<link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
+
+<div class="text-center">
+    <h1 class="display-4">USUARIOS</h1>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalUsuarios" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    id="staticBackdrop" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloModal"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form>
+                        <div class="col-md-10 mb-10">
+                            <input type="hidden" id="ProvinciaID">
+                            <label for="username" class="form-label">UserName</label>
+                            <input type="text" class="form-control" id="username">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email">
+                            <div>
+                                <label for="RolID" class="form-label">Elige el rol del usuario</label>
+                                @Html.DropDownList("RolID", null, htmlAttributes: new
+                                    {
+                                        @class =
+                                         "form-control"
+                                    })
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="GuardarRegistros()">Guardar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                    onclick="LimpiarModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th scope="col" style="text-align: center">username</th>
+            <th scope="col" style="text-align: center">email</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody id="tbody-usuarios"></tbody>
+</table>
+
+<!-- Button trigger modal -->
+<div class="btnAgregar">
+    <button type="button" class="btn btn-primary btn-circle-xl" title="Agregar" data-bs-toggle="modal"
+        data-bs-target="#modalUsuarios" data-bs-target="#staticBackdrop">
+        <i class="fa-solid fa-plus"></i>
+    </button>
+</div>
+
+@section Scripts {
+    <script src="~/js/usuarios-1.0.0.js"></script>
+}

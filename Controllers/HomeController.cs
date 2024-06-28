@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ProyectoSeguridad2024.Controllers;
 
-// [Authorize] 
+[Authorize] 
 // Una vez creado el primer usuario descomentar
 
 

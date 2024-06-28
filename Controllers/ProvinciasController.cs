@@ -37,43 +37,61 @@ public class ProvinciasController : Controller
     public JsonResult GuardarRegistros(int ProvinciaID, string Nombre)
     {
         string resultado = "";
+        if (!String.IsNullOrEmpty(Nombre))
+        {
+            Nombre = Nombre.ToUpper();
 
-        if(ProvinciaID == 0)
-        {
-            var nuevaProvincia = new Provincia
+            if (ProvinciaID == 0)
             {
-                Nombre = Nombre
-            };
-            _context.Add(nuevaProvincia);
-            _context.SaveChanges();
-        }
-        else
-        {
-            var provinciaEditar = _context.Provincias.Where(p => p.ProvinciaID == ProvinciaID).SingleOrDefault();
-            if(provinciaEditar != null)
-            {
-                var existeProvincia = _context.Provincias.Where(e => e.Nombre == Nombre && e.ProvinciaID != ProvinciaID).Count();
+                var existeProvincia = _context.Provincias.Where(e => e.Nombre == Nombre).Count();
                 if (existeProvincia == 0)
                 {
-                    provinciaEditar.Nombre = Nombre;
+                    var nuevaProvincia = new Provincia
+                    {
+                        Nombre = Nombre
+                    };
+                    _context.Add(nuevaProvincia);
                     _context.SaveChanges();
+                    resultado = "PROVINCIA AGREGADA CORRECTAMENTE";
                 }
                 else
                 {
-                    resultado = "YA EXISTE UN REGISTRO CON LA MISMA DESCRIPCIÓN";
+                    resultado = "YA EXISTE UNA PROVINCIA CON ESTE NOMBRE";
                 }
             }
+            else
+            {
+                var provinciaEditar = _context.Provincias.Where(p => p.ProvinciaID == ProvinciaID).SingleOrDefault();
+                if (provinciaEditar != null)
+                {
+                    var existeProvincia = _context.Provincias.Where(e => e.Nombre == Nombre && e.ProvinciaID != ProvinciaID).Count();
+                    if (existeProvincia == 0)
+                    {
+                        provinciaEditar.Nombre = Nombre;
+                        _context.SaveChanges();
+                        resultado = "PROVINCIA EDITADA CORRECTAMENTE";
+                    }
+                    else
+                    {
+                        resultado = "YA EXISTE UNA PROVINCIA CON ESTE NOMBRE";
+                    }
+                }
+            }
+        }
+        else
+        {
+            resultado = "DEBE INGRESAR UN NOMBRE";
         }
 
         return Json(resultado);
     }
 
-public JsonResult EliminarRegistros(int ProvinciaID)
-{
-    var eliminarProvincia = _context.Provincias.Find(ProvinciaID);
-    _context.Remove(eliminarProvincia);
-    _context.SaveChanges();
+    public JsonResult EliminarRegistros(int ProvinciaID)
+    {
+        var eliminarProvincia = _context.Provincias.Find(ProvinciaID);
+        _context.Remove(eliminarProvincia);
+        _context.SaveChanges();
 
-    return Json(eliminarProvincia);
-}
+        return Json(eliminarProvincia);
+    }
 }

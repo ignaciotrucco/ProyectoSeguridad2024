@@ -8,7 +8,7 @@ function LimpiarModal() {
 }
 
 function NuevoRegistro() {
-    $("#tituloModal").text("Nueva Provincia")
+    $("#tituloModal").text("Nueva Localidad")
 }
 
 function ListadoLocalidades() {
@@ -25,20 +25,20 @@ function ListadoLocalidades() {
         dataType: 'json',
         // código a ejecutar si la petición es satisfactoria;
         // la respuesta es pasada como argumento a la función
-        success: function (listadoLocalidades) {
+        success: function (localidadesMostrar) {
 
             $("#modalLocalidades").modal("hide");
             LimpiarModal()
 
             let contenidoTabla = ``;
 
-            $.each(listadoLocalidades, function (index, localidad) {
+            $.each(localidadesMostrar, function (index, localidad) {
 
                 contenidoTabla += `
                 <tr>
                     <td style="text-align: center">${localidad.nombre}</td>
                     <td style="text-align: center">${localidad.codigoPostal}</td>
-                    <td style="text-align: center">${localidad.provinciaID}</td>
+                    <td style="text-align: center">${localidad.provinciaNombre}</td>
                     <td style="text-align: right">
                     <button type="button" class="btn btn-success btn-sm" title="Editar" onclick="ModalEditar(${localidad.localidadID})">
                     <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>

@@ -13,3 +13,12 @@ public class Localidad
     public virtual ICollection<Persona> Personas {get; set;}
     public virtual ICollection<Empresa> Empresas {get; set;}
 }
+
+public class VistaLocalidades 
+{
+    public int LocalidadID { get; set;}
+    public int ProvinciaID { get; set;}
+    public string? ProvinciaNombre {get; set;}
+    public string? Nombre { get; set;}
+    public string? CodigoPostal { get; set;}
+}

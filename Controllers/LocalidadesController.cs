@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using ProyectoSeguridad2024.Data;
 using ProyectoFinal2024.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProyectoSeguridad2024.Controllers;
 
@@ -30,13 +31,22 @@ public class LocalidadesController : Controller
 
     public JsonResult ListadoLocalidades(int? LocalidadID)
     {
-        var listadoLocalidades = _context.Localidades.ToList();
+        var listadoLocalidades = _context.Localidades.Include(l => l.Provincia).ToList();
         if (LocalidadID != null)
         {
             listadoLocalidades = _context.Localidades.Where(l => l.LocalidadID == LocalidadID).ToList();
         }
 
-        return Json(listadoLocalidades);
+        var localidadesMostrar = listadoLocalidades.Select(l => new VistaLocalidades
+        {
+            LocalidadID = l.LocalidadID,
+            ProvinciaID = l.ProvinciaID,
+            Nombre = l.Nombre,
+            ProvinciaNombre = l.Provincia.Nombre,
+            CodigoPostal = l.CodigoPostal
+        }).ToList();
+
+        return Json(localidadesMostrar);
     }
 
     public JsonResult GuardarLocalidad(int LocalidadID, int ProvinciaID, string Nombre, string CodigoPostal)
