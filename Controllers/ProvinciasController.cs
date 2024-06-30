@@ -78,10 +78,10 @@ public class ProvinciasController : Controller
                 }
             }
         }
-        else
-        {
-            resultado = "DEBE INGRESAR UN NOMBRE";
-        }
+        // else
+        // {
+        //     resultado = "DEBE INGRESAR UN NOMBRE";
+        // }
 
         return Json(resultado);
     }
