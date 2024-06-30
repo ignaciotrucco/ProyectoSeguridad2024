@@ -151,6 +151,16 @@ a, .cerrarSesion {
   font-family: 'textos1';
 }
 
+.logoCircular {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.logoCircular:hover {
+  transform: scale(1.2);
+}
+
 hr {
   margin: 1rem 0;
   color: inherit;
@@ -295,6 +305,7 @@ a {
   color: var(--bs-link-color);
   text-decoration: underline;
 }
+
 a:hover {
   color: var(--bs-link-hover-color);
 }
@@ -10913,6 +10924,7 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 
 .bgLayout {
   background-color: #ffdb58;
+  /* backdrop-filter: blur(10px); */
 }
 
 .list-group-item-light {
