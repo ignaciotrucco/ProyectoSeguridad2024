@@ -78,20 +78,27 @@ public class ProvinciasController : Controller
                 }
             }
         }
-        // else
-        // {
-        //     resultado = "DEBE INGRESAR UN NOMBRE";
-        // }
+        else
+        {
+            resultado = "DEBE INGRESAR UN NOMBRE";
+        }
 
         return Json(resultado);
     }
 
     public JsonResult EliminarRegistros(int ProvinciaID)
     {
+        bool eliminado = false;
+
+        var existeLocalidad = _context.Localidades.Where(e => e.ProvinciaID == ProvinciaID).Count();
+
+        if (existeLocalidad == 0)
+        {
         var eliminarProvincia = _context.Provincias.Find(ProvinciaID);
         _context.Remove(eliminarProvincia);
         _context.SaveChanges();
-
-        return Json(eliminarProvincia);
+        eliminado = true;
+        }
+        return Json(eliminado);
     }
 }

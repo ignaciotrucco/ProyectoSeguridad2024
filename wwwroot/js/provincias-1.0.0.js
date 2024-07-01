@@ -160,8 +160,15 @@ function EliminarProvincia(provinciaID) {
                 dataType: 'json',
                 // código a ejecutar si la petición es satisfactoria;
                 // la respuesta es pasada como argumento a la función
-                success: function (eliminarProvincia) {
-                    ListadoProvincias()          
+                success: function (resultado) {
+                    if (!resultado) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "No se puede eliminar, existen registros asociados",
+                          });
+                    }   
+                    ListadoProvincias();       
                 },
         
                 // código a ejecutar si la petición falla;

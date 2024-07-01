@@ -1,17 +1,22 @@
 .btnAgregar {
-    text-align: right;
-    margin-top: 150px;
+    /* text-align: right; */
+    /* margin-top: 150px; */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
 }
 
-h1{
+h1 {
     font-family: 'titulos';
 }
 
-th{
+th {
     font-family: 'textos1';
 }
 
-td, label{
+td,
+label {
     font-family: 'textos5';
     font-size: larger;
 }
@@ -25,7 +30,7 @@ td, label{
     animation: modalOpen 0.3s ease-in-out;
 }
 
-.modal-dialog{
+.modal-dialog {
     width: 450px;
 }
 
