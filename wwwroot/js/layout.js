@@ -45,3 +45,20 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const links = document.querySelectorAll('.list-group-item');
+    let currentPath = window.location.pathname;
+
+    // Define the default path for the home page
+    if (currentPath === '/' || currentPath === '/Home' || currentPath === '/Home/Index') {
+        currentPath = '/Home/Index';
+    }
+
+    links.forEach(link => {
+        const href = link.getAttribute('href');
+        if (currentPath === href) {
+            link.classList.add('active');
+        }
+    });
+});
