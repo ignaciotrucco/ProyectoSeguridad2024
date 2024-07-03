@@ -34,12 +34,12 @@ public class UsersController : Controller
         return View();
     }
 
-    public JsonResult ListadoUsuarios(string Email)
+    public JsonResult ListadoUsuarios(string UsuarioID)
     {
         var listadoUsuarios = _context.Users.ToList();
-        if (Email != null)
+        if (UsuarioID != null)
         {
-            listadoUsuarios = _context.Users.Where(l => l.Email == Email).ToList();
+            listadoUsuarios = _context.Users.Where(l => l.Id == UsuarioID).ToList();
         }
         
         List<VistaUsuarios> usuariosMostrar = new List<VistaUsuarios>();

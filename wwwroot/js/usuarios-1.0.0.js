@@ -8,7 +8,7 @@ function ListadoUsuarios() {
         // (también es posible utilizar una cadena de datos)
         data: {  },
         // especifica si será una petición POST o GET
-        type: 'POST',
+        type: 'GET',
         // el tipo de información que se espera de respuesta
         dataType: 'json',
         // código a ejecutar si la petición es satisfactoria;

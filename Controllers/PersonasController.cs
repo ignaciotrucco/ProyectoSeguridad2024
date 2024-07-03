@@ -32,5 +32,16 @@ public class PersonasController : Controller
         return View();
     }
 
+public JsonResult ListadoPersonas(int? PersonaID)
+{
+    var listadoPersonas = _context.Personas.ToList();
+
+    if (PersonaID != null)
+    {
+        listadoPersonas = _context.Personas.Where(l => l.PersonaID == PersonaID).ToList();
+    }
+
+    return Json(listadoPersonas);
+}
     
 }
