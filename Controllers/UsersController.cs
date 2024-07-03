@@ -6,6 +6,7 @@ using ProyectoSeguridad2024.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ProyectoFinal2024.Models;
 
 namespace ProyectoSeguridad2024.Controllers;
 
@@ -40,8 +41,28 @@ public class UsersController : Controller
         {
             listadoUsuarios = _context.Users.Where(l => l.Email == Email).ToList();
         }
+        
+        List<VistaUsuarios> usuariosMostrar = new List<VistaUsuarios>();
+        foreach (var usuario in listadoUsuarios)
+        {
+            var rolNombre = "";
+            //POR CADA USUARIO VAMOS A BUSCAR SI TIENE ROL ASIGNADO
+            var rolUsuario = _context.UserRoles.Where(l => l.UserId == usuario.Id).FirstOrDefault();
+            if(rolUsuario != null){
+                 rolNombre = _context.Roles.Where(l => l.Id == rolUsuario.RoleId).Select(r => r.Name).FirstOrDefault();
+            }
+            var personaUsuario = _context.Personas.Where(l => l.UsuarioID == usuario.Id).FirstOrDefault();
+            var usuarioMostrar = new VistaUsuarios
+            {
+                UsuarioID = usuario.Id,
+                Email = usuario.Email,
+                RolNombre = rolNombre,
+                PersonaNombre = personaUsuario.NombreCompleto
+            };
+            usuariosMostrar.Add(usuarioMostrar);
+        }
 
-        return Json(listadoUsuarios);
+        return Json(usuariosMostrar);
     }
 
     // public async Task<JsonResult> GuardarUsuario(string Username, string Email, string Password, string rol)

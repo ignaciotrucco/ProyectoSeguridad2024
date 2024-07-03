@@ -13,19 +13,21 @@ function ListadoUsuarios() {
         dataType: 'json',
         // código a ejecutar si la petición es satisfactoria;
         // la respuesta es pasada como argumento a la función
-        success: function (listadoUsuarios) {
+        success: function (usuariosMostrar) {
 
             // $("#modalProvincias").modal("hide");
             // LimpiarModal()
             
             let contenidoTabla = ``;
 
-            $.each(listadoUsuarios, function (index, usuario) {  
+            $.each(usuariosMostrar, function (index, usuario) {  
                 
                 contenidoTabla += `
                 <tr>
-                    <td style="text-align: center">${usuario.userName}</td>
+                    <td style="text-align: center">${usuario.usuarioID}</td>
                     <td style="text-align: center">${usuario.email}</td>
+                    <td style="text-align: center">${usuario.rolNombre}</td>
+                    <td style="text-align: center">${usuario.personaNombre}</td>
                     <td style="text-align: right">
                     <button type="button" class="btn btn-success btn-sm" title="Editar">
                     <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>

@@ -18,3 +18,11 @@ public class Persona
     public virtual Localidad Localidad {get; set;}
     public virtual TipoDocumento TipoDocumentos {get; set;}
 }
+
+public class VistaUsuarios 
+{
+    public string? UsuarioID {get ;set; }
+    public string? Email {get ;set; }
+    public string? RolNombre {get ;set; }
+    public string? PersonaNombre {get ;set; }
+}

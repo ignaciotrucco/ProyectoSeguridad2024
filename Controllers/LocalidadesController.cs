@@ -23,7 +23,7 @@ public class LocalidadesController : Controller
     public IActionResult Localidades()
     {
         var provincias = _context.Provincias.ToList();
-        provincias.Add(new Provincia {ProvinciaID = 0, Nombre = "[SELECCIONE UNA PROVINCIA...]"});
+        provincias.Add(new Provincia { ProvinciaID = 0, Nombre = "[SELECCIONE UNA PROVINCIA...]" });
         ViewBag.ProvinciaID = new SelectList(provincias.OrderBy(t => t.Nombre), "ProvinciaID", "Nombre");
 
         return View();
@@ -53,40 +53,48 @@ public class LocalidadesController : Controller
     {
         string resultado = "";
 
-        if(LocalidadID == 0)
+        if (LocalidadID == 0)
         {
-            var nuevaLocalidad = new Localidad
+            var existeNombreLocalidad = _context.Localidades.Where(e => e.Nombre == Nombre).Count();
+            if (existeNombreLocalidad == 0)
             {
-                ProvinciaID = ProvinciaID,
-                Nombre = Nombre,
-                CodigoPostal = CodigoPostal
-            };
-            _context.Add(nuevaLocalidad);
-            _context.SaveChanges();
-            resultado = "agregada";
+                var nuevaLocalidad = new Localidad
+                {
+                    ProvinciaID = ProvinciaID,
+                    Nombre = Nombre,
+                    CodigoPostal = CodigoPostal
+                };
+                _context.Add(nuevaLocalidad);
+                _context.SaveChanges();
+                resultado = "Localidad agregada correctamente!";
+            }
+            else
+            {
+                resultado = "Localidad existente";
+            }
         }
         else
         {
             var localidadEditar = _context.Localidades.Where(p => p.LocalidadID == LocalidadID).SingleOrDefault();
-            if(localidadEditar != null)
+            if (localidadEditar != null)
             {
                 localidadEditar.ProvinciaID = ProvinciaID;
                 localidadEditar.Nombre = Nombre;
                 localidadEditar.CodigoPostal = CodigoPostal;
                 _context.SaveChanges();
-                resultado = "editada";
+                resultado = "Localidad editada correctamente!";
             }
         }
 
         return Json(resultado);
     }
 
-public JsonResult EliminarLocalidad(int LocalidadID)
-{
-    var eliminarLocalidad = _context.Localidades.Find(LocalidadID);
-    _context.Remove(eliminarLocalidad);
-    _context.SaveChanges();
+    public JsonResult EliminarLocalidad(int LocalidadID)
+    {
+        var eliminarLocalidad = _context.Localidades.Find(LocalidadID);
+        _context.Remove(eliminarLocalidad);
+        _context.SaveChanges();
 
-    return Json(eliminarLocalidad);
-}
+        return Json(eliminarLocalidad);
+    }
 }
