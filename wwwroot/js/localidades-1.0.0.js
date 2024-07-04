@@ -5,6 +5,8 @@ function LimpiarModal() {
     document.getElementById("ProvinciaID").value = 0;
     document.getElementById("Nombre").value = "";
     document.getElementById("CP").value = "";
+    document.getElementById("NombreError").innerHTML = "";
+    document.getElementById("ProvinciaError").innerHTML = "";
 }
 
 function NuevoRegistro() {
@@ -67,40 +69,54 @@ function ListadoLocalidades() {
 }
 
 function GuardarLocalidad() {
-    let localidadID = document.getElementById("LocalidadID").value;
-    let provinciaID = document.getElementById("ProvinciaID").value;
-    let nombre = document.getElementById("Nombre").value;
-    let codigoPostal = document.getElementById("CP").value;
+    $("#NombreError").text("");
+    $("#ProvinciaError").text("");
 
-    console.log(localidadID + " - " + provinciaID + " - " + nombre + " - " + codigoPostal);
+    let localidadID = $("#LocalidadID").val();
+    let provinciaID = $("#ProvinciaID").val();
+    let nombre = $("#Nombre").val().trim();
+    let codigoPostal = $("#CP").val().trim();
 
-    $.ajax({
-        // la URL para la petición
-        url: '../../Localidades/GuardarLocalidad',
-        // la información a enviar
-        // (también es posible utilizar una cadena de datos)
-        data: { LocalidadID: localidadID, ProvinciaID: provinciaID, Nombre: nombre, CodigoPostal: codigoPostal },
-        // especifica si será una petición POST o GET
-        type: 'POST',
-        // el tipo de información que se espera de respuesta
-        dataType: 'json',
-        // código a ejecutar si la petición es satisfactoria;
-        // la respuesta es pasada como argumento a la función
-        success: function (resultado) {
+    let registrado = true;
 
-            if (resultado != "") {
-                alert(resultado);
+    if (nombre == "") {
+        $("#NombreError").text("Debe ingresar un nombre de localidad!")
+        registrado = false;
+    }
+    if (provinciaID == 0) {
+        $("#ProvinciaError").text("Debe seleccionar una provincia!");
+        registrado = false;
+    }
+
+    if (registrado) {
+        $.ajax({
+            // la URL para la petición
+            url: '../../Localidades/GuardarLocalidad',
+            // la información a enviar
+            // (también es posible utilizar una cadena de datos)
+            data: { LocalidadID: localidadID, ProvinciaID: provinciaID, Nombre: nombre, CodigoPostal: codigoPostal },
+            // especifica si será una petición POST o GET
+            type: 'POST',
+            // el tipo de información que se espera de respuesta
+            dataType: 'json',
+            // código a ejecutar si la petición es satisfactoria;
+            // la respuesta es pasada como argumento a la función
+            success: function (resultado) {
+
+                if (resultado != "") {
+                    alert(resultado);
+                }
+                ListadoLocalidades();
+            },
+
+            // código a ejecutar si la petición falla;
+            // son pasados como argumentos a la función
+            // el objeto de la petición en crudo y código de estatus de la petición
+            error: function (xhr, status) {
+                console.log('Disculpe, existió un problema al cargar el listado');
             }
-            ListadoLocalidades();
-        },
-
-        // código a ejecutar si la petición falla;
-        // son pasados como argumentos a la función
-        // el objeto de la petición en crudo y código de estatus de la petición
-        error: function (xhr, status) {
-            console.log('Disculpe, existió un problema al cargar el listado');
-        }
-    });
+        });
+    }
 }
 
 function ModalEditar(localidadID) {

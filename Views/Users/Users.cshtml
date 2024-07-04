@@ -21,17 +21,19 @@
                 <div class="row">
                     <form>
                         <div class="col-md-10 mb-10">
-                            <input type="hidden" id="ProvinciaID">
+                            <input type="hidden" id="UsuarioID">
                             <label for="username" class="form-label">UserName</label>
                             <input type="text" class="form-control" id="username">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="text" class="form-control" id="password">
                             <div>
                                 <label for="RolID" class="form-label">Elige el rol del usuario</label>
                                 @Html.DropDownList("RolID", null, htmlAttributes: new
                                     {
                                         @class =
-                                         "form-control"
+                                         "form-control" , @id = "RolID"
                                     })
                             </div>
                         </div>
@@ -39,7 +41,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="GuardarRegistros()">Guardar</button>
+                <button type="button" class="btn btn-success" onclick="GuardarUsuario()">Guardar</button>
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
                     onclick="LimpiarModal()">Cancelar</button>
             </div>
@@ -50,10 +52,8 @@
 <table class="table table-striped mt-3">
     <thead>
         <tr>
-            <th scope="col" style="text-align: center">usuario id</th>
             <th scope="col" style="text-align: center">email</th>
              <th scope="col" style="text-align: center">rol</th>
-              <th scope="col" style="text-align: center">persona</th>
             <th scope="col"></th>
             <th scope="col"></th>
         </tr>

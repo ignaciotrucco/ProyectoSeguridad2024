@@ -58,6 +58,10 @@
                                 <input type="email" class="form-control" id="Email">
                             </div>
                             <div class="col-md-6">
+                                <label for="ProvinciaID" class="form-label">Provincia</label>
+                                @Html.DropDownList("ProvinciaID", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-6">
                                 <label for="LocalidadID" class="form-label">Localidad</label>
                                 @Html.DropDownList("LocalidadID", null, htmlAttributes: new { @class = "form-control" })
                             </div>

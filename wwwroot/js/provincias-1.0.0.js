@@ -3,20 +3,21 @@ window.onload = ListadoProvincias();
 function LimpiarModal() {
     document.getElementById("ProvinciaID").value = 0;
     document.getElementById("NombreProvincia").value = "";
+    document.getElementById("NombreError").innerHTML = "";
 }
 
 function NuevoRegistro() {
     $("#tituloModal").text("Nueva Provincia")
 }
 
-function ListadoProvincias(){
- 
+function ListadoProvincias() {
+
     $.ajax({
         // la URL para la petición
         url: '../../Provincias/ListadoProvincias',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: {  },
+        data: {},
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -27,11 +28,11 @@ function ListadoProvincias(){
 
             $("#modalProvincias").modal("hide");
             LimpiarModal()
-            
+
             let contenidoTabla = ``;
 
-            $.each(listadoProvincias, function (index, provincia) {  
-                
+            $.each(listadoProvincias, function (index, provincia) {
+
                 contenidoTabla += `
                 <tr>
                     <td style="text-align: center">${provincia.nombre}</td>
@@ -63,38 +64,49 @@ function ListadoProvincias(){
 }
 
 function GuardarRegistros() {
-    let provinciaID = document.getElementById("ProvinciaID").value;
-    let nombre = document.getElementById("NombreProvincia").value;
+    $("#NombreError").text("");
+
+    let provinciaID = $("#ProvinciaID").val();
+    let nombre = $("#NombreProvincia").val().trim();
 
     console.log(provinciaID + " - " + nombre)
 
-    $.ajax({
-        // la URL para la petición
-        url: '../../Provincias/GuardarRegistros',
-        // la información a enviar
-        // (también es posible utilizar una cadena de datos)
-        data: { ProvinciaID: provinciaID, Nombre: nombre },
-        // especifica si será una petición POST o GET
-        type: 'POST',
-        // el tipo de información que se espera de respuesta
-        dataType: 'json',
-        // código a ejecutar si la petición es satisfactoria;
-        // la respuesta es pasada como argumento a la función
-        success: function (resultado) {
+    let guardado = true;
 
-            if (resultado != "") {
-                Swal.fire(resultado);
+    if (nombre == "") {
+        $("#NombreError").text("Debe ingresar un nombre de provincia!")
+        guardado = false;
+    }
+
+    if (guardado) {
+        $.ajax({
+            // la URL para la petición
+            url: '../../Provincias/GuardarRegistros',
+            // la información a enviar
+            // (también es posible utilizar una cadena de datos)
+            data: { ProvinciaID: provinciaID, Nombre: nombre },
+            // especifica si será una petición POST o GET
+            type: 'POST',
+            // el tipo de información que se espera de respuesta
+            dataType: 'json',
+            // código a ejecutar si la petición es satisfactoria;
+            // la respuesta es pasada como argumento a la función
+            success: function (resultado) {
+
+                if (resultado != "") {
+                    Swal.fire(resultado);
+                }
+                ListadoProvincias();
+            },
+
+            // código a ejecutar si la petición falla;
+            // son pasados como argumentos a la función
+            // el objeto de la petición en crudo y código de estatus de la petición
+            error: function (xhr, status) {
+                console.log('Disculpe, existió un problema al cargar el listado');
             }
-            ListadoProvincias();
-        },
-
-        // código a ejecutar si la petición falla;
-        // son pasados como argumentos a la función
-        // el objeto de la petición en crudo y código de estatus de la petición
-        error: function (xhr, status) {
-            console.log('Disculpe, existió un problema al cargar el listado');
-        }
-    });
+        });
+    }
 }
 
 function ModalEditar(provinciaID) {
@@ -117,7 +129,7 @@ function ModalEditar(provinciaID) {
             document.getElementById("NombreProvincia").value = listadoProvincia.nombre;
             $("#tituloModal").text("Editar Provincia")
             $("#modalProvincias").modal("show");
-                       
+
         },
 
         // código a ejecutar si la petición falla;
@@ -132,12 +144,12 @@ function ModalEditar(provinciaID) {
 function EliminarProvincia(provinciaID) {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-          confirmButton: "btn btn-danger",
-          cancelButton: "btn btn-success"
+            confirmButton: "btn btn-danger",
+            cancelButton: "btn btn-success"
         },
         buttonsStyling: true
-      });
-      swalWithBootstrapButtons.fire({
+    });
+    swalWithBootstrapButtons.fire({
         title: "¿Estás seguro?",
         text: "¡No podrás revertir esto!",
         icon: "warning",
@@ -145,7 +157,7 @@ function EliminarProvincia(provinciaID) {
         confirmButtonText: "¡Sí, bórralo!",
         cancelButtonText: "¡No, cancela!",
         reverseButtons: true
-      }).then((result) => {
+    }).then((result) => {
         if (result.isConfirmed) {
 
             $.ajax({
@@ -166,11 +178,11 @@ function EliminarProvincia(provinciaID) {
                             icon: "error",
                             title: "Oops...",
                             text: "No se puede eliminar, existen registros asociados",
-                          });
-                    }   
-                    ListadoProvincias();       
+                        });
+                    }
+                    ListadoProvincias();
                 },
-        
+
                 // código a ejecutar si la petición falla;
                 // son pasados como argumentos a la función
                 // el objeto de la petición en crudo y código de estatus de la petición
@@ -179,21 +191,21 @@ function EliminarProvincia(provinciaID) {
                 }
             });
 
-          swalWithBootstrapButtons.fire({
-            title: "¡Borrado!",
-            text: "Su registro ha sido eliminado.",
-            icon: "success"
-          });
+            swalWithBootstrapButtons.fire({
+                title: "¡Borrado!",
+                text: "Su registro ha sido eliminado.",
+                icon: "success"
+            });
         } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
         ) {
-          swalWithBootstrapButtons.fire({
-            title: "Anulado",
-            text: "Tu registro está a salvo :)",
-            icon: "error"
-          });
+            swalWithBootstrapButtons.fire({
+                title: "Anulado",
+                text: "Tu registro está a salvo :)",
+                icon: "error"
+            });
         }
-      });
+    });
 
 }

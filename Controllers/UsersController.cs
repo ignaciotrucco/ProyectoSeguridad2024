@@ -29,7 +29,7 @@ public class UsersController : Controller
     public IActionResult Users()
     {
         var roles = _context.Roles.ToList();
-        ViewBag.RolID = new SelectList(roles.OrderBy(t => t.Name), "Id", "Name");
+        ViewBag.RolID = new SelectList(roles.OrderBy(t => t.Name), "Name", "Name");
 
         return View();
     }
@@ -51,13 +51,11 @@ public class UsersController : Controller
             if(rolUsuario != null){
                  rolNombre = _context.Roles.Where(l => l.Id == rolUsuario.RoleId).Select(r => r.Name).FirstOrDefault();
             }
-            var personaUsuario = _context.Personas.Where(l => l.UsuarioID == usuario.Id).FirstOrDefault();
             var usuarioMostrar = new VistaUsuarios
             {
                 UsuarioID = usuario.Id,
                 Email = usuario.Email,
                 RolNombre = rolNombre,
-                PersonaNombre = personaUsuario.NombreCompleto
             };
             usuariosMostrar.Add(usuarioMostrar);
         }
@@ -65,18 +63,28 @@ public class UsersController : Controller
         return Json(usuariosMostrar);
     }
 
-    // public async Task<JsonResult> GuardarUsuario(string Username, string Email, string Password, string rol)
+    public async Task<JsonResult> GuardarUsuario(string Username, string Email, string Password, string rol)
+    {
+        var user = new IdentityUser { UserName = Username, Email = Email};
+
+        var result = await _userManager.CreateAsync(user, Password);
+
+        //BUSCAR POR MEDIO DE CORREO ELECTRONICO ESE USUARIO CREADO PARA BUSCAR EL ID
+        var usuario = _context.Users.Where(u => u.Email == Email).SingleOrDefault();
+
+        await _userManager.AddToRoleAsync(usuario, rol);
+
+        return Json(result.Succeeded);
+    }
+
+    // public JsonResult EliminarUsuario(string email)
     // {
-    //     var user = new IdentityUser { UserName = Username, Email = Email};
 
-    //     var result = await _userManager.CreateAsync(user, Password);
+    //     var eliminarUsuario = _context.Users.Find(email);
+    //     _context.Remove(eliminarUsuario);
+    //     _context.SaveChanges();
 
-    //     //BUSCAR POR MEDIO DE CORREO ELECTRONICO ESE USUARIO CREADO PARA BUSCAR EL ID
-    //     var usuario = _context.Users.Where(u => u.Email == Email).SingleOrDefault();
-
-    //     await _userManager.AddToRoleAsync(usuario, rol);
-
-    //     return Json(result.Succeeded);
+    //     return Json(eliminarUsuario);
     // }
 
 }
