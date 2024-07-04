@@ -132,8 +132,8 @@ function ModalEditar(localidadID) {
         dataType: 'json',
         // código a ejecutar si la petición es satisfactoria;
         // la respuesta es pasada como argumento a la función
-        success: function (listadoLocalidades) {
-            let listadoLocalidad = listadoLocalidades[0];
+        success: function (localidadesMostrar) {
+            let listadoLocalidad = localidadesMostrar[0];
 
             document.getElementById("LocalidadID").value = localidadID;
             document.getElementById("ProvinciaID").value = listadoLocalidad.provinciaID;
