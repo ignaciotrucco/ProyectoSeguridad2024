@@ -77,14 +77,14 @@ public class UsersController : Controller
         return Json(result.Succeeded);
     }
 
-    // public JsonResult EliminarUsuario(string email)
-    // {
+    public JsonResult EliminarUsuario(string UsuarioID)
+    {
 
-    //     var eliminarUsuario = _context.Users.Find(email);
-    //     _context.Remove(eliminarUsuario);
-    //     _context.SaveChanges();
+        var eliminarUsuario = _context.Users.Find(UsuarioID);
+        _context.Remove(eliminarUsuario);
+        _context.SaveChanges();
 
-    //     return Json(eliminarUsuario);
-    // }
+        return Json(eliminarUsuario);
+    }
 
 }
