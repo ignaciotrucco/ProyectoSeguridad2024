@@ -26,7 +26,7 @@ namespace ProyectoSeguridad2024.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
             await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
+            _logger.LogInformation("El usuario cerró la sesión.");
             if (returnUrl != null)
             {
                 return LocalRedirect(returnUrl);
