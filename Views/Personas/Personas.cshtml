@@ -30,8 +30,8 @@
                                 <input type="text" class="form-control" id="Nombre">
                             </div>
                             <div class="col-md-6">
-                                <label for="Apellido" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" id="Apellido">
+                                <label for="Domicilio" class="form-label">Domicilio</label>
+                                <input type="text" class="form-control" id="Domicilio">
                             </div>
                             <div class="col-md-4">
                                 <label for="TipoDocumentoID" class="form-label">Tipo Doc</label>
@@ -50,10 +50,6 @@
                                 <input type="tel" class="form-control" id="Telefono">
                             </div>
                             <div class="col-md-6">
-                                <label for="Domicilio" class="form-label">Domicilio</label>
-                                <input type="text" class="form-control" id="Domicilio">
-                            </div>
-                            <div class="col-md-6">
                                 <label for="Email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="Email">
                             </div>
@@ -65,12 +61,20 @@
                                 <label for="LocalidadID" class="form-label">Localidad</label>
                                 @Html.DropDownList("LocalidadID", null, htmlAttributes: new { @class = "form-control" })
                             </div>
+                            <div class="col-md-4">
+                                <label for="UsuarioID" class="form-label">Usuario</label>
+                                <input type="text" id="UsuarioID" class="form-control">
+                            </div>
+                            <div class="col-md-8">
+                                <label for="FechaNacimiento" class="form-label">Fecha Nacimiento</label>
+                                <input type="date" id="FechaNacimiento" class="form-control">
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="GuardarLocalidad()">Guardar</button>
+                <button type="button" class="btn btn-success" onclick="GuardarPersona()">Guardar</button>
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
                     onclick="LimpiarModal()">Cancelar</button>
             </div>
@@ -101,7 +105,7 @@
 <!-- Button trigger modal -->
 <div class="btnAgregar">
     <button type="button" class="btn btn-primary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal"
-        data-bs-target="#modalPersonas" data-bs-target="#staticBackdrop">
+        data-bs-target="#modalPersonas" data-bs-target="#staticBackdrop" onclick="NuevaPersona()">
         <i class="fa-solid fa-plus"></i>
     </button>
 </div>

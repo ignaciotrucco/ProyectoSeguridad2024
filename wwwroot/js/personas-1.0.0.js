@@ -24,37 +24,52 @@ $(document).ready(function () {
     });
 });
 
+function NuevaPersona() {
+    $("#tituloModal").text("Nueva Persona");
+}
 
+function LimpiarModal() {
+    document.getElementById("PersonaID").value = 0;
+    document.getElementById("Nombre").value = "";
+    document.getElementById("Domicilio").value = "";
+    document.getElementById("TipoDocumentoID").value = 0;
+    document.getElementById("NroDoc").value = "";
+    document.getElementById("Telefono").value = "";
+    document.getElementById("Email").value = "";
+    document.getElementById("ProvinciaID").value = 0;
+    document.getElementById("LocalidadID").value = 0;
+    document.getElementById("UsuarioID").value = "";
+}
 
 function ListadoPersonas() {
     $.ajax({
-        url: '../../Personas/listadoPersonas',
+        url: '../../Personas/ListadoPersonas',
         data: {},
         type: 'POST',
         dataType: 'json',
-        success: function (listadoPersonas) {
+        success: function (personasMostrar) {
 
-            // $("#modalPersonas").modal("hide");
-            // LimpiarModal()
+            $("#modalPersonas").modal("hide");
+            LimpiarModal()
 
             let contenidoCard = ``;
 
-            $.each(listadoPersonas, function (index, persona) {
+            $.each(personasMostrar, function (index, persona) {
 
-                contenidoCard += `
+            contenidoCard += `
             <div class="col-lg-3 col-md-3 col-sm-12">
                 <div class="card">
                     <img src="../img/usuario-fondo-negro.png" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">${persona.nombreCompleto}</h5>
-                        <p class="card-text">${persona.tipoDocumentoID} - ${persona.numeroDocumento}</p>
+                        <p class="card-text">${persona.tipoDocumentoNombre} - ${persona.numeroDocumento}</p>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">${persona.localidadID}</li>
+                        <li class="list-group-item">${persona.localidadNombre} - ${persona.provinciaNombre}</li>
                         <li class="list-group-item">${persona.telefono}</li>
                         <li class="list-group-item">${persona.domicilio}</li>
                         <li class="list-group-item">${persona.email}</li>
-                        <li class="list-group-item">${persona.fechaNacimiento}</li>
+                        <li class="list-group-item">${persona.fechaNacimientoString}</li>
                     </ul>
                 </div> 
             </div>        
@@ -67,8 +82,51 @@ function ListadoPersonas() {
         },
         error: function (xhr, status) {
             console.log('Disculpe, existió un problema al cargar el listado');
+            console.error('Error details:', xhr, status);
         }
     });
+}
+
+function GuardarPersona() {
+    let personaid = document.getElementById("PersonaID").value;
+    let nombre = document.getElementById("Nombre").value;
+    let domicilio = document.getElementById("Domicilio").value;
+    let tipdoc = document.getElementById("TipoDocumentoID").value;
+    let nrodoc = document.getElementById("NroDoc").value;
+    let telefono = document.getElementById("Telefono").value;
+    let email = document.getElementById("Email").value;
+    let localidadid = document.getElementById("LocalidadID").value;
+    let usuarioid = document.getElementById("UsuarioID").value;
+    let fechanac = document.getElementById("FechaNacimiento").value;
+
+    $.ajax({
+        url: '../../Personas/GuardarPersonas',
+        data: {
+            PersonaID: personaid,
+            LocalidadID: localidadid,
+            TipoDocumentoID: tipdoc,
+            UsuarioID: usuarioid,
+            NombreCompleto: nombre,
+            FechaNacimiento: fechanac,
+            Telefono: telefono,
+            Domicilio: domicilio,
+            Email: email,
+            NumeroDocumento: nrodoc
+        },
+        type: 'POST',
+        dataType: 'json',
+        success: function (resultado) {
+            if (resultado != "")
+            {
+                alert(resultado);
+            }
+            ListadoPersonas();
+        },
+        error: function (xhr, status) {
+            console.log('Disculpe, existió un problema al cargar el listado');
+        }
+    });
+
 }
 
 {/* <div class="col-lg-3 col-md-3 col-sm-12">
