@@ -1,12 +1,28 @@
 window.onload = ListadoUsuarios();
 
+function NuevoUsuario() {
+    $("#tituloModal").text("Nuevo Usuario");
+}
+
+function LimpiarModal() {
+    $("#UsuarioID").val("");
+    $("#username").val("");
+    $("#email").val("");
+    $("#password").val("");
+    $("#RolID").val(0);
+}
+function LimpiarModalEditar() {
+    $("#UsuarioEditarID").val("");
+    $("#emailEditar").val("");
+}
+
 function ListadoUsuarios() {
     $.ajax({
         // la URL para la petición
         url: '../../Users/ListadoUsuarios',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: {  },
+        data: {},
         // especifica si será una petición POST o GET
         type: 'GET',
         // el tipo de información que se espera de respuesta
@@ -15,13 +31,13 @@ function ListadoUsuarios() {
         // la respuesta es pasada como argumento a la función
         success: function (usuariosMostrar) {
 
-            // $("#modalProvincias").modal("hide");
-            // LimpiarModal()
-            
+            $("#modalUsuarios").modal("hide");
+            LimpiarModal()
+
             let contenidoTabla = ``;
 
-            $.each(usuariosMostrar, function (index, usuario) {  
-                
+            $.each(usuariosMostrar, function (index, usuario) {
+
                 contenidoTabla += `
                 <tr>
                     <td style="text-align: center">${usuario.email}</td>
@@ -92,7 +108,7 @@ function AbrirModalEditar(usuarioID) {
         url: '../../Users/ListadoUsuarios',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: {  },
+        data: {},
         // especifica si será una petición POST o GET
         type: 'GET',
         // el tipo de información que se espera de respuesta
@@ -102,13 +118,10 @@ function AbrirModalEditar(usuarioID) {
         success: function (usuariosMostrar) {
             let usuarioMostrar = usuariosMostrar[0];
 
-            document.getElementById("UsuarioID").value = usuarioID;
-            document.getElementById("username").value = usuarioMostrar.userName;
-            document.getElementById("email").value = usuarioMostrar.email;
-            document.getElementById("password").value = usuarioMostrar.password;
-            document.getElementById("RolID").value = usuarioMostrar.rolNombre;
-            $("#tituloModal").text("Editar Usuario");
-            $("#modalUsuarios").modal("show");
+            document.getElementById("UsuarioEditarID").value = usuarioID;
+            document.getElementById("emailEditar").value = usuarioMostrar.email;
+            $("#tituloModalEditar").text("Editar Usuario");
+            $("#modalEditarUsuarios").modal("show");
 
         },
 
@@ -121,8 +134,7 @@ function AbrirModalEditar(usuarioID) {
     });
 }
 
-function EliminarUsuario(usuarioID)
-{
+function EliminarUsuario(usuarioID) {
     $.ajax({
         // la URL para la petición
         url: '../../Users/EliminarUsuario',

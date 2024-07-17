@@ -77,6 +77,12 @@ public class UsersController : Controller
         return Json(result.Succeeded);
     }
 
+    public JsonResult EditarUsuario(int UsuarioID, string Email)
+    {
+
+        return Json(true);
+    }
+
     public JsonResult EliminarUsuario(string UsuarioID)
     {
 

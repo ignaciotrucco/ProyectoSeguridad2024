@@ -17,7 +17,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModal"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="LimpiarModal()"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -51,6 +51,35 @@
     </div>
 </div>
 
+<!-- MODAL EDITAR -->
+<div class="modal fade" id="modalEditarUsuarios" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    id="staticBackdrop" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloModalEditar"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="LimpiarModalEditar()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form>
+                        <div class="col-md-10 mb-10">
+                            <input type="hidden" id="UsuarioEditarID">
+                            <label for="emailEditar" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="emailEditar">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnGuardar" onclick="">Guardar</button>
+                <button type="button" class="btn btnCancelar" data-bs-dismiss="modal"
+                    onclick="LimpiarModalEditar()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <table class="table table-striped mt-3">
     <thead>
         <tr>
@@ -68,7 +97,7 @@
 <!-- Button trigger modal -->
 <div class="btnAgregar">
     <button type="button" class="btn btn-primary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal"
-        data-bs-target="#modalUsuarios" data-bs-target="#staticBackdrop">
+        data-bs-target="#modalUsuarios" data-bs-target="#staticBackdrop" onclick="NuevoUsuario()">
         <i class="fa-solid fa-plus"></i>
     </button>
 </div>
