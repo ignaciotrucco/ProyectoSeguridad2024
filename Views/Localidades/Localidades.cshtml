@@ -1,5 +1,5 @@
 @{
-    ViewData["Title"] = "Locations Page";
+    ViewData["Title"] = "Localidades";
 }
 
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
@@ -38,8 +38,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="GuardarLocalidad()">Guardar</button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="LimpiarModal()">Cancelar</button>
+                <button type="button" class="btn btnGuardar" onclick="GuardarLocalidad()">Guardar</button>
+                <button type="button" class="btn btnCancelar" data-bs-dismiss="modal" onclick="LimpiarModal()">Cancelar</button>
             </div>
         </div>
     </div>
@@ -49,7 +49,7 @@
     <thead>
         <tr>
             <th scope="col" style="text-align: center">Nombre</th>
-            <th scope="col" style="text-align: center">Codigo Postal</th>
+            <th scope="col" style="text-align: center">Código Postal</th>
             <th scope="col" style="text-align: center">Provincia</th>
             <th scope="col"></th>
             <th scope="col"></th>

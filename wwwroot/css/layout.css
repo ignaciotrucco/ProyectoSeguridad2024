@@ -49,6 +49,20 @@
   font-style: normal;
 } 
 
+@font-face {
+  font-family: 'textos7';
+  src: url('../fonts/ModernSans.otf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+} 
+
+@font-face {
+  font-family: 'textos8';
+  src: url('../fonts/MonoSpatial.ttf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+} 
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -144,11 +158,13 @@ body {
 }
 
 #sidebar-wrapper.sidebar-wrapper-collapsed {
-  width: 300px; /* Debe coincidir con el valor establecido en el código JavaScript */
+  width: 300px; /* Debe coincidir con el valor del JavaScript */
 }
 
 a, .cerrarSesion {
-  font-family: 'textos1';
+  font-family: 'textos7';
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .logoCircular {

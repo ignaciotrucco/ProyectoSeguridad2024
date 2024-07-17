@@ -1,11 +1,11 @@
 @{
-    ViewData["Title"] = "Users Page";
+    ViewData["Title"] = "Usuarios";
 }
 
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
 <div class="text-center">
-    <h1 class="display-4">USUARIOS</h1>
+    <h1 class="display-4">Usuarios</h1>
 </div>
 
 @* //HACER MODAL NUEVO PARA EL EDITAR CON SOLO INPUT DE EMAIL, EN EL METODO EDITAR QUE EL EMAIL SEA IGUAL A USERNAME Y NORMALIZEDNAME *@
@@ -43,8 +43,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="GuardarUsuario()">Guardar</button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                <button type="button" class="btn btnGuardar" onclick="GuardarUsuario()">Guardar</button>
+                <button type="button" class="btn btnCancelar" data-bs-dismiss="modal"
                     onclick="LimpiarModal()">Cancelar</button>
             </div>
         </div>
@@ -54,8 +54,8 @@
 <table class="table table-striped mt-3">
     <thead>
         <tr>
-            <th scope="col" style="text-align: center">email</th>
-             <th scope="col" style="text-align: center">rol</th>
+            <th scope="col" style="text-align: center">Correo Electrónico</th>
+             <th scope="col" style="text-align: center">Rol</th>
             <th scope="col"></th>
             <th scope="col"></th>
         </tr>

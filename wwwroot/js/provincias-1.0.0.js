@@ -37,12 +37,12 @@ function ListadoProvincias() {
                 <tr>
                     <td style="text-align: center">${provincia.nombre}</td>
                     <td style="text-align: right">
-                    <button type="button" class="btn btn-success btn-sm" title="Editar" onclick="ModalEditar(${provincia.provinciaID})">
+                    <button type="button" class="btn" title="Editar" onclick="ModalEditar(${provincia.provinciaID})">
                     <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
                     </button>
                     </td>
                     <td style="text-align: left">
-                    <button type="button" class="btn btn-danger btn-sm" title="Eliminar" onclick="EliminarProvincia(${provincia.provinciaID})">
+                    <button type="button" class="btn" title="Eliminar" onclick="EliminarProvincia(${provincia.provinciaID})">
                     <i class="fa-solid fa-trash" width="20" height="20"></i>
                     </button>
                     </td>

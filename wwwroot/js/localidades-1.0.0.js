@@ -42,12 +42,12 @@ function ListadoLocalidades() {
                     <td style="text-align: center">${localidad.codigoPostal}</td>
                     <td style="text-align: center">${localidad.provinciaNombre}</td>
                     <td style="text-align: right">
-                    <button type="button" class="btn btn-success btn-sm" title="Editar" onclick="ModalEditar(${localidad.localidadID})">
+                    <button type="button" class="btn" title="Editar" onclick="ModalEditar(${localidad.localidadID})">
                     <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
                     </button>
                     </td>
                     <td style="text-align: left">
-                    <button type="button" class="btn btn-danger btn-sm" title="Eliminar" onclick="EliminarLocalidad(${localidad.localidadID})">
+                    <button type="button" class="btn" title="Eliminar" onclick="EliminarLocalidad(${localidad.localidadID})">
                     <i class="fa-solid fa-trash" width="20" height="20"></i>
                     </button>
                     </td>

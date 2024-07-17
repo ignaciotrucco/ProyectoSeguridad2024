@@ -1,11 +1,11 @@
 @{
-    ViewData["Title"] = "People Page";
+    ViewData["Title"] = "Personas";
 }
 
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
 <div class="text-center">
-    <h1 class="display-4">PERSONAS</h1>
+    <h1 class="display-4">Personas</h1>
 </div>
 
 
@@ -74,8 +74,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="GuardarPersona()">Guardar</button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                <button type="button" class="btn btnGuardar" onclick="GuardarPersona()">Guardar</button>
+                <button type="button" class="btn btnCancelar" data-bs-dismiss="modal"
                     onclick="LimpiarModal()">Cancelar</button>
             </div>
         </div>

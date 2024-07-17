@@ -1,3 +1,8 @@
+body {
+    background: rgb(46,48,48);
+    background: linear-gradient(90deg, rgba(46,48,48,0.2665441176470589) 0%, rgba(255,255,255,1) 39%, rgba(255,255,255,1) 57%, rgba(46,48,48,0.3085609243697479) 100%);
+}
+
 .btnAgregar {
     /* text-align: right; */
     /* margin-top: 150px; */
@@ -7,12 +12,54 @@
     z-index: 1000;
 }
 
+.btnGuardar{
+    background-color: rgba(0, 53, 0, 0.521);
+    color: white;
+}
+
+.btnGuardar:hover{
+    background-color: rgb(39, 196, 0);
+    transition:ease-in-out 0.3s;
+    color: white;
+}
+
+.btnCancelar{
+    background-color: rgba(68, 0, 0, 0.76);
+    color: white;
+}
+
+.btnCancelar:hover{
+    background-color: rgb(223, 0, 0);
+    transition:ease-in-out 0.3s;
+    color: white;
+}
+
+.btn .fa-pen-to-square {
+    color: rgba(0, 53, 0, 0.76);
+}
+
+.btn .fa-pen-to-square:hover {
+    scale: 103%;
+    transition:ease-in-out 0.3s;
+    color: rgb(39, 196, 0);
+}
+
+.btn .fa-trash {
+    color: rgba(68, 0, 0, 0.76);
+}
+
+.btn .fa-trash:hover {
+    scale: 103%;
+    transition:ease-in-out 0.3s;
+    color: rgb(223, 0, 0);
+}
+
 h1 {
-    font-family: 'titulos';
+    font-family: 'textos7';
 }
 
 th {
-    font-family: 'textos1';
+    font-family: 'textos7';
 }
 
 td,

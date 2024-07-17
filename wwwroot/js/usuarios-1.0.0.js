@@ -27,12 +27,12 @@ function ListadoUsuarios() {
                     <td style="text-align: center">${usuario.email}</td>
                     <td style="text-align: center">${usuario.rolNombre}</td>
                     <td style="text-align: right">
-                    <button type="button" class="btn btn-success btn-sm" title="Editar" onclick="AbrirModalEditar('${usuario.usuarioID}')">
+                    <button type="button" class="btn" title="Editar" onclick="AbrirModalEditar('${usuario.usuarioID}')">
                     <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
                     </button>
                     </td>
                     <td style="text-align: left">
-                    <button type="button" class="btn btn-danger btn-sm" title="Eliminar" onclick="EliminarUsuario('${usuario.usuarioID}')">
+                    <button type="button" class="btn" title="Eliminar" onclick="EliminarUsuario('${usuario.usuarioID}')">
                     <i class="fa-solid fa-trash" width="20" height="20"></i>
                     </button>
                     </td>
