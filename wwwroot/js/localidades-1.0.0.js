@@ -69,8 +69,8 @@ function ListadoLocalidades() {
 }
 
 function GuardarLocalidad() {
-    $("#NombreError").text("");
-    $("#ProvinciaError").text("");
+    $("#NombreError").html("");
+    $("#ProvinciaError").html("");
 
     let localidadID = $("#LocalidadID").val();
     let provinciaID = $("#ProvinciaID").val();
@@ -80,11 +80,11 @@ function GuardarLocalidad() {
     let registrado = true;
 
     if (nombre == "") {
-        $("#NombreError").text("Debe ingresar un nombre de localidad!")
+        $("#NombreError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Debe ingresar un nombre de localidad! ")
         registrado = false;
     }
     if (provinciaID == 0) {
-        $("#ProvinciaError").text("Debe seleccionar una provincia!");
+        $("#ProvinciaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Debe seleccionar una provincia!");
         registrado = false;
     }
 
@@ -104,7 +104,7 @@ function GuardarLocalidad() {
             success: function (resultado) {
 
                 if (resultado != "") {
-                    alert(resultado);
+                    Swal.fire(resultado);
                 }
                 ListadoLocalidades();
             },
@@ -166,7 +166,7 @@ function EliminarLocalidad(localidadID) {
         dataType: 'json',
         // código a ejecutar si la petición es satisfactoria;
         // la respuesta es pasada como argumento a la función
-        success: function (eliminarLocalidad) {
+        success: function (eliminado) {
             ListadoLocalidades()
         },
 
