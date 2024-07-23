@@ -51,7 +51,7 @@ public class PersonasController : Controller
 
 public JsonResult ListadoPersonas(int? PersonaID)
 {
-    var listadoPersonas = _context.Personas.ToList();
+    var listadoPersonas = _context.Personas.Include(l => l.Localidad).Include(p => p.Localidad.Provincia).Include(p => p.TipoDocumentos).ToList();
 
     if (PersonaID != null)
     {
@@ -69,7 +69,6 @@ public JsonResult ListadoPersonas(int? PersonaID)
         TipoDocumentoNombre = p.TipoDocumentos.Nombre,
         UsuarioID = p.UsuarioID,
         NombreCompleto = p.NombreCompleto,
-        FechaNacimiento = p.FechaNacimiento,
         FechaNacimientoString = p.FechaNacimiento.ToString("dd/MM/yyyy"),
         Telefono = p.Telefono,
         Domicilio = p.Domicilio,
@@ -80,7 +79,7 @@ public JsonResult ListadoPersonas(int? PersonaID)
     return Json(personasMostrar);
 }
 
-public JsonResult GuardarPersonas(int PersonaID, int LocalidadID, int TipoDocumentoID, string UsuarioID, string NombreCompleto, DateOnly FechaNacimiento, string Telefono, string Domicilio, string Email, int NumeroDocumento)
+public JsonResult GuardarPersonas(int PersonaID, int LocalidadID, int TipoDocumentoID, string UsuarioID, string NombreCompleto, DateTime FechaNacimiento, string Telefono, string Domicilio, string Email, int NumeroDocumento)
 {
     string resultado = "";
 

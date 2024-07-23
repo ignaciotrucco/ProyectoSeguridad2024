@@ -1,6 +1,6 @@
 window.onload = ListadoPersonas();
 
-$(document).ready(function () {
+
     $('#ProvinciaID').change(function () {
         var provinciaId = $(this).val();
         if (provinciaId) {
@@ -22,7 +22,7 @@ $(document).ready(function () {
             $('#LocalidadID').append('<option value="">Seleccione una localidad</option>');
         }
     });
-});
+
 
 function NuevaPersona() {
     $("#tituloModal").text("Nueva Persona");
@@ -70,6 +70,14 @@ function ListadoPersonas() {
                         <li class="list-group-item">${persona.domicilio}</li>
                         <li class="list-group-item">${persona.email}</li>
                         <li class="list-group-item">${persona.fechaNacimientoString}</li>
+                        <li class="list-group-item">
+                        <button type="button" class="btn" title="Editar" onclick="">
+                            <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
+                        </button>
+                        <button type="button" class="btn" title="Eliminar" onclick="">
+                        <i class="fa-solid fa-trash" width="20" height="20"></i>
+                        </button>
+                        </li>
                     </ul>
                 </div> 
             </div>        

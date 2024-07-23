@@ -91,10 +91,18 @@ public class LocalidadesController : Controller
 
     public JsonResult EliminarLocalidad(int LocalidadID)
     {
-        var eliminarLocalidad = _context.Localidades.Find(LocalidadID);
-        _context.Remove(eliminarLocalidad);
-        _context.SaveChanges();
+        bool eliminado = false;
 
-        return Json(eliminarLocalidad);
+        var existePersona = _context.Personas.Where(e => e.LocalidadID == LocalidadID).Count();
+
+        if (existePersona == 0)
+        {
+            var eliminarLocalidad = _context.Localidades.Find(LocalidadID);
+            _context.Remove(eliminarLocalidad);
+            _context.SaveChanges();
+            eliminado = true;
+        }
+
+        return Json(eliminado);
     }
 }
