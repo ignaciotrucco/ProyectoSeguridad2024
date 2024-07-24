@@ -3,6 +3,11 @@ body {
     background: linear-gradient(90deg, rgba(46,48,48,0.2665441176470589) 0%, rgba(255,255,255,1) 39%, rgba(255,255,255,1) 57%, rgba(46,48,48,0.3085609243697479) 100%);
 }
 
+.encabezado{
+    height: 10vh;
+    background-color: rgb(242, 255, 0);
+}
+
 .btnAgregar {
     /* text-align: right; */
     /* margin-top: 150px; */
