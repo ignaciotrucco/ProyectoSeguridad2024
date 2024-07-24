@@ -85,6 +85,9 @@ public JsonResult GuardarPersonas(int PersonaID, int LocalidadID, int TipoDocume
 {
     string resultado = "";
 
+    NombreCompleto = NombreCompleto.ToUpper();
+    Domicilio = Domicilio.ToUpper();
+
     if (PersonaID == 0)
     {
         var existeNombrePersona = _context.Personas.Where(e => e.NombreCompleto == NombreCompleto).Count();
@@ -133,6 +136,15 @@ public JsonResult GuardarPersonas(int PersonaID, int LocalidadID, int TipoDocume
 
 
     return Json(resultado);
+}
+
+public JsonResult EliminarPersona(int PersonaID)
+{
+    var eliminarPersona = _context.Personas.Find(PersonaID);
+    _context.Remove(eliminarPersona);
+    _context.SaveChanges();
+
+    return Json(eliminarPersona);
 }
     
 }

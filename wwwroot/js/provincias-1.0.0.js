@@ -58,7 +58,11 @@ function ListadoProvincias() {
         // son pasados como argumentos a la función
         // el objeto de la petición en crudo y código de estatus de la petición
         error: function (xhr, status) {
-            console.log('Disculpe, existió un problema al cargar el listado');
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema al cargar el listado",
+            });
         }
     });
 }
@@ -103,7 +107,11 @@ function GuardarRegistros() {
             // son pasados como argumentos a la función
             // el objeto de la petición en crudo y código de estatus de la petición
             error: function (xhr, status) {
-                console.log('Disculpe, existió un problema al cargar el listado');
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Disculpe, existió un problema al guardar la provincia",
+                });;
             }
         });
     }
@@ -136,7 +144,11 @@ function ModalEditar(provinciaID) {
         // son pasados como argumentos a la función
         // el objeto de la petición en crudo y código de estatus de la petición
         error: function (xhr, status) {
-            console.log('Disculpe, existió un problema al cargar el listado');
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema al cargar el listado",
+            });
         }
     });
 }
@@ -187,7 +199,11 @@ function EliminarProvincia(provinciaID) {
                 // son pasados como argumentos a la función
                 // el objeto de la petición en crudo y código de estatus de la petición
                 error: function (xhr, status) {
-                    console.log('Disculpe, existió un problema al cargar el listado');
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Disculpe, existió un problema al eliminar la provincia",
+                    });
                 }
             });
 

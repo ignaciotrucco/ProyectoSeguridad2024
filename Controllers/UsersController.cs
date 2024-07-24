@@ -41,15 +41,16 @@ public class UsersController : Controller
         {
             listadoUsuarios = _context.Users.Where(l => l.Id == UsuarioID).ToList();
         }
-        
+
         List<VistaUsuarios> usuariosMostrar = new List<VistaUsuarios>();
         foreach (var usuario in listadoUsuarios)
         {
             var rolNombre = "";
             //POR CADA USUARIO VAMOS A BUSCAR SI TIENE ROL ASIGNADO
             var rolUsuario = _context.UserRoles.Where(l => l.UserId == usuario.Id).FirstOrDefault();
-            if(rolUsuario != null){
-                 rolNombre = _context.Roles.Where(l => l.Id == rolUsuario.RoleId).Select(r => r.Name).FirstOrDefault();
+            if (rolUsuario != null)
+            {
+                rolNombre = _context.Roles.Where(l => l.Id == rolUsuario.RoleId).Select(r => r.Name).FirstOrDefault();
             }
             var usuarioMostrar = new VistaUsuarios
             {
@@ -65,7 +66,7 @@ public class UsersController : Controller
 
     public async Task<JsonResult> GuardarUsuario(string Username, string Email, string Password, string rol)
     {
-        var user = new IdentityUser { UserName = Username, Email = Email};
+        var user = new IdentityUser { UserName = Username, Email = Email };
 
         var result = await _userManager.CreateAsync(user, Password);
 
@@ -86,11 +87,19 @@ public class UsersController : Controller
     public JsonResult EliminarUsuario(string UsuarioID)
     {
 
-        var eliminarUsuario = _context.Users.Find(UsuarioID);
-        _context.Remove(eliminarUsuario);
-        _context.SaveChanges();
+        bool eliminado = false;
 
-        return Json(eliminarUsuario);
+        var existePersona = _context.Personas.Where(e => e.UsuarioID == UsuarioID).Count();
+
+        if (existePersona == 0)
+        {
+            var eliminarUsuario = _context.Users.Find(UsuarioID);
+            _context.Remove(eliminarUsuario);
+            _context.SaveChanges();
+            eliminado = true;
+        }
+
+        return Json(eliminado);
     }
 
 }

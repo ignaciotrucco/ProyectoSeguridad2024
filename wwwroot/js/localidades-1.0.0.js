@@ -63,7 +63,11 @@ function ListadoLocalidades() {
         // son pasados como argumentos a la función
         // el objeto de la petición en crudo y código de estatus de la petición
         error: function (xhr, status) {
-            console.log('Disculpe, existió un problema al cargar el listado');
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema al cargar el listado",
+            });
         }
     });
 }
@@ -113,7 +117,11 @@ function GuardarLocalidad() {
             // son pasados como argumentos a la función
             // el objeto de la petición en crudo y código de estatus de la petición
             error: function (xhr, status) {
-                console.log('Disculpe, existió un problema al cargar el listado');
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Disculpe, existió un problema al guardar la Localidad",
+                });
             }
         });
     }
@@ -148,7 +156,11 @@ function ModalEditar(localidadID) {
         // son pasados como argumentos a la función
         // el objeto de la petición en crudo y código de estatus de la petición
         error: function (xhr, status) {
-            console.log('Disculpe, existió un problema al cargar el listado');
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema",
+            });
         }
     });
 }
@@ -201,7 +213,11 @@ function EliminarLocalidad(localidadID) {
                 // son pasados como argumentos a la función
                 // el objeto de la petición en crudo y código de estatus de la petición
                 error: function (xhr, status) {
-                    console.log('Disculpe, existió un problema al cargar el listado');
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Disculpe, existió un problema al eliminar la Localidad",
+                    });
                 }
             });
 

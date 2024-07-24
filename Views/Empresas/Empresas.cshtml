@@ -1,0 +1,74 @@
+@{
+    ViewData["Title"] = "Empresas";
+}
+
+<link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
+
+<div class="text-center">
+    <h1 class="display-4">Empresas</h1>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalEmpresas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloModal"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="LimpiarModal()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form>
+                        <div class="col-md-8 mb-2">
+                            <input type="hidden" id="LocalidadID">
+                            <label for="RazonSocial" class="form-label">Razon Social</label>
+                            <input type="text" class="form-control" id="RazonSocial" style="text-transform:uppercase">
+                            @* <span id="NombreError"></span> *@
+                            <br>
+                            <label for="CP" class="form-label">Localidad</label>
+                            <input type="text" class="form-control" style="width: 120px;" id="CP">
+                            <br>
+                            @* <label for="ProvinciaID" class="form-label">Provincia</label>
+                            @Html.DropDownList("ProvinciaID", null, htmlAttributes: new { @class = "form-control" })
+                            <span id="ProvinciaError"></span> *@
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnGuardar" onclick="GuardarLocalidad()">Guardar</button>
+                <button type="button" class="btn btnCancelar" data-bs-dismiss="modal" onclick="LimpiarModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th scope="col" style="text-align: center">Razon Social</th>
+            <th scope="col" style="text-align: center">CUIT o CDI</th>
+            <th scope="col" style="text-align: center">Telefono</th>
+            <th scope="col" style="text-align: center">Email</th>
+            <th scope="col" style="text-align: center">Provincia</th>
+            <th scope="col" style="text-align: center">Localidad</th>
+            <th scope="col" style="text-align: center">Domicilio</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody id="tbody-empresa"></tbody>
+</table>
+
+<!-- Button trigger modal -->
+<div class="btnAgregar">
+<button type="button" class="btn btn-primary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal" data-bs-target="#modalEmpresas" data-bs-target="#staticBackdrop" onclick="NuevoRegistro()">
+  <i class="fa-solid fa-plus"></i>
+</button>
+</div>
+
+@section Scripts {
+    <script src="~/js/empresas-1.0.0.js"></script>
+}

@@ -1,27 +1,27 @@
 window.onload = ListadoPersonas();
 
 
-    $('#ProvinciaID').change(function () {
-        var provinciaId = $(this).val();
-        if (provinciaId) {
-            $.ajax({
-                url: '../../Personas/GetLocalidades',
-                type: 'GET',
-                data: { provinciaId: provinciaId },
-                success: function (data) {
-                    var localidadDropdown = $('#LocalidadID');
-                    localidadDropdown.empty();
-                    localidadDropdown.append('<option value="">Seleccione una localidad</option>');
-                    $.each(data, function (index, item) {
-                        localidadDropdown.append('<option value="' + item.localidadID + '">' + item.nombre + '</option>');
-                    });
-                }
-            });
-        } else {
-            $('#LocalidadID').empty();
-            $('#LocalidadID').append('<option value="">Seleccione una localidad</option>');
-        }
-    });
+$('#ProvinciaID').change(function () {
+    var provinciaId = $(this).val();
+    if (provinciaId) {
+        $.ajax({
+            url: '../../Personas/GetLocalidades',
+            type: 'GET',
+            data: { provinciaId: provinciaId },
+            success: function (data) {
+                var localidadDropdown = $('#LocalidadID');
+                localidadDropdown.empty();
+                localidadDropdown.append('<option value="">Seleccione una localidad</option>');
+                $.each(data, function (index, item) {
+                    localidadDropdown.append('<option value="' + item.localidadID + '">' + item.nombre + '</option>');
+                });
+            }
+        });
+    } else {
+        $('#LocalidadID').empty();
+        $('#LocalidadID').append('<option value="">Seleccione una localidad</option>');
+    }
+});
 
 
 function NuevaPersona() {
@@ -39,6 +39,7 @@ function LimpiarModal() {
     document.getElementById("ProvinciaID").value = 0;
     document.getElementById("LocalidadID").value = 0;
     document.getElementById("UsuarioID").value = "";
+    document.getElementById("FechaNacimiento").value = 0;
 }
 
 function ListadoPersonas() {
@@ -56,7 +57,7 @@ function ListadoPersonas() {
 
             $.each(personasMostrar, function (index, persona) {
 
-            contenidoCard += `
+                contenidoCard += `
             <div class="col-lg-3 col-md-3 col-sm-12">
                 <div class="card">
                     <img src="../img/usuario-fondo-negro.png" class="card-img-top" alt="...">
@@ -74,7 +75,7 @@ function ListadoPersonas() {
                         <button type="button" class="btn" title="Editar" onclick="ModalEditar(${persona.personaID})">
                             <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
                         </button>
-                        <button type="button" class="btn" title="Eliminar" onclick="">
+                        <button type="button" class="btn" title="Eliminar" onclick="EliminarPersona(${persona.personaID})">
                         <i class="fa-solid fa-trash" width="20" height="20"></i>
                         </button>
                         </li>
@@ -124,14 +125,17 @@ function GuardarPersona() {
         type: 'POST',
         dataType: 'json',
         success: function (resultado) {
-            if (resultado != "")
-            {
+            if (resultado != "") {
                 Swal.fire(resultado);
             }
             ListadoPersonas();
         },
         error: function (xhr, status) {
-            console.log('Disculpe, existió un problema al cargar el listado');
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema al guardar la persona",
+            });
         }
     });
 
@@ -177,9 +181,87 @@ function ModalEditar(personaID) {
             $("#tituloModal").text("Editar Persona");
         },
         error: function (xhr, status) {
-            console.log('Disculpe, existió un problema al cargar el listado');
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema",
+            });
             console.error('Error details:', xhr, status);
         }
     });
 
+}
+
+function EliminarPersona(personaID) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-danger",
+            cancelButton: "btn btn-success"
+        },
+        buttonsStyling: true
+    });
+    swalWithBootstrapButtons.fire({
+        title: "¿Estás seguro?",
+        text: "¡No podrás revertir esto!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "¡Sí, bórralo!",
+        cancelButtonText: "¡No, cancela!",
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            $.ajax({
+                // la URL para la petición
+                url: '../../Personas/EliminarPersona',
+                // la información a enviar
+                // (también es posible utilizar una cadena de datos)
+                data: { PersonaID: personaID },
+                // especifica si será una petición POST o GET
+                type: 'POST',
+                // el tipo de información que se espera de respuesta
+                dataType: 'json',
+                // código a ejecutar si la petición es satisfactoria;
+                // la respuesta es pasada como argumento a la función
+                success: function (eliminarPersona) {
+
+                    // if (!resultado) {
+                    //     Swal.fire({
+                    //         icon: "error",
+                    //         title: "Oops...",
+                    //         text: "No se puede eliminar, existen registros asociados",
+                    //     });
+                    // }
+
+                    ListadoPersonas();
+                },
+
+                // código a ejecutar si la petición falla;
+                // son pasados como argumentos a la función
+                // el objeto de la petición en crudo y código de estatus de la petición
+                error: function (xhr, status) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Disculpe, existió un problema al eliminar la persona",
+                    });
+                }
+            });
+
+            swalWithBootstrapButtons.fire({
+                title: "¡Borrado!",
+                text: "Su registro ha sido eliminado.",
+                icon: "success"
+            });
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire({
+                title: "Anulado",
+                text: "Tu registro está a salvo :)",
+                icon: "error"
+            });
+        }
+    });
 }
