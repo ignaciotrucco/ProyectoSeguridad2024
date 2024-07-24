@@ -53,6 +53,8 @@ public class LocalidadesController : Controller
     {
         string resultado = "";
 
+        Nombre = Nombre.ToUpper();
+
         if (LocalidadID == 0)
         {
             var existeNombreLocalidad = _context.Localidades.Where(e => e.Nombre == Nombre).Count();

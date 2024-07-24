@@ -71,7 +71,7 @@ function ListadoPersonas() {
                         <li class="list-group-item">${persona.email}</li>
                         <li class="list-group-item">${persona.fechaNacimientoString}</li>
                         <li class="list-group-item">
-                        <button type="button" class="btn" title="Editar" onclick="">
+                        <button type="button" class="btn" title="Editar" onclick="ModalEditar(${persona.personaID})">
                             <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
                         </button>
                         <button type="button" class="btn" title="Eliminar" onclick="">
@@ -126,7 +126,7 @@ function GuardarPersona() {
         success: function (resultado) {
             if (resultado != "")
             {
-                alert(resultado);
+                Swal.fire(resultado);
             }
             ListadoPersonas();
         },
@@ -150,3 +150,36 @@ function GuardarPersona() {
         </div>
 </div>
                 </div > */}
+
+
+function ModalEditar(personaID) {
+
+    $.ajax({
+        url: '../../Personas/ListadoPersonas',
+        data: {},
+        type: 'POST',
+        dataType: 'json',
+        success: function (personasMostrar) {
+            let mostrarPersona = personasMostrar[0];
+
+            $("#PersonaID").val(personaID);
+            $("#Nombre").val(mostrarPersona.nombreCompleto);
+            $("#Domicilio").val(mostrarPersona.domicilio);
+            $("#TipoDocumentoID").val(mostrarPersona.tipoDocumentoID);
+            $("#NroDoc").val(mostrarPersona.numeroDocumento);
+            $("#Telefono").val(mostrarPersona.telefono);
+            $("#Email").val(mostrarPersona.email);
+            $("#LocalidadID").val(mostrarPersona.localidadID);
+            $("#ProvinciaID").val(mostrarPersona.provinciaID);
+            $("#UsuarioID").val(mostrarPersona.usuarioid);
+            $("#FechaNacimiento").val(mostrarPersona.fechaNacimiento)
+            $("#modalPersonas").modal("show");
+            $("#tituloModal").text("Editar Persona");
+        },
+        error: function (xhr, status) {
+            console.log('Disculpe, existió un problema al cargar el listado');
+            console.error('Error details:', xhr, status);
+        }
+    });
+
+}

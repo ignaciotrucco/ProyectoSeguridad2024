@@ -64,7 +64,7 @@ function ListadoProvincias() {
 }
 
 function GuardarRegistros() {
-    $("#NombreError").text("");
+    $("#NombreError").html("");
 
     let provinciaID = $("#ProvinciaID").val();
     let nombre = $("#NombreProvincia").val().trim();
@@ -74,7 +74,7 @@ function GuardarRegistros() {
     let guardado = true;
 
     if (nombre == "") {
-        $("#NombreError").text("Debe ingresar un nombre de provincia!")
+        $("#NombreError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Debe ingresar un nombre de provincia!")
         guardado = false;
     }
 

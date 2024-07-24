@@ -94,10 +94,10 @@ public class ProvinciasController : Controller
 
         if (existeLocalidad == 0)
         {
-        var eliminarProvincia = _context.Provincias.Find(ProvinciaID);
-        _context.Remove(eliminarProvincia);
-        _context.SaveChanges();
-        eliminado = true;
+            var eliminarProvincia = _context.Provincias.Find(ProvinciaID);
+            _context.Remove(eliminarProvincia);
+            _context.SaveChanges();
+            eliminado = true;
         }
         return Json(eliminado);
     }

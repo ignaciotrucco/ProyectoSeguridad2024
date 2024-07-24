@@ -154,27 +154,72 @@ function ModalEditar(localidadID) {
 }
 
 function EliminarLocalidad(localidadID) {
-    $.ajax({
-        // la URL para la petición
-        url: '../../Localidades/EliminarLocalidad',
-        // la información a enviar
-        // (también es posible utilizar una cadena de datos)
-        data: { LocalidadID: localidadID },
-        // especifica si será una petición POST o GET
-        type: 'POST',
-        // el tipo de información que se espera de respuesta
-        dataType: 'json',
-        // código a ejecutar si la petición es satisfactoria;
-        // la respuesta es pasada como argumento a la función
-        success: function (eliminado) {
-            ListadoLocalidades()
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-danger",
+            cancelButton: "btn btn-success"
         },
+        buttonsStyling: true
+    });
+    swalWithBootstrapButtons.fire({
+        title: "¿Estás seguro?",
+        text: "¡No podrás revertir esto!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "¡Sí, bórralo!",
+        cancelButtonText: "¡No, cancela!",
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
 
-        // código a ejecutar si la petición falla;
-        // son pasados como argumentos a la función
-        // el objeto de la petición en crudo y código de estatus de la petición
-        error: function (xhr, status) {
-            console.log('Disculpe, existió un problema al cargar el listado');
+            $.ajax({
+                // la URL para la petición
+                url: '../../Localidades/EliminarLocalidad',
+                // la información a enviar
+                // (también es posible utilizar una cadena de datos)
+                data: { LocalidadID: localidadID },
+                // especifica si será una petición POST o GET
+                type: 'POST',
+                // el tipo de información que se espera de respuesta
+                dataType: 'json',
+                // código a ejecutar si la petición es satisfactoria;
+                // la respuesta es pasada como argumento a la función
+                success: function (resultado) {
+
+                    if (!resultado) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "No se puede eliminar, existen registros asociados",
+                        });
+                    }
+
+                    ListadoLocalidades()
+                },
+
+                // código a ejecutar si la petición falla;
+                // son pasados como argumentos a la función
+                // el objeto de la petición en crudo y código de estatus de la petición
+                error: function (xhr, status) {
+                    console.log('Disculpe, existió un problema al cargar el listado');
+                }
+            });
+
+            swalWithBootstrapButtons.fire({
+                title: "¡Borrado!",
+                text: "Su registro ha sido eliminado.",
+                icon: "success"
+            });
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire({
+                title: "Anulado",
+                text: "Tu registro está a salvo :)",
+                icon: "error"
+            });
         }
     });
+
 }
