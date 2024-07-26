@@ -1,47 +1,5 @@
 window.onload = ListadoPersonas();
 
-
-$('#ProvinciaID').change(function () {
-    var provinciaId = $(this).val();
-    if (provinciaId) {
-        $.ajax({
-            url: '../../Personas/GetLocalidades',
-            type: 'GET',
-            data: { provinciaId: provinciaId },
-            success: function (data) {
-                var localidadDropdown = $('#LocalidadID');
-                localidadDropdown.empty();
-                localidadDropdown.append('<option value="">Seleccione una localidad</option>');
-                $.each(data, function (index, item) {
-                    localidadDropdown.append('<option value="' + item.localidadID + '">' + item.nombre + '</option>');
-                });
-            }
-        });
-    } else {
-        $('#LocalidadID').empty();
-        $('#LocalidadID').append('<option value="">Seleccione una localidad</option>');
-    }
-});
-
-
-function NuevaPersona() {
-    $("#tituloModal").text("Nueva Persona");
-}
-
-function LimpiarModal() {
-    document.getElementById("PersonaID").value = 0;
-    document.getElementById("Nombre").value = "";
-    document.getElementById("Domicilio").value = "";
-    document.getElementById("TipoDocumentoID").value = 0;
-    document.getElementById("NroDoc").value = "";
-    document.getElementById("Telefono").value = "";
-    document.getElementById("Email").value = "";
-    document.getElementById("ProvinciaID").value = 0;
-    document.getElementById("LocalidadID").value = 0;
-    document.getElementById("UsuarioID").value = "";
-    document.getElementById("FechaNacimiento").value = 0;
-}
-
 function ListadoPersonas() {
     $.ajax({
         url: '../../Personas/ListadoPersonas',
@@ -94,6 +52,46 @@ function ListadoPersonas() {
             console.error('Error details:', xhr, status);
         }
     });
+}
+
+$('#ProvinciaID').change(function () {
+    var provinciaId = $(this).val();
+    if (provinciaId) {
+        $.ajax({
+            url: '../../Personas/GetLocalidades',
+            type: 'GET',
+            data: { provinciaId: provinciaId },
+            success: function (data) {
+                var localidadDropdown = $('#LocalidadID');
+                localidadDropdown.empty();
+                localidadDropdown.append('<option value="">Seleccione una localidad</option>');
+                $.each(data, function (index, item) {
+                    localidadDropdown.append('<option value="' + item.localidadID + '">' + item.nombre + '</option>');
+                });
+            }
+        });
+    } else {
+        $('#LocalidadID').empty();
+        $('#LocalidadID').append('<option value="">Seleccione una localidad</option>');
+    }
+});
+
+function NuevaPersona() {
+    $("#tituloModal").text("Nueva Persona");
+}
+
+function LimpiarModal() {
+    document.getElementById("PersonaID").value = 0;
+    document.getElementById("Nombre").value = "";
+    document.getElementById("Domicilio").value = "";
+    document.getElementById("TipoDocumentoID").value = 0;
+    document.getElementById("NroDoc").value = "";
+    document.getElementById("Telefono").value = "";
+    document.getElementById("Email").value = "";
+    document.getElementById("ProvinciaID").value = 0;
+    document.getElementById("LocalidadID").value = 0;
+    document.getElementById("UsuarioID").value = "";
+    document.getElementById("FechaNacimiento").value = 0;
 }
 
 function GuardarPersona() {
@@ -176,7 +174,7 @@ function ModalEditar(personaID) {
             $("#LocalidadID").val(mostrarPersona.localidadID);
             $("#ProvinciaID").val(mostrarPersona.provinciaID);
             $("#UsuarioID").val(mostrarPersona.usuarioid);
-            $("#FechaNacimiento").val(mostrarPersona.fechaNacimiento)
+            $("#FechaNacimiento").val(mostrarPersona.fechaNacimiento);
             $("#modalPersonas").modal("show");
             $("#tituloModal").text("Editar Persona");
         },

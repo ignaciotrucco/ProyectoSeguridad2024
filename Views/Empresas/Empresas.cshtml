@@ -11,35 +11,52 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="modalEmpresas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static">
+<div class="modal fade" id="modalEmpresas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    id="staticBackdrop" data-bs-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModal"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="LimpiarModal()"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    onclick="LimpiarModal()"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <form>
                         <div class="col-md-8 mb-2">
-                            <input type="hidden" id="LocalidadID">
+                            <input type="hidden" id="EmpresaID">
                             <label for="RazonSocial" class="form-label">Razon Social</label>
                             <input type="text" class="form-control" id="RazonSocial" style="text-transform:uppercase">
                             @* <span id="NombreError"></span> *@
                             <br>
-                            <label for="CP" class="form-label">Localidad</label>
-                            <input type="text" class="form-control" style="width: 120px;" id="CP">
+                            <label for="Cuit" class="form-label">Cuit</label>
+                            <input type="number" class="form-control" id="Cuit">
                             <br>
-                            @* <label for="ProvinciaID" class="form-label">Provincia</label>
+                            <label for="telefono" class="form-label">Telefono</label>
+                            <input type="tel" class="form-control" id="telefono">
+                            <br>
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email">
+                            <br>
+                            <label for="ProvinciaID" class="form-label">Provincia</label>
                             @Html.DropDownList("ProvinciaID", null, htmlAttributes: new { @class = "form-control" })
-                            <span id="ProvinciaError"></span> *@
+                            <br>
+                            <label for="LocalidadID" class="form-label">Localidad</label>
+                            @Html.DropDownList("LocalidadID", null, htmlAttributes: new { @class = "form-control" })
+                            <br>
+                            <label for="domicilio" class="form-label">Domicilio</label>
+                            <input type="text" class="form-control" id="domicilio" style="text-transform:uppercase">
+                            <br>
+                            <label for="UsuarioID" class="form-label">Usuario</label>
+                            <input type="text" id="UsuarioID" class="form-control">
                         </div>
                     </form>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btnGuardar" onclick="GuardarLocalidad()">Guardar</button>
-                <button type="button" class="btn btnCancelar" data-bs-dismiss="modal" onclick="LimpiarModal()">Cancelar</button>
+                <button type="button" class="btn btnGuardar" onclick="GuardarEmpresa()">Guardar</button>
+                <button type="button" class="btn btnCancelar" data-bs-dismiss="modal"
+                    onclick="LimpiarModal()">Cancelar</button>
             </div>
         </div>
     </div>
@@ -49,7 +66,7 @@
     <thead>
         <tr>
             <th scope="col" style="text-align: center">Razon Social</th>
-            <th scope="col" style="text-align: center">CUIT o CDI</th>
+            <th scope="col" style="text-align: center">CUIT</th>
             <th scope="col" style="text-align: center">Telefono</th>
             <th scope="col" style="text-align: center">Email</th>
             <th scope="col" style="text-align: center">Provincia</th>
@@ -59,14 +76,15 @@
             <th scope="col"></th>
         </tr>
     </thead>
-    <tbody id="tbody-empresa"></tbody>
+    <tbody id="tbody-empresas"></tbody>
 </table>
 
 <!-- Button trigger modal -->
 <div class="btnAgregar">
-<button type="button" class="btn btn-primary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal" data-bs-target="#modalEmpresas" data-bs-target="#staticBackdrop" onclick="NuevoRegistro()">
-  <i class="fa-solid fa-plus"></i>
-</button>
+    <button type="button" class="btn btn-primary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal"
+        data-bs-target="#modalEmpresas" data-bs-target="#staticBackdrop" onclick="NuevoRegistro()">
+        <i class="fa-solid fa-plus"></i>
+    </button>
 </div>
 
 @section Scripts {
