@@ -164,17 +164,17 @@ function ModalEditar(personaID) {
         success: function (personasMostrar) {
             let mostrarPersona = personasMostrar[0];
 
-            $("#PersonaID").val(personaID);
-            $("#Nombre").val(mostrarPersona.nombreCompleto);
-            $("#Domicilio").val(mostrarPersona.domicilio);
-            $("#TipoDocumentoID").val(mostrarPersona.tipoDocumentoID);
-            $("#NroDoc").val(mostrarPersona.numeroDocumento);
-            $("#Telefono").val(mostrarPersona.telefono);
-            $("#Email").val(mostrarPersona.email);
-            $("#LocalidadID").val(mostrarPersona.localidadID);
-            $("#ProvinciaID").val(mostrarPersona.provinciaID);
-            $("#UsuarioID").val(mostrarPersona.usuarioid);
-            $("#FechaNacimiento").val(mostrarPersona.fechaNacimiento);
+            document.getElementById("PersonaID").value = personaID;
+            document.getElementById("Nombre").value = mostrarPersona.nombreCompleto;
+            document.getElementById("Domicilio").value = mostrarPersona.domicilio;
+            document.getElementById("TipoDocumentoID").value = mostrarPersona.tipoDocumentoID;
+            document.getElementById("NroDoc").value = mostrarPersona.numeroDocumento;
+            document.getElementById("Telefono").value = mostrarPersona.telefono;
+            document.getElementById("Email").value = mostrarPersona.email;
+            document.getElementById("ProvinciaID").value = mostrarPersona.provinciaID;
+            document.getElementById("LocalidadID").value = mostrarPersona.localidadID;
+            document.getElementById("UsuarioID").value = mostrarPersona.usuarioID;
+            document.getElementById("FechaNacimiento").value = mostrarPersona.fechaNacimiento;
             $("#modalPersonas").modal("show");
             $("#tituloModal").text("Editar Persona");
         },
