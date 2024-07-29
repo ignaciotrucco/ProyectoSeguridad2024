@@ -16,7 +16,7 @@
             <div class="col-lg-6">
               <div class="p-5">
                 <div class="mb-5">
-                  <h3 class="h4 font-weight-bold text-theme">Iniciar Sesión</h3>
+                  <h3 class="h4 font-weight-bold text-theme" style="text-align: center;">Iniciar Sesión</h3>
                 </div>
 
                 <h6 class="h5 mb-0">Bienvenido de nuevo!</h6>
@@ -37,7 +37,7 @@
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                   </div>
                   <div class="d-grid">
-                    <button id="login-submit" class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2"
+                    <button id="login-submit" class="btn btn-lg btn-warning btn-login text-uppercase fw-bold mb-2"
                       type="submit">Iniciar Sesión</button>
                   </div>
                 </form>
@@ -65,80 +65,3 @@
 @section Scripts {
   <partial name="_ValidationScriptsPartial" />
 }
-
-@*
-<div class="container-fluid position-absolute top-50 start-50 translate-middle">
-<div class="row justify-content-center">
-<div class="col-xl-10">
-<div class="card border-0 rounded-3 shadow-lg overflow-hidden">
-<div class="card-body p-0">
-<div class="row g-0">
-<div class="col-sm-6 d-none d-sm-block bg-image"></div>
-<div class="col-sm-6 p-4 ">
-<div class="text-center">
-<div class="h3 fw-light">Iniciar Sesión</div>
-<p class="mb-4 text-muted">Ingresá con tu cuenta local</p>
-</div>
-<form id="account" method="post">
-<div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-<div class="form-floating mb-3">
-<input type="email" class="form-control" asp-for="Input.Email" autocomplete="username" aria-required="true"
-id="floatingInput" placeholder="nombre@correo.com">
-<label asp-for="Input.Email" for="floatingInput">Correo Electrónico</label>
-<span asp-validation-for="Input.Email" class="text-danger"></span>
-</div>
-<div class="form-floating mb-3">
-<input type="password" class="form-control" asp-for="Input.Password" autocomplete="current-password"
-aria-required="true" id="floatingPassword" placeholder="Contraseña">
-<label asp-for="Input.Password" for="floatingPassword">Contraseña</label>
-<span asp-validation-for="Input.Password" class="text-danger"></span>
-</div>
-<div class="d-grid">
-<button id="login-submit" class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit">Iniciar
-Sesión</button>
-</div>
-</form>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div> *@
-
-
-@* <div class="container-fluid ps-md-0">
-<div class="row g-0">
-<div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
-<div class="col-md-8 col-lg-6">
-<div class="login d-flex align-items-center py-5">
-<div class="container">
-<div class="row">
-<div class="col-md-9 col-lg-8 mx-auto">
-<h3 class="login-heading mb-4">Welcome back!</h3>
-<form id="account" method="post">
-<div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-<div class="form-floating mb-3">
-<input type="email" class="form-control" asp-for="Input.Email" autocomplete="username" aria-required="true"
-id="floatingInput" placeholder="name@example.com">
-<label asp-for="Input.Email" for="floatingInput">Correo Electrónico</label>
-<span asp-validation-for="Input.Email" class="text-danger"></span>
-</div>
-<div class="form-floating mb-3">
-<input type="password" class="form-control" asp-for="Input.Password" autocomplete="current-password"
-aria-required="true" id="floatingPassword" placeholder="Password">
-<label asp-for="Input.Password" for="floatingPassword">Contraseña</label>
-<span asp-validation-for="Input.Password" class="text-danger"></span>
-</div>
-<div class="d-grid">
-<button id="login-submit" class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit">Sign
-in</button>
-</div>
-</form>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div> *@

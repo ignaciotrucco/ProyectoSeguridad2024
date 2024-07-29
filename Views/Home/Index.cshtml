@@ -1,13 +1,17 @@
 ﻿@{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Inicio";
 }
 
 <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
 
 
 <div class="encabezado text-center">
-    <h1 class="display-8">¡Bienvenido de nuevo, @User.Identity?.Name!</h1>
+    <h1 class="display-6">¡Bienvenido de nuevo, @User.Identity?.Name!</h1>
 </div>
+
+@* <div class="d-flex p-2">
+
+<img src="/img/STVAguardia_1_con_texto.png" width="500px" height="350px"> *@
 
 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
   <div class="carousel-indicators">
@@ -41,3 +45,4 @@
   <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
   </button>
 </div>
+@* </div> *@

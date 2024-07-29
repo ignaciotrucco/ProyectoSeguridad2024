@@ -78,7 +78,7 @@ function GuardarRegistros() {
     let guardado = true;
 
     if (nombre == "") {
-        $("#NombreError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Debe ingresar un nombre de provincia!")
+        $("#NombreError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  ¡Debe ingresar un nombre de provincia!")
         guardado = false;
     }
 

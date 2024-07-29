@@ -25,16 +25,16 @@ function ListadoPersonas() {
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">${persona.localidadNombre} - ${persona.provinciaNombre}</li>
-                        <li class="list-group-item">${persona.telefono}</li>
-                        <li class="list-group-item">${persona.domicilio}</li>
+                        <li class="list-group-item">Télefono: (+54)${persona.telefono}</li>
+                        <li class="list-group-item">Domicilio: ${persona.domicilio}</li>
                         <li class="list-group-item">${persona.email}</li>
-                        <li class="list-group-item">${persona.fechaNacimientoString}</li>
-                        <li class="list-group-item">
-                        <button type="button" class="btn" title="Editar" onclick="ModalEditar(${persona.personaID})">
-                            <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
+                        <li class="list-group-item">Nacido el: ${persona.fechaNacimientoString}</li>
+                        <li class="list-group-item btnPersonas">
+                        <button type="button" class="btn btnGuardar" title="Editar" onclick="ModalEditar(${persona.personaID})">
+                        Editar
                         </button>
-                        <button type="button" class="btn" title="Eliminar" onclick="EliminarPersona(${persona.personaID})">
-                        <i class="fa-solid fa-trash" width="20" height="20"></i>
+                        <button type="button" class="btn btnCancelar" title="Eliminar" onclick="EliminarPersona(${persona.personaID})">
+                        Eliminar
                         </button>
                         </li>
                     </ul>
