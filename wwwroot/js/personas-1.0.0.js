@@ -158,7 +158,7 @@ function ModalEditar(personaID) {
 
     $.ajax({
         url: '../../Personas/ListadoPersonas',
-        data: {},
+        data: {PersonaID: personaID},
         type: 'POST',
         dataType: 'json',
         success: function (personasMostrar) {

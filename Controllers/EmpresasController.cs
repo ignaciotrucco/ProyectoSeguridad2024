@@ -130,4 +130,14 @@ public class EmpresasController : Controller
 
         return Json(resultado);
     }
+
+    public JsonResult EliminarEmpresa(int EmpresaID)
+    {
+        var eliminarEmpresa = _context.Empresas.Find(EmpresaID);
+        _context.Remove(eliminarEmpresa);
+        _context.SaveChanges();
+
+
+        return Json(eliminarEmpresa);
+    }
 }

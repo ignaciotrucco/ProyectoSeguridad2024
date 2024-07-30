@@ -116,7 +116,7 @@ function AbrirModalEditar(usuarioID) {
         url: '../../Users/ListadoUsuarios',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: {},
+        data: {UsuarioID: usuarioID},
         // especifica si será una petición POST o GET
         type: 'GET',
         // el tipo de información que se espera de respuesta
