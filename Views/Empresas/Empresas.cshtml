@@ -5,14 +5,17 @@
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
 <div class="container mt-3">
-  <div class="row">
-    <div class="col-auto me-auto">
-        <h1 class="display-4">Empresas</h1>
+    <div class="row">
+<div class="col-auto me-auto">
+  <h1 class="display-4 hover-icon">Empresas <i class="fas fa-building icon"></i></h1>
+</div>
+<div class="col-auto">
+    <button class="btn btnImprimir mt-3">
+        <i class="fa-solid fa-download"></i>
+        <span class="btn-text">Imprimir</span>
+    </button>
+</div>
     </div>
-    <div class="col-auto">
-        <button class="btn btn-secondary mt-3" onclick="Imprimir()"><i class="fa-solid fa-download"></i> Imprimir</button>
-    </div>
-  </div>
 </div>
 
 
@@ -24,38 +27,55 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModal"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    onclick="LimpiarModal()"></button>
+                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    onclick="LimpiarModal()"></button> *@
             </div>
             <div class="modal-body">
                 <div class="row">
                     <form>
-                        <div class="col-md-8 mb-2">
-                            <input type="hidden" id="EmpresaID">
-                            <label for="RazonSocial" class="form-label">Razon Social</label>
-                            <input type="text" class="form-control" id="RazonSocial" style="text-transform:uppercase">
-                            @* <span id="NombreError"></span> *@
-                            <br>
-                            <label for="Cuit" class="form-label">Cuit</label>
-                            <input type="number" class="form-control" id="Cuit">
-                            <br>
-                            <label for="telefono" class="form-label">Telefono</label>
-                            <input type="tel" class="form-control" id="telefono">
-                            <br>
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email">
-                            <br>
-                            <label for="ProvinciaID" class="form-label">Provincia</label>
-                            @Html.DropDownList("ProvinciaID", null, htmlAttributes: new { @class = "form-control" })
-                            <br>
-                            <label for="LocalidadID" class="form-label">Localidad</label>
-                            @Html.DropDownList("LocalidadID", null, htmlAttributes: new { @class = "form-control" })
-                            <br>
-                            <label for="domicilio" class="form-label">Domicilio</label>
-                            <input type="text" class="form-control" id="domicilio" style="text-transform:uppercase">
-                            <br>
-                            <label for="UsuarioID" class="form-label">Usuario</label>
-                            <input type="text" id="UsuarioID" class="form-control">
+                        <div class="row">
+                            <div class="col-md-6 mb-6">
+                                <input type="hidden" id="EmpresaID">
+                                <label for="RazonSocial" class="form-label">Razón Social</label>
+                                <input type="text" class="form-control" id="RazonSocial"
+                                    style="text-transform:uppercase">
+                            </div>
+                            <div class="col-md-6 mb-6">
+                                <label for="Cuit" class="form-label">CUIT</label>
+                                <input type="number" class="form-control" id="Cuit">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-6">
+                                <label for="telefono" class="form-label">Teléfono</label>
+                                <input type="tel" class="form-control" id="telefono">
+                            </div>
+                            <div class="col-md-8 mb-6">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10 mb-6">
+                                <label for="ProvinciaID" class="form-label">Provincia</label>
+                                @Html.DropDownList("ProvinciaID", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-10 mb-6">
+                                <label for="LocalidadID" class="form-label">Localidad</label>
+                                @Html.DropDownList("LocalidadID", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8 mb-6">
+                                <label for="domicilio" class="form-label">Domicilio</label>
+                                <input type="text" class="form-control" id="domicilio" style="text-transform:uppercase">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-6">
+                                <label for="UsuarioID" class="form-label">Usuario</label>
+                                <input type="text" id="UsuarioID" class="form-control">
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -72,9 +92,9 @@
 <table class="table table-striped mt-3" id="imprimir-tabla">
     <thead>
         <tr>
-            <th scope="col" style="text-align: center">Razon Social</th>
+            <th scope="col" style="text-align: center">Razón Social</th>
             <th scope="col" style="text-align: center">CUIT</th>
-            <th scope="col" style="text-align: center">Telefono</th>
+            <th scope="col" style="text-align: center">Teléfono</th>
             <th scope="col" style="text-align: center">Email</th>
             <th scope="col" style="text-align: center">Provincia</th>
             <th scope="col" style="text-align: center">Localidad</th>

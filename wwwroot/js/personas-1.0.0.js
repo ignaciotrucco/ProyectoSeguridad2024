@@ -17,19 +17,19 @@ function ListadoPersonas() {
 
                 contenidoCard += `
             <div class="col-lg-3 col-md-3 col-sm-12">
-                <div class="card">
+                <div class="card cardPersonas">
                     <img src="../img/usuario-fondo-negro.png" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">${persona.nombreCompleto}</h5>
-                        <p class="card-text">${persona.tipoDocumentoNombre} - ${persona.numeroDocumento}</p>
+                        <h4 class="cardPersonas card-title">${persona.nombreCompleto}</h4>
+                        <p class="cardPersonas card-text">${persona.tipoDocumentoNombre} - ${persona.numeroDocumento}</p>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">${persona.localidadNombre} - ${persona.provinciaNombre}</li>
-                        <li class="list-group-item">Télefono: (+54)${persona.telefono}</li>
-                        <li class="list-group-item">Domicilio: ${persona.domicilio}</li>
-                        <li class="list-group-item">${persona.email}</li>
-                        <li class="list-group-item">Nacido el: ${persona.fechaNacimientoString}</li>
-                        <li class="list-group-item btnPersonas">
+                        <li class="datosPersona list-group-item">${persona.localidadNombre} - ${persona.provinciaNombre}</li>
+                        <li class="datosPersona list-group-item">Télefono: (+54)${persona.telefono}</li>
+                        <li class="datosPersona list-group-item">Domicilio: ${persona.domicilio}</li>
+                        <li class="datosPersona list-group-item">${persona.email}</li>
+                        <li class="datosPersona list-group-item">Nacido el: ${persona.fechaNacimientoString}</li>
+                        <li class="btnPersonas list-group-item">
                         <button type="button" class="btn btnGuardar" title="Editar" onclick="ModalEditar(${persona.personaID})">
                         Editar
                         </button>

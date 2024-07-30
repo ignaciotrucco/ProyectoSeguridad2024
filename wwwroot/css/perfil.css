@@ -1,0 +1,20 @@
+.navPerfil{
+    background-color: rgb(219, 219, 219);
+    border-radius: 5px;
+}
+
+.nav-item:hover{
+    background-color: rgb(241, 241, 241);
+    transition: ease-in-out 0.3s;
+    border-radius: 5px;
+}
+
+.nav-link{
+    color: black;
+    background-color: #fcc200;
+    font-family: 'textos3';
+}
+
+.nav-link:hover{
+    color: black;
+}

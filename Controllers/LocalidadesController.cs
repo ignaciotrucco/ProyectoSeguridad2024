@@ -68,7 +68,7 @@ public class LocalidadesController : Controller
                 };
                 _context.Add(nuevaLocalidad);
                 _context.SaveChanges();
-                resultado = "Localidad agregada correctamente!";
+                resultado = "¡Localidad agregada correctamente!";
             }
             else
             {
@@ -84,7 +84,7 @@ public class LocalidadesController : Controller
                 localidadEditar.Nombre = Nombre;
                 localidadEditar.CodigoPostal = CodigoPostal;
                 _context.SaveChanges();
-                resultado = "Localidad editada correctamente!";
+                resultado = "¡Localidad editada correctamente!";
             }
         }
 

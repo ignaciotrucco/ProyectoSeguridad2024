@@ -52,11 +52,11 @@ public class ProvinciasController : Controller
                     };
                     _context.Add(nuevaProvincia);
                     _context.SaveChanges();
-                    resultado = "PROVINCIA AGREGADA CORRECTAMENTE";
+                    resultado = "¡Provincia agregada correctamente!";
                 }
                 else
                 {
-                    resultado = "YA EXISTE UNA PROVINCIA CON ESTE NOMBRE";
+                    resultado = "Provincia existente";
                 }
             }
             else
@@ -69,18 +69,18 @@ public class ProvinciasController : Controller
                     {
                         provinciaEditar.Nombre = Nombre;
                         _context.SaveChanges();
-                        resultado = "PROVINCIA EDITADA CORRECTAMENTE";
+                        resultado = "¡Provincia editada correctamente!";
                     }
                     else
                     {
-                        resultado = "YA EXISTE UNA PROVINCIA CON ESTE NOMBRE";
+                        resultado = "Provincia existente";
                     }
                 }
             }
         }
         else
         {
-            resultado = "DEBE INGRESAR UN NOMBRE";
+            resultado = "Debe ingresar un nombre";
         }
 
         return Json(resultado);

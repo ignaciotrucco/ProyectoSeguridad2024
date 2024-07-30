@@ -96,7 +96,7 @@ public class EmpresasController : Controller
                 };
                 _context.Add(nuevaEmpresa);
                 _context.SaveChanges();
-                resultado = "Empresa agregada correctamente!";
+                resultado = "¡Empresa agregada correctamente!";
             }
             else 
             {
@@ -119,7 +119,7 @@ public class EmpresasController : Controller
                     editarEmpresa.Email = Email;
                     editarEmpresa.Domicilio = Domicilio;
                     _context.SaveChanges();
-                    resultado = "Empresa editada correctamente!";
+                    resultado = "¡Empresa editada correctamente!";
                 }
                 else
                 {

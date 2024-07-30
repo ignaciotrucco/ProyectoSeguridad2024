@@ -12,7 +12,7 @@ using ProyectoSeguridad2024.Data;
 namespace ProyectoSeguridad2024.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240727181136_MigracionInicial")]
+    [Migration("20240729220145_MigracionInicial")]
     partial class MigracionInicial
     {
         /// <inheritdoc />

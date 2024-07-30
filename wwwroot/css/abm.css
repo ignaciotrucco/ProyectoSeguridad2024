@@ -1,11 +1,55 @@
 body {
-    background: rgb(46,48,48);
-    background: linear-gradient(90deg, rgba(46,48,48,0.2665441176470589) 0%, rgba(255,255,255,1) 39%, rgba(255,255,255,1) 57%, rgba(46,48,48,0.3085609243697479) 100%);
+    background: rgb(46, 48, 48);
+    background: linear-gradient(90deg, rgba(46, 48, 48, 0.2665441176470589) 0%, rgba(255, 255, 255, 1) 39%, rgba(255, 255, 255, 1) 57%, rgba(46, 48, 48, 0.3085609243697479) 100%);
 }
 
-.encabezado{
+.encabezado {
     height: 10vh;
     background-color: rgb(242, 255, 0);
+}
+
+.hover-icon {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hover-icon .icon {
+    display: inline-block;
+    margin-left: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.hover-icon:hover .icon {
+    opacity: 1;
+}
+
+.hover-icon:not(:hover) .icon {
+    opacity: 0;
+}
+
+.form-control {
+    background-color: gray;
+    color: white;
+    font-family: 'textos13';
+    cursor: default;
+    border: none;
+}
+
+.form-control:focus {
+    background-color: rgb(77, 77, 77);
+    color: white;
+    font-family: 'textos13';
+    cursor: default;
+    border: none;
+    box-shadow: none;
+}
+
+h5 {
+    color: white;
+    cursor: default;
 }
 
 .btnAgregar {
@@ -17,67 +61,162 @@ body {
     z-index: 1000;
 }
 
-.btnGuardar{
-    background-color: rgba(0, 53, 0, 0.521);
-    color: white;
+.btnAgregar:hover {
+    scale: 102%;
+    transition: ease-in-out 0.3s;
 }
 
-.btnGuardar:hover{
-    background-color: rgb(24, 121, 0);
-    transition:ease-in-out 0.3s;
+.btnGuardar {
+    background-color: #ecab0f;
     color: white;
+    font-family: 'textos3';
 }
 
-.btnCancelar{
-    background-color: rgba(68, 0, 0, 0.76);
+.btnGuardar:hover {
+    background-color: #cb920d;
+    transition: ease-in-out 0.3s;
     color: white;
+    font-family: 'textos3';
 }
 
-.btnCancelar:hover{
+.btnGuardar:focus {
+    box-shadow: none;
+}
+
+.btnCancelar {
+    background-color: rgb(158, 0, 0);
+    color: white;
+    font-family: 'textos3';
+}
+
+.btnCancelar:focus {
+    box-shadow: none;
+}
+
+.modal-header {
+    justify-content: center;
+}
+
+.btnImprimir {
+    background-color: gray;
+    font-family: 'textos3';
+    color: white;
+    position: relative;
+}
+
+.btnImprimir .btn-text {
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, right 0.3s ease-in-out;
+}
+
+.btnImprimir:hover .btn-text {
+    opacity: 1;
+    right: calc(100% + 10px);
+    /* Adjust the spacing as needed */
+}
+
+.btnImprimir:focus {
+    box-shadow: none;
+}
+
+.btnImprimir:hover {
+    background-color: rgb(99, 99, 99);
+    font-family: 'textos3';
+    color: white;
+    transition: ease-in-out 0.3s;
+}
+
+.btnCancelar:hover {
     background-color: rgb(223, 0, 0);
-    transition:ease-in-out 0.3s;
+    transition: ease-in-out 0.3s;
     color: white;
+    font-family: 'textos3';
 }
 
-.btnPersonas{
+.btnPersonas {
     text-align: center;
     display: flex;
     justify-content: space-around;
+    background-color: #5a5a5a;
+    font-family: 'textos3';
+}
+
+.btnPersonas:focus {
+    box-shadow: none;
 }
 
 .btn .fa-pen-to-square {
-    color: rgba(0, 53, 0, 0.76);
+    color: #cb920dcf;
+}
+
+.btn .fa-pen-to-square:focus {
+    box-shadow: none;
 }
 
 .btn .fa-pen-to-square:hover {
     scale: 103%;
-    transition:ease-in-out 0.3s;
-    color: rgb(27, 134, 0);
+    transition: ease-in-out 0.3s;
+    color: #ffb200;
+}
+
+.btn:focus {
+    box-shadow: none;
+    border: none;
 }
 
 .btn .fa-trash {
     color: rgba(68, 0, 0, 0.76);
 }
 
+.btn .fa-trash:active {
+    box-shadow: none;
+}
+
 .btn .fa-trash:hover {
     scale: 103%;
-    transition:ease-in-out 0.3s;
+    transition: ease-in-out 0.3s;
     color: rgb(223, 0, 0);
 }
 
 h1 {
-    font-family: 'textos7';
+    font-family: 'textos5';
+    cursor: default;
 }
 
 th {
-    font-family: 'textos7';
+    font-family: 'textos3';
+    font-weight: 'bold';
+    cursor: default;
 }
 
-td,
-label {
-    font-family: 'textos5';
+td {
+    font-family: 'textos13';
     font-size: larger;
+    font-style: 'bold';
+    cursor: default;
 }
+
+.datosPersona {
+    font-family: 'textos13';
+    background-color: #757575;
+    color: white;
+}
+
+label {
+    font-family: 'textos3';
+    color: white;
+}
+
+.cardPersonas {
+    background-color: #5a5a5a;
+    color: white;
+    font-family: 'textos13';
+}
+
 
 /* Animaciones Modal */
 .modal {
@@ -86,10 +225,16 @@ label {
 
 .modal-content {
     animation: modalOpen 0.3s ease-in-out;
+    background-color: rgb(46, 46, 46);
 }
 
 .modal-dialog {
     width: 450px;
+}
+
+.btn-close {
+    background-color: red;
+    transition: ease-in-out 0.3s;
 }
 
 @keyframes fadeIn {

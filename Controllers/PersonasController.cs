@@ -108,7 +108,7 @@ public JsonResult GuardarPersonas(int PersonaID, int LocalidadID, int TipoDocume
             };
             _context.Add(nuevaPersona);
             _context.SaveChanges();
-            resultado = "Persona agregada correctamente!";
+            resultado = "¡Persona agregada correctamente!";
         }
         else
         {
@@ -130,7 +130,7 @@ public JsonResult GuardarPersonas(int PersonaID, int LocalidadID, int TipoDocume
             editarPersona.Email = Email;
             editarPersona.NumeroDocumento = NumeroDocumento;
             _context.SaveChanges();
-            resultado = "Persona editada correctamente!";
+            resultado = "¡Persona editada correctamente!";
         }
     }
 

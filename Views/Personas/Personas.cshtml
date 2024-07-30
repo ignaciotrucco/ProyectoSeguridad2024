@@ -6,9 +6,9 @@
 
 <div class="container mt-3">
   <div class="row">
-    <div class="col-auto me-auto">
-        <h1 class="display-4">Personas</h1>
-    </div>
+<div class="col-auto me-auto">
+  <h1 class="display-4 hover-icon">Personas <i class="fas fa-user-plus icon"></i></h1>
+</div>
   </div>
 </div>
 
@@ -21,8 +21,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModal"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    onclick="LimpiarModal()"></button>
+                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    onclick="LimpiarModal()"></button> *@
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -30,38 +30,38 @@
                         <div class="row mb-2">
                             <div class="col-md-6">
                                 <input type="hidden" id="PersonaID">
-                                <label for="Nombre" class="form-label">Nombre</label>
+                                <label for="Nombre" class="form-label">Nombre Completo</label>
                                 <input type="text" class="form-control" id="Nombre" maxlength="50" style="text-transform:uppercase">
                             </div>
                             <div class="col-md-6">
                                 <label for="Domicilio" class="form-label">Domicilio</label>
                                 <input type="text" class="form-control" id="Domicilio" maxlength="50">
                             </div>
-                            <div class="col-md-4">
-                                <label for="TipoDocumentoID" class="form-label">Tipo Doc</label>
+                            <div class="col-md-6">
+                                <label for="TipoDocumentoID" class="form-label">Tipo Documento</label>
                                 @Html.DropDownList("TipoDocumentoID", null, htmlAttributes: new
                                     {
                                         @class =
                                          "form-control"
                                     })
                             </div>
-                            <div class="col-md-8">
-                                <label for="NroDoc" class="form-label">Numero</label>
+                            <div class="col-md-6">
+                                <label for="NroDoc" class="form-label">Número de Documento</label>
                                 <input type="number" class="form-control" id="NroDoc">
                             </div>
                             <div class="col-md-6">
-                                <label for="Telefono" class="form-label">Numero de telefono</label>
+                                <label for="Telefono" class="form-label">Numero de Télefono</label>
                                 <input type="tel" class="form-control" id="Telefono">
                             </div>
                             <div class="col-md-6">
                                 <label for="Email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="Email">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <label for="ProvinciaID" class="form-label">Provincia</label>
                                 @Html.DropDownList("ProvinciaID", null, htmlAttributes: new { @class = "form-control" })
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <label for="LocalidadID" class="form-label">Localidad</label>
                                 @Html.DropDownList("LocalidadID", null, htmlAttributes: new { @class = "form-control" })
                             </div>
@@ -69,8 +69,8 @@
                                 <label for="UsuarioID" class="form-label">Usuario</label>
                                 <input type="text" id="UsuarioID" class="form-control">
                             </div>
-                            <div class="col-md-8">
-                                <label for="FechaNacimiento" class="form-label">Fecha Nacimiento</label>
+                            <div class="col-md-6">
+                                <label for="FechaNacimiento" class="form-label">Fecha de Nacimiento</label>
                                 <input type="datetime-local" id="FechaNacimiento" class="form-control">
                             </div>
                         </div>
