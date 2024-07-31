@@ -84,11 +84,11 @@ function GuardarLocalidad() {
     let registrado = true;
 
     if (nombre == "") {
-        $("#NombreError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  ¡Debe ingresar un nombre de localidad! ")
+        $("#NombreError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Ingrese un nombre de localidad.")
         registrado = false;
     }
     if (provinciaID == 0) {
-        $("#ProvinciaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  ¡Debe seleccionar una provincia!");
+        $("#ProvinciaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Ingrese una provincia.");
         registrado = false;
     }
 

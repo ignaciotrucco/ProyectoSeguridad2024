@@ -64,15 +64,16 @@ $('#ProvinciaID').change(function () {
             success: function (data) {
                 var localidadDropdown = $('#LocalidadID');
                 localidadDropdown.empty();
-                localidadDropdown.append('<option value="">Seleccione una localidad</option>');
+                localidadDropdown.append('<option value="">[SELECCIONE UNA LOCALIDAD...]</option>');
                 $.each(data, function (index, item) {
                     localidadDropdown.append('<option value="' + item.localidadID + '">' + item.nombre + '</option>');
                 });
             }
         });
-    } else {
+    } 
+    else {
         $('#LocalidadID').empty();
-        $('#LocalidadID').append('<option value="">Seleccione una localidad</option>');
+        $('#LocalidadID').append('<option value="">[SELECCIONE UNA LOCALIDAD...]</option>');
     }
 });
 
@@ -92,50 +93,98 @@ function LimpiarModal() {
     document.getElementById("LocalidadID").value = 0;
     document.getElementById("UsuarioID").value = "";
     document.getElementById("FechaNacimiento").value = 0;
+    document.getElementById("nombrePersonaError").innerHTML = "";
+    document.getElementById("domicilioPersonaError").innerHTML = "";
+    document.getElementById("tipoDocPersonaError").innerHTML = "";
+    document.getElementById("nroDocPersonaError").innerHTML = "";
+    document.getElementById("telefonoPersonaError").innerHTML = "";
+    document.getElementById("fechaPersonaError").innerHTML = "";
+    document.getElementById("emailPersonaError").innerHTML = "";
 }
 
 function GuardarPersona() {
     let personaid = document.getElementById("PersonaID").value;
-    let nombre = document.getElementById("Nombre").value;
-    let domicilio = document.getElementById("Domicilio").value;
+    let nombre = document.getElementById("Nombre").value.trim();
+    let domicilio = document.getElementById("Domicilio").value.trim();
     let tipdoc = document.getElementById("TipoDocumentoID").value;
-    let nrodoc = document.getElementById("NroDoc").value;
-    let telefono = document.getElementById("Telefono").value;
+    let nrodoc = document.getElementById("NroDoc").value.trim();
+    let telefono = document.getElementById("Telefono").value.trim();
     let email = document.getElementById("Email").value;
     let localidadid = document.getElementById("LocalidadID").value;
     let usuarioid = document.getElementById("UsuarioID").value;
     let fechanac = document.getElementById("FechaNacimiento").value;
 
-    $.ajax({
-        url: '../../Personas/GuardarPersonas',
-        data: {
-            PersonaID: personaid,
-            LocalidadID: localidadid,
-            TipoDocumentoID: tipdoc,
-            UsuarioID: usuarioid,
-            NombreCompleto: nombre,
-            FechaNacimiento: fechanac,
-            Telefono: telefono,
-            Domicilio: domicilio,
-            Email: email,
-            NumeroDocumento: nrodoc
-        },
-        type: 'POST',
-        dataType: 'json',
-        success: function (resultado) {
-            if (resultado != "") {
-                Swal.fire(resultado);
+    let registrado = true;
+
+    if (nombre == "") {
+        $("#nombrePersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El nombre es requerido.")
+        registrado = false;
+    }
+
+    if (domicilio == "") {
+        $("#domicilioPersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El domicilio es requerido.")
+        registrado = false;
+    }
+
+    if (tipdoc == 0) {
+        $("#tipoDocPersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Requerido.")
+        registrado = false;
+    }
+
+    if (nrodoc == "") {
+        $("#nroDocPersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  N° Doc. Requerido.")
+        registrado = false;
+    }
+
+    if (telefono == "") {
+        $("#telefonoPersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El teléfono es requerido.")
+        registrado = false;
+    }
+
+    if (fechanac == 0) {
+        $("#fechaPersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Requerido.")
+        registrado = false;
+    }
+
+    if (email == "") {
+        $("#emailPersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El email de contacto es requerido.")
+        registrado = false;
+    }
+
+    if (registrado) {
+
+        $.ajax({
+            url: '../../Personas/GuardarPersonas',
+            data: {
+                PersonaID: personaid,
+                LocalidadID: localidadid,
+                TipoDocumentoID: tipdoc,
+                UsuarioID: usuarioid,
+                NombreCompleto: nombre,
+                FechaNacimiento: fechanac,
+                Telefono: telefono,
+                Domicilio: domicilio,
+                Email: email,
+                NumeroDocumento: nrodoc
+            },
+            type: 'POST',
+            dataType: 'json',
+            success: function (resultado) {
+                if (resultado != "") {
+                    Swal.fire(resultado);
+                }
+                ListadoPersonas();
+            },
+            error: function (xhr, status) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Disculpe, existió un problema al guardar la persona",
+                });
             }
-            ListadoPersonas();
-        },
-        error: function (xhr, status) {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Disculpe, existió un problema al guardar la persona",
-            });
-        }
-    });
+        });
+
+    }
 
 }
 
@@ -158,7 +207,7 @@ function ModalEditar(personaID) {
 
     $.ajax({
         url: '../../Personas/ListadoPersonas',
-        data: {PersonaID: personaID},
+        data: { PersonaID: personaID },
         type: 'POST',
         dataType: 'json',
         success: function (personasMostrar) {

@@ -56,11 +56,13 @@
                                 <label for="Nombre" class="form-label">Nombre Completo</label>
                                 <input type="text" class="form-control" id="Nombre" maxlength="50"
                                     style="text-transform:uppercase">
+                                    <span id="nombrePersonaError" class="textoError"></span>
                             </div>
                             <hr style="color: rgb(46, 46, 46);">
                             <div class="col-md-6">
                                 <label for="Domicilio" class="form-label">Domicilio</label>
                                 <input type="text" class="form-control" id="Domicilio" maxlength="50">
+                                <span id="domicilioPersonaError" class="textoError"></span>
                             </div>
                             <div class="col-md-2">
                                 <label for="TipoDocumentoID" class="form-label">Tipo Doc.</label>
@@ -68,24 +70,29 @@
                                     {
                                         @class =
                                          "form-control"
-                                    })
+                                    });
+                                    <span id="tipoDocPersonaError" class="textoError"></span>
                             </div>                             
                             <div class="col-md-4">
                                 <label for="NroDoc" class="form-label">Número de Documento</label>
                                 <input type="number" class="form-control" id="NroDoc">
+                                <span id="nroDocPersonaError" class="textoError"></span>
                             </div>
                             <hr style="color: rgb(46, 46, 46);">
                             <div class="col-md-3">
                                 <label for="FechaNacimiento" class="form-label">Fecha de Nacimiento</label>
                                 <input type="datetime-local" id="FechaNacimiento" class="form-control">
+                                <span id="fechaPersonaError" class="textoError"></span>
                             </div>
                             <div class="col-md-4">
                                 <label for="Telefono" class="form-label">Numero de Télefono</label>
                                 <input type="tel" class="form-control" id="Telefono">
+                                <span id="telefonoPersonaError" class="textoError"></span>
                             </div>
                             <div class="col-md-5">
                                 <label for="Email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="Email">
+                                <span id="emailPersonaError" class="textoError"></span>
                             </div>
                             <hr style="color: rgb(46, 46, 46);">
                             <div class="col-md-6">
