@@ -1,6 +1,19 @@
 body {
   margin-top: 20px;
-  background: #f6f9fc;
+  background-color: #FCC044;
+}
+
+.btn-login {
+  background-color: #ffb623;
+}
+
+.btn-login:hover {
+  transition: ease-in-out 0.2s;
+  background-color: #ffba2f;
+}
+
+.formLogin{
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.428);
 }
 
 .account-block {
@@ -36,11 +49,6 @@ body {
   right: 0;
 }
 
-body {
-  margin-top: 20px;
-  background: #f6f9fc;
-}
-
 .account-block {
   padding: 0;
   background-image: url('../img/STVAguardia_1_sin_texto.png');
@@ -60,6 +68,7 @@ body {
   left: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.4);
+  box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.51);
 }
 
 .account-block .account-testimonial {

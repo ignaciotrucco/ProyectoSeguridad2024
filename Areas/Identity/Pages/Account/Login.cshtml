@@ -10,18 +10,20 @@
 <div id="main-wrapper" class="container">
   <div class="row justify-content-center">
     <div class="col-xl-10">
-      <div class="card border-0">
+      <div class="card border-0 formLogin">
         <div class="card-body p-0">
           <div class="row no-gutters">
             <div class="col-lg-6">
               <div class="p-5">
-                <div class="mb-5">
-                  <h3 class="h4 font-weight-bold text-theme" style="text-align: center;">Iniciar Sesión</h3>
+                <div style="text-align: center;">
+                <img src="~/img/STVA_amarillo.png" width="220px" height="90px">
                 </div>
-
-                <h6 class="h5 mb-0">Bienvenido de nuevo!</h6>
+                <hr>
+                @* <div class="mb-5">
+                  <h3 class="h4 font-weight-bold text-theme" style="text-align: center;">Iniciar Sesión</h3>
+                </div> *@
+                <h6 class="h5 mb-0">¡Bienvenido de nuevo!</h6>
                 <p class="text-muted mt-2 mb-5">Ingresa tu email y contraseña.</p>
-
                 <form id="account" method="post">
                   <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                   <div class="form-floating mb-3">
@@ -37,7 +39,7 @@
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                   </div>
                   <div class="d-grid">
-                    <button id="login-submit" class="btn btn-lg btn-warning btn-login text-uppercase fw-bold mb-2"
+                    <button id="login-submit" class="btn btn-lg btn-login text-uppercase fw-bold mb-2"
                       type="submit">Iniciar Sesión</button>
                   </div>
                 </form>

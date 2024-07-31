@@ -9,12 +9,12 @@
         <div class="container mt-3">
             <div class="row">
                 <div class="col-auto me-auto">
-                    <h1 class="display-4 hover-icon">Personas <i class="fas fa-user-plus icon"></i></h1>
+                    <h1 class="display-5 hover-icon">Personas <i class="fas fa-user-plus icon"></i></h1>
                 </div>
                 <div class="col-auto">
                     <div class="input-group mt-3">
                         <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
-                        <input type="text" class="form-control" placeholder="BUSCAR POR NOMBRE" aria-label="Username"
+                        <input type="text" class="form-control inputBusqueda" placeholder="Buscar por nombre..." aria-label="Username"
                             aria-describedby="basic-addon1">
                     </div>
                 </div>
@@ -40,7 +40,7 @@
 <!-- Modal -->
 <div class="modal fade" id="modalPersonas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     id="staticBackdrop" data-bs-backdrop="static">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModal"></h5>
@@ -51,51 +51,55 @@
                 <div class="row">
                     <form>
                         <div class="row mb-2">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <input type="hidden" id="PersonaID">
                                 <label for="Nombre" class="form-label">Nombre Completo</label>
                                 <input type="text" class="form-control" id="Nombre" maxlength="50"
                                     style="text-transform:uppercase">
                             </div>
+                            <hr style="color: rgb(46, 46, 46);">
                             <div class="col-md-6">
                                 <label for="Domicilio" class="form-label">Domicilio</label>
                                 <input type="text" class="form-control" id="Domicilio" maxlength="50">
                             </div>
-                            <div class="col-md-6">
-                                <label for="TipoDocumentoID" class="form-label">Tipo Documento</label>
+                            <div class="col-md-2">
+                                <label for="TipoDocumentoID" class="form-label">Tipo Doc.</label>
                                 @Html.DropDownList("TipoDocumentoID", null, htmlAttributes: new
                                     {
                                         @class =
                                          "form-control"
                                     })
-                            </div>
-                            <div class="col-md-6">
+                            </div>                             
+                            <div class="col-md-4">
                                 <label for="NroDoc" class="form-label">Número de Documento</label>
                                 <input type="number" class="form-control" id="NroDoc">
                             </div>
-                            <div class="col-md-6">
+                            <hr style="color: rgb(46, 46, 46);">
+                            <div class="col-md-3">
+                                <label for="FechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                                <input type="datetime-local" id="FechaNacimiento" class="form-control">
+                            </div>
+                            <div class="col-md-4">
                                 <label for="Telefono" class="form-label">Numero de Télefono</label>
                                 <input type="tel" class="form-control" id="Telefono">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <label for="Email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="Email">
                             </div>
-                            <div class="col-md-8">
+                            <hr style="color: rgb(46, 46, 46);">
+                            <div class="col-md-6">
                                 <label for="ProvinciaID" class="form-label">Provincia</label>
                                 @Html.DropDownList("ProvinciaID", null, htmlAttributes: new { @class = "form-control" })
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <label for="LocalidadID" class="form-label">Localidad</label>
                                 @Html.DropDownList("LocalidadID", null, htmlAttributes: new { @class = "form-control" })
                             </div>
+                            <hr style="color: rgb(46, 46, 46);">
                             <div class="col-md-4">
                                 <label for="UsuarioID" class="form-label">Usuario</label>
                                 <input type="text" id="UsuarioID" class="form-control">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="FechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-                                <input type="datetime-local" id="FechaNacimiento" class="form-control">
                             </div>
                         </div>
                     </form>

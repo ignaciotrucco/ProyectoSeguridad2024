@@ -23,7 +23,7 @@ public class PersonasController : Controller
     public IActionResult Personas()
     {
         var tipoDocumentos = _context.TipoDocumentos.ToList();
-        tipoDocumentos.Add(new TipoDocumento {TipoDocumentoID = 0, Nombre = "[SELECCIONE...]"});
+        tipoDocumentos.Add(new TipoDocumento {TipoDocumentoID = 0, Nombre = "[ . . . ]"});
         ViewBag.TipoDocumentoID = new SelectList(tipoDocumentos.OrderBy(t => t.Nombre), "TipoDocumentoID", "Nombre");
 
         var provincias = _context.Provincias.ToList();
