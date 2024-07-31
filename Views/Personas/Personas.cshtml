@@ -4,13 +4,36 @@
 
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
-<div class="container mt-3">
-  <div class="row">
+<div class="card m-4">
+    <div class="card-body">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-auto me-auto">
+                    <h1 class="display-4 hover-icon">Personas <i class="fas fa-user-plus icon"></i></h1>
+                </div>
+                <div class="col-auto">
+                    <div class="input-group mt-3">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
+                        <input type="text" class="form-control" placeholder="BUSCAR POR NOMBRE" aria-label="Username"
+                            aria-describedby="basic-addon1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row mt-3" id="cbody-personas"></div>
+    </div>
+</div>
+
+@* <div class="container mt-3">
+<div class="row">
 <div class="col-auto me-auto">
-  <h1 class="display-4 hover-icon">Personas <i class="fas fa-user-plus icon"></i></h1>
+<h1 class="display-4 hover-icon">Personas <i class="fas fa-user-plus icon"></i></h1>
 </div>
-  </div>
 </div>
+</div> *@
 
 
 
@@ -22,7 +45,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModal"></h5>
                 @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    onclick="LimpiarModal()"></button> *@
+                onclick="LimpiarModal()"></button> *@
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -31,7 +54,8 @@
                             <div class="col-md-6">
                                 <input type="hidden" id="PersonaID">
                                 <label for="Nombre" class="form-label">Nombre Completo</label>
-                                <input type="text" class="form-control" id="Nombre" maxlength="50" style="text-transform:uppercase">
+                                <input type="text" class="form-control" id="Nombre" maxlength="50"
+                                    style="text-transform:uppercase">
                             </div>
                             <div class="col-md-6">
                                 <label for="Domicilio" class="form-label">Domicilio</label>
@@ -87,30 +111,30 @@
 </div>
 
 @* <table class="table table-striped mt-3">
-    <thead>
-        <tr>
-            <th style="text-align: center">Nombre</th>
-            <th style="text-align: center">Apellido</th>
-            <th style="text-align: center">Tipo Documento</th>
-            <th style="text-align: center">N° Documento</th>
-            <th scope="col" style="text-align: center">Telefono</th>
-            <th scope="col" style="text-align: center">Email</th>
-            <th scope="col" style="text-align: center">Domicilio</th>
-            <th scope="col" style="text-align: center">Localidad</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody id="tbody-personas"></tbody>
+<thead>
+<tr>
+<th style="text-align: center">Nombre</th>
+<th style="text-align: center">Apellido</th>
+<th style="text-align: center">Tipo Documento</th>
+<th style="text-align: center">N° Documento</th>
+<th scope="col" style="text-align: center">Telefono</th>
+<th scope="col" style="text-align: center">Email</th>
+<th scope="col" style="text-align: center">Domicilio</th>
+<th scope="col" style="text-align: center">Localidad</th>
+<th scope="col"></th>
+<th scope="col"></th>
+</tr>
+</thead>
+<tbody id="tbody-personas"></tbody>
 </table> *@
 
-<div class="row mt-3" id="cbody-personas"></div>
+@* <div class="row mt-3" id="cbody-personas"></div> *@
 
 <!-- Button trigger modal -->
 <div class="btnAgregar">
-    <button type="button" class="btn btn-primary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal"
+    <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal"
         data-bs-target="#modalPersonas" data-bs-target="#staticBackdrop" onclick="NuevaPersona()">
-        <i class="fa-solid fa-plus"></i>
+        <i class="fa-solid fa-plus"></i> Nueva Persona
     </button>
 </div>
 

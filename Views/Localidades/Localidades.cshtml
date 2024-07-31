@@ -4,29 +4,64 @@
 
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
-<div class="container mt-3">
-  <div class="row">
+<div class="card m-3">
+    <div class="card-body">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-auto me-auto">
+                    <h1 class="display-4 hover-icon">Localidades <i class="fas fa-map-location-dot icon"></i></h1>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btnImprimir mt-3">
+                        <i class="fa-solid fa-download"></i>
+                        <span class="btn-text">Imprimir</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* <div class="container mt-3">
+<div class="row">
 <div class="col-auto me-auto">
-  <h1 class="display-4 hover-icon">Localidades <i class="fas fa-map-location-dot icon"></i></h1>
+<h1 class="display-4 hover-icon">Localidades <i class="fas fa-map-location-dot icon"></i></h1>
 </div>
 <div class="col-auto">
-    <button class="btn btnImprimir mt-3">
-        <i class="fa-solid fa-download"></i>
-        <span class="btn-text">Imprimir</span>
-    </button>
+<button class="btn btnImprimir mt-3">
+<i class="fa-solid fa-download"></i>
+<span class="btn-text">Imprimir</span>
+</button>
 </div>
-  </div>
 </div>
+</div> *@
 
-
+<div class="card m-3">
+    <div class="card-body">
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th scope="col" style="text-align: center">Nombre</th>
+                    <th scope="col" style="text-align: center">Código Postal</th>
+                    <th scope="col" style="text-align: center">Provincia</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="tbody-localidad"></tbody>
+        </table>
+    </div>
+</div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalLocalidades" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static">
+<div class="modal fade" id="modalLocalidades" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    id="staticBackdrop" data-bs-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModal"></h5>
-                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="LimpiarModal()"></button> *@
+                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                onclick="LimpiarModal()"></button> *@
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -49,30 +84,32 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btnGuardar" onclick="GuardarLocalidad()">Guardar</button>
-                <button type="button" class="btn btnCancelar" data-bs-dismiss="modal" onclick="LimpiarModal()">Cancelar</button>
+                <button type="button" class="btn btnCancelar" data-bs-dismiss="modal"
+                    onclick="LimpiarModal()">Cancelar</button>
             </div>
         </div>
     </div>
 </div>
 
-<table class="table table-striped mt-3">
-    <thead>
-        <tr>
-            <th scope="col" style="text-align: center">Nombre</th>
-            <th scope="col" style="text-align: center">Código Postal</th>
-            <th scope="col" style="text-align: center">Provincia</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody id="tbody-localidad"></tbody>
-</table>
+@* <table class="table table-striped mt-3">
+<thead>
+<tr>
+<th scope="col" style="text-align: center">Nombre</th>
+<th scope="col" style="text-align: center">Código Postal</th>
+<th scope="col" style="text-align: center">Provincia</th>
+<th scope="col"></th>
+<th scope="col"></th>
+</tr>
+</thead>
+<tbody id="tbody-localidad"></tbody>
+</table> *@
 
 <!-- Button trigger modal -->
 <div class="btnAgregar">
-<button type="button" class="btn btn-primary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal" data-bs-target="#modalLocalidades" data-bs-target="#staticBackdrop" onclick="NuevoRegistro()">
-  <i class="fa-solid fa-plus"></i>
-</button>
+    <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal"
+        data-bs-target="#modalLocalidades" data-bs-target="#staticBackdrop" onclick="NuevoRegistro()">
+        <i class="fa-solid fa-plus"></i> Nueva Localidad
+    </button>
 </div>
 
 @section Scripts {

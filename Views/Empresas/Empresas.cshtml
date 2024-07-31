@@ -4,17 +4,56 @@
 
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
-<div class="container mt-3">
-    <div class="row">
+<div class="card m-3">
+    <div class="card-body">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-auto me-auto">
+                    <h1 class="display-4 hover-icon">Empresas <i class="fas fa-building icon"></i></h1>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btnImprimir mt-3" onclick="Imprimir()">
+                        <i class="fa-solid fa-download"></i>
+                        <span class="btn-text">Imprimir</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* <div class="container mt-3">
+<div class="row">
 <div class="col-auto me-auto">
-  <h1 class="display-4 hover-icon">Empresas <i class="fas fa-building icon"></i></h1>
+<h1 class="display-4 hover-icon">Empresas <i class="fas fa-building icon"></i></h1>
 </div>
 <div class="col-auto">
-    <button class="btn btnImprimir mt-3">
-        <i class="fa-solid fa-download"></i>
-        <span class="btn-text">Imprimir</span>
-    </button>
+<button class="btn btnImprimir mt-3">
+<i class="fa-solid fa-download"></i>
+<span class="btn-text">Imprimir</span>
+</button>
 </div>
+</div>
+</div> *@
+
+<div class="card m-3">
+    <div class="card-body">
+        <table class="table table-striped mt-3" id="imprimir-tabla">
+            <thead>
+                <tr>
+                    <th scope="col" style="text-align: center">Razón Social</th>
+                    <th scope="col" style="text-align: center">CUIT</th>
+                    <th scope="col" style="text-align: center">Teléfono</th>
+                    <th scope="col" style="text-align: center">Email</th>
+                    <th scope="col" style="text-align: center">Provincia</th>
+                    <th scope="col" style="text-align: center">Localidad</th>
+                    <th scope="col" style="text-align: center">Domicilio</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="tbody-empresas"></tbody>
+        </table>
     </div>
 </div>
 
@@ -28,7 +67,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModal"></h5>
                 @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    onclick="LimpiarModal()"></button> *@
+                onclick="LimpiarModal()"></button> *@
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -89,28 +128,28 @@
     </div>
 </div>
 
-<table class="table table-striped mt-3" id="imprimir-tabla">
-    <thead>
-        <tr>
-            <th scope="col" style="text-align: center">Razón Social</th>
-            <th scope="col" style="text-align: center">CUIT</th>
-            <th scope="col" style="text-align: center">Teléfono</th>
-            <th scope="col" style="text-align: center">Email</th>
-            <th scope="col" style="text-align: center">Provincia</th>
-            <th scope="col" style="text-align: center">Localidad</th>
-            <th scope="col" style="text-align: center">Domicilio</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody id="tbody-empresas"></tbody>
-</table>
+@* <table class="table table-striped mt-3" id="imprimir-tabla">
+<thead>
+<tr>
+<th scope="col" style="text-align: center">Razón Social</th>
+<th scope="col" style="text-align: center">CUIT</th>
+<th scope="col" style="text-align: center">Teléfono</th>
+<th scope="col" style="text-align: center">Email</th>
+<th scope="col" style="text-align: center">Provincia</th>
+<th scope="col" style="text-align: center">Localidad</th>
+<th scope="col" style="text-align: center">Domicilio</th>
+<th scope="col"></th>
+<th scope="col"></th>
+</tr>
+</thead>
+<tbody id="tbody-empresas"></tbody>
+</table> *@
 
 <!-- Button trigger modal -->
 <div class="btnAgregar">
-    <button type="button" class="btn btn-primary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal"
+    <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal"
         data-bs-target="#modalEmpresas" data-bs-target="#staticBackdrop" onclick="NuevoRegistro()">
-        <i class="fa-solid fa-plus"></i>
+        <i class="fa-solid fa-plus"></i> Nueva Empresa
     </button>
 </div>
 

@@ -4,21 +4,56 @@
 
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
-<div class="container mt-3">
-  <div class="row">
-<div class="col-auto me-auto">
-  <h1 class="display-4 hover-icon">Usuarios <i class="fas fa-users icon"></i></h1>
-</div>
-<div class="col-auto">
-    <button class="btn btnImprimir mt-3">
-        <i class="fa-solid fa-download"></i>
-        <span class="btn-text">Imprimir</span>
-    </button>
-</div>
-  </div>
+<div class="card m-3">
+    <div class="card-body">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-auto me-auto">
+                    <h1 class="display-4 hover-icon">Usuarios <i class="fas fa-users icon"></i></h1>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btnImprimir mt-3">
+                        <i class="fa-solid fa-download"></i>
+                        <span class="btn-text">Imprimir</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-@* //HACER MODAL NUEVO PARA EL EDITAR CON SOLO INPUT DE EMAIL, EN EL METODO EDITAR QUE EL EMAIL SEA IGUAL A USERNAME Y NORMALIZEDNAME *@
+@* <div class="container mt-3">
+<div class="row">
+<div class="col-auto me-auto">
+<h1 class="display-4 hover-icon">Usuarios <i class="fas fa-users icon"></i></h1>
+</div>
+<div class="col-auto">
+<button class="btn btnImprimir mt-3">
+<i class="fa-solid fa-download"></i>
+<span class="btn-text">Imprimir</span>
+</button>
+</div>
+</div>
+</div> *@
+
+<div class="card m-3">
+    <div class="card-body">
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th scope="col" style="text-align: center">Usuario</th>
+                    <th scope="col" style="text-align: center">Rol</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="tbody-usuarios"></tbody>
+        </table>
+    </div>
+</div>
+
+@* //HACER MODAL NUEVO PARA EL EDITAR CON SOLO INPUT DE EMAIL, EN EL METODO EDITAR QUE EL EMAIL SEA IGUAL A USERNAME Y
+NORMALIZEDNAME *@
 
 <!-- Modal -->
 <div class="modal fade" id="modalUsuarios" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
@@ -27,7 +62,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModal"></h5>
-                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="LimpiarModal()"></button> *@
+                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                onclick="LimpiarModal()"></button> *@
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -45,7 +81,8 @@
                                 @Html.DropDownList("RolID", null, htmlAttributes: new
                                     {
                                         @class =
-                                         "form-control" , @id = "RolID"
+                                         "form-control",
+                                        @id = "RolID"
                                     })
                             </div>
                         </div>
@@ -68,7 +105,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModalEditar"></h5>
-                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="LimpiarModalEditar()"></button> *@
+                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                onclick="LimpiarModalEditar()"></button> *@
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -90,25 +128,25 @@
     </div>
 </div>
 
-<table class="table table-striped mt-3">
-    <thead>
-        <tr>
-            <th scope="col" style="text-align: center">Usuario</th>
-             <th scope="col" style="text-align: center">Rol</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody id="tbody-usuarios"></tbody>
-</table>
+@* <table class="table table-striped mt-3">
+<thead>
+<tr>
+<th scope="col" style="text-align: center">Usuario</th>
+<th scope="col" style="text-align: center">Rol</th>
+<th scope="col"></th>
+<th scope="col"></th>
+</tr>
+</thead>
+<tbody id="tbody-usuarios"></tbody>
+</table> *@
 
 
 
 <!-- Button trigger modal -->
 <div class="btnAgregar">
-    <button type="button" class="btn btn-primary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal"
+    <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal"
         data-bs-target="#modalUsuarios" data-bs-target="#staticBackdrop" onclick="NuevoUsuario()">
-        <i class="fa-solid fa-plus"></i>
+        <i class="fa-solid fa-plus"></i> Nuevo Usuario
     </button>
 </div>
 
