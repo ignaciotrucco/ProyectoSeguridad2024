@@ -34,8 +34,8 @@ public class PersonasController : Controller
         localidades.Add(new Localidad {LocalidadID = 0, Nombre = "[SELECCIONE UNA LOCALIDAD...]"});
         ViewBag.LocalidadID = new SelectList(localidades.OrderBy(t => t.Nombre), "LocalidadID", "Nombre");
 
-        // var usuarios = _context.Users.ToList();
-        // usuarios.Add(new)
+        var usuarios = _context.Users.ToList();
+        ViewBag.UsuarioID = new SelectList(usuarios.OrderBy(t => t.Email), "Email", "Email");
 
         return View();
     }
@@ -90,8 +90,8 @@ public JsonResult GuardarPersonas(int PersonaID, int LocalidadID, int TipoDocume
 
     if (PersonaID == 0)
     {
-        var existeNombrePersona = _context.Personas.Where(e => e.NombreCompleto == NombreCompleto).Count();
-        if(existeNombrePersona == 0)
+        var existePersona = _context.Personas.Where(e => e.NumeroDocumento == NumeroDocumento).Count();
+        if(existePersona == 0)
         {
             var nuevaPersona = new Persona 
             {

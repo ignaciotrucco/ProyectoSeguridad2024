@@ -170,9 +170,11 @@ function GuardarPersona() {
             type: 'POST',
             dataType: 'json',
             success: function (resultado) {
+                
                 if (resultado != "") {
                     Swal.fire(resultado);
                 }
+                
                 ListadoPersonas();
             },
             error: function (xhr, status) {
