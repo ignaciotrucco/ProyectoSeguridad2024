@@ -1,28 +1,43 @@
-body {
-    background-color: black;
+body{
+    background-color: rgb(244, 244, 244);
 }
 
-.encabezado{
+.carFondo {
+    background-color: black;
+    box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.671);
+}
+
+.encabezado {
     height: 9vh;
-    background-color: rgb(255, 230, 0);;
+    background-color: rgb(255, 230, 0);
     border-radius: 3px 3px 3px 3px;
-    margin: 25px;
+    margin: 30px;
     cursor: default;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.encabezado:hover {
+    background-color: rgb(255, 233, 37);
+}
+
+.encabezado:hover h2 {
+    scale: 102%;
+    transition: ease-in-out 0.2s;
 }
 
 .carousel-indicators button:hover {
-    background-color: rgb(255, 230, 0); 
+    background-color: rgb(255, 230, 0);
 }
-  
+
 .carousel-indicators button.active {
-    background-color: rgb(255, 230, 0); 
+    background-color: rgb(255, 230, 0);
 }
 
 .carousel-indicators {
     bottom: 15px;
     position: absolute;
     z-index: 15;
-  }
+}
 
 .carousel-fade .carousel-item {
     opacity: 0;
@@ -50,3 +65,110 @@ body {
     transform-origin: center center;
 }
 
+
+.white-gradient {
+    background: linear-gradient(to right, white 0%, transparent 100%);
+}
+
+/* Animación de tiempo */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-3500px); /* Ajusta este valor según el ancho total de las imágenes */
+    }
+}
+
+/* Estilo de carrusel */
+.slider {
+    background: white;
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.125);
+    height: 100px;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    width: 960px;
+}
+
+/* Fondo deslizante */
+.slider::before,
+.slider::after {
+    background: linear-gradient(to right, white 0%, transparent 100%);
+    content: "";
+    height: 100px;
+    position: absolute;
+    width: 200px;
+    z-index: 2;
+}
+
+/* Fondo deslizante derecho */
+.slider::after {
+    right: 0;
+    top: 0;
+    transform: rotate(180deg);
+}
+
+/* Fondo deslizante izquierdo */
+.slider::before {
+    left: 0;
+    top: 0;
+}
+
+/* Pista de deslizamiento */
+.slide-track {
+    animation: scroll 40s linear infinite;
+    display: flex;
+    width: 3500px; /* Ajusta este valor según el ancho total de las imágenes */
+    top: 100%;
+    gap: 50px;
+}
+
+.slideCar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.slideCar img {
+    max-height: 100%;
+    max-width: 100%;
+}
+/*  */
+
+.carouselEmpresas {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .carousel-trackEmpresas {
+    display: flex;
+    width: 300%;
+    animation: carousel-animation 10s linear infinite;
+  }
+
+  .carousel-itemEmpresas {
+    flex: 0 0 33.33%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .carousel-itemEmpresas img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  @keyframes carousel-animation {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-66.66%);
+    }
+  }

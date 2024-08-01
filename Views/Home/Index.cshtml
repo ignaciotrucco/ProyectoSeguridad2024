@@ -3,15 +3,15 @@
 }
 
 <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
-
+<link rel="stylesheet" href="~/js/carousel.js" asp-append-version="true" />
 
 <div class="encabezado text-center">
-    <h1 class="display-6">¡Bienvenido de nuevo, @User.Identity?.Name!</h1>
+    <h2 class="display-6">¡Bienvenido de nuevo, @User.Identity?.Name!</h2>
 </div>
 
-@* <div class="d-flex p-2">
+<div class="carFondo">
 
-<img src="/img/STVAguardia_1_con_texto.png" width="500px" height="350px"> *@
+@* <img src="/img/STVAguardia_1_con_texto.png" width="500px" height="350px"> *@
 
 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
   <div class="carousel-indicators">
@@ -45,4 +45,71 @@
   <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
   </button>
 </div>
-@* </div> *@
+</div>
+
+<div class="encabezado text-center">
+    <h2 class="display-6">Empresas que nos eligen día a día</h2>
+</div>
+
+<div class="slider">
+	<div class="slide-track">
+		<div class="slideCar">
+			<img src="/img/carLogoNacion.png" height="50" width="150" />
+		</div>
+		<div class="slideCar">
+			<img src="/img/carLogoSantander.png" height="50" width="300" />
+		</div>
+		<div class="slideCar">
+			<img src="/img/carLogoBancor.png" height="150" width="200" />
+		</div>
+    <div class="slideCar">
+			<img src="/img/carLogoMacro.png" height="50" width="150" />
+		</div>
+		<div class="slideCar">
+			<img src="/img/carLogoAdecoagro.png" height="50" width="150" />
+		</div>
+		<div class="slideCar">
+			<img src="/img/carLogoBalsuar.jpg" height="150" width="200" />
+		</div>
+    <div class="slideCar">
+			<img src="/img/carLogoArgenbal.jpg" height="150" width="200" />
+		</div>
+		<div class="slideCar">
+			<img src="/img/carLogoPiamontesa.png" height="150" width="200" />
+		</div>
+		<div class="slideCar">
+			<img src="/img/carLogoSogima.png" height="150" width="200" />
+		</div>
+		<div class="slideCar">
+  		<img src="/img/carLogoLactear.png" height="150" width="200" />
+		</div>
+		<div class="slideCar">
+      <img src="/img/carLogoAgronorte.jpg" height="100" width="100" />
+		</div>
+		<div class="slideCar">
+			<img src="/img/carLogoShell.png" height="50" width="100" />
+		</div>
+		<div class="slideCar">
+			<img src="/img/carLogoYPF.jpg" height="100" width="250" />
+		</div>
+		<div class="slideCar">
+			<img src="/img/carLogoIndecia.png" height="150" width="200" />
+		</div>
+	</div>
+</div>
+
+
+
+  @* <div class="carouselEmpresas">
+    <div class="carousel-trackEmpresas">
+      <div class="carousel-itemEmpresas">
+			<img src="/img/carLogoYPF.jpg" height="100" width="250" />
+      </div>
+      <div class="carousel-itemEmpresas">
+			<img src="/img/carLogoYPF.jpg" height="100" width="250" />
+      </div>
+      <div class="carousel-itemEmpresas">
+			<img src="/img/carLogoYPF.jpg" height="100" width="250" />
+      </div>
+    </div>
+  </div> *@
