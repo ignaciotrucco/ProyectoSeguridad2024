@@ -65,12 +65,11 @@ body{
     transform-origin: center center;
 }
 
-
+/* 
 .white-gradient {
     background: linear-gradient(to right, white 0%, transparent 100%);
-}
-
-/* Animación de tiempo */
+} */
+/* 
 @keyframes scroll {
     0% {
         transform: translateX(0);
@@ -78,10 +77,10 @@ body{
 
     100% {
         transform: translateX(-3500px); /* Ajusta este valor según el ancho total de las imágenes */
-    }
-}
 
-/* Estilo de carrusel */
+
+/* 
+
 .slider {
     background: white;
     box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.125);
@@ -92,7 +91,6 @@ body{
     width: 960px;
 }
 
-/* Fondo deslizante */
 .slider::before,
 .slider::after {
     background: linear-gradient(to right, white 0%, transparent 100%);
@@ -103,25 +101,22 @@ body{
     z-index: 2;
 }
 
-/* Fondo deslizante derecho */
 .slider::after {
     right: 0;
     top: 0;
     transform: rotate(180deg);
 }
 
-/* Fondo deslizante izquierdo */
 .slider::before {
     left: 0;
     top: 0;
 }
 
-/* Pista de deslizamiento */
 .slide-track {
     animation: scroll 40s linear infinite;
     display: flex;
     width: 3500px; /* Ajusta este valor según el ancho total de las imágenes */
-    top: 100%;
+    /* top: 100%;
     gap: 50px;
 }
 
@@ -136,7 +131,6 @@ body{
     max-height: 100%;
     max-width: 100%;
 }
-/*  */
 
 .carouselEmpresas {
     width: 100%;
@@ -162,8 +156,8 @@ body{
   .carousel-itemEmpresas img {
     max-width: 100%;
     max-height: 100%;
-  }
-
+  }  */
+/* 
   @keyframes carousel-animation {
     0% {
       transform: translateX(0);
@@ -171,4 +165,5 @@ body{
     100% {
       transform: translateX(-66.66%);
     }
-  }
+  } 
+    */

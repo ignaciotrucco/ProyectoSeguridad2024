@@ -7,5 +7,5 @@ public class TipoDocumento
     [Key]
     public int TipoDocumentoID { get; set;}
     public string? Nombre { get; set;}
-    public virtual Persona Persona {get; set;}
+    public virtual ICollection<Persona> Personas {get; set;}
 }
