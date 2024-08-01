@@ -14,6 +14,11 @@ function LimpiarModal() {
     $("#LocalidadID").val(0);
     $("#domicilio").val("");
     $("#UsuarioID").val("");
+    $("#razonSocialError").html("");
+    $("#cuitError").html("");
+    $("#telefonoEmpresaError").html("");
+    $("#emailEmpresaError").html("");
+    $("#domicilioEmpresaError").html("");
 }
 
 $('#ProvinciaID').change(function () {
@@ -103,45 +108,75 @@ function ListadoEmpresas() {
 function GuardarEmpresa() {
 
     let empresaID = $("#EmpresaID").val();
-    let razonSocial = $("#RazonSocial").val();
-    let cuit = $("#Cuit").val();
-    let telefono = $("#telefono").val();
-    let email = $("#email").val();
+    let razonSocial = $("#RazonSocial").val().trim();
+    let cuit = $("#Cuit").val().trim();
+    let telefono = $("#telefono").val().trim();
+    let email = $("#email").val().trim();
     let localidadID = $("#LocalidadID").val();
     let domicilio = $("#domicilio").val();
     let usuarioID = $("#UsuarioID").val();
 
+    let registrado = true;
 
-    $.ajax({
-        url: '../../Empresas/GuardarEmpresas',
-        data: {
-            EmpresaID: empresaID,
-            LocalidadID: localidadID,
-            UsuarioID: usuarioID,
-            RazonSocial: razonSocial,
-            Cuit_Cdi: cuit,
-            Telefono: telefono,
-            Email: email,
-            Domicilio: domicilio
-        },
-        type: 'POST',
-        dataType: 'json',
-        success: function (resultado) {
-            
-            if (resultado != "") {
-                Swal.fire(resultado);
+    if (razonSocial == "") {
+        $("#razonSocialError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  La razon social de la empresa es requerida.")
+        registrado = false;
+    }
+
+    if (cuit == "") {
+        $("#cuitError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El CUIT de la empresa es requerido.")
+        registrado = false;
+    }
+
+    if (telefono == "") {
+        $("#telefonoEmpresaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El teléfono de la empresa es requerido.")
+        registrado = false;
+    }
+
+    if (email == "") {
+        $("#emailEmpresaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El email de contacto es requerido.")
+        registrado = false;
+    }
+
+    if (domicilio == "") {
+        $("#domicilioEmpresaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El domicilio de la empresa es requerido.")
+        registrado = false;
+    }
+
+    if (registrado) {
+
+        $.ajax({
+            url: '../../Empresas/GuardarEmpresas',
+            data: {
+                EmpresaID: empresaID,
+                LocalidadID: localidadID,
+                UsuarioID: usuarioID,
+                RazonSocial: razonSocial,
+                Cuit_Cdi: cuit,
+                Telefono: telefono,
+                Email: email,
+                Domicilio: domicilio
+            },
+            type: 'POST',
+            dataType: 'json',
+            success: function (resultado) {
+                
+                if (resultado != "") {
+                    Swal.fire(resultado);
+                }
+                ListadoEmpresas();
+    
+            },
+            error: function (xhr, status) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Disculpe, existió un problema al guardar la empresa",
+                });
             }
-            ListadoEmpresas();
+        });
 
-        },
-        error: function (xhr, status) {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Disculpe, existió un problema al guardar la empresa",
-            });
-        }
-    });
+    }
 
 }
 

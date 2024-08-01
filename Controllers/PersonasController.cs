@@ -85,8 +85,8 @@ public JsonResult GuardarPersonas(int PersonaID, int LocalidadID, int TipoDocume
 {
     string resultado = "";
 
-    // NombreCompleto = NombreCompleto.ToUpper();
-    // Domicilio = Domicilio.ToUpper();
+    NombreCompleto = NombreCompleto.ToUpper();
+    Domicilio = Domicilio.ToUpper();
 
     if (PersonaID == 0)
     {
