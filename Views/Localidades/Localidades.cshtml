@@ -4,6 +4,7 @@
 
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
+<!-- Encabezado ABM --> 
 <div class="card m-3">
     <div class="card-body">
         <div class="container mt-3">
@@ -22,20 +23,7 @@
     </div>
 </div>
 
-@* <div class="container mt-3">
-<div class="row">
-<div class="col-auto me-auto">
-<h1 class="display-4 hover-icon">Localidades <i class="fas fa-map-location-dot icon"></i></h1>
-</div>
-<div class="col-auto">
-<button class="btn btnImprimir mt-3">
-<i class="fa-solid fa-download"></i>
-<span class="btn-text">Imprimir</span>
-</button>
-</div>
-</div>
-</div> *@
-
+<!-- Tabla --> 
 <div class="card m-3">
     <div class="card-body">
         <table class="table table-striped mt-3">
@@ -60,22 +48,26 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModal"></h5>
-                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                onclick="LimpiarModal()"></button> *@
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <div class="d-flex">
+                        <p class="campoObligatorio">Los campos marcados con un asterisco (</p>
+                        <p class="asterisco">*</p>
+                        <p class="campoObligatorio">) son obligatorios</p>
+                    </div>
                     <form>
                         <div class="col-md-8 mb-2">
                             <input type="hidden" id="LocalidadID">
-                            <label for="Nombre" class="form-label">Nombre</label>
+                            <label for="Nombre" class="form-label d-flex">Nombre<p class="asterisco">*</p></label>
                             <input type="text" class="form-control" id="Nombre" style="text-transform:uppercase">
                             <span id="NombreError" class="textoError"></span>
                             <br>
                             <label for="CP" class="form-label">Código Postal</label>
                             <input type="text" class="form-control" style="width: 120px;" id="CP">
                             <br>
-                            <label for="ProvinciaID" class="form-label">Provincia</label>
+                            <label for="ProvinciaID" class="form-label d-flex">Provincia<p class="asterisco">*</p>
+                                </label>
                             @Html.DropDownList("ProvinciaID", null, htmlAttributes: new { @class = "form-control" })
                             <span id="ProvinciaError" class="textoError"></span>
                         </div>
@@ -91,20 +83,7 @@
     </div>
 </div>
 
-@* <table class="table table-striped mt-3">
-<thead>
-<tr>
-<th scope="col" style="text-align: center">Nombre</th>
-<th scope="col" style="text-align: center">Código Postal</th>
-<th scope="col" style="text-align: center">Provincia</th>
-<th scope="col"></th>
-<th scope="col"></th>
-</tr>
-</thead>
-<tbody id="tbody-localidad"></tbody>
-</table> *@
-
-<!-- Button trigger modal -->
+<!-- Boton Modal -->
 <div class="btnAgregar">
     <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal"
         data-bs-target="#modalLocalidades" data-bs-target="#staticBackdrop" onclick="NuevoRegistro()">

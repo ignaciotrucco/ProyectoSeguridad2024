@@ -4,6 +4,7 @@
 
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
+<!-- Encabezado ABM -->
 <div class="card m-3">
     <div class="card-body">
         <div class="container mt-3">
@@ -22,20 +23,7 @@
     </div>
 </div>
 
-@* <div class="container mt-3">
-<div class="row">
-<div class="col-auto me-auto">
-<h1 class="display-4 hover-icon">Usuarios <i class="fas fa-users icon"></i></h1>
-</div>
-<div class="col-auto">
-<button class="btn btnImprimir mt-3">
-<i class="fa-solid fa-download"></i>
-<span class="btn-text">Imprimir</span>
-</button>
-</div>
-</div>
-</div> *@
-
+<!-- Tabla -->
 <div class="card m-3">
     <div class="card-body">
         <table class="table table-striped mt-3">
@@ -55,32 +43,35 @@
 @* //HACER MODAL NUEVO PARA EL EDITAR CON SOLO INPUT DE EMAIL, EN EL METODO EDITAR QUE EL EMAIL SEA IGUAL A USERNAME Y
 NORMALIZEDNAME *@
 
-<!-- Modal -->
+<!-- Modal Agregar -->
 <div class="modal fade" id="modalUsuarios" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     id="staticBackdrop" data-bs-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModal"></h5>
-                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                onclick="LimpiarModal()"></button> *@
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <div class="d-flex">
+                        <p class="campoObligatorio">Los campos marcados con un asterisco (</p>
+                        <p class="asterisco">*</p>
+                        <p class="campoObligatorio">) son obligatorios</p>
+                    </div>
                     <form>
-                        <div class="col-md-10 mb-10">
+                        <div class="col-md-10 mb-8">
                             <input type="hidden" id="UsuarioID">
-                            <label for="username" class="form-label">UserName</label>
+                            <label for="username" class="form-label d-flex">UserName<p class="asterisco">*</p></label>
                             <input type="text" class="form-control" id="username" autocomplete="off">
                             <br>
-                            <label for="email" class="form-label">Email</label>
+                            <label for="email" class="form-label d-flex">Email<p class="asterisco">*</p></label>
                             <input type="email" class="form-control" id="email">
                             <br>
-                            <label for="password" class="form-label">Contraseña</label>
+                            <label for="password" class="form-label d-flex">Contraseña<p class="asterisco">*</p></label>
                             <input type="password" class="form-control" id="password" autocomplete="off">
                             <br>
                             <div>
-                                <label for="RolID" class="form-label">Elige el rol del usuario</label>
+                                <label for="RolID" class="form-label d-flex">Elige el rol del usuario<p class="asterisco">*</p></label>
                                 @Html.DropDownList("RolID", null, htmlAttributes: new
                                     {
                                         @class =
@@ -101,15 +92,13 @@ NORMALIZEDNAME *@
     </div>
 </div>
 
-<!-- MODAL EDITAR -->
+<!-- Modal Editar -->
 <div class="modal fade" id="modalEditarUsuarios" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     id="staticBackdrop" data-bs-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModalEditar"></h5>
-                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                onclick="LimpiarModalEditar()"></button> *@
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -131,21 +120,7 @@ NORMALIZEDNAME *@
     </div>
 </div>
 
-@* <table class="table table-striped mt-3">
-<thead>
-<tr>
-<th scope="col" style="text-align: center">Usuario</th>
-<th scope="col" style="text-align: center">Rol</th>
-<th scope="col"></th>
-<th scope="col"></th>
-</tr>
-</thead>
-<tbody id="tbody-usuarios"></tbody>
-</table> *@
-
-
-
-<!-- Button trigger modal -->
+<!-- Boton modal -->
 <div class="btnAgregar">
     <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal"
         data-bs-target="#modalUsuarios" data-bs-target="#staticBackdrop" onclick="NuevoUsuario()">

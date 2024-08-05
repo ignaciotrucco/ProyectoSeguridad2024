@@ -4,6 +4,7 @@
 
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
+<!-- Encabezado ABM --> 
 <div class="card m-3">
     <div class="card-body">
         <div class="container mt-3">
@@ -23,29 +24,13 @@
     </div>
 </div>
 
-@* <div class="container mt-3">
-<div class="row">
-<div class="col-auto me-auto">
-<h1 class="display-4 hover-icon">Provincias <i class="fas fa-magnifying-glass-location icon"></i></h1>
-</div>
-<div class="col-auto">
-<button class="btn btnImprimir mt-3">
-<i class="fa-solid fa-download"></i>
-<span class="btn-text">Imprimir</span>
-</button>
-</div>
-</div>
-</div> *@
-
-<!-- Modal -->
+<!-- Modal --> 
 <div class="modal fade" id="modalProvincias" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     id="staticBackdrop" data-bs-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModal"></h5>
-                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                onclick="LimpiarModal()"></button> *@
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -68,6 +53,8 @@
         </div>
     </div>
 </div>
+
+<!-- Tabla --> 
 <div class="card m-3">
     <div class="card-body">
         <table class="table table-striped mt-3">
@@ -83,18 +70,7 @@
     </div>
 </div>
 
-@* <table class="table table-striped mt-3">
-<thead>
-<tr>
-<th scope="col" style="text-align: center">Nombre</th>
-<th scope="col"></th>
-<th scope="col"></th>
-</tr>
-</thead>
-<tbody id="tbody-provincias"></tbody>
-</table> *@
-
-<!-- Button trigger modal -->
+<!-- Boton Modal -->
 <div class="btnAgregar">
     <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal"
         data-bs-target="#modalProvincias" data-bs-target="#staticBackdrop" onclick="NuevoRegistro()">

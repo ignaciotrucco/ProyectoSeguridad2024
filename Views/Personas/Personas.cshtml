@@ -4,6 +4,7 @@
 
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
+<!-- Encabezado ABM -->
 <div class="card m-4">
     <div class="card-body">
         <div class="container mt-3">
@@ -20,22 +21,11 @@
                 </div>
             </div>
         </div>
-
         <hr>
-
+        <!-- Card Personas -->
         <div class="row mt-3" id="cbody-personas"></div>
     </div>
 </div>
-
-@* <div class="container mt-3">
-<div class="row">
-<div class="col-auto me-auto">
-<h1 class="display-4 hover-icon">Personas <i class="fas fa-user-plus icon"></i></h1>
-</div>
-</div>
-</div> *@
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="modalPersonas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
@@ -44,11 +34,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModal"></h5>
-                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                onclick="LimpiarModal()"></button> *@
             </div>
             <div class="modal-body">
                 <div class="row">
+                        <p class="campoObligatorio m-0" style="color: red;">Todos los campos de este formulario son obligatorios</p>
                     <form>
                         <div class="row mb-2">
                             <div class="col-md-12">
@@ -126,27 +115,7 @@
     </div>
 </div>
 
-@* <table class="table table-striped mt-3">
-<thead>
-<tr>
-<th style="text-align: center">Nombre</th>
-<th style="text-align: center">Apellido</th>
-<th style="text-align: center">Tipo Documento</th>
-<th style="text-align: center">N° Documento</th>
-<th scope="col" style="text-align: center">Telefono</th>
-<th scope="col" style="text-align: center">Email</th>
-<th scope="col" style="text-align: center">Domicilio</th>
-<th scope="col" style="text-align: center">Localidad</th>
-<th scope="col"></th>
-<th scope="col"></th>
-</tr>
-</thead>
-<tbody id="tbody-personas"></tbody>
-</table> *@
-
-@* <div class="row mt-3" id="cbody-personas"></div> *@
-
-<!-- Button trigger modal -->
+<!-- Boton modal -->
 <div class="btnAgregar">
     <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal"
         data-bs-target="#modalPersonas" data-bs-target="#staticBackdrop" onclick="NuevaPersona()">

@@ -4,6 +4,7 @@
 
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
+<!-- Encabezado ABM -->
 <div class="card m-3">
     <div class="card-body">
         <div class="container mt-3">
@@ -22,20 +23,7 @@
     </div>
 </div>
 
-@* <div class="container mt-3">
-<div class="row">
-<div class="col-auto me-auto">
-<h1 class="display-4 hover-icon">Empresas <i class="fas fa-building icon"></i></h1>
-</div>
-<div class="col-auto">
-<button class="btn btnImprimir mt-3">
-<i class="fa-solid fa-download"></i>
-<span class="btn-text">Imprimir</span>
-</button>
-</div>
-</div>
-</div> *@
-
+<!-- Tabla -->
 <div class="card m-3">
     <div class="card-body">
         <table class="table table-striped mt-3" id="imprimir-tabla">
@@ -57,8 +45,6 @@
     </div>
 </div>
 
-
-
 <!-- Modal -->
 <div class="modal fade" id="modalEmpresas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     id="staticBackdrop" data-bs-backdrop="static">
@@ -66,12 +52,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModal"></h5>
-                @* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                onclick="LimpiarModal()"></button> *@
             </div>
             <div class="modal-body">
                 <div class="row">
                     <form>
+                        <p class="campoObligatorio" style="color: red;">Todos los campos de este formulario son obligatorios</p>
                         <div class="row">
                             <div class="col-md-6 mb-6">
                                 <input type="hidden" id="EmpresaID">
@@ -133,24 +118,7 @@
     </div>
 </div>
 
-@* <table class="table table-striped mt-3" id="imprimir-tabla">
-<thead>
-<tr>
-<th scope="col" style="text-align: center">Razón Social</th>
-<th scope="col" style="text-align: center">CUIT</th>
-<th scope="col" style="text-align: center">Teléfono</th>
-<th scope="col" style="text-align: center">Email</th>
-<th scope="col" style="text-align: center">Provincia</th>
-<th scope="col" style="text-align: center">Localidad</th>
-<th scope="col" style="text-align: center">Domicilio</th>
-<th scope="col"></th>
-<th scope="col"></th>
-</tr>
-</thead>
-<tbody id="tbody-empresas"></tbody>
-</table> *@
-
-<!-- Button trigger modal -->
+<!-- Boton modal -->
 <div class="btnAgregar">
     <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal"
         data-bs-target="#modalEmpresas" data-bs-target="#staticBackdrop" onclick="NuevoRegistro()">
