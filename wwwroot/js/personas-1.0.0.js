@@ -25,7 +25,7 @@ function ListadoPersonas() {
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="datosPersona list-group-item">${persona.localidadNombre} - ${persona.provinciaNombre}</li>
-                        <li class="datosPersona list-group-item">Télefono: (+54)${persona.telefono}</li>
+                        <li class="datosPersona list-group-item">Télefono: ${persona.telefono}</li>
                         <li class="datosPersona list-group-item">Domicilio: ${persona.domicilio}</li>
                         <li class="datosPersona list-group-item">${persona.email}</li>
                         <li class="datosPersona list-group-item">Nacido el: ${persona.fechaNacimientoString}</li>
@@ -142,7 +142,7 @@ function GuardarPersona() {
     }
 
     if (fechanac == 0) {
-        $("#fechaPersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Requerido.")
+        $("#fechaPersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Fecha requerida.")
         registrado = false;
     }
 
@@ -225,7 +225,12 @@ function ModalEditar(personaID) {
             document.getElementById("ProvinciaID").value = mostrarPersona.provinciaID;
             document.getElementById("LocalidadID").value = mostrarPersona.localidadID;
             document.getElementById("UsuarioID").value = mostrarPersona.usuarioID;
-            document.getElementById("FechaNacimiento").value = mostrarPersona.fechaNacimiento;
+            
+            //CONVERTIMOS LA FECHA DE NACIMIENTO EN FORMATO YYYY-MM-DD PARA PODER MOSTRARLO EN EL INPUT
+            let fechaNacimiento = new Date(mostrarPersona.fechaNacimiento);
+            let formatoDate = fechaNacimiento.toISOString().split('T')[0]; //SE SEPARAN LAS PARTES DE LA FECHA Y LA HORA PARA PODER MOSTRAR SOLO FECHA QUE SERIA [0];
+
+            document.getElementById("FechaNacimiento").value = formatoDate;
             $("#modalPersonas").modal("show");
             $("#tituloModal").text("Editar Persona");
         },
@@ -314,3 +319,7 @@ function EliminarPersona(personaID) {
         }
     });
 }
+
+$(document).ready(function(){
+    $('#Telefono').mask('(00) 0000-000000');
+});
