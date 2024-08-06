@@ -61,17 +61,20 @@ function ImprimirTablaEmpresas() {
             },
 
             2: { 
-                halign: 'center', 
+                halign: 'center',
+                fontSize: 7, 
                 fillColor: [255, 255, 255] 
             },
 
             3: { 
-                halign: 'center', 
+                halign: 'center',
+                fontSize: 7,  
                 fillColor: [255, 255, 255] 
             },
 
             4: { 
                 halign: 'center', 
+                fontSize: 7, 
                 fillColor: [255, 255, 255] 
             },
 

@@ -54,21 +54,22 @@ NORMALIZEDNAME *@
             <div class="modal-body">
                 <div class="row">
                     <div class="d-flex">
-                        <p class="campoObligatorio">Los campos marcados con un asterisco (</p>
-                        <p class="asterisco" style="padding-left:0 !important;padding-right: 0 !important;">*</p>
-                        <p class="campoObligatorio">) son obligatorios</p>
+                        <p class="campoObligatorio">Los campos marcados con un asterisco (<span class="asterisco">*</span>) son obligatorios</p>
                     </div>
                     <form>
                         <div class="col-md-10 mb-8">
                             <input type="hidden" id="UsuarioID">
                             <label for="username" class="form-label d-flex">UserName<p class="asterisco">*</p></label>
                             <input type="text" class="form-control" id="username" autocomplete="off">
+                            <span id="userNameError" class="textoError"></span>
                             <br>
                             <label for="email" class="form-label d-flex">Email<p class="asterisco">*</p></label>
                             <input type="email" class="form-control" id="email">
+                            <span id="emailError" class="textoError"></span>
                             <br>
                             <label for="password" class="form-label d-flex">Contraseña<p class="asterisco">*</p></label>
                             <input type="password" class="form-control" id="password" autocomplete="off">
+                            <span id="passwordError" class="textoError"></span>
                             <br>
                             <div>
                                 <label for="RolID" class="form-label d-flex">Elige el rol del usuario<p class="asterisco">*</p></label>
