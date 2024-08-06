@@ -15,8 +15,8 @@
                 <div class="col-auto">
                     <div class="input-group mt-3">
                         <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
-                        <input type="text" class="form-control inputBusqueda" placeholder="Buscar por nombre..." aria-label="Username"
-                            aria-describedby="basic-addon1">
+                        <input type="text" class="form-control inputBusqueda" placeholder="Buscar por nombre..."
+                            aria-label="Username" aria-describedby="basic-addon1">
                     </div>
                 </div>
             </div>
@@ -37,64 +37,84 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                        <p class="campoObligatorio m-0" style="color: red;">Todos los campos de este formulario son obligatorios</p>
+                    <div class="d-flex">
+                        <p class="campoObligatorio">Los campos marcados con un asterisco (</p>
+                        <p class="asterisco">*</p>
+                        <p class="campoObligatorio">) son obligatorios <b>|</b> Click en <i style="color: rgb(48, 126, 235);" class="fa-solid fa-circle-info"></i> Para más información.</p>
+                    </div>
                     <form>
                         <div class="row mb-2">
                             <div class="col-md-12">
                                 <input type="hidden" id="PersonaID">
-                                <label for="Nombre" class="form-label">Nombre Completo</label>
+                                <label for="Nombre" class="form-label d-flex">Nombre Completo<p class="asterisco">*</p>
+                                    </label>
                                 <input type="text" class="form-control" id="Nombre" maxlength="50"
                                     style="text-transform:uppercase">
-                                    <span id="nombrePersonaError" class="textoError"></span>
+                                <span id="nombrePersonaError" class="textoError"></span>
                             </div>
                             <hr style="color: rgb(46, 46, 46);">
                             <div class="col-md-6">
-                                <label for="Domicilio" class="form-label">Domicilio</label>
-                                <input type="text" class="form-control" id="Domicilio" maxlength="50" style="text-transform:uppercase">>
+                                <label for="Domicilio" class="form-label d-flex">Domicilio<p class="asterisco">*</p>
+                                    </label>
+                                <input type="text" class="form-control" id="Domicilio" maxlength="50"
+                                    style="text-transform:uppercase">>
                                 <span id="domicilioPersonaError" class="textoError"></span>
                             </div>
                             <div class="col-md-2">
-                                <label for="TipoDocumentoID" class="form-label">Tipo Doc.</label>
+                                <label for="TipoDocumentoID" class="form-label d-flex">Tipo Doc.<p class="asterisco">*
+                                    </p></label>
                                 @Html.DropDownList("TipoDocumentoID", null, htmlAttributes: new
                                     {
                                         @class =
                                          "form-control"
                                     });
-                                    <span id="tipoDocPersonaError" class="textoError"></span>
-                            </div>                             
+                                <span id="tipoDocPersonaError" class="textoError"></span>
+                            </div>
                             <div class="col-md-4">
-                                <label for="NroDoc" class="form-label">Número de Documento</label>
+                                <label for="NroDoc" class="form-label d-flex">Número de Documento<p class="asterisco">*</p>
+                            <div class="question-icon" onclick="openModalDni()">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </div>
+                            </label>
                                 <input type="number" class="form-control" id="NroDoc">
                                 <span id="nroDocPersonaError" class="textoError"></span>
                             </div>
                             <hr style="color: rgb(46, 46, 46);">
                             <div class="col-md-3">
-                                <label for="FechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                                <label for="FechaNacimiento" class="form-label d-flex">Fecha de Nac.<p
+                                        class="asterisco">*</p></label>
                                 <input type="datetime-local" id="FechaNacimiento" class="form-control">
                                 <span id="fechaPersonaError" class="textoError"></span>
                             </div>
                             <div class="col-md-4">
-                                <label for="Telefono" class="form-label">Numero de Télefono</label>
+                                <label for="Telefono" class="form-label d-flex">Numero de Télefono<p class="asterisco">*</p>
+                            <div class="question-icon" onclick="openModalTel()">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </div>
+                                </label>
                                 <input type="tel" class="form-control" id="Telefono">
                                 <span id="telefonoPersonaError" class="textoError"></span>
                             </div>
                             <div class="col-md-5">
-                                <label for="Email" class="form-label">Email</label>
+                                <label for="Email" class="form-label d-flex">Email<p class="asterisco">*</p></label>
                                 <input type="email" class="form-control" id="Email">
                                 <span id="emailPersonaError" class="textoError"></span>
                             </div>
                             <hr style="color: rgb(46, 46, 46);">
                             <div class="col-md-6">
-                                <label for="ProvinciaID" class="form-label">Provincia</label>
+                                <label for="ProvinciaID" class="form-label d-flex">Provincia<p class="asterisco">*</p>
+                                    </label>
                                 @Html.DropDownList("ProvinciaID", null, htmlAttributes: new { @class = "form-control" })
                             </div>
                             <div class="col-md-6">
-                                <label for="LocalidadID" class="form-label">Localidad</label>
+                                <label for="LocalidadID" class="form-label d-flex">Localidad<p class="asterisco">*</p>
+                                    </label>
                                 @Html.DropDownList("LocalidadID", null, htmlAttributes: new { @class = "form-control" })
                             </div>
                             <hr style="color: rgb(46, 46, 46);">
                             <div class="col-md-6">
-                                <label for="UsuarioID" class="form-label">Elige el usuario de esta persona</label>
+                                <label for="UsuarioID" class="form-label d-flex">Elige el usuario de esta persona<p
+                                        class="asterisco">*</p></label>
                                 @Html.DropDownList("UsuarioID", null, htmlAttributes: new
                                     {
                                         @class =
@@ -121,6 +141,41 @@
         data-bs-target="#modalPersonas" data-bs-target="#staticBackdrop" onclick="NuevaPersona()">
         <i class="fa-solid fa-plus"></i> Nueva Persona
     </button>
+</div>
+
+<!-- Modal Ayuda Form -->
+<div id="ModalTelefono" class="modalAyuda">
+    <div class="modal-contentAyuda">
+        <h2>Ejemplos de teléfonos</h2>
+        <hr>
+        <p>Formatos de números de celular válidos para Argentina.</p>
+        <p>• 12-3456</p>
+        <p>• 15 12-3456</p>
+        <p>• 3562 12-3456</p>
+        <p>• 3562 15 12-3456</p>
+        <p>• +54 9 3562 12-3456</p>
+        <hr>
+        <div class="modal-footerAyuda">
+            <button class="botonEntendido" onclick="closeModalTel()">Entendido</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ayuda Form -->
+<div id="ModalDni" class="modalAyuda">
+    <div class="modal-contentAyuda">
+        <h2>Ejemplos de Documentos</h2>
+        <hr>
+        <p>Formatos de DNI válidos para Argentina.</p>
+        <p>• 4429878 (7 dígitos)</p>
+        <p>• 44298786 (8 dígitos)</p>
+        <p>Formatos de CUIL/CUIT válidos para Argentina.</p>
+        <p>• 23-12345678-6</p>
+        <hr>
+        <div class="modal-footerAyuda">
+            <button class="botonEntendido" onclick="closeModalDni()">Entendido</button>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

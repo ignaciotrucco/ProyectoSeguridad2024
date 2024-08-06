@@ -70,7 +70,7 @@ $('#ProvinciaID').change(function () {
                 });
             }
         });
-    } 
+    }
     else {
         $('#LocalidadID').empty();
         $('#LocalidadID').append('<option value="">[SELECCIONE UNA LOCALIDAD...]</option>');
@@ -170,11 +170,11 @@ function GuardarPersona() {
             type: 'POST',
             dataType: 'json',
             success: function (resultado) {
-                
+
                 if (resultado != "") {
                     Swal.fire(resultado);
                 }
-                
+
                 ListadoPersonas();
             },
             error: function (xhr, status) {
@@ -313,4 +313,38 @@ function EliminarPersona(personaID) {
             });
         }
     });
+}
+
+function openModalTel() {
+    var modal = document.getElementById("ModalTelefono");
+    modal.style.display = "block";
+}
+
+function closeModalTel() {
+    var modal = document.getElementById("ModalTelefono");
+    modal.style.display = "none";
+}
+
+window.onclick = function (event) {
+    var modal = document.getElementById("ModalTelefono");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+function openModalDni() {
+    var modal = document.getElementById("ModalDni");
+    modal.style.display = "block";
+}
+
+function closeModalDni() {
+    var modal = document.getElementById("ModalDni");
+    modal.style.display = "none";
+}
+
+window.onclick = function (event) {
+    var modal = document.getElementById("ModalDni");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }

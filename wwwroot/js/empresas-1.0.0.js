@@ -296,3 +296,37 @@ function EliminarEmpresa(empresaID) {
         }
     });
 }
+
+function openModalTel() {
+    var modal = document.getElementById("ModalTelefono");
+    modal.style.display = "block";
+}
+
+function closeModalTel() {
+    var modal = document.getElementById("ModalTelefono");
+    modal.style.display = "none";
+}
+
+window.onclick = function (event) {
+    var modal = document.getElementById("ModalTelefono");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+function openModalCuit() {
+    var modal = document.getElementById("ModalCuit");
+    modal.style.display = "block";
+}
+
+function closeModalCuit() {
+    var modal = document.getElementById("ModalCuit");
+    modal.style.display = "none";
+}
+
+window.onclick = function (event) {
+    var modal = document.getElementById("ModalCuit");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
