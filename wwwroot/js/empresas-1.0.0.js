@@ -307,6 +307,12 @@ function closeModalTel() {
     modal.style.display = "none";
 }
 
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        closeModalTel();
+    }
+});
+
 window.onclick = function (event) {
     var modal = document.getElementById("ModalTelefono");
     if (event.target == modal) {
@@ -323,6 +329,12 @@ function closeModalCuit() {
     var modal = document.getElementById("ModalCuit");
     modal.style.display = "none";
 }
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        closeModalCuit();
+    }
+});
 
 window.onclick = function (event) {
     var modal = document.getElementById("ModalCuit");

@@ -100,6 +100,8 @@ function LimpiarModal() {
     document.getElementById("telefonoPersonaError").innerHTML = "";
     document.getElementById("fechaPersonaError").innerHTML = "";
     document.getElementById("emailPersonaError").innerHTML = "";
+    document.getElementById("localidadPersonaError").innerHTML = "";
+    document.getElementById("provinciaPersonaError").innerHTML = "";
 }
 
 function GuardarPersona() {
@@ -148,6 +150,16 @@ function GuardarPersona() {
 
     if (email == "") {
         $("#emailPersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El email de contacto es requerido.")
+        registrado = false;
+    }
+
+    if (localidadid == 0) {
+        $("#localidadPersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  La localidad es requerida.")
+        registrado = false;
+    }
+
+    if (localidadid == 0) {
+        $("#provinciaPersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  La provincia es requerida.")
         registrado = false;
     }
 
@@ -330,6 +342,12 @@ function closeModalTel() {
     modal.style.display = "none";
 }
 
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        closeModalTel();
+    }
+});
+
 window.onclick = function (event) {
     var modal = document.getElementById("ModalTelefono");
     if (event.target == modal) {
@@ -346,6 +364,12 @@ function closeModalDni() {
     var modal = document.getElementById("ModalDni");
     modal.style.display = "none";
 }
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        closeModalDni();
+    }
+});
 
 window.onclick = function (event) {
     var modal = document.getElementById("ModalDni");

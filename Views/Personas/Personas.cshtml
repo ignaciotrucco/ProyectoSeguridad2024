@@ -40,7 +40,7 @@
                     <div class="d-flex">
                         <p class="campoObligatorio">Los campos marcados con un asterisco (</p>
                         <p class="asterisco">*</p>
-                        <p class="campoObligatorio">) son obligatorios <b>|</b> Click en <i style="color: rgb(48, 126, 235);" class="fa-solid fa-circle-info"></i> Para más información.</p>
+                        <p class="campoObligatorio">) son obligatorios <b>|</b> Click en <i style="color: rgb(48, 126, 235);" class="fa-solid fa-circle-info"></i> para más información.</p>
                     </div>
                     <form>
                         <div class="row mb-2">
@@ -52,7 +52,6 @@
                                     style="text-transform:uppercase">
                                 <span id="nombrePersonaError" class="textoError"></span>
                             </div>
-                            <hr style="color: rgb(46, 46, 46);">
                             <div class="col-md-6">
                                 <label for="Domicilio" class="form-label d-flex">Domicilio<p class="asterisco">*</p>
                                     </label>
@@ -79,7 +78,6 @@
                                 <input type="number" class="form-control" id="NroDoc">
                                 <span id="nroDocPersonaError" class="textoError"></span>
                             </div>
-                            <hr style="color: rgb(46, 46, 46);">
                             <div class="col-md-3">
                                 <label for="FechaNacimiento" class="form-label d-flex">Fecha de Nac.<p
                                         class="asterisco">*</p></label>
@@ -100,18 +98,18 @@
                                 <input type="email" class="form-control" id="Email">
                                 <span id="emailPersonaError" class="textoError"></span>
                             </div>
-                            <hr style="color: rgb(46, 46, 46);">
                             <div class="col-md-6">
                                 <label for="ProvinciaID" class="form-label d-flex">Provincia<p class="asterisco">*</p>
                                     </label>
                                 @Html.DropDownList("ProvinciaID", null, htmlAttributes: new { @class = "form-control" })
+                                <span id="provinciaPersonaError" class="textoError"></span>
                             </div>
                             <div class="col-md-6">
                                 <label for="LocalidadID" class="form-label d-flex">Localidad<p class="asterisco">*</p>
                                     </label>
                                 @Html.DropDownList("LocalidadID", null, htmlAttributes: new { @class = "form-control" })
+                                <span id="localidadPersonaError" class="textoError"></span>
                             </div>
-                            <hr style="color: rgb(46, 46, 46);">
                             <div class="col-md-6">
                                 <label for="UsuarioID" class="form-label d-flex">Elige el usuario de esta persona<p
                                         class="asterisco">*</p></label>
@@ -144,7 +142,7 @@
 </div>
 
 <!-- Modal Ayuda Form -->
-<div id="ModalTelefono" class="modalAyuda">
+<div id="ModalTelefono" class="modalAyuda" onclick="closeModalTel()">
     <div class="modal-contentAyuda">
         <h2>Ejemplos de teléfonos</h2>
         <hr>
@@ -162,7 +160,7 @@
 </div>
 
 <!-- Modal Ayuda Form -->
-<div id="ModalDni" class="modalAyuda">
+<div id="ModalDni" class="modalAyuda" onclick="closeModalDni()">
     <div class="modal-contentAyuda">
         <h2>Ejemplos de Documentos</h2>
         <hr>
