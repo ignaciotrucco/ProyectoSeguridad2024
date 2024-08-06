@@ -330,3 +330,8 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 }
+
+$(document).ready(function(){
+    $('#Cuit').mask('00-00000000-0');
+    $('#telefono').mask('(00) 0000-000000');
+});

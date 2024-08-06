@@ -23,15 +23,15 @@ public class PersonasController : Controller
     public IActionResult Personas()
     {
         var tipoDocumentos = _context.TipoDocumentos.ToList();
-        tipoDocumentos.Add(new TipoDocumento {TipoDocumentoID = 0, Nombre = "[ . . . ]"});
+        tipoDocumentos.Add(new TipoDocumento { TipoDocumentoID = 0, Nombre = "[ . . . ]" });
         ViewBag.TipoDocumentoID = new SelectList(tipoDocumentos.OrderBy(t => t.Nombre), "TipoDocumentoID", "Nombre");
 
         var provincias = _context.Provincias.ToList();
-        provincias.Add(new Provincia {ProvinciaID = 0, Nombre = "[SELECCIONE UNA PROVINCIA...]"});
+        provincias.Add(new Provincia { ProvinciaID = 0, Nombre = "[SELECCIONE UNA PROVINCIA...]" });
         ViewBag.ProvinciaID = new SelectList(provincias.OrderBy(t => t.Nombre), "ProvinciaID", "Nombre");
 
         var localidades = _context.Localidades.ToList();
-        localidades.Add(new Localidad {LocalidadID = 0, Nombre = "[SELECCIONE UNA LOCALIDAD...]"});
+        localidades.Add(new Localidad { LocalidadID = 0, Nombre = "[SELECCIONE UNA LOCALIDAD...]" });
         ViewBag.LocalidadID = new SelectList(localidades.OrderBy(t => t.Nombre), "LocalidadID", "Nombre");
 
         var usuarios = _context.Users.ToList();
@@ -50,101 +50,110 @@ public class PersonasController : Controller
     }
 
 public JsonResult ListadoPersonas(int? PersonaID)
-{
-    var listadoPersonas = _context.Personas.Include(l => l.Localidad).Include(p => p.Localidad.Provincia).Include(p => p.TipoDocumentos).ToList();
-
-    if (PersonaID != null)
     {
-        listadoPersonas = _context.Personas.Where(l => l.PersonaID == PersonaID).ToList();
+        var listadoPersonas = _context.Personas.Include(l => l.Localidad).Include(p => p.Localidad.Provincia).Include(p => p.TipoDocumentos).ToList();
+
+        if (PersonaID != null)
+        {
+            listadoPersonas = _context.Personas.Where(l => l.PersonaID == PersonaID).ToList();
+        }
+
+        var personasMostrar = listadoPersonas
+        .Select(p => new VistaPersonas
+        {
+            PersonaID = p.PersonaID,
+            LocalidadID = p.LocalidadID,
+            LocalidadNombre = p.Localidad.Nombre,
+            ProvinciaID = p.Localidad.ProvinciaID,
+            ProvinciaNombre = p.Localidad.Provincia.Nombre,
+            TipoDocumentoID = p.TipoDocumentoID,
+            TipoDocumentoNombre = p.TipoDocumentos.Nombre,
+            UsuarioID = p.UsuarioID,
+            NombreCompleto = p.NombreCompleto,
+            FechaNacimiento = p.FechaNacimiento,
+            FechaNacimientoString = p.FechaNacimiento.ToString("dd/MM/yyyy"),
+            Telefono = p.Telefono,
+            Domicilio = p.Domicilio,
+            Email = p.Email,
+            NumeroDocumento = p.NumeroDocumento
+        }).ToList();
+
+        return Json(personasMostrar);
     }
 
-    var personasMostrar = listadoPersonas
-    .Select(p => new VistaPersonas
+    public JsonResult GuardarPersonas(int PersonaID, int LocalidadID, int TipoDocumentoID, string UsuarioID, string NombreCompleto, DateTime FechaNacimiento, string Telefono, string Domicilio, string Email, int NumeroDocumento)
     {
-        PersonaID = p.PersonaID,
-        LocalidadID = p.LocalidadID,
-        LocalidadNombre = p.Localidad.Nombre,
-        ProvinciaID = p.Localidad.ProvinciaID,
-        ProvinciaNombre = p.Localidad.Provincia.Nombre,
-        TipoDocumentoID = p.TipoDocumentoID,
-        TipoDocumentoNombre = p.TipoDocumentos.Nombre,
-        UsuarioID = p.UsuarioID,
-        NombreCompleto = p.NombreCompleto,
-        FechaNacimiento = p.FechaNacimiento,
-        FechaNacimientoString = p.FechaNacimiento.ToString("dd/MM/yyyy"),
-        Telefono = p.Telefono,
-        Domicilio = p.Domicilio,
-        Email = p.Email,
-        NumeroDocumento = p.NumeroDocumento
-    }).ToList();
+        string resultado = "";
 
-    return Json(personasMostrar);
-}
+        NombreCompleto = NombreCompleto.ToUpper();
+        Domicilio = Domicilio.ToUpper();
 
-public JsonResult GuardarPersonas(int PersonaID, int LocalidadID, int TipoDocumentoID, string UsuarioID, string NombreCompleto, DateTime FechaNacimiento, string Telefono, string Domicilio, string Email, int NumeroDocumento)
-{
-    string resultado = "";
-
-    NombreCompleto = NombreCompleto.ToUpper();
-    Domicilio = Domicilio.ToUpper();
-
-    if (PersonaID == 0)
-    {
-        var existePersona = _context.Personas.Where(e => e.NumeroDocumento == NumeroDocumento).Count();
-        if(existePersona == 0)
+        if (PersonaID == 0)
         {
-            var nuevaPersona = new Persona 
+            var existePersona = _context.Personas.Where(e => e.NumeroDocumento == NumeroDocumento).Count();
+            if (existePersona == 0)
             {
-                PersonaID = PersonaID,
-                LocalidadID = LocalidadID,
-                TipoDocumentoID = TipoDocumentoID,
-                UsuarioID = UsuarioID,
-                NombreCompleto = NombreCompleto,
-                FechaNacimiento = FechaNacimiento,
-                Telefono = Telefono,
-                Domicilio = Domicilio,
-                Email = Email,
-                NumeroDocumento = NumeroDocumento
-            };
-            _context.Add(nuevaPersona);
-            _context.SaveChanges();
-            resultado = "¡Persona agregada correctamente!";
+                var nuevaPersona = new Persona
+                {
+                    PersonaID = PersonaID,
+                    LocalidadID = LocalidadID,
+                    TipoDocumentoID = TipoDocumentoID,
+                    UsuarioID = UsuarioID,
+                    NombreCompleto = NombreCompleto,
+                    FechaNacimiento = FechaNacimiento,
+                    Telefono = Telefono,
+                    Domicilio = Domicilio,
+                    Email = Email,
+                    NumeroDocumento = NumeroDocumento
+                };
+                _context.Add(nuevaPersona);
+                _context.SaveChanges();
+                resultado = "¡Persona agregada correctamente!";
+            }
+            else
+            {
+                resultado = "Persona existente";
+            }
         }
         else
         {
-            resultado = "Persona existente";
+            var editarPersona = _context.Personas.Where(e => e.PersonaID == PersonaID).SingleOrDefault();
+            if (editarPersona != null)
+            {
+                var existePersonaEditar = _context.Personas.Where(e => e.NumeroDocumento == NumeroDocumento && e.PersonaID != PersonaID).Count();
+
+                if (existePersonaEditar == 0)
+                {
+                    editarPersona.LocalidadID = LocalidadID;
+                    editarPersona.TipoDocumentoID = TipoDocumentoID;
+                    editarPersona.UsuarioID = UsuarioID;
+                    editarPersona.NombreCompleto = NombreCompleto;
+                    editarPersona.FechaNacimiento = FechaNacimiento;
+                    editarPersona.Telefono = Telefono;
+                    editarPersona.Domicilio = Domicilio;
+                    editarPersona.Email = Email;
+                    editarPersona.NumeroDocumento = NumeroDocumento;
+                    _context.SaveChanges();
+                    resultado = "¡Persona editada correctamente!";
+                }
+                else {
+                    resultado = "Persona existente";
+                }
+            }
         }
+
+
+        return Json(resultado);
     }
-    else
+
+    public JsonResult EliminarPersona(int PersonaID)
     {
-        var editarPersona = _context.Personas.Where(e => e.PersonaID == PersonaID).SingleOrDefault();
-        if (editarPersona != null)
-        {
-            editarPersona.LocalidadID = LocalidadID;
-            editarPersona.TipoDocumentoID = TipoDocumentoID;
-            editarPersona.UsuarioID = UsuarioID;
-            editarPersona.NombreCompleto = NombreCompleto;
-            editarPersona.FechaNacimiento = FechaNacimiento;
-            editarPersona.Telefono = Telefono;
-            editarPersona.Domicilio = Domicilio;
-            editarPersona.Email = Email;
-            editarPersona.NumeroDocumento = NumeroDocumento;
-            _context.SaveChanges();
-            resultado = "¡Persona editada correctamente!";
-        }
+        var eliminarPersona = _context.Personas.Find(PersonaID);
+        _context.Remove(eliminarPersona);
+        _context.SaveChanges();
+
+        return Json(eliminarPersona);
     }
 
-
-    return Json(resultado);
 }
 
-public JsonResult EliminarPersona(int PersonaID)
-{
-    var eliminarPersona = _context.Personas.Find(PersonaID);
-    _context.Remove(eliminarPersona);
-    _context.SaveChanges();
-
-    return Json(eliminarPersona);
-}
-    
-}
