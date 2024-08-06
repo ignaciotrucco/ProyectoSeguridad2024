@@ -18,7 +18,7 @@ function ListadoPersonas() {
                 contenidoCard += `
             <div class="col-lg-3 col-md-3 col-sm-12">
                 <div class="card cardPersonas">
-                    <img src="../img/usuario-fondo-negro.png" class="card-img-top" alt="...">
+                    <img src="../img/usuario-fondo-negro.png" class="card-img-top">
                     <div class="card-body">
                         <h4 class="cardPersonas card-title">${persona.nombreCompleto}</h4>
                         <p class="cardPersonas card-text">${persona.tipoDocumentoNombre} - ${persona.numeroDocumento}</p>
