@@ -44,7 +44,7 @@
                     </div>
                     <form>
                         <div class="row mb-2">
-                            <div class="col-md-12">
+                            <div class="col-md-7">
                                 <input type="hidden" id="PersonaID">
                                 <label for="Nombre" class="form-label d-flex">Nombre Completo<p class="asterisco">*</p>
                                     </label>
@@ -52,6 +52,17 @@
                                     style="text-transform:uppercase">
                                 <span id="nombrePersonaError" class="textoError"></span>
                             </div>
+                            <div class="col-md-5">
+                                <label for="UsuarioID" class="form-label d-flex">Elige el usuario de esta persona<p
+                                        class="asterisco">*</p></label>
+                                @Html.DropDownList("UsuarioID", null, htmlAttributes: new
+                                    {
+                                        @class =
+                                         "form-control",
+                                        @id = "UsuarioID"
+                                    })
+                            </div>
+                            <hr style="color: rgb(46, 46, 46);">
                             <div class="col-md-6">
                                 <label for="Domicilio" class="form-label d-flex">Domicilio<p class="asterisco">*</p>
                                     </label>
@@ -98,6 +109,7 @@
                                 <input type="email" class="form-control" id="Email">
                                 <span id="emailPersonaError" class="textoError"></span>
                             </div>
+                            <hr style="color: rgb(46, 46, 46);">
                             <div class="col-md-6">
                                 <label for="ProvinciaID" class="form-label d-flex">Provincia<p class="asterisco">*</p>
                                     </label>
@@ -109,17 +121,7 @@
                                     </label>
                                 @Html.DropDownList("LocalidadID", null, htmlAttributes: new { @class = "form-control" })
                                 <span id="localidadPersonaError" class="textoError"></span>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="UsuarioID" class="form-label d-flex">Elige el usuario de esta persona<p
-                                        class="asterisco">*</p></label>
-                                @Html.DropDownList("UsuarioID", null, htmlAttributes: new
-                                    {
-                                        @class =
-                                         "form-control",
-                                        @id = "UsuarioID"
-                                    })
-                            </div>
+                            </div>                            
                         </div>
                     </form>
                 </div>

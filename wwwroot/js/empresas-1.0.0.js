@@ -19,6 +19,8 @@ function LimpiarModal() {
     $("#telefonoEmpresaError").html("");
     $("#emailEmpresaError").html("");
     $("#domicilioEmpresaError").html("");
+    $("#localidadEmpresaError").html("");
+    $("#provinciaEmpresaError").html("");
 }
 
 $('#ProvinciaID').change(function () {
@@ -140,6 +142,16 @@ function GuardarEmpresa() {
 
     if (domicilio == "") {
         $("#domicilioEmpresaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El domicilio de la empresa es requerido.")
+        registrado = false;
+    }
+
+    if (localidadID == 0) {
+        $("#localidadEmpresaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  La localidad es requerida.")
+        registrado = false;
+    }
+
+    if (localidadID == 0) {
+        $("#provinciaEmpresaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  La provincia es requerida.")
         registrado = false;
     }
 

@@ -104,7 +104,7 @@ h5 {
     font-size: 16px;
 }
 
-.question-icon :hover{
+.question-icon :hover {
     color: rgb(79, 144, 235);
     transition: 0.3s;
 }
@@ -252,7 +252,7 @@ label {
 
 .botonEntendido:hover {
     scale: 103% !important;
-    transition: ease-in-out 0.3s !important; 
+    transition: ease-in-out 0.3s !important;
 }
 
 .btn .fa-pen-to-square {
@@ -313,18 +313,21 @@ label {
     animation: fadeIn 0.4s ease-in-out;
     overflow: hidden;
     cursor: default;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-contentAyuda {
     background-color: #dddddd;
-    margin: 15% auto;
+    margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 30%;
     border-radius: 5px 5px 5px 5px;
 }
 
-.modal-contentAyuda h2, p{
+.modal-contentAyuda h2,
+p {
     font-family: 'textos13'
 }
 
