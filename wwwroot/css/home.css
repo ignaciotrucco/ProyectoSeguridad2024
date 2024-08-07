@@ -1,28 +1,26 @@
-body{
-    background-color: rgb(244, 244, 244);
+body {
+    background-color: #DFDFDF;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 2 1'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%23DFDFDF'/%3E%3Cstop offset='1' stop-color='%23AAAAAA'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23D9D6B2' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23D9D6B2' stop-opacity='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='c' gradientUnits='userSpaceOnUse' x1='0' y1='0' x2='2' y2='2'%3E%3Cstop offset='0' stop-color='%23D9D6B2' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23D9D6B2' stop-opacity='1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='0' y='0' fill='url(%23a)' width='2' height='1'/%3E%3Cg fill-opacity='0.39'%3E%3Cpolygon fill='url(%23b)' points='0 1 0 0 2 0'/%3E%3Cpolygon fill='url(%23c)' points='2 1 2 0 0 0'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: cover;
 }
 
-.carFondo {
-    background-color: black;
-    box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.671);
-}
-
+/* Encabezado */
 .encabezado {
-    height: 9vh;
-    background-color: rgb(255, 230, 0);
+    height: 10vh;
+    background-color: #ffea00;
     border-radius: 3px 3px 3px 3px;
     margin: 30px;
     cursor: default;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
 
-.encabezado:hover {
-    background-color: rgb(255, 233, 37);
-}
-
-.encabezado:hover h2 {
-    scale: 102%;
-    transition: ease-in-out 0.2s;
+/* Carousel */
+.carFondo {
+    background-color: black;
+    box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.671);
 }
 
 .carousel-indicators button:hover {
@@ -30,7 +28,7 @@ body{
 }
 
 .carousel-indicators button.active {
-    background-color: rgb(255, 230, 0);
+    background-color: #ffe600;
 }
 
 .carousel-indicators {
@@ -64,8 +62,38 @@ body{
     transform: translateX(0);
     transform-origin: center center;
 }
+/* Cards Permisos Usuarios */
+.container-fluid {
+    padding: 0;
+    margin: 13px;
+}
 
-/* 
+.card {
+    height: 100vh;
+    transition: ease-in-out 0.3s;
+    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.262);
+    border: none;
+    border-radius: 0px !important;
+}
+
+.card:hover {
+    scale: 101%;
+}
+
+/* @media (max-width: 767px) {
+    .col-md-8 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .card {
+        height: 60vh;
+    }
+} */
+
+
+
+/* Carousel empresas
 .white-gradient {
     background: linear-gradient(to right, white 0%, transparent 100%);
 } */
@@ -116,7 +144,7 @@ body{
     animation: scroll 40s linear infinite;
     display: flex;
     width: 3500px; /* Ajusta este valor según el ancho total de las imágenes */
-    /* top: 100%;
+/* top: 100%;
     gap: 50px;
 }
 

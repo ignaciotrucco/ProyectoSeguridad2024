@@ -41,18 +41,21 @@
                         <a class="navbar-brand"><img src="~/img/STVA_negro.png"  width="90" height="30"></a>
                     </div>
                 </nav>
-                
+
                 <!-- page content -->
                 <div class="container">
                     <main role="main" class="pb-3">
                         @RenderBody()
                     </main>
+                        <div class="loader"></div>
                 </div>
             </div>
         </div>
+
 }
 else
 {
+
             <div id="page-content-wrapper">
                     <div class="container">
                         <main role="main" class="pb-3">
@@ -68,6 +71,9 @@ else
     <script src="~/js/jspdf/jspdf.min.js"></script>
     <script src="~/js/jspdf/jspdf.plugin.autotable.js"></script>
     <script src="~/js/layout.js" asp-append-version="true"></script>
+    @* Script de Loader *@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="~/js/loader/loader.js" asp-append-version="true"></script>
     <script src="~/fontawesome/js/all.min.js"></script>
     <script src="~/js/mask/jquery.mask.js" asp-append-version="true"></script>
     <script src="~/js/sweetalert2.js"></script>
