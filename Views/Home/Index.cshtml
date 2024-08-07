@@ -4,70 +4,144 @@
 
 <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
 
-<!-- Encabezado -->
-<div class="encabezado text-center">
-  <h2 class="display-6">¡Bienvenido de nuevo, @User.Identity?.Name!</h2>
+
+<div class="card mt-4">
+  <div class="card-header">
+    <div class="m-3">
+      <h1>¡Bienvenido de nuevo, @User.Identity?.Name!</h1>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="carFondo m-3">
+      @* <img src="/img/STVAguardia_1_con_texto.png" width="500px" height="350px"> *@
+      <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="2"
+            aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="3"
+            aria-label="Slide 4"></button>
+          <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="4"
+            aria-label="Slide 5"></button>
+        </div>
+
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-bs-interval="7000">
+            <img src="/img/STVAguardia_1_con_texto.png" class="d-block w-100">
+          </div>
+          <div class="carousel-item" data-bs-interval="7000">
+            <img src="/img/STVAguardia_2_con_texto.png" class="d-block w-100">
+          </div>
+          <div class="carousel-item" data-bs-interval="7000">
+            <img src="/img/STVAguardia_3_con_texto.png" class="d-block w-100">
+          </div>
+          <div class="carousel-item" data-bs-interval="7000">
+            <img src="/img/STVAguardia_4_con_texto.png" class="d-block w-100">
+          </div>
+          <div class="carousel-item" data-bs-interval="7000">
+            <img src="/img/STVAguardia_5_con_texto.png" class="d-block w-100">
+          </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
+
+<hr>
+
+<div class="card mt-4">
+  <div class="card-header">
+    <div class="m-3">
+      <h1>¿Cómo funciona nuestro sistema?</h1>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="container-fluid m-3">
+      <div class="row col-md-12 g-4">
+        <div>
+          <div class="card tarjeta h-100">
+            <img src="/img/cardHome_1.png">
+          </div>
+        </div>
+        <div>
+          <div class="card tarjeta h-100">
+            <img src="/img/cardHome_2.png">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Encabezado -->
+@* <div class="encabezado text-center m-3">
+<h2 class="display-6">¡Bienvenido de nuevo, @User.Identity?.Name!</h2>
+</div> *@
 
 <!-- Carousel -->
-<div class="carFondo">
-  @* <img src="/img/STVAguardia_1_con_texto.png" width="500px" height="350px"> *@
-  <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="0" class="active"
-        aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="3" aria-label="Slide 4"></button>
-      <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="4" aria-label="Slide 5"></button>
-    </div>
-
-    <div class="carousel-inner">
-      <div class="carousel-item active" data-bs-interval="7000">
-        <img src="/img/STVAguardia_1_con_texto.png" class="d-block w-100">
-      </div>
-      <div class="carousel-item" data-bs-interval="7000">
-        <img src="/img/STVAguardia_2_con_texto.png" class="d-block w-100">
-      </div>
-      <div class="carousel-item" data-bs-interval="7000">
-        <img src="/img/STVAguardia_3_con_texto.png" class="d-block w-100">
-      </div>
-      <div class="carousel-item" data-bs-interval="7000">
-        <img src="/img/STVAguardia_4_con_texto.png" class="d-block w-100">
-      </div>
-      <div class="carousel-item" data-bs-interval="7000">
-        <img src="/img/STVAguardia_5_con_texto.png" class="d-block w-100">
-      </div>
-    </div>
-
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-    </button>
-  </div>
+@* <div class="carFondo m-3">
+<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+<div class="carousel-indicators">
+<button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="0" class="active"
+aria-current="true" aria-label="Slide 1"></button>
+<button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="1" aria-label="Slide 2"></button>
+<button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="2" aria-label="Slide 3"></button>
+<button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="3" aria-label="Slide 4"></button>
+<button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="4" aria-label="Slide 5"></button>
 </div>
-<hr style="margin-top: 35px;">
+
+<div class="carousel-inner">
+<div class="carousel-item active" data-bs-interval="7000">
+<img src="/img/STVAguardia_1_con_texto.png" class="d-block w-100">
+</div>
+<div class="carousel-item" data-bs-interval="7000">
+<img src="/img/STVAguardia_2_con_texto.png" class="d-block w-100">
+</div>
+<div class="carousel-item" data-bs-interval="7000">
+<img src="/img/STVAguardia_3_con_texto.png" class="d-block w-100">
+</div>
+<div class="carousel-item" data-bs-interval="7000">
+<img src="/img/STVAguardia_4_con_texto.png" class="d-block w-100">
+</div>
+<div class="carousel-item" data-bs-interval="7000">
+<img src="/img/STVAguardia_5_con_texto.png" class="d-block w-100">
+</div>
+</div>
+
+<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+</button>
+<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+</button>
+</div>
+</div> *@
 <!-- Encabezado -->
-<div class="encabezado text-center">
-  <h2 class="display-6">¿Cómo funciona nuestro sistema?</h2>
-</div>
+@* <div class="encabezado text-center m-3">
+<h2 class="display-6">¿Cómo funciona nuestro sistema?</h2>
+</div> *@
 
 <!-- Cards Permisos Usuarios -->
-<div class="container-fluid">
-  <div class="row col-md-12 g-4">
-    <div>
-      <div class="card h-100">
-        <img src="/img/cardHome_1.png">
-      </div>
-    </div>
-    <div>
-      <div class="card h-100">
-        <img src="/img/cardHome_2.png">
-      </div>
-    </div>
-  </div>
+@* <div class="container-fluid m-3">
+<div class="row col-md-12 g-4">
+<div>
+<div class="card h-100">
+<img src="/img/cardHome_1.png">
 </div>
-<hr style="margin-top: 35px;">
+</div>
+<div>
+<div class="card h-100">
+<img src="/img/cardHome_2.png">
+</div>
+</div>
+</div>
+</div> *@
 
 
 @*Carousel empresas
