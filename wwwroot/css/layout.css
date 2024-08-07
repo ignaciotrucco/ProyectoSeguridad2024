@@ -192,10 +192,6 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-#sidebar-wrapper.sidebar-wrapper-collapsed {
-  width: 300px; /* Debe coincidir con el valor del JavaScript */
-}
-
 a, .cerrarSesion {
   font-family: 'textos7';
   font-size: 16px;

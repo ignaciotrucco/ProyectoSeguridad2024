@@ -130,6 +130,7 @@ td {
     font-size: large;
     font-style: 'bold';
     cursor: default;
+    vertical-align: middle !important;
 }
 
 .datosPersona {
