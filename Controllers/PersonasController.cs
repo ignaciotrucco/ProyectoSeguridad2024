@@ -6,6 +6,7 @@ using ProyectoSeguridad2024.Data;
 using ProyectoFinal2024.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace ProyectoSeguridad2024.Controllers;
 
@@ -14,10 +15,12 @@ namespace ProyectoSeguridad2024.Controllers;
 public class PersonasController : Controller
 {
     private ApplicationDbContext _context;
+    private readonly UserManager<IdentityUser> _userManager;
 
-    public PersonasController(ApplicationDbContext context)
+    public PersonasController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
     {
         _context = context;
+        _userManager = userManager;
     }
 
     public IActionResult Personas()
@@ -35,7 +38,7 @@ public class PersonasController : Controller
         ViewBag.LocalidadID = new SelectList(localidades.OrderBy(t => t.Nombre), "LocalidadID", "Nombre");
 
         var usuarios = _context.Users.ToList();
-        ViewBag.UsuarioID = new SelectList(usuarios.OrderBy(t => t.Email), "Email", "Email");
+        ViewBag.emailUsuario = new SelectList(usuarios.OrderBy(t => t.Email), "Email", "Email");
 
         return View();
     }
@@ -81,8 +84,12 @@ public JsonResult ListadoPersonas(int? PersonaID)
         return Json(personasMostrar);
     }
 
-    public JsonResult GuardarPersonas(int PersonaID, int LocalidadID, int TipoDocumentoID, string UsuarioID, string NombreCompleto, DateTime FechaNacimiento, string Telefono, string Domicilio, string Email, int NumeroDocumento)
+    public JsonResult GuardarPersonas(int PersonaID, int LocalidadID, int TipoDocumentoID, string EmailUsuario, string NombreCompleto, DateTime FechaNacimiento, string Telefono, string Domicilio, string Email, int NumeroDocumento)
     {
+        var usuario = _userManager.FindByEmailAsync(EmailUsuario).Result;
+
+        var UsuarioID = usuario.Id;
+
         string resultado = "";
 
         NombreCompleto = NombreCompleto.ToUpper();
