@@ -1,12 +1,32 @@
 @{
     ViewData["Title"] = "Carga de Novedades";
 }
+<link rel="stylesheet" href="~/css/carganovedades.css" asp-append-version="true" />
 
+  <h1>Carga de Archivos</h1>
 
+  <input type="file" id="singleFileUpload" onchange="readURL(this)">
+  <input type="file" id="multipleFileUpload" multiple onchange="readURL(this)">
+  <img id="filePreview" style="display: none;" alt="Previsualizacion del archivo">
 
+  <button onclick="submitFiles()">Enviar Archivos</button>
 
-
-@* 
 @section Scripts {
     <script src="~/js/novedadesempleado-1.0.0.js"></script>
-} *@
+}
+
+@* <div class="card mt-4">
+    <div class="card-body">
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th scope="col" style="text-align: center">Nombre</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="tbody-novedades"></tbody>
+        </table>
+    </div>
+</div> *@
+
