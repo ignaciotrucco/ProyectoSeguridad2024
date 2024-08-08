@@ -48,45 +48,39 @@ function ImprimirTablaEmpresas() {
         styles: { fillColor: [255, 219, 88] }, // Color amarillo para el encabezado
         columnStyles: {
             0: {
-                halign: 'center',
                 cellWidth: 'auto',
-                fontSize: 7,
+                fontSize: 8,
                 fillColor: [255, 255, 255]
             },
 
-            1: { halign: 'center', 
+            1: { 
                 fontSize: 7, 
                 overflow: 'hidden', 
                 fillColor: [255, 255, 255] 
             },
 
             2: { 
-                halign: 'center',
                 fontSize: 7, 
                 fillColor: [255, 255, 255] 
             },
 
             3: { 
-                halign: 'center',
                 fontSize: 7,  
                 fillColor: [255, 255, 255] 
             },
 
-            4: { 
-                halign: 'center', 
+            4: {  
                 fontSize: 7, 
                 fillColor: [255, 255, 255] 
             },
 
             5: {
-                halign: 'center',
                 cellWidth: 'auto',
                 fontSize: 7,
                 fillColor: [255, 255, 255]
             },
             
             6: {
-                halign: 'center',
                 cellWidth: 'auto',
                 fontSize: 7,
                 fillColor: [255, 255, 255]

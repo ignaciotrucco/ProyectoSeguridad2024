@@ -6,6 +6,7 @@ using ProyectoSeguridad2024.Data;
 using ProyectoFinal2024.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace ProyectoSeguridad2024.Controllers;
 
@@ -14,10 +15,12 @@ namespace ProyectoSeguridad2024.Controllers;
 public class EmpresasController : Controller
 {
     private ApplicationDbContext _context;
+    private readonly UserManager<IdentityUser> _userManager;
 
-    public EmpresasController(ApplicationDbContext context)
+    public EmpresasController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
     {
         _context = context;
+        _userManager = userManager;
     }
 
     public IActionResult Empresas()
@@ -30,6 +33,9 @@ public class EmpresasController : Controller
         var localidades = _context.Localidades.ToList();
         localidades.Add(new Localidad { LocalidadID = 0, Nombre = "[SELECCIONE UNA LOCALIDAD...]" });
         ViewBag.LocalidadID = new SelectList(localidades.OrderBy(t => t.Nombre), "LocalidadID", "Nombre");
+
+        var usuarios = _context.Users.ToList();
+        ViewBag.UsuarioID = new SelectList(usuarios.OrderBy(t => t.Email), "Email", "Email");
 
         return View();
     }
@@ -74,6 +80,11 @@ public class EmpresasController : Controller
 
     public JsonResult GuardarEmpresas (int EmpresaID, int LocalidadID, string UsuarioID, string RazonSocial, string Cuit_Cdi, string Telefono, string Email, string Domicilio)
     {
+
+        var usuario = _userManager.FindByEmailAsync(UsuarioID).Result;
+
+        var UsuarioIDconvertido = usuario.Id;
+
         string resultado = "";
 
         RazonSocial = RazonSocial.ToUpper();
@@ -87,7 +98,7 @@ public class EmpresasController : Controller
                 var nuevaEmpresa = new Empresa {
                     EmpresaID = EmpresaID,
                     LocalidadID = LocalidadID,
-                    UsuarioID = UsuarioID,
+                    UsuarioID = UsuarioIDconvertido,
                     RazonSocial = RazonSocial,
                     Cuit_Cdi = Cuit_Cdi,
                     Telefono = Telefono,
@@ -112,7 +123,7 @@ public class EmpresasController : Controller
                 if (existeEmpresaEditar == 0)
                 {
                     editarEmpresa.LocalidadID = LocalidadID;
-                    editarEmpresa.UsuarioID = UsuarioID;
+                    editarEmpresa.UsuarioID = UsuarioIDconvertido;
                     editarEmpresa.RazonSocial = RazonSocial;
                     editarEmpresa.Cuit_Cdi = Cuit_Cdi;
                     editarEmpresa.Telefono = Telefono;

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ProyectoSeguridad2024.Controllers;
 
-[Authorize] 
+[Authorize]
 // Una vez creado el primer usuario descomentar
 
 
@@ -34,17 +34,28 @@ public class HomeController : Controller
         await CrearRolesyPrimerUsuario();
         // Una vez creado el primer usuario comentar
 
-            var usuarioLogueadoID = _userManager.GetUserId(HttpContext.User);
-            var persona = await _context.Personas.FirstOrDefaultAsync(p => p.UsuarioID == usuarioLogueadoID);
+        var usuarioLogueadoID = _userManager.GetUserId(HttpContext.User);
 
-        if (persona != null)
+        string nombreUsuario = "No se encontró el usuario";
+
+        var tieneRolUsuario = await _context.UserRoles.FirstOrDefaultAsync(p => p.UserId == usuarioLogueadoID);
+        if (tieneRolUsuario != null)
         {
-            ViewBag.PersonaNombre = persona.NombreCompleto;
+            //BUSCAMOS EL NOMBRE DEL ROL
+            var rolUsuario = await _context.Roles.FirstOrDefaultAsync(p => p.Id == tieneRolUsuario.RoleId);
+            if (rolUsuario.Name == "EMPLEADO" || rolUsuario.Name == "ADMINISTRADOR")
+            {
+                var persona = await _context.Personas.FirstOrDefaultAsync(p => p.UsuarioID == usuarioLogueadoID);
+                nombreUsuario = persona?.NombreCompleto ?? "Nombre no disponible";
+            }
+            else if (rolUsuario.Name == "CLIENTE")
+            {
+                var empresa = await _context.Empresas.FirstOrDefaultAsync(p => p.UsuarioID == usuarioLogueadoID);
+                nombreUsuario = empresa?.RazonSocial ?? "Razon social no disponible";
+            }
         }
-        else
-        {
-            ViewBag.PersonaNombre = "No se encontró el nombre de la persona";
-        }
+
+        ViewBag.NombreTitulo = nombreUsuario;
 
         return View();
     }

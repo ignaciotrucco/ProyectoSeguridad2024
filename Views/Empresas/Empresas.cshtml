@@ -114,8 +114,14 @@
                         <br>
                         <div class="row">
                             <div class="col-md-4 mb-6">
-                                <label for="UsuarioID" class="form-label d-flex">Usuario<p class="asterisco">*</p></label>
-                                <input type="text" id="UsuarioID" class="form-control">
+                                <label for="UsuarioID" class="form-label d-flex">Elija el usuario<p
+                                        class="asterisco">*</p></label>
+                                @Html.DropDownList("UsuarioID", null, htmlAttributes: new
+                                    {
+                                        @class =
+                                         "form-control",
+                                        @id = "UsuarioID"
+                                    })
                             </div>
                         </div>
                     </form>
