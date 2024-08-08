@@ -91,7 +91,7 @@ function LimpiarModal() {
     document.getElementById("Email").value = "";
     document.getElementById("ProvinciaID").value = 0;
     document.getElementById("LocalidadID").value = 0;
-    document.getElementById("UsuarioID").value = "";
+    document.getElementById("emailUsuario").value = "";
     document.getElementById("FechaNacimiento").value = 0;
     document.getElementById("nombrePersonaError").innerHTML = "";
     document.getElementById("domicilioPersonaError").innerHTML = "";
@@ -113,7 +113,7 @@ function GuardarPersona() {
     let telefono = document.getElementById("Telefono").value.trim();
     let email = document.getElementById("Email").value;
     let localidadid = document.getElementById("LocalidadID").value;
-    let usuarioid = document.getElementById("UsuarioID").value;
+    let emailUsuario = document.getElementById("emailUsuario").value;
     let fechanac = document.getElementById("FechaNacimiento").value;
 
     let registrado = true;
@@ -171,7 +171,7 @@ function GuardarPersona() {
                 PersonaID: personaid,
                 LocalidadID: localidadid,
                 TipoDocumentoID: tipdoc,
-                UsuarioID: usuarioid,
+                EmailUsuario: emailUsuario,
                 NombreCompleto: nombre,
                 FechaNacimiento: fechanac,
                 Telefono: telefono,
@@ -236,7 +236,7 @@ function ModalEditar(personaID) {
             document.getElementById("Email").value = mostrarPersona.email;
             document.getElementById("ProvinciaID").value = mostrarPersona.provinciaID;
             document.getElementById("LocalidadID").value = mostrarPersona.localidadID;
-            document.getElementById("UsuarioID").value = mostrarPersona.usuarioID;
+            document.getElementById("emailUsuario").value = mostrarPersona.usuarioID;
             
             //CONVERTIMOS LA FECHA DE NACIMIENTO EN FORMATO YYYY-MM-DD PARA PODER MOSTRARLO EN EL INPUT
             let fechaNacimiento = new Date(mostrarPersona.fechaNacimiento);

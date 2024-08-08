@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using ProyectoSeguridad2024.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProyectoSeguridad2024.Controllers;
 
@@ -32,6 +33,18 @@ public class HomeController : Controller
     {
         await CrearRolesyPrimerUsuario();
         // Una vez creado el primer usuario comentar
+
+            var usuarioLogueadoID = _userManager.GetUserId(HttpContext.User);
+            var persona = await _context.Personas.FirstOrDefaultAsync(p => p.UsuarioID == usuarioLogueadoID);
+
+        if (persona != null)
+        {
+            ViewBag.PersonaNombre = persona.NombreCompleto;
+        }
+        else
+        {
+            ViewBag.PersonaNombre = "No se encontró el nombre de la persona";
+        }
 
         return View();
     }
