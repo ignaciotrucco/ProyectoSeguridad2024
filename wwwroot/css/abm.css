@@ -367,12 +367,12 @@ p {
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    font-size: 0.8rem; /* Reducir el tamaño de letra */
+    font-size: 0.8rem; 
 }
 
 .table-responsive > .table {
     margin-bottom: 0;
-    min-width: 600px; /* Establecer un ancho mínimo para la tabla */
+    min-width: 600px;
 }
 
 .table-responsive > .table > thead > tr > th,
@@ -382,7 +382,7 @@ p {
 .table-responsive > .table > tbody > tr > td,
 .table-responsive > .table > tfoot > tr > td {
     white-space: nowrap;
-    padding: 0.5rem; /* Reducir el padding de las celdas */
+    padding: 0.5rem; 
 }
 
 @media (max-width: 767px) {
@@ -391,11 +391,11 @@ p {
         width: 100%;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-        font-size: 0.7rem; /* Reducir más el tamaño de letra en móviles */
+        font-size: 0.7rem; 
     }
 
     .table-responsive > .table {
-        min-width: 500px; /* Reducir el ancho mínimo en móviles */
+        min-width: 500px !important; 
     }
 
     .table-responsive > .table > thead > tr > th,
@@ -404,8 +404,19 @@ p {
     .table-responsive > .table > thead > tr > td,
     .table-responsive > .table > tbody > tr > td,
     .table-responsive > .table > tfoot > tr > td {
-        padding: 0.25rem; /* Reducir más el padding en móviles */
+        padding: 0.25rem; 
     }
+
+    th{
+        text-align: left !important;
+        font-size: medium !important;
+    }
+
+    td{
+        text-align: left !important;
+        font-size: medium !important;
+    }
+
 }
 
 @media (min-width: 768px) {
