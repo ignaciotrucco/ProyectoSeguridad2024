@@ -48,11 +48,13 @@ body {
     transform: translateX(0);
     transform-origin: center center;
 }
+
 /* Cards Permisos Usuarios */
 .tarjeta {
     transition: ease-in-out 0.3s;
     box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.262);
 }
+
 .tarjeta:hover {
     scale: 101%;
 }
@@ -65,18 +67,17 @@ body {
     scale: 101%;
 }
 
-/* @media (max-width: 767px) {
-    .col-md-8 {
-        flex: 0 0 100%;
-        max-width: 100%;
+@media (max-width: 767px) {
+    .carousel-indicators {
+        bottom: 1px;
+        position: absolute;
+        z-index: 5;
     }
 
-    .card {
-        height: 60vh;
+    .tarjeta {
+        margin-right: 25px !important;
     }
-} */
-
-
+}
 
 /* Carousel empresas
 .white-gradient {

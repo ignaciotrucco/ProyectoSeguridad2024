@@ -7,11 +7,6 @@ body {
     background-color: #DFDFDF;
 }
 
-.encabezado {
-    height: 10vh;
-    background-color: rgb(242, 255, 0);
-}
-
 .hover-icon {
     display: inline-flex;
     align-items: center;
@@ -117,6 +112,29 @@ h5 {
     justify-content: center;
 }
 
+/* Card Personas */
+.cardPersonas {
+    background-color: #5a5a5a;
+    color: white;
+    font-family: 'textos13';
+    margin-bottom: 1rem;
+
+}
+
+.cardbodyPersonas {
+    height: 140px;
+  }
+
+@media (max-width: 767px) {
+    .cardPersonas {
+        margin-bottom: 1rem;
+        font-size:large;
+    }
+    .cardbodyPersonas {
+        height: 100px;
+      }
+}
+
 h1 {
     font-family: 'textos5';
     cursor: default;
@@ -146,12 +164,6 @@ td {
 label {
     font-family: 'textos3';
     color: white;
-}
-
-.cardPersonas {
-    background-color: #5a5a5a;
-    color: white;
-    font-family: 'textos13';
 }
 
 /* Botones */
@@ -327,7 +339,7 @@ label {
     margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 30%;
+    width: 80%;
     border-radius: 5px 5px 5px 5px;
 }
 
@@ -347,6 +359,60 @@ p {
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+}
+
+/* Tabla responsiva */
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 0.8rem; /* Reducir el tamaño de letra */
+}
+
+.table-responsive > .table {
+    margin-bottom: 0;
+    min-width: 600px; /* Establecer un ancho mínimo para la tabla */
+}
+
+.table-responsive > .table > thead > tr > th,
+.table-responsive > .table > tbody > tr > th,
+.table-responsive > .table > tfoot > tr > th,
+.table-responsive > .table > thead > tr > td,
+.table-responsive > .table > tbody > tr > td,
+.table-responsive > .table > tfoot > tr > td {
+    white-space: nowrap;
+    padding: 0.5rem; /* Reducir el padding de las celdas */
+}
+
+@media (max-width: 767px) {
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        font-size: 0.7rem; /* Reducir más el tamaño de letra en móviles */
+    }
+
+    .table-responsive > .table {
+        min-width: 500px; /* Reducir el ancho mínimo en móviles */
+    }
+
+    .table-responsive > .table > thead > tr > th,
+    .table-responsive > .table > tbody > tr > th,
+    .table-responsive > .table > tfoot > tr > th,
+    .table-responsive > .table > thead > tr > td,
+    .table-responsive > .table > tbody > tr > td,
+    .table-responsive > .table > tfoot > tr > td {
+        padding: 0.25rem; /* Reducir más el padding en móviles */
+    }
+}
+
+@media (min-width: 768px) {
+    .modal-contentAyuda {
+        width: 30%;
+        margin-top: 850px;
+    }
 }
 
 @keyframes fadeIn {
