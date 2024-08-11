@@ -330,8 +330,6 @@ label {
     animation: fadeIn 0.4s ease-in-out;
     overflow: hidden;
     cursor: default;
-    justify-content: center;
-    align-items: center;
 }
 
 .modal-contentAyuda {
@@ -422,7 +420,7 @@ p {
 @media (min-width: 768px) {
     .modal-contentAyuda {
         width: 30%;
-        margin-top: 850px;
+        top: 0 !important;
     }
 }
 
