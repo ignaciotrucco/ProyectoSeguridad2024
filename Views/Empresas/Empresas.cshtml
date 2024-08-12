@@ -5,15 +5,15 @@
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
 <!-- Encabezado ABM -->
-<div class="card mt-4">
+<div class="card m-4">
     <div class="card-body">
-        <div class="container mt-3">
+        <div class="mt-3">
             <div class="row">
                 <div class="col-auto me-auto">
-                    <h1 class="display-5 hover-icon">Empresas <i class="fas fa-building icon"></i></h1>
+                    <h1 class="hover-icon">EMPRESAS <i class="fas fa-building icon"></i></h1>
                 </div>
                 <div class="col-auto">
-                    <button class="btn btnImprimir mt-3" onclick="ImprimirTablaEmpresas()">
+                    <button class="btn btnImprimir mt-2" onclick="ImprimirTablaEmpresas()">
                         <i class="fa-solid fa-download"></i>
                         <span class="btn-text">Imprimir</span>
                     </button>
@@ -24,19 +24,19 @@
 </div>
 
 <!-- Tabla -->
-<div class="card mt-4">
+<div class="card m-4">
     <div class="card-body">
         <div class="table-responsive">
         <table class="table table-striped mt-3" id="imprimir-tabla">
             <thead>
                 <tr>
-                    <th scope="col" style="text-align: center">Razón Social</th>
+                    <th scope="col" style="text-align: center">RAZÓN SOCIAL</th>
                     <th scope="col" style="text-align: center">CUIT</th>
-                    <th scope="col" style="text-align: center">Teléfono</th>
-                    <th scope="col" style="text-align: center">Email</th>
-                    <th scope="col" style="text-align: center">Provincia</th>
-                    <th scope="col" style="text-align: center">Localidad</th>
-                    <th scope="col" style="text-align: center">Domicilio</th>
+                    <th scope="col" style="text-align: center">TELÉFONO</th>
+                    <th scope="col" style="text-align: center">EMAIL</th>
+                    <th scope="col" style="text-align: center">PROVINCIA</th>
+                    <th scope="col" style="text-align: center">LOCALIDAD</th>
+                    <th scope="col" style="text-align: center">DOMICILIO</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>

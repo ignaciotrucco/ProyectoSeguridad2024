@@ -8,7 +8,7 @@ function ImprimirTablaEmpresas() {
         var pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
 
         //FOOTER
-        var str = "Pagina" + data.pageCount;
+        var str = "Página " + data.pageCount;
         // Total page number plugin only available in jspdf v1.0+
         if (typeof doc.putTotalPages == 'function') {
             str = str + " de " + totalPagesExp;
@@ -83,6 +83,243 @@ function ImprimirTablaEmpresas() {
             6: {
                 cellWidth: 'auto',
                 fontSize: 7,
+                fillColor: [255, 255, 255]
+            },
+        },
+        margin: { top: 10 },
+    });
+
+    // ESTO SE LLAMA ANTES DE ABRIR EL PDF PARA QUE MUESTRE EN EL PDF EL NRO TOTAL DE PAGINAS. ACA CALCULA EL TOTAL DE PAGINAS.
+    if (typeof doc.putTotalPages === 'function') {
+        doc.putTotalPages(totalPagesExp);
+    }
+
+    //doc.save('InformeSistema.pdf')
+
+    var string = doc.output('datauristring');
+    var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
+
+    var x = window.open();
+    x.document.open();
+    x.document.write(iframe);
+    x.document.close();
+}
+
+function ImprimirTablaProvincias() {
+    var doc = new jsPDF();
+
+    var totalPagesExp = "{total_pages_count_string}"
+    var pageContent = function (data) {
+
+        var pageHeight = doc.internal.pageSize.height || doc.internal.pageSize.getHeight();
+        var pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
+
+        //FOOTER
+        var str = "Página " + data.pageCount;
+        // Total page number plugin only available in jspdf v1.0+
+        if (typeof doc.putTotalPages == 'function') {
+            str = str + " de " + totalPagesExp;
+        }
+
+        //ESTABLECER ANCHO DE LINEA
+        doc.setLineWidth(8);
+
+        //ESTABLECER COLOR DE LINEA
+        doc.setDrawColor(238, 238, 238);
+
+        //DIBUJAR UNA LINEA HORIZONTAL
+        doc.line(14, pageHeight - 11, 196, pageHeight - 11);
+
+        //ESTABLECER TAMAÑO DE FUENTE
+        doc.setFontSize(10);
+
+        //ESTABLECER ESTILO DE FUENTE A NEGRITA
+        doc.setFontStyle('bold');
+
+        //AGREGAR TEXTO AL PIE DE PAGINA
+        doc.text(str, 17, pageHeight - 10);
+    };
+
+    var element = document.getElementById("imprimir-tabla");
+
+    //CONVERTIR TABLA HTML A JSON
+    var res = doc.autoTableHtmlToJson(element);
+
+    // FILTRADO DE COLUMNAS QUE NO SE QUIERE MOSTRAR
+    const filtrarColumnas = res.columns.filter((_, index) => index !== 1 && index !== 2);
+    const filtrarData = res.data.map(row => row.filter((_, index) => index !== 1 && index !== 2));
+
+    doc.autoTable(filtrarColumnas, filtrarData, {
+        addPageContent: pageContent,
+        theme: 'grid',
+        styles: { fillColor: [255, 219, 88], fontSize: 12 }, // Color amarillo para el encabezado
+        columnStyles: {
+            0: {
+                cellWidth: 'auto',
+                fontSize: 12,
+                fillColor: [255, 255, 255]
+            },
+        },
+        margin: { top: 10 },
+    });
+
+    // ESTO SE LLAMA ANTES DE ABRIR EL PDF PARA QUE MUESTRE EN EL PDF EL NRO TOTAL DE PAGINAS. ACA CALCULA EL TOTAL DE PAGINAS.
+    if (typeof doc.putTotalPages === 'function') {
+        doc.putTotalPages(totalPagesExp);
+    }
+
+    //doc.save('InformeSistema.pdf')
+
+    var string = doc.output('datauristring');
+    var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
+
+    var x = window.open();
+    x.document.open();
+    x.document.write(iframe);
+    x.document.close();
+}
+
+function ImprimirTablaLocalidades() {
+    var doc = new jsPDF();
+
+    var totalPagesExp = "{total_pages_count_string}"
+    var pageContent = function (data) {
+
+        var pageHeight = doc.internal.pageSize.height || doc.internal.pageSize.getHeight();
+        var pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
+
+        //FOOTER
+        var str = "Página " + data.pageCount;
+        // Total page number plugin only available in jspdf v1.0+
+        if (typeof doc.putTotalPages == 'function') {
+            str = str + " de " + totalPagesExp;
+        }
+
+        //ESTABLECER ANCHO DE LINEA
+        doc.setLineWidth(8);
+
+        //ESTABLECER COLOR DE LINEA
+        doc.setDrawColor(238, 238, 238);
+
+        //DIBUJAR UNA LINEA HORIZONTAL
+        doc.line(14, pageHeight - 11, 196, pageHeight - 11);
+
+        //ESTABLECER TAMAÑO DE FUENTE
+        doc.setFontSize(10);
+
+        //ESTABLECER ESTILO DE FUENTE A NEGRITA
+        doc.setFontStyle('bold');
+
+        //AGREGAR TEXTO AL PIE DE PAGINA
+        doc.text(str, 17, pageHeight - 10);
+    };
+
+    var element = document.getElementById("imprimir-tabla");
+
+    //CONVERTIR TABLA HTML A JSON
+    var res = doc.autoTableHtmlToJson(element);
+
+    // FILTRADO DE COLUMNAS QUE NO SE QUIERE MOSTRAR
+    const filtrarColumnas = res.columns.filter((_, index) => index !== 3 && index !== 4);
+    const filtrarData = res.data.map(row => row.filter((_, index) => index !== 3 && index !== 4));
+
+    doc.autoTable(filtrarColumnas, filtrarData, {
+        addPageContent: pageContent,
+        theme: 'grid',
+        styles: { fillColor: [255, 219, 88], fontSize: 12 }, // Color amarillo para el encabezado
+        columnStyles: {
+            0: {
+                cellWidth: 'auto',
+                fontSize: 12,
+                fillColor: [255, 255, 255]
+            },
+            1: {
+                cellWidth: 'auto',
+                fontSize: 12,
+                fillColor: [255, 255, 255]
+            },
+            2: {
+                cellWidth: 'auto',
+                fontSize: 12,
+                fillColor: [255, 255, 255]
+            },
+        },
+        margin: { top: 10 },
+    });
+
+    // ESTO SE LLAMA ANTES DE ABRIR EL PDF PARA QUE MUESTRE EN EL PDF EL NRO TOTAL DE PAGINAS. ACA CALCULA EL TOTAL DE PAGINAS.
+    if (typeof doc.putTotalPages === 'function') {
+        doc.putTotalPages(totalPagesExp);
+    }
+
+    //doc.save('InformeSistema.pdf')
+
+    var string = doc.output('datauristring');
+    var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
+
+    var x = window.open();
+    x.document.open();
+    x.document.write(iframe);
+    x.document.close();
+}
+
+function ImprimirTablaUsuarios() {
+    var doc = new jsPDF();
+
+    var totalPagesExp = "{total_pages_count_string}"
+    var pageContent = function (data) {
+
+        var pageHeight = doc.internal.pageSize.height || doc.internal.pageSize.getHeight();
+        var pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
+
+        //FOOTER
+        var str = "Página " + data.pageCount;
+        // Total page number plugin only available in jspdf v1.0+
+        if (typeof doc.putTotalPages == 'function') {
+            str = str + " de " + totalPagesExp;
+        }
+
+        //ESTABLECER ANCHO DE LINEA
+        doc.setLineWidth(8);
+
+        //ESTABLECER COLOR DE LINEA
+        doc.setDrawColor(238, 238, 238);
+
+        //DIBUJAR UNA LINEA HORIZONTAL
+        doc.line(14, pageHeight - 11, 196, pageHeight - 11);
+
+        //ESTABLECER TAMAÑO DE FUENTE
+        doc.setFontSize(10);
+
+        //ESTABLECER ESTILO DE FUENTE A NEGRITA
+        doc.setFontStyle('bold');
+
+        //AGREGAR TEXTO AL PIE DE PAGINA
+        doc.text(str, 17, pageHeight - 10);
+    };
+
+    var element = document.getElementById("imprimir-tabla");
+
+    //CONVERTIR TABLA HTML A JSON
+    var res = doc.autoTableHtmlToJson(element);
+
+    // FILTRADO DE COLUMNAS QUE NO SE QUIERE MOSTRAR
+    const filtrarColumnas = res.columns.filter((_, index) => index !== 2 && index !== 3);
+    const filtrarData = res.data.map(row => row.filter((_, index) => index !== 2 && index !== 3));
+
+    doc.autoTable(filtrarColumnas, filtrarData, {
+        addPageContent: pageContent,
+        theme: 'grid',
+        styles: { fillColor: [255, 219, 88], fontSize: 12 }, // Color amarillo para el encabezado
+        columnStyles: {
+            0: {
+                cellWidth: 'auto',
+                fontSize: 12,
+                fillColor: [255, 255, 255]
+            },
+            1: {
+                cellWidth: 'auto',
+                fontSize: 12,
                 fillColor: [255, 255, 255]
             },
         },

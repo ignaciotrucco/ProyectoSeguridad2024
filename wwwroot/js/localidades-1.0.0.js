@@ -36,10 +36,12 @@ function ListadoLocalidades() {
 
             $.each(localidadesMostrar, function (index, localidad) {
 
+                let datoNulo = localidad.codigoPostal ?? "----";
+
                 contenidoTabla += `
                 <tr>
                     <td style="text-align: center">${localidad.nombre}</td>
-                    <td style="text-align: center">${localidad.codigoPostal}</td>
+                    <td style="text-align: center">${datoNulo}</td>
                     <td style="text-align: center">${localidad.provinciaNombre}</td>
                     <td style="text-align: right">
                     <button type="button" class="btn" title="Editar" onclick="ModalEditar(${localidad.localidadID})">

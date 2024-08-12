@@ -5,15 +5,15 @@
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
 <!-- Encabezado ABM --> 
-<div class="card mt-4">
+<div class="card m-4">
     <div class="card-body">
-        <div class="container mt-3">
+        <div class="mt-3">
             <div class="row">
                 <div class="col-auto me-auto">
-                    <h1 class="display-5 hover-icon">Localidades <i class="fas fa-map-location-dot icon"></i></h1>
+                    <h1 class="hover-icon">LOCALIDADES <i class="fas fa-map-location-dot icon"></i></h1>
                 </div>
                 <div class="col-auto">
-                    <button class="btn btnImprimir mt-3">
+                    <button class="btn btnImprimir mt-2" onclick="ImprimirTablaLocalidades()">
                         <i class="fa-solid fa-download"></i>
                         <span class="btn-text">Imprimir</span>
                     </button>
@@ -24,15 +24,15 @@
 </div>
 
 <!-- Tabla --> 
-<div class="card mt-4">
+<div class="card m-4">
     <div class="card-body">
         <div class="table-responsive">
-        <table class="table table-striped mt-3">
+        <table class="table table-striped mt-3" id="imprimir-tabla">
             <thead>
                 <tr>
-                    <th scope="col" style="text-align: center">Nombre</th>
-                    <th scope="col" style="text-align: center">Código Postal</th>
-                    <th scope="col" style="text-align: center">Provincia</th>
+                    <th scope="col" style="text-align: center">NOMBRE</th>
+                    <th scope="col" style="text-align: center">CÓDIGO POSTAL</th>
+                    <th scope="col" style="text-align: center">PROVINCIA</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
@@ -93,4 +93,5 @@
 
 @section Scripts {
     <script src="~/js/localidades-1.0.0.js"></script>
+    <script src="~/js/impresiones.js"></script>
 }
