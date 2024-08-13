@@ -21,14 +21,14 @@ body {
 }
 
 .inputBusqueda:hover {
-    background-color: rgb(222, 222, 222) !important;
+    background-color: rgb(179, 179, 179) !important;
     border: black !important;
     color: black !important;
     transition: ease-in-out 0.3s !important;
 }
 
 .inputBusqueda:focus {
-    background-color: rgb(222, 222, 222) !important;
+    background-color: rgb(190, 190, 190) !important;
     border: black !important;
     color: black !important;
 }
@@ -121,9 +121,9 @@ h5 {
 
 }
 
-.cardbodyPersonas {
+/* .cardbodyPersonas {
     height: 140px;
-  }
+  } */
 
 @media (max-width: 767px) {
     .cardPersonas {
