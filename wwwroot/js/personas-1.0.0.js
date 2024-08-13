@@ -30,10 +30,10 @@ function ListadoPersonas() {
                         <li class="datosPersona list-group-item">${persona.email}</li>
                         <li class="datosPersona list-group-item">Nacido el: ${persona.fechaNacimientoString}</li>
                         <li class="btnPersonas list-group-item">
-                        <button type="button" class="btn btnGuardar" title="Editar" onclick="ModalEditar(${persona.personaID})">
+                        <button type="button" class="btn btn-dark" title="Editar" onclick="ModalEditar(${persona.personaID})">
                         Editar
                         </button>
-                        <button type="button" class="btn btnCancelar" title="Eliminar" onclick="EliminarPersona(${persona.personaID})">
+                        <button type="button" class="btn btn-dark" title="Eliminar" onclick="EliminarPersona(${persona.personaID})">
                         Eliminar
                         </button>
                         </li>

@@ -144,12 +144,12 @@ th {
     font-family: 'textos3';
     font-weight: 'bold';
     cursor: default;
-    font-size: larger;
+    font-size: medium;
 }
 
 td {
     font-family: 'textos13';
-    font-size: large;
+    font-size: medium;
     font-style: 'bold';
     cursor: default;
     vertical-align: middle !important;
@@ -273,7 +273,7 @@ label {
 }
 
 .btn .fa-pen-to-square {
-    color: #cb920dcf;
+    color: rgb(49, 48, 48);
 }
 
 .btn .fa-pen-to-square:focus {
@@ -283,7 +283,7 @@ label {
 .btn .fa-pen-to-square:hover {
     scale: 103%;
     transition: ease-in-out 0.3s;
-    color: #ffb200;
+    color: rgba(49, 48, 48, 0.445);
 }
 
 .btn:focus {
@@ -292,7 +292,7 @@ label {
 }
 
 .btn .fa-trash {
-    color: rgba(68, 0, 0, 0.76);
+    color: black;
 }
 
 .btn .fa-trash:active {
@@ -407,12 +407,12 @@ p {
 
     th{
         text-align: left !important;
-        font-size: medium !important;
+        font-size: small !important;
     }
 
     td{
         text-align: left !important;
-        font-size: medium !important;
+        font-size: small !important;
     }
 
 }
