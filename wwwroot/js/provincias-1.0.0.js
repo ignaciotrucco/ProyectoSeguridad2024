@@ -62,6 +62,8 @@ function ListadoProvincias() {
                 icon: "error",
                 title: "Oops...",
                 text: "Disculpe, existió un problema al cargar el listado",
+                timer: 2000,
+                timerProgressBar: true
             });
         }
     });
@@ -111,6 +113,8 @@ function GuardarRegistros() {
                     icon: "error",
                     title: "Oops...",
                     text: "Disculpe, existió un problema al guardar la provincia",
+                    timer: 2000,
+                    timerProgressBar: true
                 });;
             }
         });
@@ -148,6 +152,8 @@ function ModalEditar(provinciaID) {
                 icon: "error",
                 title: "Oops...",
                 text: "Disculpe, existió un problema al cargar el listado",
+                timer: 2000,
+                timerProgressBar: true
             });
         }
     });
@@ -190,6 +196,8 @@ function EliminarProvincia(provinciaID) {
                             icon: "error",
                             title: "Oops...",
                             text: "No se puede eliminar, existen registros asociados",
+                            timer: 2000,
+                            timerProgressBar: true
                         });
                     }
                     ListadoProvincias();
@@ -203,6 +211,8 @@ function EliminarProvincia(provinciaID) {
                         icon: "error",
                         title: "Oops...",
                         text: "Disculpe, existió un problema al eliminar la provincia",
+                        timer: 2000,
+                        timerProgressBar: true
                     });
                 }
             });
@@ -210,7 +220,9 @@ function EliminarProvincia(provinciaID) {
             swalWithBootstrapButtons.fire({
                 title: "¡Borrado!",
                 text: "Su registro ha sido eliminado.",
-                icon: "success"
+                icon: "success",
+                timer: 2000,
+                timerProgressBar: true
             });
         } else if (
             /* Read more about handling dismissals below */
@@ -219,7 +231,9 @@ function EliminarProvincia(provinciaID) {
             swalWithBootstrapButtons.fire({
                 title: "Anulado",
                 text: "Tu registro está a salvo :)",
-                icon: "error"
+                icon: "error",
+                timer: 2000,
+                timerProgressBar: true
             });
         }
     });

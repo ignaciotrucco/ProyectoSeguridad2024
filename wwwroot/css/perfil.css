@@ -27,6 +27,7 @@ h4 {
     padding: 10px;
     margin-top: 2rem;
     box-shadow: 2px 2px 1px 0px rgba(0, 0, 0, 0.349);
+    margin-left: 2rem;
 }
 
 .col-md-6 {
@@ -65,4 +66,14 @@ input {
 input{
     border-color:  #7e7e7e !important;
     background-color: rgb(235, 235, 235) !important;
+}
+
+@media (max-width: 767px) {
+    .navPerfil {
+        padding: 5px !important;
+        margin-right: 1rem !important;
+        margin-left: 1rem !important;
+        box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.349) !important;
+    }
+
 }

@@ -102,6 +102,8 @@ function ListadoEmpresas() {
                 icon: "error",
                 title: "Oops...",
                 text: "Disculpe, existió un problema al cargar el listado",
+                timer: 2000,
+                timerProgressBar: true
             });
         }
     });
@@ -184,6 +186,8 @@ function GuardarEmpresa() {
                     icon: "error",
                     title: "Oops...",
                     text: "Disculpe, existió un problema al guardar la empresa",
+                    timer: 2000,
+                    timerProgressBar: true
                 });
             }
         });
@@ -230,6 +234,8 @@ function AbrirModalEditar(empresaID) {
                 icon: "error",
                 title: "Oops...",
                 text: "Disculpe, existió un problema al cargar el listado",
+                timer: 2000,
+                timerProgressBar: true
             });
         }
     });
@@ -287,6 +293,8 @@ function EliminarEmpresa(empresaID) {
                         icon: "error",
                         title: "Oops...",
                         text: "Disculpe, existió un problema al eliminar la empresa",
+                        timer: 2000,
+                        timerProgressBar: true
                     });
                 }
             });
@@ -294,7 +302,9 @@ function EliminarEmpresa(empresaID) {
             swalWithBootstrapButtons.fire({
                 title: "¡Borrado!",
                 text: "Su registro ha sido eliminado.",
-                icon: "success"
+                icon: "success",
+                timer: 2000,
+                timerProgressBar: true
             });
         } else if (
             /* Read more about handling dismissals below */
@@ -303,7 +313,9 @@ function EliminarEmpresa(empresaID) {
             swalWithBootstrapButtons.fire({
                 title: "Anulado",
                 text: "Tu registro está a salvo :)",
-                icon: "error"
+                icon: "error",
+                timer: 2000,
+                timerProgressBar: true
             });
         }
     });

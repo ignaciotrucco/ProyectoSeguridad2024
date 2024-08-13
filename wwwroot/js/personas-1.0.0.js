@@ -194,6 +194,8 @@ function GuardarPersona() {
                     icon: "error",
                     title: "Oops...",
                     text: "Disculpe, existió un problema al guardar la persona",
+                    timer: 2000,
+                    timerProgressBar: true
                 });
             }
         });
@@ -251,6 +253,8 @@ function ModalEditar(personaID) {
                 icon: "error",
                 title: "Oops...",
                 text: "Disculpe, existió un problema",
+                timer: 2000,
+                timerProgressBar: true
             });
             console.error('Error details:', xhr, status);
         }
@@ -310,6 +314,8 @@ function EliminarPersona(personaID) {
                         icon: "error",
                         title: "Oops...",
                         text: "Disculpe, existió un problema al eliminar la persona",
+                        timer: 2000,
+                        timerProgressBar: true
                     });
                 }
             });
@@ -317,7 +323,9 @@ function EliminarPersona(personaID) {
             swalWithBootstrapButtons.fire({
                 title: "¡Borrado!",
                 text: "Su registro ha sido eliminado.",
-                icon: "success"
+                icon: "success",
+                timer: 2000,
+                timerProgressBar: true
             });
         } else if (
             /* Read more about handling dismissals below */
@@ -326,7 +334,9 @@ function EliminarPersona(personaID) {
             swalWithBootstrapButtons.fire({
                 title: "Anulado",
                 text: "Tu registro está a salvo :)",
-                icon: "error"
+                icon: "error",
+                timer: 2000,
+                timerProgressBar: true
             });
         }
     });

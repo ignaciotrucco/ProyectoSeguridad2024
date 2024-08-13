@@ -43,6 +43,18 @@ html {
   z-index: 999999;
 }
 
+.loader::before {
+  content: "";
+  display: block;
+  width: 50px; /* Adjust the size as needed */
+  height: 50px; /* Adjust the size as needed */
+  background-image: url('../gif/gifloader.gif'); /* Replace with the path to your GIF */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: rotate 1s linear infinite;
+}
+
 @keyframes BlurScreen {
 
   0%{

@@ -114,8 +114,8 @@ h5 {
 
 /* Card Personas */
 .cardPersonas {
-    background-color: #5a5a5a;
-    color: white;
+    background-color: #b1b1b1;
+    color: rgb(0, 0, 0);
     font-family: 'textos13';
     margin-bottom: 1rem;
 
@@ -157,8 +157,8 @@ td {
 
 .datosPersona {
     font-family: 'textos13';
-    background-color: #757575;
-    color: white;
+    background-color: #d1d1d1c7;
+    color: rgb(0, 0, 0);
 }
 
 label {
@@ -211,7 +211,7 @@ label {
     text-align: center;
     display: flex;
     justify-content: space-around;
-    background-color: #5a5a5a;
+    background-color: #b1b1b1;
     font-family: 'textos3';
 }
 

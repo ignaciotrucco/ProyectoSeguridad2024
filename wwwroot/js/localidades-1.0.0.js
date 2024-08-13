@@ -69,6 +69,8 @@ function ListadoLocalidades() {
                 icon: "error",
                 title: "Oops...",
                 text: "Disculpe, existió un problema al cargar el listado",
+                timer: 2000,
+                timerProgressBar: true
             });
         }
     });
@@ -93,9 +95,9 @@ function GuardarLocalidad() {
         $("#ProvinciaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Ingrese una provincia.");
         registrado = false;
     }
-    if (!codigoPostal) {
-        codigoPostal = "No registrado"; // Texto por defecto si no ingresa codigo postal
-    }
+    // if (!codigoPostal) {
+    //     codigoPostal = "No registrado"; // Texto por defecto si no ingresa codigo postal
+    // }
 
     if (registrado) {
         $.ajax({
@@ -126,7 +128,10 @@ function GuardarLocalidad() {
                     icon: "error",
                     title: "Oops...",
                     text: "Disculpe, existió un problema al guardar la Localidad",
+                    timer: 2000,
+                    timerProgressBar: true
                 });
+                
             }
         });
     }
@@ -165,6 +170,8 @@ function ModalEditar(localidadID) {
                 icon: "error",
                 title: "Oops...",
                 text: "Disculpe, existió un problema",
+                timer: 2000,
+                timerProgressBar: true
             });
         }
     });
@@ -208,6 +215,8 @@ function EliminarLocalidad(localidadID) {
                             icon: "error",
                             title: "Oops...",
                             text: "No se puede eliminar, existen registros asociados",
+                            timer: 2000,
+                            timerProgressBar: true
                         });
                     }
 
@@ -222,6 +231,8 @@ function EliminarLocalidad(localidadID) {
                         icon: "error",
                         title: "Oops...",
                         text: "Disculpe, existió un problema al eliminar la Localidad",
+                        timer: 2000,
+                        timerProgressBar: true
                     });
                 }
             });
@@ -229,7 +240,9 @@ function EliminarLocalidad(localidadID) {
             swalWithBootstrapButtons.fire({
                 title: "¡Borrado!",
                 text: "Su registro ha sido eliminado.",
-                icon: "success"
+                icon: "success",
+                timer: 2000,
+                timerProgressBar: true
             });
         } else if (
             /* Read more about handling dismissals below */
@@ -238,7 +251,9 @@ function EliminarLocalidad(localidadID) {
             swalWithBootstrapButtons.fire({
                 title: "Anulado",
                 text: "Tu registro está a salvo :)",
-                icon: "error"
+                icon: "error",
+                timer: 2000,
+                timerProgressBar: true
             });
             
         }

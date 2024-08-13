@@ -71,6 +71,8 @@ function ListadoUsuarios() {
                 icon: "error",
                 title: "Oops...",
                 text: "Disculpe, existió un problema al cargar el listado",
+                timer: 2000,
+                timerProgressBar: true
             });
         }
     });
@@ -120,6 +122,8 @@ function GuardarUsuario() {
                     icon: "error",
                     title: "Oops...",
                     text: "Disculpe, existió un problema al guardar el usuario",
+                    timer: 2000,
+                    timerProgressBar: true
                 });
             }
         });
@@ -159,6 +163,8 @@ function AbrirModalEditar(usuarioID) {
                 icon: "error",
                 title: "Oops...",
                 text: "Disculpe, existió un problema al cargar el listado",
+                timer: 2000,
+                timerProgressBar: true
             });
         }
     });
@@ -224,7 +230,9 @@ function EliminarUsuario(usuarioID) {
             swalWithBootstrapButtons.fire({
                 title: "¡Borrado!",
                 text: "Su registro ha sido eliminado.",
-                icon: "success"
+                icon: "success",
+                timer: 2000,
+                timerProgressBar: true
             });
         } else if (
             /* Read more about handling dismissals below */
@@ -233,7 +241,9 @@ function EliminarUsuario(usuarioID) {
             swalWithBootstrapButtons.fire({
                 title: "Anulado",
                 text: "Tu registro está a salvo :)",
-                icon: "error"
+                icon: "error",
+                timer: 2000,
+                timerProgressBar: true
             });
         }
     });
