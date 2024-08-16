@@ -59,6 +59,7 @@ function ListadoProvincias() {
         // el objeto de la petición en crudo y código de estatus de la petición
         error: function (xhr, status) {
             Swal.fire({
+                position: "bottom-end",
                 icon: "error",
                 title: "Oops...",
                 text: "Disculpe, existió un problema al cargar el listado",
@@ -110,6 +111,7 @@ function GuardarRegistros() {
             // el objeto de la petición en crudo y código de estatus de la petición
             error: function (xhr, status) {
                 Swal.fire({
+                    position: "bottom-end",
                     icon: "error",
                     title: "Oops...",
                     text: "Disculpe, existió un problema al guardar la provincia",
@@ -149,6 +151,7 @@ function ModalEditar(provinciaID) {
         // el objeto de la petición en crudo y código de estatus de la petición
         error: function (xhr, status) {
             Swal.fire({
+                position: "bottom-end",
                 icon: "error",
                 title: "Oops...",
                 text: "Disculpe, existió un problema al cargar el listado",
@@ -193,11 +196,13 @@ function EliminarProvincia(provinciaID) {
                 success: function (resultado) {
                     if (!resultado) {
                         Swal.fire({
+                            position: "bottom-end",
                             icon: "error",
                             title: "Oops...",
                             text: "No se puede eliminar, existen registros asociados",
                             timer: 2000,
-                            timerProgressBar: true
+                            timerProgressBar: true,
+                            showConfirmButton: false
                         });
                     }
                     ListadoProvincias();
@@ -208,32 +213,41 @@ function EliminarProvincia(provinciaID) {
                 // el objeto de la petición en crudo y código de estatus de la petición
                 error: function (xhr, status) {
                     Swal.fire({
+                        position: "bottom-end",
                         icon: "error",
                         title: "Oops...",
                         text: "Disculpe, existió un problema al eliminar la provincia",
                         timer: 2000,
-                        timerProgressBar: true
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                        backdrop: false
                     });
                 }
             });
 
             swalWithBootstrapButtons.fire({
+                position: "bottom-end",
                 title: "¡Borrado!",
                 text: "Su registro ha sido eliminado.",
                 icon: "success",
                 timer: 2000,
-                timerProgressBar: true
+                timerProgressBar: true,
+                showConfirmButton: false,
+                backdrop: false
             });
         } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
         ) {
             swalWithBootstrapButtons.fire({
+                position: "bottom-end",
                 title: "Anulado",
                 text: "Tu registro está a salvo :)",
                 icon: "error",
                 timer: 2000,
-                timerProgressBar: true
+                timerProgressBar: true,
+                showConfirmButton: false,
+                backdrop: false
             });
         }
     });

@@ -75,7 +75,7 @@ h5 {
 }
 
 .textoError {
-    color: red;
+    color: rgb(217, 136, 136);
     cursor: default;
 }
 
@@ -258,6 +258,12 @@ label {
 
 .btnGuardar:focus {
     box-shadow: none;
+}
+
+.btn-danger{
+    background-color: #212529;
+    color: white;
+    border-color: rgba(255, 255, 255, 0);
 }
 
 .botonEntendido {

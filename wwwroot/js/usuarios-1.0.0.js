@@ -249,3 +249,26 @@ function EliminarUsuario(usuarioID) {
     });
 
 }
+
+function openModalContraseña() {
+    var modal = document.getElementById("ModalContraseña");
+    modal.style.display = "block";
+}
+
+function closeModalContraseña() {
+    var modal = document.getElementById("ModalContraseña");
+    modal.style.display = "none";
+}
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        closeModalContraseña();
+    }
+});
+
+window.onclick = function (event) {
+    var modal = document.getElementById("ModalContraseña");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}

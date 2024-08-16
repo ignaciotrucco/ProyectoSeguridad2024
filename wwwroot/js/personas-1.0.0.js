@@ -33,7 +33,7 @@ function ListadoPersonas() {
                         <button type="button" class="btn btn-dark" title="Editar" onclick="ModalEditar(${persona.personaID})">
                         Editar
                         </button>
-                        <button type="button" class="btn btn-dark" title="Eliminar" onclick="EliminarPersona(${persona.personaID})">
+                        <button type="button" class="btn btn-danger" title="Eliminar" onclick="EliminarPersona(${persona.personaID})">
                         Eliminar
                         </button>
                         </li>

@@ -56,20 +56,25 @@ NORMALIZEDNAME *@
             <div class="modal-body">
                 <div class="row">
                     <div class="d-flex">
-                        <p class="campoObligatorio">Los campos marcados con un asterisco (<span class="asterisco">*</span>) son obligatorios</p>
+                        <p class="campoObligatorio">Los campos marcados con un asterisco (<span class="asterisco">*</span>) son obligatorios <b>|</b> Click en <i style="color: rgb(48, 126, 235);" class="fa-solid fa-circle-info"></i> para más información.</p>
                     </div>
                     <form>
                         <div class="col-md-10 mb-8">
                             <input type="hidden" id="UsuarioID">
-                            <label for="username" class="form-label d-flex">UserName<p class="asterisco">*</p></label>
+                            <label for="username" class="form-label d-flex">Nombre de Usuario<p class="asterisco">*</p></label>
                             <input type="text" class="form-control" id="username" autocomplete="new-text">
                             <span id="userNameError" class="textoError"></span>
                             <br>
                             <label for="email" class="form-label d-flex">Email<p class="asterisco">*</p></label>
                             <input type="email" class="form-control" id="email">
+
                             <span id="emailError" class="textoError"></span>
                             <br>
-                            <label for="password" class="form-label d-flex">Contraseña<p class="asterisco">*</p></label>
+                            <label for="password" class="form-label d-flex">Contraseña<p class="asterisco">*</p>
+                            <div class="question-icon" onclick="openModalContraseña()">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </div>
+                            </label>
                             <input type="password" class="form-control" id="password" autocomplete="new-password">
                             <span id="passwordError" class="textoError"></span>
                             <br>
@@ -129,6 +134,19 @@ NORMALIZEDNAME *@
         data-bs-target="#modalUsuarios" data-bs-target="#staticBackdrop" onclick="NuevoUsuario()">
         <i class="fa-solid fa-plus"></i> Nuevo Usuario
     </button>
+</div>
+
+<!-- Modal Ayuda Form -->
+<div id="ModalContraseña" class="modalAyuda" onclick="closeModalContraseña()">
+    <div class="modal-contentAyuda">
+        <h2>Requisitos para definir una contraseña</h2>
+        <hr>
+        <p>• Mínimo 6 caracteres.</p>
+        <hr>
+        <div class="modal-footerAyuda">
+            <button class="botonEntendido" onclick="closeModalContraseña()">Entendido</button>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

@@ -95,9 +95,6 @@ function GuardarLocalidad() {
         $("#ProvinciaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Ingrese una provincia.");
         registrado = false;
     }
-    // if (!codigoPostal) {
-    //     codigoPostal = "No registrado"; // Texto por defecto si no ingresa codigo postal
-    // }
 
     if (registrado) {
         $.ajax({
