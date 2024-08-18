@@ -6,8 +6,7 @@ public class Devolucion
 {
     [Key]
     public int DevolucionID { get; set;}
-    // public string? UsuarioID { get; set;}
-    public int EmpresaID {get; set;}
+    public string? UsuarioID { get; set;}
     public DateTime Fecha_Hora { get; set;}
     public string? Encuesta { get; set; }
     public string? Reseña { get; set;}

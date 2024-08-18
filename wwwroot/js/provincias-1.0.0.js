@@ -10,29 +10,26 @@ function NuevoRegistro() {
     $("#tituloModal").text("Nueva Provincia")
 }
 
-function ListadoProvincias() {
+let filasPorPagina = 7;
+let paginaActual = 1;
+let totalProvincias = 0;
 
+function ListadoProvincias(pagina = 1) {
     $.ajax({
-        // la URL para la petición
         url: '../../Provincias/ListadoProvincias',
-        // la información a enviar
-        // (también es posible utilizar una cadena de datos)
-        data: {},
-        // especifica si será una petición POST o GET
         type: 'POST',
-        // el tipo de información que se espera de respuesta
         dataType: 'json',
-        // código a ejecutar si la petición es satisfactoria;
-        // la respuesta es pasada como argumento a la función
         success: function (listadoProvincias) {
-
             $("#modalProvincias").modal("hide");
             LimpiarModal()
 
+            totalProvincias = listadoProvincias.length; // Obtiene el total de provincias
+            const inicio = (pagina - 1) * filasPorPagina;
+            const fin = inicio + filasPorPagina;
+            const provinciasPaginadas = listadoProvincias.slice(inicio, fin);
+
             let contenidoTabla = ``;
-
-            $.each(listadoProvincias, function (index, provincia) {
-
+            $.each(provinciasPaginadas, function (index, provincia) {
                 contenidoTabla += `
                 <tr>
                     <td style="text-align: center">${provincia.nombre}</td>
@@ -51,12 +48,8 @@ function ListadoProvincias() {
             });
 
             document.getElementById("tbody-provincias").innerHTML = contenidoTabla;
-
+            renderizarControlesDePaginacion();
         },
-
-        // código a ejecutar si la petición falla;
-        // son pasados como argumentos a la función
-        // el objeto de la petición en crudo y código de estatus de la petición
         error: function (xhr, status) {
             Swal.fire({
                 position: "bottom-end",
@@ -69,6 +62,29 @@ function ListadoProvincias() {
         }
     });
 }
+
+function renderizarControlesDePaginacion() {
+    const totalPaginas = Math.ceil(totalProvincias / filasPorPagina);
+    let controlesPaginacion = ``;
+
+    for (let i = 1; i <= totalPaginas; i++) {
+        const claseActiva = i === paginaActual ? 'active' : '';
+        controlesPaginacion += `<li class="page-item ${claseActiva}">
+            <a class="page-link" href="#" onclick="cambiarPagina(${i})">${i}</a>
+        </li>`;
+    }
+
+    document.getElementById("pagination-controls").innerHTML = controlesPaginacion;
+}
+
+function cambiarPagina(pagina) {
+    paginaActual = pagina;
+    ListadoProvincias(paginaActual);
+}
+
+// Llamar la función inicial para cargar la primera página
+ListadoProvincias(paginaActual);
+
 
 function GuardarRegistros() {
     $("#NombreError").html("");
