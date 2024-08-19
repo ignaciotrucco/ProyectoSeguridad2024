@@ -46,12 +46,12 @@ public class HomeController : Controller
             if (rolUsuario.Name == "EMPLEADO" || rolUsuario.Name == "ADMINISTRADOR")
             {
                 var persona = await _context.Personas.FirstOrDefaultAsync(p => p.UsuarioID == usuarioLogueadoID);
-                nombreUsuario = persona?.NombreCompleto ?? "Nombre no disponible";
+                nombreUsuario = persona?.NombreCompleto ?? "Nombre no encontrado";
             }
             else if (rolUsuario.Name == "CLIENTE")
             {
                 var empresa = await _context.Empresas.FirstOrDefaultAsync(p => p.UsuarioID == usuarioLogueadoID);
-                nombreUsuario = empresa?.RazonSocial ?? "Razon social no disponible";
+                nombreUsuario = empresa?.RazonSocial ?? "Razon social no encontrada";
             }
         }
 

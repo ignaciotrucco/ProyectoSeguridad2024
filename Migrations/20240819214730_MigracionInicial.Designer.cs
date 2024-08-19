@@ -12,8 +12,8 @@ using ProyectoSeguridad2024.Data;
 namespace ProyectoSeguridad2024.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240801220704_CorregirCampoTipoDocumento")]
-    partial class CorregirCampoTipoDocumento
+    [Migration("20240819214730_MigracionInicial")]
+    partial class MigracionInicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -340,6 +340,15 @@ namespace ProyectoSeguridad2024.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("JornadaLaboralID"));
 
+                    b.Property<bool>("Dia")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("DiaEspecial")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Domingo")
+                        .HasColumnType("bit");
+
                     b.Property<int>("EmpresaID")
                         .HasColumnType("int");
 
@@ -348,6 +357,27 @@ namespace ProyectoSeguridad2024.Migrations
 
                     b.Property<DateTime>("HorarioSalida")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("Jueves")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Lugar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Lunes")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Martes")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Miercoles")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Sabado")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Viernes")
+                        .HasColumnType("bit");
 
                     b.HasKey("JornadaLaboralID");
 
@@ -490,9 +520,6 @@ namespace ProyectoSeguridad2024.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TurnoLaboralID"));
 
-                    b.Property<DateTime>("Fecha_Hora")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("JornadaLaboralID")
                         .HasColumnType("int");
 
@@ -536,6 +563,25 @@ namespace ProyectoSeguridad2024.Migrations
                     b.HasKey("ArchivoID");
 
                     b.ToTable("Archivos");
+                });
+
+            modelBuilder.Entity("ProyectoSeguridad2024.Models.AsignacionJornada", b =>
+                {
+                    b.Property<int>("AsignacionJornadaID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AsignacionJornadaID"));
+
+                    b.Property<int>("JornadaLaboralID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonaID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AsignacionJornadaID");
+
+                    b.ToTable("AsignacionJornadas");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

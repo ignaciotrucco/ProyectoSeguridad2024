@@ -27,6 +27,20 @@ namespace ProyectoSeguridad2024.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AsignacionJornadas",
+                columns: table => new
+                {
+                    AsignacionJornadaID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PersonaID = table.Column<int>(type: "int", nullable: false),
+                    JornadaLaboralID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AsignacionJornadas", x => x.AsignacionJornadaID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -117,6 +131,16 @@ namespace ProyectoSeguridad2024.Migrations
                 {
                     JornadaLaboralID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Lugar = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Dia = table.Column<bool>(type: "bit", nullable: false),
+                    DiaEspecial = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Lunes = table.Column<bool>(type: "bit", nullable: false),
+                    Martes = table.Column<bool>(type: "bit", nullable: false),
+                    Miercoles = table.Column<bool>(type: "bit", nullable: false),
+                    Jueves = table.Column<bool>(type: "bit", nullable: false),
+                    Viernes = table.Column<bool>(type: "bit", nullable: false),
+                    Sabado = table.Column<bool>(type: "bit", nullable: false),
+                    Domingo = table.Column<bool>(type: "bit", nullable: false),
                     EmpresaID = table.Column<int>(type: "int", nullable: false),
                     HorarioEntrada = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HorarioSalida = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -179,7 +203,6 @@ namespace ProyectoSeguridad2024.Migrations
                     JornadaLaboralID = table.Column<int>(type: "int", nullable: false),
                     TurnoLaboralInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TurnoLaboralFin = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Fecha_Hora = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Latitud = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Longitud = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -430,8 +453,7 @@ namespace ProyectoSeguridad2024.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Personas_TipoDocumentoID",
                 table: "Personas",
-                column: "TipoDocumentoID",
-                unique: true);
+                column: "TipoDocumentoID");
         }
 
         /// <inheritdoc />
@@ -439,6 +461,9 @@ namespace ProyectoSeguridad2024.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Archivos");
+
+            migrationBuilder.DropTable(
+                name: "AsignacionJornadas");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");

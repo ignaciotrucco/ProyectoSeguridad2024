@@ -12,6 +12,7 @@ public class ApplicationDbContext : IdentityDbContext
     {
     }
     public DbSet<Archivo> Archivos {get; set;}
+    public DbSet<AsignacionJornada> AsignacionJornadas {get; set;}
     public DbSet<Devolucion> Devoluciones {get; set;}
     public DbSet<Empresa> Empresas {get; set;}
     public DbSet<EnvioArchivo> EnvioArchivos {get; set;}
