@@ -66,22 +66,32 @@ public class UsersController : Controller
 
     public async Task<JsonResult> GuardarUsuario(string Username, string Email, string Password, string rol)
     {
+        string mensaje = "";
+
         var user = new IdentityUser { UserName = Username, Email = Email };
 
+        // Crear el usuario
         var result = await _userManager.CreateAsync(user, Password);
 
-        //BUSCAR POR MEDIO DE CORREO ELECTRONICO ESE USUARIO CREADO PARA BUSCAR EL ID
-        var usuario = _context.Users.Where(u => u.Email == Email).SingleOrDefault();
+        if (result.Succeeded)
+        {
+            // Buscar el usuario por su Email
+            var usuario = _context.Users.Where(u => u.Email == Email).SingleOrDefault();
 
-        await _userManager.AddToRoleAsync(usuario, rol);
+            // Asignar el rol al usuario
+            await _userManager.AddToRoleAsync(usuario, rol);
 
-        return Json(result.Succeeded);
-    }
+            // Mensaje de éxito
+            mensaje = "Usuario guardado exitosamente.";
+        }
+        else
+        {
+            // Mensaje de error
+            mensaje = "Error al guardar el usuario.";
+        }
 
-    public JsonResult EditarUsuario(int UsuarioID, string Email)
-    {
-
-        return Json(true);
+        // Devolver un JSON con el estado y el mensaje
+        return Json(mensaje);
     }
 
     public JsonResult EliminarUsuario(string UsuarioID)
@@ -91,7 +101,7 @@ public class UsersController : Controller
 
         var existePersona = _context.Personas.Where(e => e.UsuarioID == UsuarioID).Count();
 
-        if (existePersona == 0)
+        if (existePersona == 0 )
         {
             var eliminarUsuario = _context.Users.Find(UsuarioID);
             _context.Remove(eliminarUsuario);

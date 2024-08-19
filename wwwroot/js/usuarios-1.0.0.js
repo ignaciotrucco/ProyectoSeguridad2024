@@ -10,7 +10,7 @@ function LimpiarModal() {
     $("#email").val("");
     $("#password").val("");
     $("#RolID").val(0);
-    document.getElementById("userNameError").innerHTML = "";
+    // document.getElementById("userNameError").innerHTML = "";
     document.getElementById("emailError").innerHTML = "";
     document.getElementById("passwordError").innerHTML = "";
 }
@@ -79,44 +79,36 @@ function ListadoUsuarios() {
 }
 
 function GuardarUsuario() {
-    let username = $("#username").val().trim();
     let email = $("#email").val().trim();
     let password = $("#password").val().trim();
     let rol = $("#RolID").val();
 
     let registrado = true;
 
-    if (username == "") {
-        $("#userNameError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El username es requerido.");
-    }
+    // Validaciones
     if (email == "") {
         $("#emailError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El email es requerido.");
+        registrado = false;
     }
     if (password == "") {
         $("#passwordError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  La contraseña es requerida.");
+        registrado = false;
     }
 
+    // Si todas las validaciones son correctas, proceder a la llamada AJAX
     if (registrado) {
         $.ajax({
-            // la URL para la petición
             url: '../../Users/GuardarUsuario',
-            // la información a enviar
-            // (también es posible utilizar una cadena de datos)
-            data: { Username: username, Email: email, Password: password, rol: rol },
-            // especifica si será una petición POST o GET
+            data: { Username: email, Email: email, Password: password, rol: rol },
             type: 'POST',
-            // el tipo de información que se espera de respuesta
             dataType: 'json',
-            // código a ejecutar si la petición es satisfactoria;
-            // la respuesta es pasada como argumento a la función
-            success: function (result) {
-    
+            success: function (mensaje) {
+
+                if (mensaje != "") {
+                    Swal.fire(mensaje);
+                }
                 ListadoUsuarios();
             },
-    
-            // código a ejecutar si la petición falla;
-            // son pasados como argumentos a la función
-            // el objeto de la petición en crudo y código de estatus de la petición
             error: function (xhr, status) {
                 Swal.fire({
                     icon: "error",
@@ -128,8 +120,8 @@ function GuardarUsuario() {
             }
         });
     }
-
 }
+
 
 function AbrirModalEditar(usuarioID) {
     console.log(usuarioID)
@@ -138,7 +130,7 @@ function AbrirModalEditar(usuarioID) {
         url: '../../Users/ListadoUsuarios',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: {UsuarioID: usuarioID},
+        data: { UsuarioID: usuarioID },
         // especifica si será una petición POST o GET
         type: 'GET',
         // el tipo de información que se espera de respuesta
@@ -260,7 +252,7 @@ function closeModalContraseña() {
     modal.style.display = "none";
 }
 
-document.addEventListener("keydown", function(event) {
+document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
         closeModalContraseña();
     }
