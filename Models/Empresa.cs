@@ -29,4 +29,5 @@ public class VistaEmpresas
     public string? ProvinciaNombre {get; set;}
     public string? Domicilio { get; set;}
     public string? UsuarioID { get; set;}
+    public string? EmailUsuario {get; set;}
 }

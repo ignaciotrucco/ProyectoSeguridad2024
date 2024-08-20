@@ -37,7 +37,8 @@ public class LocalidadesController : Controller
             listadoLocalidades = _context.Localidades.Where(l => l.LocalidadID == LocalidadID);
         }
 
-        if(!string.IsNullOrEmpty(busqueda)) {
+        if (!string.IsNullOrEmpty(busqueda))
+        {
 
             listadoLocalidades = listadoLocalidades.Where(l => l.Nombre.Contains(busqueda) ||
             l.CodigoPostal.Contains(busqueda) ||
@@ -89,11 +90,18 @@ public class LocalidadesController : Controller
             var localidadEditar = _context.Localidades.Where(p => p.LocalidadID == LocalidadID).SingleOrDefault();
             if (localidadEditar != null)
             {
-                localidadEditar.ProvinciaID = ProvinciaID;
-                localidadEditar.Nombre = Nombre;
-                localidadEditar.CodigoPostal = CodigoPostal;
-                _context.SaveChanges();
-                resultado = "<i class='fas fa-check-circle'></i> ¡Localidad editada correctamente!";
+                var existeLocalidadEditar = _context.Localidades.Where(e => e.Nombre == Nombre && e.LocalidadID != LocalidadID).Count();
+                if (existeLocalidadEditar == 0)
+                {
+                    localidadEditar.ProvinciaID = ProvinciaID;
+                    localidadEditar.Nombre = Nombre;
+                    localidadEditar.CodigoPostal = CodigoPostal;
+                    _context.SaveChanges();
+                    resultado = "<i class='fas fa-check-circle'></i> ¡Localidad editada correctamente!";
+                }
+                else {
+                    resultado = "<i class='fas fa-exclamation-triangle'></i> ¡Localidad existente!";
+                }
             }
         }
 

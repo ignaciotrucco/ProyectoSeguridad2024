@@ -99,7 +99,8 @@ public class PersonasController : Controller
             Telefono = p.Telefono,
             Domicilio = p.Domicilio,
             Email = p.Email,
-            NumeroDocumento = p.NumeroDocumento
+            NumeroDocumento = p.NumeroDocumento,
+            EmailUsuario = _context.Users.Where(u => u.Id == p.UsuarioID).Select(u => u.Email).FirstOrDefault()
         }).ToList();
 
     return Json(personasMostrar);

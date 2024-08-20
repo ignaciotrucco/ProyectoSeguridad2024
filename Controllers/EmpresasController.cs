@@ -88,7 +88,8 @@ public class EmpresasController : Controller
             ProvinciaID = l.Localidad.ProvinciaID,
             ProvinciaNombre = l.Localidad.Provincia.Nombre,
             Domicilio = l.Domicilio,
-            UsuarioID = l.UsuarioID
+            UsuarioID = l.UsuarioID,
+            EmailUsuario = _context.Users.Where(u => u.Id == l.UsuarioID).Select(u => u.Email).FirstOrDefault()
         }).ToList();
 
         return Json(mostrarEmpresa);
@@ -136,7 +137,7 @@ public class EmpresasController : Controller
             var editarEmpresa = _context.Empresas.Where(e => e.EmpresaID == EmpresaID).SingleOrDefault();
             if (editarEmpresa != null)
             {
-                var existeEmpresaEditar = _context.Empresas.Where(e => e.RazonSocial == RazonSocial && e.EmpresaID != EmpresaID).Count();
+                var existeEmpresaEditar = _context.Empresas.Where(e => e.Cuit_Cdi == Cuit_Cdi && e.EmpresaID != EmpresaID).Count();
                 if (existeEmpresaEditar == 0)
                 {
                     editarEmpresa.LocalidadID = LocalidadID;

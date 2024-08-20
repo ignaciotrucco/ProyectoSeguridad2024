@@ -274,7 +274,7 @@ function ModalEditar(personaID) {
             document.getElementById("Email").value = mostrarPersona.email;
             document.getElementById("ProvinciaID").value = mostrarPersona.provinciaID;
             document.getElementById("LocalidadID").value = mostrarPersona.localidadID;
-            document.getElementById("emailUsuario").value = mostrarPersona.usuarioID;
+            document.getElementById("emailUsuario").value = mostrarPersona.emailUsuario;
 
             //CONVERTIMOS LA FECHA DE NACIMIENTO EN FORMATO YYYY-MM-DD PARA PODER MOSTRARLO EN EL INPUT
             let fechaNacimiento = new Date(mostrarPersona.fechaNacimiento);
@@ -283,6 +283,7 @@ function ModalEditar(personaID) {
             document.getElementById("FechaNacimiento").value = formatoDate;
             $("#modalPersonas").modal("show");
             $("#tituloModal").text("Editar Persona");
+            console.log(mostrarPersona.usuarioID);
         },
         error: function (xhr, status) {
                 const Toast = Swal.mixin({

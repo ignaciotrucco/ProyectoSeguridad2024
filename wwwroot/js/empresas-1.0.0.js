@@ -266,7 +266,7 @@ function AbrirModalEditar(empresaID) {
             $("#ProvinciaID").val(mostrarEmpresas.provinciaID);
             $("#LocalidadID").val(mostrarEmpresas.localidadID);
             $("#domicilio").val(mostrarEmpresas.domicilio);
-            $("#UsuarioID").val(mostrarEmpresas.usuarioID);
+            $("#UsuarioID").val(mostrarEmpresas.emailUsuario);
             $("#modalEmpresas").modal("show");
             $("#tituloModal").text("Editar Empresa");
         },

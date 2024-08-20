@@ -87,7 +87,7 @@ public class ProvinciasController : Controller
         }
         else
         {
-            resultado = "Debe ingresar un nombre";
+            resultado = "¡Debe ingresar una provincia!";
         }
 
         return Json(resultado);

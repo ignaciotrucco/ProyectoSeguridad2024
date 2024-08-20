@@ -37,6 +37,7 @@ public class VistaPersonas
     public int TipoDocumentoID { get; set;}
     public string? TipoDocumentoNombre {get; set;}
     public string? UsuarioID {get; set;}
+    public string? EmailUsuario {get; set;}
     public string? NombreCompleto { get; set;}
     public DateTime FechaNacimiento {get; set;}
     public string? FechaNacimientoString {get; set;}
