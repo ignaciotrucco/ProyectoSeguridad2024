@@ -1,9 +1,20 @@
 window.onload = ListadoPersonas();
 
-function ListadoPersonas() {
+// ESCUCHA EL EVENTO 'KEYUP' EN EL CAMPO DE BÚSQUEDA CON ID 'INPUTBUSQUEDA'
+// CADA VEZ QUE EL USUARIO ESCRIBE, SE CAPTURA EL VALOR ACTUAL Y SE LLAMA A LA FUNCIÓN LISTADOPERSONAS
+// PARA FILTRAR LA LISTA DE PERSONAS SEGÚN EL TEXTO INGRESADO.
+$(document).ready(function () {
+    $('#inputBusqueda').on('keyup', function () {
+        let busqueda = $(this).val();
+        ListadoPersonas(busqueda);
+    });
+});
+
+
+function ListadoPersonas(busqueda) {
     $.ajax({
         url: '../../Personas/ListadoPersonas',
-        data: {},
+        data: { busqueda: busqueda },  // PASA EL TERMINO DE BUSQUEDA AL CONTROLADOR
         type: 'POST',
         dataType: 'json',
         success: function (personasMostrar) {
@@ -239,7 +250,7 @@ function ModalEditar(personaID) {
             document.getElementById("ProvinciaID").value = mostrarPersona.provinciaID;
             document.getElementById("LocalidadID").value = mostrarPersona.localidadID;
             document.getElementById("emailUsuario").value = mostrarPersona.usuarioID;
-            
+
             //CONVERTIMOS LA FECHA DE NACIMIENTO EN FORMATO YYYY-MM-DD PARA PODER MOSTRARLO EN EL INPUT
             let fechaNacimiento = new Date(mostrarPersona.fechaNacimiento);
             let formatoDate = fechaNacimiento.toISOString().split('T')[0]; //SE SEPARAN LAS PARTES DE LA FECHA Y LA HORA PARA PODER MOSTRAR SOLO FECHA QUE SERIA [0];
@@ -352,7 +363,7 @@ function closeModalTel() {
     modal.style.display = "none";
 }
 
-document.addEventListener("keydown", function(event) {
+document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
         closeModalTel();
     }
@@ -375,7 +386,7 @@ function closeModalDni() {
     modal.style.display = "none";
 }
 
-document.addEventListener("keydown", function(event) {
+document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
         closeModalDni();
     }
@@ -388,6 +399,6 @@ window.onclick = function (event) {
     }
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     $('#Telefono').mask('(00) 0000-000000');
 });

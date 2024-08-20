@@ -10,26 +10,28 @@ function NuevoRegistro() {
     $("#tituloModal").text("Nueva Provincia")
 }
 
-let filasPorPagina = 7;
-let paginaActual = 1;
-let totalProvincias = 0;
+// ESCUCHA EL EVENTO 'KEYUP' EN EL CAMPO DE BÚSQUEDA CON ID 'INPUTBUSQUEDA'
+// CADA VEZ QUE EL USUARIO ESCRIBE, SE CAPTURA EL VALOR ACTUAL Y SE LLAMA A LA FUNCIÓN LISTADOPERSONAS
+// PARA FILTRAR LA LISTA DE PERSONAS SEGÚN EL TEXTO INGRESADO.
+$(document).ready(function () {
+    $('#inputBusqueda').on('keyup', function () {
+        let busqueda = $(this).val();
+        ListadoProvincias(busqueda);
+    });
+});
 
-function ListadoProvincias(pagina = 1) {
+function ListadoProvincias(busqueda) {
     $.ajax({
         url: '../../Provincias/ListadoProvincias',
+        data: { busqueda: busqueda },
         type: 'POST',
         dataType: 'json',
         success: function (listadoProvincias) {
             $("#modalProvincias").modal("hide");
-            LimpiarModal()
-
-            totalProvincias = listadoProvincias.length; // Obtiene el total de provincias
-            const inicio = (pagina - 1) * filasPorPagina;
-            const fin = inicio + filasPorPagina;
-            const provinciasPaginadas = listadoProvincias.slice(inicio, fin);
+            LimpiarModal();
 
             let contenidoTabla = ``;
-            $.each(provinciasPaginadas, function (index, provincia) {
+            $.each(listadoProvincias, function (index, provincia) {
                 contenidoTabla += `
                 <tr>
                     <td style="text-align: center">${provincia.nombre}</td>
@@ -48,7 +50,6 @@ function ListadoProvincias(pagina = 1) {
             });
 
             document.getElementById("tbody-provincias").innerHTML = contenidoTabla;
-            renderizarControlesDePaginacion();
         },
         error: function (xhr, status) {
             Swal.fire({
@@ -63,27 +64,6 @@ function ListadoProvincias(pagina = 1) {
     });
 }
 
-function renderizarControlesDePaginacion() {
-    const totalPaginas = Math.ceil(totalProvincias / filasPorPagina);
-    let controlesPaginacion = ``;
-
-    for (let i = 1; i <= totalPaginas; i++) {
-        const claseActiva = i === paginaActual ? 'active' : '';
-        controlesPaginacion += `<li class="page-item ${claseActiva}">
-            <a class="page-link" href="#" onclick="cambiarPagina(${i})">${i}</a>
-        </li>`;
-    }
-
-    document.getElementById("pagination-controls").innerHTML = controlesPaginacion;
-}
-
-function cambiarPagina(pagina) {
-    paginaActual = pagina;
-    ListadoProvincias(paginaActual);
-}
-
-// Llamar la función inicial para cargar la primera página
-ListadoProvincias(paginaActual);
 
 
 function GuardarRegistros() {

@@ -45,13 +45,23 @@ $('#ProvinciaID').change(function () {
     }
 });
 
-function ListadoEmpresas() {
+// ESCUCHA EL EVENTO 'KEYUP' EN EL CAMPO DE BÚSQUEDA CON ID 'INPUTBUSQUEDA'
+// CADA VEZ QUE EL USUARIO ESCRIBE, SE CAPTURA EL VALOR ACTUAL Y SE LLAMA A LA FUNCIÓN LISTADOPERSONAS
+// PARA FILTRAR LA LISTA DE PERSONAS SEGÚN EL TEXTO INGRESADO.
+$(document).ready(function () {
+    $('#inputBusqueda').on('keyup', function () {
+        let busqueda = $(this).val();
+        ListadoEmpresas(busqueda);
+    });
+});
+
+function ListadoEmpresas(busqueda) {
     $.ajax({
         // la URL para la petición
         url: '../../Empresas/ListadoEmpresas',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: {},
+        data: { busqueda: busqueda }, // PASA EL TERMINO DE BUSQUEDA AL CONTROLADOR
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
