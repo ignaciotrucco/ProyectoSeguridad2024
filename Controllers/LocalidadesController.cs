@@ -29,13 +29,22 @@ public class LocalidadesController : Controller
         return View();
     }
 
-    public JsonResult ListadoLocalidades(int? LocalidadID)
+    public JsonResult ListadoLocalidades(int? LocalidadID, string busqueda)
     {
-        var listadoLocalidades = _context.Localidades.Include(l => l.Provincia).ToList();
+        var listadoLocalidades = _context.Localidades.Include(l => l.Provincia).AsQueryable();
         if (LocalidadID != null)
         {
-            listadoLocalidades = _context.Localidades.Where(l => l.LocalidadID == LocalidadID).ToList();
+            listadoLocalidades = _context.Localidades.Where(l => l.LocalidadID == LocalidadID);
         }
+
+        if(!string.IsNullOrEmpty(busqueda)) {
+
+            listadoLocalidades = listadoLocalidades.Where(l => l.Nombre.Contains(busqueda) ||
+            l.CodigoPostal.Contains(busqueda) ||
+            l.Provincia.Nombre.Contains(busqueda)
+            );
+
+        };
 
         var localidadesMostrar = listadoLocalidades.Select(l => new VistaLocalidades
         {

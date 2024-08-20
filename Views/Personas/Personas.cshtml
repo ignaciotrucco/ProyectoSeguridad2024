@@ -15,8 +15,8 @@
                 <div class="col-auto">
                     <div class="input-group mt-2">
                         <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
-                        <input type="text" class="form-control inputBusqueda" placeholder="Buscar por nombre..."
-                            aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="text" id="inputBusqueda" class="form-control inputBusqueda"
+                            placeholder="Buscar por palabra..." style="text-transform:uppercase">
                     </div>
                 </div>
             </div>
@@ -38,14 +38,17 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="d-flex">
-                        <p class="campoObligatorio">Los campos marcados con un asterisco (<span class="asterisco">*</span>) son obligatorios <b>|</b> Click en <i style="color: rgb(48, 126, 235);" class="fa-solid fa-circle-info"></i> para más información.</p>
+                        <p class="campoObligatorio">Los campos marcados con un asterisco (<span
+                                class="asterisco">*</span>) son obligatorios <b>|</b> Click en <i
+                                style="color: rgb(48, 126, 235);" class="fa-solid fa-circle-info"></i> para más
+                            información.</p>
                     </div>
                     <form>
                         <div class="row mb-2">
                             <div class="col-md-7">
                                 <input type="hidden" id="PersonaID">
                                 <label for="Nombre" class="form-label d-flex">Nombre Completo<p class="asterisco">*</p>
-                                    </label>
+                                </label>
                                 <input type="text" class="form-control" id="Nombre" maxlength="50"
                                     style="text-transform:uppercase">
                                 <span id="nombrePersonaError" class="textoError"></span>
@@ -63,7 +66,7 @@
                             <hr style="color: rgb(46, 46, 46);">
                             <div class="col-md-6">
                                 <label for="Domicilio" class="form-label d-flex">Domicilio<p class="asterisco">*</p>
-                                    </label>
+                                </label>
                                 <input type="text" class="form-control" id="Domicilio" maxlength="50"
                                     style="text-transform:uppercase">>
                                 <span id="domicilioPersonaError" class="textoError"></span>
@@ -79,11 +82,12 @@
                                 <span id="tipoDocPersonaError" class="textoError"></span>
                             </div>
                             <div class="col-md-4">
-                                <label for="NroDoc" class="form-label d-flex">Número de Documento<p class="asterisco">*</p>
-                            <div class="question-icon" onclick="openModalDni()">
-                                <i class="fa-solid fa-circle-info"></i>
-                            </div>
-                            </label>
+                                <label for="NroDoc" class="form-label d-flex">Número de Documento<p class="asterisco">*
+                                    </p>
+                                    <div class="question-icon" onclick="openModalDni()">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </div>
+                                </label>
                                 <input type="number" class="form-control" id="NroDoc">
                                 <span id="nroDocPersonaError" class="textoError"></span>
                             </div>
@@ -94,10 +98,11 @@
                                 <span id="fechaPersonaError" class="textoError"></span>
                             </div>
                             <div class="col-md-4">
-                                <label for="Telefono" class="form-label d-flex">Numero de Télefono<p class="asterisco">*</p>
-                            <div class="question-icon" onclick="openModalTel()">
-                                <i class="fa-solid fa-circle-info"></i>
-                            </div>
+                                <label for="Telefono" class="form-label d-flex">Numero de Télefono<p class="asterisco">*
+                                    </p>
+                                    <div class="question-icon" onclick="openModalTel()">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </div>
                                 </label>
                                 <input type="tel" class="form-control" id="Telefono">
                                 <span id="telefonoPersonaError" class="textoError"></span>
@@ -110,16 +115,16 @@
                             <hr style="color: rgb(46, 46, 46);">
                             <div class="col-md-6">
                                 <label for="ProvinciaID" class="form-label d-flex">Provincia<p class="asterisco">*</p>
-                                    </label>
+                                </label>
                                 @Html.DropDownList("ProvinciaID", null, htmlAttributes: new { @class = "form-control" })
                                 <span id="provinciaPersonaError" class="textoError"></span>
                             </div>
                             <div class="col-md-6">
                                 <label for="LocalidadID" class="form-label d-flex">Localidad<p class="asterisco">*</p>
-                                    </label>
+                                </label>
                                 @Html.DropDownList("LocalidadID", null, htmlAttributes: new { @class = "form-control" })
                                 <span id="localidadPersonaError" class="textoError"></span>
-                            </div>                            
+                            </div>
                         </div>
                     </form>
                 </div>

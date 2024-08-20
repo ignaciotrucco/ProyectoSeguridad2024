@@ -13,14 +13,24 @@ function NuevoRegistro() {
     $("#tituloModal").text("Nueva Localidad")
 }
 
-function ListadoLocalidades() {
+// ESCUCHA EL EVENTO 'KEYUP' EN EL CAMPO DE BÚSQUEDA CON ID 'INPUTBUSQUEDA'
+// CADA VEZ QUE EL USUARIO ESCRIBE, SE CAPTURA EL VALOR ACTUAL Y SE LLAMA A LA FUNCIÓN LISTADOPERSONAS
+// PARA FILTRAR LA LISTA DE PERSONAS SEGÚN EL TEXTO INGRESADO.
+$(document).ready(function () {
+    $('#inputBusqueda').on('keyup', function () {
+        let busqueda = $(this).val();
+        ListadoLocalidades(busqueda);
+    });
+});
+
+function ListadoLocalidades(busqueda) {
 
     $.ajax({
         // la URL para la petición
         url: '../../Localidades/ListadoLocalidades',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: {},
+        data: { busqueda: busqueda },
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta

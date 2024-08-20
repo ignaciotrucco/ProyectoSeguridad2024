@@ -23,12 +23,18 @@ public class ProvinciasController : Controller
         return View();
     }
 
-    public JsonResult ListadoProvincias(int? ProvinciaID)
+    public JsonResult ListadoProvincias(int? ProvinciaID, string busqueda)
     {
-        var listadoProvincias = _context.Provincias.ToList();
+        var listadoProvincias = _context.Provincias.AsQueryable();
         if (ProvinciaID != null)
         {
-            listadoProvincias = _context.Provincias.Where(l => l.ProvinciaID == ProvinciaID).ToList();
+            listadoProvincias = _context.Provincias.Where(l => l.ProvinciaID == ProvinciaID);
+        }
+
+        if(!string.IsNullOrEmpty(busqueda)) {
+            listadoProvincias = listadoProvincias.Where(l =>
+            l.Nombre.Contains(busqueda) 
+            );
         }
 
         return Json(listadoProvincias);

@@ -25,24 +25,36 @@
 
 <!-- Tabla -->
 <div class="card m-4">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-auto">
+                <div class="input-group m-2">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
+                    <input type="text" id="inputBusqueda" class="form-control inputBusqueda"
+                        placeholder="Buscar por palabra..." style="text-transform:uppercase">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card-body">
         <div class="table-responsive">
-        <table class="table table-striped mt-3" id="imprimir-tabla">
-            <thead>
-                <tr>
-                    <th scope="col" style="text-align: center">RAZÓN SOCIAL</th>
-                    <th scope="col" style="text-align: center">CUIT</th>
-                    <th scope="col" style="text-align: center">TELÉFONO</th>
-                    <th scope="col" style="text-align: center">EMAIL</th>
-                    <th scope="col" style="text-align: center">PROVINCIA</th>
-                    <th scope="col" style="text-align: center">LOCALIDAD</th>
-                    <th scope="col" style="text-align: center">DOMICILIO</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody id="tbody-empresas"></tbody>
-         </table>
+            <table class="table table-striped mt-1" id="imprimir-tabla">
+                <thead>
+                    <tr>
+                        <th scope="col" style="text-align: center">RAZÓN SOCIAL</th>
+                        <th scope="col" style="text-align: center">CUIT</th>
+                        <th scope="col" style="text-align: center">TELÉFONO</th>
+                        <th scope="col" style="text-align: center">EMAIL</th>
+                        <th scope="col" style="text-align: center">PROVINCIA</th>
+                        <th scope="col" style="text-align: center">LOCALIDAD</th>
+                        <th scope="col" style="text-align: center">DOMICILIO</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-empresas"></tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -58,18 +70,24 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="d-flex">
-                        <p class="campoObligatorio">Los campos marcados con un asterisco (<span class="asterisco">*</span>) son obligatorios <b>|</b> Click en <i style="color: rgb(48, 126, 235);" class="fa-solid fa-circle-info"></i> para más información.</p>
+                        <p class="campoObligatorio">Los campos marcados con un asterisco (<span
+                                class="asterisco">*</span>) son obligatorios <b>|</b> Click en <i
+                                style="color: rgb(48, 126, 235);" class="fa-solid fa-circle-info"></i> para más
+                            información.</p>
                     </div>
                     <form>
                         <div class="row">
                             <div class="col-md-6 mb-6">
                                 <input type="hidden" id="EmpresaID">
-                                <label for="RazonSocial" class="form-label d-flex">Razón Social<p class="asterisco">*</p></label>
-                                <input type="text" class="form-control" id="RazonSocial" style="text-transform:uppercase">
+                                <label for="RazonSocial" class="form-label d-flex">Razón Social<p class="asterisco">*
+                                    </p></label>
+                                <input type="text" class="form-control" id="RazonSocial"
+                                    style="text-transform:uppercase">
                                 <span id="razonSocialError" class="textoError"></span>
                             </div>
                             <div class="col-md-6 mb-6">
-                                <label for="domicilio" class="form-label d-flex">Domicilio<p class="asterisco">*</p></label>
+                                <label for="domicilio" class="form-label d-flex">Domicilio<p class="asterisco">*</p>
+                                </label>
                                 <input type="text" class="form-control" id="domicilio" style="text-transform:uppercase">
                                 <span id="domicilioEmpresaError" class="textoError"></span>
                             </div>
@@ -78,19 +96,19 @@
                         <div class="row">
                             <div class="col-md-3 mb-6">
                                 <label for="Cuit" class="form-label d-flex">CUIT<p class="asterisco">*</p>
-                            <div class="question-icon" onclick="openModalCuit()">
-                                <i class="fa-solid fa-circle-info"></i>
-                            </div>
+                                    <div class="question-icon" onclick="openModalCuit()">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </div>
                                 </label>
                                 <input type="text" class="form-control" id="Cuit">
                                 <span id="cuitError" class="textoError"></span>
                             </div>
                             <div class="col-md-4 mb-6">
                                 <label for="telefono" class="form-label d-flex">Teléfono<p class="asterisco">*</p>
-                            <div class="question-icon" onclick="openModalTel()">
-                                <i class="fa-solid fa-circle-info"></i>
-                            </div>
-                            </label>
+                                    <div class="question-icon" onclick="openModalTel()">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </div>
+                                </label>
                                 <input type="tel" class="form-control" id="telefono">
                                 <span id="telefonoEmpresaError" class="textoError"></span>
                             </div>
@@ -103,12 +121,14 @@
                         <br>
                         <div class="row">
                             <div class="col-md-6 mb-6">
-                                <label for="ProvinciaID" class="form-label d-flex">Provincia<p class="asterisco">*</p></label>
+                                <label for="ProvinciaID" class="form-label d-flex">Provincia<p class="asterisco">*</p>
+                                </label>
                                 @Html.DropDownList("ProvinciaID", null, htmlAttributes: new { @class = "form-control" })
                                 <span id="localidadEmpresaError" class="textoError"></span>
                             </div>
                             <div class="col-md-6 mb-6">
-                                <label for="LocalidadID" class="form-label d-flex">Localidad<p class="asterisco">*</p></label>
+                                <label for="LocalidadID" class="form-label d-flex">Localidad<p class="asterisco">*</p>
+                                </label>
                                 @Html.DropDownList("LocalidadID", null, htmlAttributes: new { @class = "form-control" })
                                 <span id="provinciaEmpresaError" class="textoError"></span>
                             </div>
@@ -116,8 +136,8 @@
                         <br>
                         <div class="row">
                             <div class="col-md-4 mb-6">
-                                <label for="UsuarioID" class="form-label d-flex">Elija el usuario<p
-                                        class="asterisco">*</p></label>
+                                <label for="UsuarioID" class="form-label d-flex">Elija el usuario<p class="asterisco">*
+                                    </p></label>
                                 @Html.DropDownList("UsuarioID", null, htmlAttributes: new
                                     {
                                         @class =

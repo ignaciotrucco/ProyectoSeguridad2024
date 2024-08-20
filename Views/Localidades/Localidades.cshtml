@@ -4,7 +4,7 @@
 
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
-<!-- Encabezado ABM --> 
+<!-- Encabezado ABM -->
 <div class="card m-4">
     <div class="card-body">
         <div class="mt-3">
@@ -23,23 +23,34 @@
     </div>
 </div>
 
-<!-- Tabla --> 
+<!-- Tabla -->
 <div class="card m-4">
-    <div class="card-body">
-        <div class="table-responsive">
-        <table class="table table-striped mt-3" id="imprimir-tabla">
-            <thead>
-                <tr>
-                    <th scope="col" style="text-align: center">NOMBRE</th>
-                    <th scope="col" style="text-align: center">CÓDIGO POSTAL</th>
-                    <th scope="col" style="text-align: center">PROVINCIA</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody id="tbody-localidad"></tbody>
-        </table>
+    <div class="card-header">
+        <div class="row">
+            <div class="col-auto">
+                <div class="input-group m-2">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
+                    <input type="text" id="inputBusqueda" class="form-control inputBusqueda"
+                        placeholder="Buscar por palabra..." style="text-transform:uppercase">
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="card-body">
+        <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+            <table class="table table-striped mt-1" id="imprimir-tabla">
+                <thead>
+                    <tr>
+                        <th scope="col" style="text-align: center">NOMBRE</th>
+                        <th scope="col" style="text-align: center">CÓDIGO POSTAL</th>
+                        <th scope="col" style="text-align: center">PROVINCIA</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-localidad"></tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -54,7 +65,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="d-flex">
-                        <p class="campoObligatorio">Los campos marcados con un asterisco (<span class="asterisco">*</span>) son obligatorios</p>
+                        <p class="campoObligatorio">Los campos marcados con un asterisco (<span
+                                class="asterisco">*</span>) son obligatorios</p>
                     </div>
                     <form>
                         <div class="col-md-8 mb-2">
@@ -67,7 +79,7 @@
                             <input type="text" class="form-control" id="CP">
                             <br>
                             <label for="ProvinciaID" class="form-label d-flex">Provincia<p class="asterisco">*</p>
-                                </label>
+                            </label>
                             @Html.DropDownList("ProvinciaID", null, htmlAttributes: new { @class = "form-control" })
                             <span id="ProvinciaError" class="textoError"></span>
                         </div>

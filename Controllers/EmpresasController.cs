@@ -49,19 +49,35 @@ public class EmpresasController : Controller
         return Json(localidades);
     }
 
-    public JsonResult ListadoEmpresas(int? EmpresaID)
+    public JsonResult ListadoEmpresas(int? EmpresaID, string busqueda)
     {
+        // LISTADO COMPLETO DE EMPRESAS CON SUS RELACIONES
+        var listadoEmpresas = _context.Empresas.Include(l => l.Localidad).Include(p => p.Localidad.Provincia).AsQueryable();
 
-        var listadoEmpresas = _context.Empresas.Include(l => l.Localidad).Include(p => p.Localidad.Provincia).ToList();
-
+        // FILTRAR POR ID DE EMPRESA
         if (EmpresaID != null)
         {
-            listadoEmpresas = _context.Empresas.Where(l => l.EmpresaID == EmpresaID).ToList();
+            listadoEmpresas = _context.Empresas.Where(l => l.EmpresaID == EmpresaID);
         }
 
+        // FILTRAR POR CUALQUIER CAMPO SI SE PROPORCIONA UN TERMMINO DE BUSQUEDA
+        if (!string.IsNullOrEmpty(busqueda))
+        {
+
+            listadoEmpresas = listadoEmpresas.Where(p =>
+                p.RazonSocial.Contains(busqueda) ||
+                p.Cuit_Cdi.Contains(busqueda) ||
+                p.Telefono.Contains(busqueda) ||
+                p.Email.Contains(busqueda) ||
+                p.Localidad.Nombre.Contains(busqueda) ||
+                p.Localidad.Provincia.Nombre.Contains(busqueda) ||
+                p.Domicilio.Contains(busqueda)
+            );
+        };
+
         var mostrarEmpresa = listadoEmpresas
-        .Select(l => new VistaEmpresas 
-        { 
+        .Select(l => new VistaEmpresas
+        {
             EmpresaID = l.EmpresaID,
             RazonSocial = l.RazonSocial,
             Cuit_Cdi = l.Cuit_Cdi,
@@ -78,7 +94,7 @@ public class EmpresasController : Controller
         return Json(mostrarEmpresa);
     }
 
-    public JsonResult GuardarEmpresas (int EmpresaID, int LocalidadID, string UsuarioID, string RazonSocial, string Cuit_Cdi, string Telefono, string Email, string Domicilio)
+    public JsonResult GuardarEmpresas(int EmpresaID, int LocalidadID, string UsuarioID, string RazonSocial, string Cuit_Cdi, string Telefono, string Email, string Domicilio)
     {
 
         var usuario = _userManager.FindByEmailAsync(UsuarioID).Result;
@@ -95,7 +111,8 @@ public class EmpresasController : Controller
             var existeEmpresa = _context.Empresas.Where(e => e.RazonSocial == RazonSocial).Count();
             if (existeEmpresa == 0)
             {
-                var nuevaEmpresa = new Empresa {
+                var nuevaEmpresa = new Empresa
+                {
                     EmpresaID = EmpresaID,
                     LocalidadID = LocalidadID,
                     UsuarioID = UsuarioIDconvertido,
@@ -109,7 +126,7 @@ public class EmpresasController : Controller
                 _context.SaveChanges();
                 resultado = "¡Empresa agregada correctamente!";
             }
-            else 
+            else
             {
                 resultado = "Empresa existente";
             }
