@@ -65,13 +65,23 @@ function ListadoLocalidades() {
         // son pasados como argumentos a la función
         // el objeto de la petición en crudo y código de estatus de la petición
         error: function (xhr, status) {
-            Swal.fire({
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                }
+              });
+              Toast.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Disculpe, existió un problema al cargar el listado",
-                timer: 2000,
-                timerProgressBar: true
-            });
+                text: "Disculpe, existió un problema al cargar las localidades",
+              });
         }
     });
 }
@@ -121,13 +131,23 @@ function GuardarLocalidad() {
             // son pasados como argumentos a la función
             // el objeto de la petición en crudo y código de estatus de la petición
             error: function (xhr, status) {
-                Swal.fire({
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "bottom-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: '#ffe7e7',
+                    didOpen: (toast) => {
+                      toast.onmouseenter = Swal.stopTimer;
+                      toast.onmouseleave = Swal.resumeTimer;
+                    }
+                  });
+                  Toast.fire({
                     icon: "error",
                     title: "Oops...",
-                    text: "Disculpe, existió un problema al guardar la Localidad",
-                    timer: 2000,
-                    timerProgressBar: true
-                });
+                    text: "Disculpe, existió un problema al guardar la localidad",
+                  });
                 
             }
         });
@@ -163,33 +183,49 @@ function ModalEditar(localidadID) {
         // son pasados como argumentos a la función
         // el objeto de la petición en crudo y código de estatus de la petición
         error: function (xhr, status) {
-            Swal.fire({
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                }
+              });
+              Toast.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Disculpe, existió un problema",
-                timer: 2000,
-                timerProgressBar: true
+                text: "Disculpe, existió un problema al cargar el listado",
             });
         }
     });
 }
 
+
+
+
 function EliminarLocalidad(localidadID) {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-            confirmButton: "btn btn-danger",
-            cancelButton: "btn btn-success"
+          cancelButton: "btn btn-secondary",
+          confirmButton: "btn btn-danger m-2",
         },
-        buttonsStyling: true
-    });
-    swalWithBootstrapButtons.fire({
+        buttonsStyling: false,
+
+      });
+      swalWithBootstrapButtons.fire({
         title: "¿Estás seguro?",
         text: "¡No podrás revertir esto!",
-        icon: "warning",
+        icon: "question",
+        background: '#ffeeee',
         showCancelButton: true,
-        confirmButtonText: "¡Sí, bórralo!",
-        cancelButtonText: "¡No, cancela!",
-        reverseButtons: true
+        confirmButtonText: "¡Sí, eliminar!",
+        cancelButtonText: "¡No, cancelar!",
+        reverseButtons: false,
+        width: '350px',
     }).then((result) => {
         if (result.isConfirmed) {
 
@@ -208,13 +244,23 @@ function EliminarLocalidad(localidadID) {
                 success: function (resultado) {
 
                     if (!resultado) {
-                        Swal.fire({
-                            icon: "error",
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "bottom-end",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            background: '#fcffe7',
+                            didOpen: (toast) => {
+                              toast.onmouseenter = Swal.stopTimer;
+                              toast.onmouseleave = Swal.resumeTimer;
+                            }
+                          });
+                          Toast.fire({
+                            icon: "warning",
                             title: "Oops...",
                             text: "No se puede eliminar, existen registros asociados",
-                            timer: 2000,
-                            timerProgressBar: true
-                        });
+                          });
                     }
 
                     ListadoLocalidades()
@@ -224,34 +270,63 @@ function EliminarLocalidad(localidadID) {
                 // son pasados como argumentos a la función
                 // el objeto de la petición en crudo y código de estatus de la petición
                 error: function (xhr, status) {
-                    Swal.fire({
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        background: '#ffe7e7',
+                        didOpen: (toast) => {
+                          toast.onmouseenter = Swal.stopTimer;
+                          toast.onmouseleave = Swal.resumeTimer;
+                        }
+                      });
+                      Toast.fire({
                         icon: "error",
                         title: "Oops...",
-                        text: "Disculpe, existió un problema al eliminar la Localidad",
-                        timer: 2000,
-                        timerProgressBar: true
-                    });
+                        text: "Disculpe, existió un problema al eliminar la localidad.",
+                      });
                 }
             });
-
-            swalWithBootstrapButtons.fire({
-                title: "¡Borrado!",
-                text: "Su registro ha sido eliminado.",
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#e2ffd4',
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                }
+              });
+              Toast.fire({
                 icon: "success",
-                timer: 2000,
-                timerProgressBar: true
-            });
+                title: "¡Borrado!",
+                text: "La localidad ha sido eliminada.",
+              });
         } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
         ) {
-            swalWithBootstrapButtons.fire({
-                title: "Anulado",
-                text: "Tu registro está a salvo :)",
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                }
+              });
+              Toast.fire({
                 icon: "error",
-                timer: 2000,
-                timerProgressBar: true
-            });
+                title: "Anulado",
+                text: "Tu registro está a salvo.",
+              });
             
         }
     });

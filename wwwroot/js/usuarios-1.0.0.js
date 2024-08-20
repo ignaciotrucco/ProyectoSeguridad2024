@@ -67,13 +67,23 @@ function ListadoUsuarios() {
         // son pasados como argumentos a la función
         // el objeto de la petición en crudo y código de estatus de la petición
         error: function (xhr, status) {
-            Swal.fire({
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                }
+              });
+              Toast.fire({
                 icon: "error",
                 title: "Oops...",
                 text: "Disculpe, existió un problema al cargar el listado",
-                timer: 2000,
-                timerProgressBar: true
-            });
+              });
         }
     });
 }
@@ -110,13 +120,23 @@ function GuardarUsuario() {
                 ListadoUsuarios();
             },
             error: function (xhr, status) {
-                Swal.fire({
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "bottom-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: '#ffe7e7',
+                    didOpen: (toast) => {
+                      toast.onmouseenter = Swal.stopTimer;
+                      toast.onmouseleave = Swal.resumeTimer;
+                    }
+                  });
+                  Toast.fire({
                     icon: "error",
                     title: "Oops...",
                     text: "Disculpe, existió un problema al guardar el usuario",
-                    timer: 2000,
-                    timerProgressBar: true
-                });
+                  });
             }
         });
     }
@@ -151,12 +171,22 @@ function AbrirModalEditar(usuarioID) {
         // son pasados como argumentos a la función
         // el objeto de la petición en crudo y código de estatus de la petición
         error: function (xhr, status) {
-            Swal.fire({
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                }
+              });
+              Toast.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Disculpe, existió un problema al cargar el listado",
-                timer: 2000,
-                timerProgressBar: true
+                text: "Disculpe, existió un problema al cargar los usuarios",
             });
         }
     });
@@ -166,19 +196,22 @@ function EliminarUsuario(usuarioID) {
 
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-            confirmButton: "btn btn-danger",
-            cancelButton: "btn btn-success"
+          cancelButton: "btn btn-secondary",
+          confirmButton: "btn btn-danger m-2",
         },
-        buttonsStyling: true
-    });
-    swalWithBootstrapButtons.fire({
+        buttonsStyling: false,
+
+      });
+      swalWithBootstrapButtons.fire({
         title: "¿Estás seguro?",
         text: "¡No podrás revertir esto!",
-        icon: "warning",
+        icon: "question",
+        background: '#ffeeee',
         showCancelButton: true,
-        confirmButtonText: "¡Sí, bórralo!",
-        cancelButtonText: "¡No, cancela!",
-        reverseButtons: true
+        confirmButtonText: "¡Sí, eliminar!",
+        cancelButtonText: "¡No, cancelar!",
+        reverseButtons: false,
+        width: '350px',
     }).then((result) => {
         if (result.isConfirmed) {
 
@@ -197,11 +230,23 @@ function EliminarUsuario(usuarioID) {
                 success: function (resultado) {
 
                     if (!resultado) {
-                        Swal.fire({
-                            icon: "error",
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "bottom-end",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            background: '#fcffe7',
+                            didOpen: (toast) => {
+                              toast.onmouseenter = Swal.stopTimer;
+                              toast.onmouseleave = Swal.resumeTimer;
+                            }
+                          });
+                          Toast.fire({
+                            icon: "warning",
                             title: "Oops...",
                             text: "No se puede eliminar, existen registros asociados",
-                        });
+                          });
                     }
 
                     ListadoUsuarios();
@@ -211,32 +256,64 @@ function EliminarUsuario(usuarioID) {
                 // son pasados como argumentos a la función
                 // el objeto de la petición en crudo y código de estatus de la petición
                 error: function (xhr, status) {
-                    Swal.fire({
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        background: '#ffe7e7',
+                        didOpen: (toast) => {
+                          toast.onmouseenter = Swal.stopTimer;
+                          toast.onmouseleave = Swal.resumeTimer;
+                        }
+                      });
+                      Toast.fire({
                         icon: "error",
                         title: "Oops...",
-                        text: "Disculpe, existió un problema al eliminar el usuario",
-                    });
+                        text: "Disculpe, existió un problema al eliminar el usuario.",
+                      });
                 }
             });
 
-            swalWithBootstrapButtons.fire({
-                title: "¡Borrado!",
-                text: "Su registro ha sido eliminado.",
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#e2ffd4',
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                }
+              });
+              Toast.fire({
                 icon: "success",
-                timer: 2000,
-                timerProgressBar: true
-            });
+                title: "¡Borrado!",
+                text: "El usuario ha sido eliminado.",
+              });
         } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
         ) {
-            swalWithBootstrapButtons.fire({
-                title: "Anulado",
-                text: "Tu registro está a salvo :)",
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                }
+              });
+              Toast.fire({
                 icon: "error",
-                timer: 2000,
-                timerProgressBar: true
-            });
+                title: "Anulado",
+                text: "Tu registro está a salvo.",
+              });
         }
     });
 

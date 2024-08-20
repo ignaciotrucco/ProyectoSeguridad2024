@@ -51,14 +51,23 @@ function ListadoProvincias(pagina = 1) {
             renderizarControlesDePaginacion();
         },
         error: function (xhr, status) {
-            Swal.fire({
+            const Toast = Swal.mixin({
+                toast: true,
                 position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                }
+              });
+              Toast.fire({
                 icon: "error",
                 title: "Oops...",
                 text: "Disculpe, existió un problema al cargar el listado",
-                timer: 2000,
-                timerProgressBar: true
-            });
+              });
         }
     });
 }
@@ -126,14 +135,24 @@ function GuardarRegistros() {
             // son pasados como argumentos a la función
             // el objeto de la petición en crudo y código de estatus de la petición
             error: function (xhr, status) {
-                Swal.fire({
+
+                const Toast = Swal.mixin({
+                    toast: true,
                     position: "bottom-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: '#ffe7e7',
+                    didOpen: (toast) => {
+                      toast.onmouseenter = Swal.stopTimer;
+                      toast.onmouseleave = Swal.resumeTimer;
+                    }
+                  });
+                  Toast.fire({
                     icon: "error",
                     title: "Oops...",
                     text: "Disculpe, existió un problema al guardar la provincia",
-                    timer: 2000,
-                    timerProgressBar: true
-                });;
+                  });
             }
         });
     }
@@ -162,17 +181,23 @@ function ModalEditar(provinciaID) {
 
         },
 
-        // código a ejecutar si la petición falla;
-        // son pasados como argumentos a la función
-        // el objeto de la petición en crudo y código de estatus de la petición
         error: function (xhr, status) {
-            Swal.fire({
+            const Toast = Swal.mixin({
+                toast: true,
                 position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                }
+              });
+              Toast.fire({
                 icon: "error",
                 title: "Oops...",
                 text: "Disculpe, existió un problema al cargar el listado",
-                timer: 2000,
-                timerProgressBar: true
             });
         }
     });
@@ -181,19 +206,23 @@ function ModalEditar(provinciaID) {
 function EliminarProvincia(provinciaID) {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-            confirmButton: "btn btn-danger",
-            cancelButton: "btn btn-success"
+          cancelButton: "btn btn-secondary",
+          confirmButton: "btn btn-danger m-2",
         },
-        buttonsStyling: true
-    });
-    swalWithBootstrapButtons.fire({
+        buttonsStyling: false,
+
+      });
+      swalWithBootstrapButtons.fire({
         title: "¿Estás seguro?",
         text: "¡No podrás revertir esto!",
-        icon: "warning",
+        icon: "question",
+        background: '#ffeeee',
         showCancelButton: true,
-        confirmButtonText: "¡Sí, bórralo!",
-        cancelButtonText: "¡No, cancela!",
-        reverseButtons: true
+        confirmButtonText: "¡Sí, eliminar!",
+        cancelButtonText: "¡No, cancelar!",
+        reverseButtons: false,
+        width: '350px',
+
     }).then((result) => {
         if (result.isConfirmed) {
 
@@ -211,15 +240,23 @@ function EliminarProvincia(provinciaID) {
                 // la respuesta es pasada como argumento a la función
                 success: function (resultado) {
                     if (!resultado) {
-                        Swal.fire({
+                        const Toast = Swal.mixin({
+                            toast: true,
                             position: "bottom-end",
-                            icon: "error",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            background: '#fcffe7',
+                            didOpen: (toast) => {
+                              toast.onmouseenter = Swal.stopTimer;
+                              toast.onmouseleave = Swal.resumeTimer;
+                            }
+                          });
+                          Toast.fire({
+                            icon: "warning",
                             title: "Oops...",
                             text: "No se puede eliminar, existen registros asociados",
-                            timer: 2000,
-                            timerProgressBar: true,
-                            showConfirmButton: false
-                        });
+                          });
                     }
                     ListadoProvincias();
                 },
@@ -228,43 +265,63 @@ function EliminarProvincia(provinciaID) {
                 // son pasados como argumentos a la función
                 // el objeto de la petición en crudo y código de estatus de la petición
                 error: function (xhr, status) {
-                    Swal.fire({
+                    const Toast = Swal.mixin({
+                        toast: true,
                         position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        background: '#ffe7e7',
+                        didOpen: (toast) => {
+                          toast.onmouseenter = Swal.stopTimer;
+                          toast.onmouseleave = Swal.resumeTimer;
+                        }
+                      });
+                      Toast.fire({
                         icon: "error",
                         title: "Oops...",
-                        text: "Disculpe, existió un problema al eliminar la provincia",
-                        timer: 2000,
-                        timerProgressBar: true,
-                        showConfirmButton: false,
-                        backdrop: false
-                    });
+                        text: "Disculpe, existió un problema al eliminar la provincia.",
+                      });
                 }
             });
 
-            swalWithBootstrapButtons.fire({
+            const Toast = Swal.mixin({
+                toast: true,
                 position: "bottom-end",
-                title: "¡Borrado!",
-                text: "Su registro ha sido eliminado.",
-                icon: "success",
-                timer: 2000,
-                timerProgressBar: true,
                 showConfirmButton: false,
-                backdrop: false
-            });
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#e2ffd4',
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                }
+              });
+              Toast.fire({
+                icon: "success",
+                title: "¡Borrado!",
+                text: "La provincia ha sido eliminada.",
+              });
         } else if (
-            /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
         ) {
-            swalWithBootstrapButtons.fire({
+            const Toast = Swal.mixin({
+                toast: true,
                 position: "bottom-end",
-                title: "Anulado",
-                text: "Tu registro está a salvo :)",
-                icon: "error",
-                timer: 2000,
-                timerProgressBar: true,
                 showConfirmButton: false,
-                backdrop: false
-            });
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                }
+              });
+              Toast.fire({
+                icon: "error",
+                title: "Anulado",
+                text: "Tu registro está a salvo.",
+              });
         }
     });
 
