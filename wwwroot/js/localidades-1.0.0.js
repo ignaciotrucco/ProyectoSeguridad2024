@@ -131,9 +131,24 @@ function GuardarLocalidad() {
             // la respuesta es pasada como argumento a la función
             success: function (resultado) {
 
-                if (resultado != "") {
-                    Swal.fire(resultado);
-                }
+              if (resultado != "") {      
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: "bottom-end",
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: true,
+                  background: '#e2ffd4',
+                  width: "380px",
+                  didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                  }
+                });
+                Toast.fire({
+                  title: (resultado),
+                });
+              }
                 ListadoLocalidades();
             },
 

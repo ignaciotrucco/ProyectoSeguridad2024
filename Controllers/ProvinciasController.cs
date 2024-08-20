@@ -31,9 +31,10 @@ public class ProvinciasController : Controller
             listadoProvincias = _context.Provincias.Where(l => l.ProvinciaID == ProvinciaID);
         }
 
-        if(!string.IsNullOrEmpty(busqueda)) {
+        if (!string.IsNullOrEmpty(busqueda))
+        {
             listadoProvincias = listadoProvincias.Where(l =>
-            l.Nombre.Contains(busqueda) 
+            l.Nombre.Contains(busqueda)
             );
         }
 
@@ -58,11 +59,11 @@ public class ProvinciasController : Controller
                     };
                     _context.Add(nuevaProvincia);
                     _context.SaveChanges();
-                    resultado = "¡Provincia agregada correctamente!";
+                    resultado = "<i class='fas fa-check-circle'></i> ¡Provincia agregada correctamente!";
                 }
                 else
                 {
-                    resultado = "Provincia existente";
+                    resultado = "<i class='fas fa-exclamation-triangle'></i> ¡Provincia existente!";
                 }
             }
             else
@@ -75,11 +76,11 @@ public class ProvinciasController : Controller
                     {
                         provinciaEditar.Nombre = Nombre;
                         _context.SaveChanges();
-                        resultado = "¡Provincia editada correctamente!";
+                        resultado = "<i class='fas fa-check-circle'></i> ¡Provincia editada correctamente!";
                     }
                     else
                     {
-                        resultado = "Provincia existente";
+                        resultado = "<i class='fas fa-exclamation-triangle'></i> ¡Provincia existente!";
                     }
                 }
             }

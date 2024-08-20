@@ -55,6 +55,22 @@ html {
   animation: rotate 1s linear infinite;
 }
 
+/* scrollbar */
+.scroll-bar::-webkit-scrollbar {
+  width: 12px !important;
+}
+
+.scroll-bar::-webkit-scrollbar-track {
+  background: #909090 !important;
+  border-radius: 30px !important;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb {
+  background: #e1e1e1 !important;
+  border-radius: 30px !important;
+  border:2px solid #d7cd62 !important;
+}
+             
 @keyframes BlurScreen {
 
   0%{

@@ -124,11 +124,11 @@ public class EmpresasController : Controller
                 };
                 _context.Add(nuevaEmpresa);
                 _context.SaveChanges();
-                resultado = "¡Empresa agregada correctamente!";
+                resultado = "<i class='fas fa-check-circle'></i> ¡Empresa agregada correctamente!";
             }
             else
             {
-                resultado = "Empresa existente";
+                resultado = "<i class='fas fa-exclamation-triangle'></i> ¡Empresa existente!";
             }
         }
         else
@@ -147,11 +147,11 @@ public class EmpresasController : Controller
                     editarEmpresa.Email = Email;
                     editarEmpresa.Domicilio = Domicilio;
                     _context.SaveChanges();
-                    resultado = "¡Empresa editada correctamente!";
+                    resultado = "<i class='fas fa-check-circle'></i> ¡Empresa editada correctamente!";
                 }
                 else
                 {
-                    resultado = "La empresa que ingresó ya existe";
+                    resultado = "<i class='fas fa-exclamation-triangle'></i> ¡Empresa existente!";
                 }
             }
         }

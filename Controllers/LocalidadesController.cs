@@ -77,11 +77,11 @@ public class LocalidadesController : Controller
                 };
                 _context.Add(nuevaLocalidad);
                 _context.SaveChanges();
-                resultado = "¡Localidad agregada correctamente!";
+                resultado = "<i class='fas fa-check-circle'></i> ¡Localidad agregada correctamente!";
             }
             else
             {
-                resultado = "Localidad existente";
+                resultado = "<i class='fas fa-exclamation-triangle'></i> ¡Localidad existente!";
             }
         }
         else
@@ -93,7 +93,7 @@ public class LocalidadesController : Controller
                 localidadEditar.Nombre = Nombre;
                 localidadEditar.CodigoPostal = CodigoPostal;
                 _context.SaveChanges();
-                resultado = "¡Localidad editada correctamente!";
+                resultado = "<i class='fas fa-check-circle'></i> ¡Localidad editada correctamente!";
             }
         }
 

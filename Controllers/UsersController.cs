@@ -82,12 +82,12 @@ public class UsersController : Controller
             await _userManager.AddToRoleAsync(usuario, rol);
 
             // Mensaje de éxito
-            mensaje = "Usuario guardado exitosamente.";
+            mensaje = "<i class='fas fa-check-circle'></i> ¡Usuario guardado exitosamente!";
         }
         else
         {
             // Mensaje de error
-            mensaje = "Error al guardar el usuario.";
+            mensaje = "<i class='fas fa-exclamation-triangle'></i> ¡Error al guardar el usuario!";
         }
 
         // Devolver un JSON con el estado y el mensaje

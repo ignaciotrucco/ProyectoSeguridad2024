@@ -170,11 +170,11 @@ public class PersonasController : Controller
                 };
                 _context.Add(nuevaPersona);
                 _context.SaveChanges();
-                resultado = "¡Persona agregada correctamente!";
+                resultado = "<i class='fas fa-check-circle'></i> ¡Persona agregada correctamente!";
             }
             else
             {
-                resultado = "Persona existente";
+                resultado = "<i class='fas fa-exclamation-triangle'></i> ¡Persona existente!";
             }
         }
         else
@@ -196,10 +196,10 @@ public class PersonasController : Controller
                     editarPersona.Email = Email;
                     editarPersona.NumeroDocumento = NumeroDocumento;
                     _context.SaveChanges();
-                    resultado = "¡Persona editada correctamente!";
+                    resultado = "<i class='fas fa-check-circle'></i> ¡Persona editada correctamente!";
                 }
                 else {
-                    resultado = "Persona existente";
+                    resultado = "<i class='fas fa-exclamation-triangle'></i> ¡Persona existente!";
                 }
             }
         }
