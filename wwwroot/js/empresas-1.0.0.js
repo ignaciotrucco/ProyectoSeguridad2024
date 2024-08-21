@@ -1,7 +1,7 @@
 window.onload = ListadoEmpresas();
 
 function NuevoRegistro() {
-    $("#tituloModal").text("Nueva Empresa")
+    $("#tituloModal").text("Nuevo Cliente")
 }
 
 function LimpiarModal() {
@@ -268,7 +268,7 @@ function AbrirModalEditar(empresaID) {
             $("#domicilio").val(mostrarEmpresas.domicilio);
             $("#UsuarioID").val(mostrarEmpresas.emailUsuario);
             $("#modalEmpresas").modal("show");
-            $("#tituloModal").text("Editar Empresa");
+            $("#tituloModal").text("Editar Cliente");
         },
 
         // código a ejecutar si la petición falla;
