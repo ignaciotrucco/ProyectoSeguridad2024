@@ -30,6 +30,10 @@ public class JornadaLaboralController : Controller
 
     public IActionResult JornadaLaboral()
     {
+        var empresa = _context.Empresas.ToList();
+        empresa.Add(new Empresa { EmpresaID = 0, RazonSocial = "[SELECCIONE LA EMPRESA . . ]" });
+        ViewBag.EmpresaID = new SelectList(empresa.OrderBy(t => t.RazonSocial), "EmpresaID", "RazonSocial");
+
         return View();
     }
 }

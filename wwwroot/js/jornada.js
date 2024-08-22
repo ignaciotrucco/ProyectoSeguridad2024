@@ -22,3 +22,7 @@ checkboxPrincipal.addEventListener('change', function () {
     // Limpiamos el campo de fecha especial
     fechaEspecialInput.value = '';
 });
+
+function NuevoRegistro() {
+    $("#tituloModal").text("Nueva Jornada")
+}
