@@ -128,11 +128,12 @@ h5 {
 @media (max-width: 767px) {
     .cardPersonas {
         margin-bottom: 1rem;
-        font-size:large;
+        font-size: large;
     }
+
     .cardbodyPersonas {
         height: 100px;
-      }
+    }
 }
 
 h1 {
@@ -260,7 +261,7 @@ label {
     box-shadow: none;
 }
 
-.btn-danger{
+.btn-danger {
     background-color: #212529;
     color: white;
     border-color: rgba(255, 255, 255, 0);
@@ -365,28 +366,52 @@ p {
     cursor: pointer;
 }
 
+/* Acordeon Jornada Laboral */
+
+.accordion-button-custom {
+    background-color: rgb(228, 228, 228) !important;
+    transition: ease-in-out 0.3s !important;
+}
+
+.accordion-button-custom.collapsed {
+    background-color: rgb(196, 196, 196) !important;
+}
+
+.accordion-collapse-custom {
+    transition: height 0.3s ease-in-out !important;
+}
+
+h3 {
+    color: rgb(29, 29, 29);
+}
+
+.accordion-item {
+    background-color: rgba(0, 0, 0, 0.274) !important;
+    border-color: rgba(255, 255, 255, 0.24) !important;
+}
+
 /* Tabla responsiva */
 .table-responsive {
     display: block;
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    font-size: 0.8rem; 
+    font-size: 0.8rem;
 }
 
-.table-responsive > .table {
+.table-responsive>.table {
     margin-bottom: 0;
     min-width: 600px;
 }
 
-.table-responsive > .table > thead > tr > th,
-.table-responsive > .table > tbody > tr > th,
-.table-responsive > .table > tfoot > tr > th,
-.table-responsive > .table > thead > tr > td,
-.table-responsive > .table > tbody > tr > td,
-.table-responsive > .table > tfoot > tr > td {
+.table-responsive>.table>thead>tr>th,
+.table-responsive>.table>tbody>tr>th,
+.table-responsive>.table>tfoot>tr>th,
+.table-responsive>.table>thead>tr>td,
+.table-responsive>.table>tbody>tr>td,
+.table-responsive>.table>tfoot>tr>td {
     white-space: nowrap;
-    padding: 0.5rem; 
+    padding: 0.5rem;
 }
 
 @media (max-width: 767px) {
@@ -395,28 +420,28 @@ p {
         width: 100%;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-        font-size: 0.7rem; 
+        font-size: 0.7rem;
     }
 
-    .table-responsive > .table {
-        min-width: 500px !important; 
+    .table-responsive>.table {
+        min-width: 500px !important;
     }
 
-    .table-responsive > .table > thead > tr > th,
-    .table-responsive > .table > tbody > tr > th,
-    .table-responsive > .table > tfoot > tr > th,
-    .table-responsive > .table > thead > tr > td,
-    .table-responsive > .table > tbody > tr > td,
-    .table-responsive > .table > tfoot > tr > td {
-        padding: 0.25rem; 
+    .table-responsive>.table>thead>tr>th,
+    .table-responsive>.table>tbody>tr>th,
+    .table-responsive>.table>tfoot>tr>th,
+    .table-responsive>.table>thead>tr>td,
+    .table-responsive>.table>tbody>tr>td,
+    .table-responsive>.table>tfoot>tr>td {
+        padding: 0.25rem;
     }
 
-    th{
+    th {
         text-align: left !important;
         font-size: small !important;
     }
 
-    td{
+    td {
         text-align: left !important;
         font-size: small !important;
     }

@@ -21,94 +21,138 @@
         </div>
     </div>
 </div>
-
-<div class="row">
-    <div class="col-md-7">
-        <div class="card m-2">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-auto me-auto">
-                        <div class="input-group m-2">
-                            <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
-                            <input type="text" id="inputBusqueda" class="form-control inputBusqueda"
-                                placeholder="Buscar..." style="text-transform:uppercase">
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <!-- Boton modal -->
-                        <div class="boton-normal">
-                            <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar"
-                                data-bs-toggle="modal" data-bs-target="#modalJornada" data-bs-target="#staticBackdrop"
-                                onclick="NuevoRegistro()">
-                                <i class="fa-solid fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped mt-1" id="imprimir-tabla">
-                        <thead>
-                            <tr>
-                                <th scope="col" style="text-align: center">CLIENTE</th>
-                                <th scope="col" style="text-align: center">LUGAR</th>
-                                <th scope="col" style="text-align: center">ENTRADA</th>
-                                <th scope="col" style="text-align: center">SALIDA</th>
-                                <th scope="col" style="text-align: center">DIAS</th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody-empresas"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-5">
-        <div class="card m-2">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-auto me-auto">
-                        <div class="input-group m-2">
-                            <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
-                            <input type="text" id="inputBusqueda" class="form-control inputBusqueda"
-                                placeholder="Buscar..." style="text-transform:uppercase">
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <!-- Boton modal -->
-                        <div class="boton-normal">
-                            <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar"
-                                data-bs-toggle="modal" data-bs-target="#modalEmpleadoJornada" data-bs-target="#staticBackdrop"
-                                onclick="NuevoRegistro()">
-                                <i class="fa-regular fa-calendar-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped mt-1" id="imprimir-tabla">
-                        <thead>
-                            <tr>
-                                <th scope="col" style="text-align: center">EMPLEADO</th>
-                                <th scope="col" style="text-align: center">JORNADA</th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody-empresas"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
+
+<div class="accordion m-4 mt-1" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+      <button class="accordion-button collapsed accordion-button-custom" type="button" data-bs-toggle="collapse"
+        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+        aria-controls="panelsStayOpen-collapseTwo">
+        <h3 style="cursor:pointer !important;">Añadir <i class="fa-regular fa-calendar-plus"></i></h3>
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse accordion-collapse-custom"
+      aria-labelledby="panelsStayOpen-headingTwo">
+      <div class="accordion-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card m-2">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-auto me-auto">
+                    <div class="input-group m-2">
+                      <span class="input-group-text" id="basic-addon1"><i
+                          class="fa-regular fa-calendar-days"></i></span>
+                      <input type="text" style="width:12rem !important" id="inputBusqueda" class="form-control inputBusqueda"
+                        placeholder="BUSCAR..." style="text-transform:uppercase">
+                    </div>
+                  </div>
+                  <div class="col-auto">
+                    <!-- Boton modal -->
+                    <div class="boton-normal">
+                      <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar"
+                        data-bs-toggle="modal" data-bs-target="#modalJornada" data-bs-target="#staticBackdrop"
+                        onclick="NuevoRegistro()">
+                        <i class="fa-solid fa-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped mt-1" id="imprimir-tabla">
+                    <thead>
+                      <tr>
+                        <th scope="col" style="text-align: center">CLIENTE</th>
+                        <th scope="col" style="text-align: center">LUGAR</th>
+                        <th scope="col" style="text-align: center">ENTRADA</th>
+                        <th scope="col" style="text-align: center">SALIDA</th>
+                        <th scope="col" style="text-align: center">DIAS</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody-empresas"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="accordion m-4 mt-1" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+        <button class="accordion-button collapsed accordion-button-custom" type="button" data-bs-toggle="collapse"
+          data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+          aria-controls="panelsStayOpen-collapseThree">
+          <h3 style="cursor:pointer !important;">Asignar <i class="fa-solid fa-user-tag"></i></h3>
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse accordion-collapse-custom"
+        aria-labelledby="panelsStayOpen-headingThree">
+        <div class="accordion-body">
+          <div class="col-md-12">
+            <div class="card m-2">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-auto me-auto">
+                    <div class="input-group m-2">
+                      <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
+                      <input type="text" style="width:12rem !important" id="inputBusqueda"
+                        class="form-control inputBusqueda" placeholder="BUSCAR..."
+                        style="text-transform:uppercase">
+                    </div>
+                  </div>
+                  <div class="col-auto">
+                    <!-- Boton modal -->
+                    <div class="boton-normal">
+                      <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar"
+                        data-bs-toggle="modal" data-bs-target="#modalEmpleadoJornada" data-bs-target="#staticBackdrop"
+                        onclick="NuevoRegistro()">
+                        <i class="fa-solid fa-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped mt-1" id="imprimir-tabla">
+                    <thead>
+                      <tr>
+                        <th scope="col" style="text-align: center">EMPLEADO</th>
+                        <th scope="col" style="text-align: center">JORNADA</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody-empresas"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+    
 
 <!-- Modal -->
 <div class="modal fade" id="modalJornada" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
@@ -244,14 +288,14 @@
                     </div>
                     <form>                        
                         <div class="col-md-8 mb-2">
-                            @* <label for="PersonaID" class="form-label d-flex">Empleado<p class="asterisco">*</p>
+                            <label for="PersonaID" class="form-label d-flex">Empleado<p class="asterisco">*</p>
                             </label>
                             @Html.DropDownList("PersonaID", null, htmlAttributes: new { @class = "form-control" })
-                            <span id="PersonaError" class="textoError"></span> *@
-                            @* <label for="JornadaLaboralID" class="form-label d-flex">Jornada Laboral<p class="asterisco">*</p>
+                            <span id="PersonaError" class="textoError"></span>
+                            <label for="JornadaLaboralID" class="form-label d-flex">Jornada Laboral<p class="asterisco">*</p>
                             </label>
                             @Html.DropDownList("JornadaLaboralID", null, htmlAttributes: new { @class = "form-control" })
-                            <span id="JornadaLaboralError" class="textoError"></span> *@
+                            <span id="JornadaLaboralError" class="textoError"></span>
                         </div>
                     </form>
                 </div>

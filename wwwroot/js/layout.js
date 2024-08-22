@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const links = document.querySelectorAll('.list-group-item');
     let currentPath = window.location.pathname;
 
@@ -30,3 +30,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Función para obtener el estado del collapse
+function getCollapseState() {
+    return localStorage.getItem('collapseAdminState') === 'open';
+}
+
+// Función para establecer el estado del collapse
+function setCollapseState(isOpen) {
+    localStorage.setItem('collapseAdminState', isOpen ? 'open' : 'closed');
+}
+
+// Obtener el estado inicial del collapse
+const isCollapseOpen = getCollapseState();
+
+// Configurar el estado inicial del collapse
+const collapseElement = document.getElementById('collapseAdmin');
+if (isCollapseOpen) {
+    collapseElement.classList.add('show');
+} else {
+    collapseElement.classList.remove('show');
+}
+
+// Escuchar los eventos de cambio de estado del collapse
+const collapseButton = document.querySelector('[data-bs-target="#collapseAdmin"]');
+collapseButton.addEventListener('shown.bs.collapse', () => setCollapseState(true));
+collapseButton.addEventListener('hidden.bs.collapse', () => setCollapseState(false));

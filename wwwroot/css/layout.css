@@ -212,7 +212,12 @@ a, .cerrarSesion {
   width: 40px;
   height: 40px;
   transition: transform 0.3s ease-in-out;
-  position: relative; /* Añadir posición relativa */
+  position: relative; 
+}
+
+.list-administrar{
+  background-color: #ffe06f !important;
+  border-color: #fad75b !important;
 }
 
 .logoCircular:hover {

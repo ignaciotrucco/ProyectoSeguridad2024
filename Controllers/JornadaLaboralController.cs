@@ -34,6 +34,15 @@ public class JornadaLaboralController : Controller
         empresa.Add(new Empresa { EmpresaID = 0, RazonSocial = "[SELECCIONE LA EMPRESA . . ]" });
         ViewBag.EmpresaID = new SelectList(empresa.OrderBy(t => t.RazonSocial), "EmpresaID", "RazonSocial");
 
+        var persona = _context.Personas.ToList();
+        persona.Add(new Persona { PersonaID = 0, NombreCompleto = "[SELECCIONE EL EMPLEADO . . ]" });
+        ViewBag.PersonaID = new SelectList(persona.OrderBy(t => t.NombreCompleto), "PersonaID", "NombreCompleto");
+
+        var jornada = _context.JornadaLaboral.ToList();
+        jornada.Add(new JornadaLaboral { JornadaLaboralID = 0, Lugar = "[SELECCIONE LA JORNADA . . ]" });
+        ViewBag.JornadaLaboralID = new SelectList(jornada.OrderBy(t => t.Lugar), "JornadaLaboralID", "Lugar");
+
         return View();
     }
+
 }
