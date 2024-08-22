@@ -67,8 +67,8 @@ public class LocalidadesController : Controller
 
         if (LocalidadID == 0)
         {
-            // var existeNombreLocalidad = _context.Localidades.Where(e => e.Nombre == Nombre).Count();
-            // if (existeNombreLocalidad == 0)
+            var existeNombreLocalidad = _context.Localidades.Where(e => e.Nombre == Nombre).Count();
+            if (existeNombreLocalidad == 0)
             {
                 var nuevaLocalidad = new Localidad
                 {
@@ -80,18 +80,18 @@ public class LocalidadesController : Controller
                 _context.SaveChanges();
                 resultado = "<i class='fas fa-check-circle'></i> ¡Localidad agregada correctamente!";
             }
-            // else
-            // {
-            //     resultado = "<i class='fas fa-exclamation-triangle'></i> ¡Localidad existente!";
-            // }
+            else
+            {
+                resultado = "<i class='fas fa-exclamation-triangle'></i> ¡Localidad existente!";
+            }
         }
         else
         {
             var localidadEditar = _context.Localidades.Where(p => p.LocalidadID == LocalidadID).SingleOrDefault();
             if (localidadEditar != null)
             {
-                // var existeLocalidadEditar = _context.Localidades.Where(e => e.Nombre == Nombre && e.LocalidadID != LocalidadID).Count();
-                // if (existeLocalidadEditar == 0)
+                var existeLocalidadEditar = _context.Localidades.Where(e => e.Nombre == Nombre && e.LocalidadID != LocalidadID).Count();
+                if (existeLocalidadEditar == 0)
                 {
                     localidadEditar.ProvinciaID = ProvinciaID;
                     localidadEditar.Nombre = Nombre;
@@ -99,9 +99,9 @@ public class LocalidadesController : Controller
                     _context.SaveChanges();
                     resultado = "<i class='fas fa-check-circle'></i> ¡Localidad editada correctamente!";
                 }
-                // else {
-                //     resultado = "<i class='fas fa-exclamation-triangle'></i> ¡Localidad existente!";
-                // }
+                else {
+                    resultado = "<i class='fas fa-exclamation-triangle'></i> ¡Localidad existente!";
+                }
             }
         }
 
