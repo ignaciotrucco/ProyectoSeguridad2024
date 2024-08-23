@@ -35,6 +35,7 @@ function LimpiarModal() {
     $("#Lugar").val("");
     $("#checkboxPrincipal").prop("checked", false); // Desmarca el checkbox principal
     $("#fechaEspecialInput").val(""); // Limpia el campo de fecha especial
+    $("#fechaEspecial").show();
     $("#lunes").prop("checked", false); // Desmarca el checkbox de lunes
     $("#martes").prop("checked", false); // Desmarca el checkbox de martes
     $("#miercoles").prop("checked", false); // Desmarca el checkbox de miércoles
@@ -44,6 +45,7 @@ function LimpiarModal() {
     $("#domingo").prop("checked", false); // Desmarca el checkbox de domingo
     $("#HsEntrada").val(""); // Limpia el campo de hora de entrada
     $("#HsSalida").val(""); // Limpia el campo de hora de salida
+    $("#checkboxsAdicionales").hide();
 }
 
 
