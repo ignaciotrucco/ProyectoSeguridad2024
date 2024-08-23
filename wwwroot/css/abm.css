@@ -395,8 +395,8 @@ h3 {
 .custom-checkbox {
     display: inline-block;
     position: relative;
-    padding-left: 30px;
-    margin-bottom: 12px;
+    padding-left: 20px;
+    margin-bottom: 5px;
     cursor: pointer;
     font-size: 16px;
     -webkit-user-select: none;
@@ -406,10 +406,9 @@ h3 {
 }
 
 label.custom-checkbox {
-    padding-left: 26px !important;
-    padding-right: 18px;
+    padding-left: 25px !important;
+    padding-right: 17px;
 }
-
 
 .custom-checkbox input {
     position: absolute;
@@ -428,6 +427,17 @@ label.custom-checkbox {
     background-color: #eee;
     border-radius: 50%;
     transition: background-color 0.3s ease;
+}
+
+@media (max-width: 767px) {
+    #checkboxsAdicionales .d-flex {
+        flex-direction: column;
+    }
+
+    #checkboxsAdicionales .custom-checkbox {
+        display: block;
+        margin-bottom: 10px;
+    }
 }
 
 .custom-checkbox:hover input~.checkmark {
@@ -519,7 +529,6 @@ input:checked+.slider:before {
     -ms-transform: translateX(16px);
     transform: translateX(16px);
 }
-
 
 /* Tabla responsiva */
 .table-responsive {
