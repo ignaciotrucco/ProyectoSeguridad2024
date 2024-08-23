@@ -68,14 +68,14 @@
                       <tr>
                         <th scope="col" style="text-align: center">CLIENTE</th>
                         <th scope="col" style="text-align: center">LUGAR</th>
+                        <th scope="col" style="text-align: center">DIAS</th>
                         <th scope="col" style="text-align: center">ENTRADA</th>
                         <th scope="col" style="text-align: center">SALIDA</th>
-                        <th scope="col" style="text-align: center">DIAS</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                       </tr>
                     </thead>
-                    <tbody id="tbody-empresas"></tbody>
+                    <tbody id="tbody-jornadalaboral"></tbody>
                   </table>
                 </div>
               </div>
@@ -173,7 +173,7 @@
                     <form>
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="hidden" id="JornadaID">
+                                <input type="text" id="JornadaID">
                                 <label for="EmpresaID" class="form-label d-flex">Cliente<p class="asterisco">*</p>
                                 </label>
                                 @Html.DropDownList("EmpresaID", null, htmlAttributes: new { @class = "form-control" })
@@ -263,7 +263,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btnGuardar" onclick="GuardarEmpresa()">Guardar</button>
+                <button type="button" class="btn btnGuardar" onclick="GuardarJornadaLaboral()">Guardar</button>
                 <button type="button" class="btn btnCancelar" data-bs-dismiss="modal"
                     onclick="LimpiarModal()">Cancelar</button>
             </div>
