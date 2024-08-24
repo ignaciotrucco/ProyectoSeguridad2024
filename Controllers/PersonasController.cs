@@ -43,10 +43,10 @@ public class PersonasController : Controller
         return View();
     }
 
-    public JsonResult GetLocalidades(int provinciaId)
+    public JsonResult GetLocalidades(int ProvinciaId)
     {
         var localidades = _context.Localidades
-                                   .Where(l => l.ProvinciaID == provinciaId)
+                                   .Where(l => l.ProvinciaID == ProvinciaId)
                                    .Select(l => new { l.LocalidadID, l.Nombre })
                                    .ToList();
         return Json(localidades);

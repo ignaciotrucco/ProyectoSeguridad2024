@@ -24,7 +24,11 @@ function LimpiarModal() {
 }
 
 $('#ProvinciaID').change(function () {
-    var provinciaId = $(this).val();
+    BuscarLocalidades()
+});
+
+function BuscarLocalidades() {
+    var provinciaId = $("#ProvinciaID").val();
     if (provinciaId) {
         $.ajax({
             url: '../../Personas/GetLocalidades',
@@ -33,17 +37,21 @@ $('#ProvinciaID').change(function () {
             success: function (data) {
                 var localidadDropdown = $('#LocalidadID');
                 localidadDropdown.empty();
-                localidadDropdown.append('<option value="">Seleccione una localidad</option>');
-                $.each(data, function (index, item) {
-                    localidadDropdown.append('<option value="' + item.localidadID + '">' + item.nombre + '</option>');
-                });
+                if (localidadDropdown.length == 0) {
+                    localidadDropdown.append('<option value="">[SELECCIONE UNA LOCALIDAD...]</option>');
+                }
+                else {
+                    $.each(data, function (index, item) {
+                        localidadDropdown.append('<option value="' + item.localidadID + '">' + item.nombre + '</option>');
+                    });
+                }
             }
         });
     } else {
         $('#LocalidadID').empty();
-        $('#LocalidadID').append('<option value="">Seleccione una localidad</option>');
+        $('#LocalidadID').append('<option value="">[SELECCIONE UNA LOCALIDAD...]</option>');
     }
-});
+}
 
 // ESCUCHA EL EVENTO 'KEYUP' EN EL CAMPO DE BÚSQUEDA CON ID 'INPUTBUSQUEDA'
 // CADA VEZ QUE EL USUARIO ESCRIBE, SE CAPTURA EL VALOR ACTUAL Y SE LLAMA A LA FUNCIÓN LISTADOPERSONAS
@@ -116,15 +124,15 @@ function ListadoEmpresas(busqueda) {
                 timerProgressBar: true,
                 background: '#ffe7e7',
                 didOpen: (toast) => {
-                  toast.onmouseenter = Swal.stopTimer;
-                  toast.onmouseleave = Swal.resumeTimer;
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
                 }
-              });
-              Toast.fire({
+            });
+            Toast.fire({
                 icon: "error",
                 title: "Oops...",
                 text: "Disculpe, existió un problema al cargar las empresas",
-              });
+            });
         }
     });
 }
@@ -194,27 +202,27 @@ function GuardarEmpresa() {
             type: 'POST',
             dataType: 'json',
             success: function (resultado) {
-                
-                if (resultado != "") {      
+
+                if (resultado != "") {
                     const Toast = Swal.mixin({
-                      toast: true,
-                      position: "bottom-end",
-                      showConfirmButton: false,
-                      timer: 3000,
-                      timerProgressBar: true,
-                      background: '#e2ffd4',
-                      width: "380px",
-                      didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                      }
+                        toast: true,
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        background: '#e2ffd4',
+                        width: "380px",
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        }
                     });
                     Toast.fire({
-                      title: (resultado),
+                        title: (resultado),
                     });
                 }
                 ListadoEmpresas();
-    
+
             },
             error: function (xhr, status) {
                 const Toast = Swal.mixin({
@@ -225,15 +233,15 @@ function GuardarEmpresa() {
                     timerProgressBar: true,
                     background: '#ffe7e7',
                     didOpen: (toast) => {
-                      toast.onmouseenter = Swal.stopTimer;
-                      toast.onmouseleave = Swal.resumeTimer;
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
                     }
-                  });
-                  Toast.fire({
+                });
+                Toast.fire({
                     icon: "error",
                     title: "Oops...",
                     text: "Disculpe, existió un problema al guardar la empresa",
-                  });
+                });
             }
         });
 
@@ -248,7 +256,7 @@ function AbrirModalEditar(empresaID) {
         url: '../../Empresas/ListadoEmpresas',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: {EmpresaID: empresaID},
+        data: { EmpresaID: empresaID },
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -257,13 +265,15 @@ function AbrirModalEditar(empresaID) {
         // la respuesta es pasada como argumento a la función
         success: function (mostrarEmpresa) {
             let mostrarEmpresas = mostrarEmpresa[0];
-            
+
             $("#EmpresaID").val(empresaID);
             $("#RazonSocial").val(mostrarEmpresas.razonSocial);
             $("#Cuit").val(mostrarEmpresas.cuit_Cdi);
             $("#telefono").val(mostrarEmpresas.telefono);
             $("#email").val(mostrarEmpresas.email);
             $("#ProvinciaID").val(mostrarEmpresas.provinciaID);
+            BuscarLocalidades()
+
             $("#LocalidadID").val(mostrarEmpresas.localidadID);
             $("#domicilio").val(mostrarEmpresas.domicilio);
             $("#UsuarioID").val(mostrarEmpresas.emailUsuario);
@@ -283,11 +293,11 @@ function AbrirModalEditar(empresaID) {
                 timerProgressBar: true,
                 background: '#ffe7e7',
                 didOpen: (toast) => {
-                  toast.onmouseenter = Swal.stopTimer;
-                  toast.onmouseleave = Swal.resumeTimer;
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
                 }
-              });
-              Toast.fire({
+            });
+            Toast.fire({
                 icon: "error",
                 title: "Oops...",
                 text: "Disculpe, existió un problema al cargar el listado",
@@ -299,13 +309,13 @@ function AbrirModalEditar(empresaID) {
 function EliminarEmpresa(empresaID) {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-          cancelButton: "btn btn-secondary",
-          confirmButton: "btn btn-danger m-2",
+            cancelButton: "btn btn-secondary",
+            confirmButton: "btn btn-danger m-2",
         },
         buttonsStyling: false,
 
-      });
-      swalWithBootstrapButtons.fire({
+    });
+    swalWithBootstrapButtons.fire({
         title: "¿Estás seguro?",
         text: "¡No podrás revertir esto!",
         icon: "question",
@@ -333,23 +343,23 @@ function EliminarEmpresa(empresaID) {
                 success: function (eliminarEmpresa) {
 
                     // if (!resultado) {
-                        // const Toast = Swal.mixin({
-                        //     toast: true,
-                        //     position: "bottom-end",
-                        //     showConfirmButton: false,
-                        //     timer: 3000,
-                        //     timerProgressBar: true,
-                        //     background: '#fcffe7',
-                        //     didOpen: (toast) => {
-                        //       toast.onmouseenter = Swal.stopTimer;
-                        //       toast.onmouseleave = Swal.resumeTimer;
-                        //     }
-                        //   });
-                        //   Toast.fire({
-                        //     icon: "warning",
-                        //     title: "Oops...",
-                        //     text: "No se puede eliminar, existen registros asociados",
-                        //   }); }
+                    // const Toast = Swal.mixin({
+                    //     toast: true,
+                    //     position: "bottom-end",
+                    //     showConfirmButton: false,
+                    //     timer: 3000,
+                    //     timerProgressBar: true,
+                    //     background: '#fcffe7',
+                    //     didOpen: (toast) => {
+                    //       toast.onmouseenter = Swal.stopTimer;
+                    //       toast.onmouseleave = Swal.resumeTimer;
+                    //     }
+                    //   });
+                    //   Toast.fire({
+                    //     icon: "warning",
+                    //     title: "Oops...",
+                    //     text: "No se puede eliminar, existen registros asociados",
+                    //   }); }
 
                     ListadoEmpresas();
                 },
@@ -366,15 +376,15 @@ function EliminarEmpresa(empresaID) {
                         timerProgressBar: true,
                         background: '#ffe7e7',
                         didOpen: (toast) => {
-                          toast.onmouseenter = Swal.stopTimer;
-                          toast.onmouseleave = Swal.resumeTimer;
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
                         }
-                      });
-                      Toast.fire({
+                    });
+                    Toast.fire({
                         icon: "error",
                         title: "Oops...",
                         text: "Disculpe, existió un problema al eliminar la empresa.",
-                      });
+                    });
                 }
             });
 
@@ -386,15 +396,15 @@ function EliminarEmpresa(empresaID) {
                 timerProgressBar: true,
                 background: '#e2ffd4',
                 didOpen: (toast) => {
-                  toast.onmouseenter = Swal.stopTimer;
-                  toast.onmouseleave = Swal.resumeTimer;
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
                 }
-              });
-              Toast.fire({
+            });
+            Toast.fire({
                 icon: "success",
                 title: "¡Borrado!",
                 text: "La empresa ha sido eliminada.",
-              });
+            });
         } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
@@ -407,15 +417,15 @@ function EliminarEmpresa(empresaID) {
                 timerProgressBar: true,
                 background: '#ffe7e7',
                 didOpen: (toast) => {
-                  toast.onmouseenter = Swal.stopTimer;
-                  toast.onmouseleave = Swal.resumeTimer;
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
                 }
-              });
-              Toast.fire({
+            });
+            Toast.fire({
                 icon: "error",
                 title: "Anulado",
                 text: "Tu registro está a salvo.",
-              });
+            });
         }
     });
 }
@@ -430,7 +440,7 @@ function closeModalTel() {
     modal.style.display = "none";
 }
 
-document.addEventListener("keydown", function(event) {
+document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
         closeModalTel();
     }
@@ -453,7 +463,7 @@ function closeModalCuit() {
     modal.style.display = "none";
 }
 
-document.addEventListener("keydown", function(event) {
+document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
         closeModalCuit();
     }
@@ -466,7 +476,7 @@ window.onclick = function (event) {
     }
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     $('#Cuit').mask('00-00000000-0');
     $('#telefono').mask('(00) 0000-000000');
 });

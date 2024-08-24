@@ -66,27 +66,33 @@ function ListadoPersonas(busqueda) {
 }
 
 $('#ProvinciaID').change(function () {
-    var provinciaId = $(this).val();
+    BuscarLocalidades()
+});
+
+function BuscarLocalidades() {
+    $("#LocalidadID").empty();
+    var provinciaId = $("#ProvinciaID").val();
     if (provinciaId) {
         $.ajax({
             url: '../../Personas/GetLocalidades',
             type: 'GET',
-            data: { provinciaId: provinciaId },
-            success: function (data) {
-                var localidadDropdown = $('#LocalidadID');
-                localidadDropdown.empty();
-                localidadDropdown.append('<option value="">[SELECCIONE UNA LOCALIDAD...]</option>');
-                $.each(data, function (index, item) {
-                    localidadDropdown.append('<option value="' + item.localidadID + '">' + item.nombre + '</option>');
-                });
+            data: { ProvinciaId: provinciaId },
+            success: function (localidades) {
+                if (localidades.length == 0) {
+                    $("#LocalidadID").append('<option value="">[SELECCIONE UNA LOCALIDAD...]</option>');
+                }
+                else {
+                    $.each(localidades, function (index, localidad) {
+                        $("#LocalidadID").append('<option value="' + localidad.localidadID + '">' + localidad.nombre + '</option>');
+                    });
+                }
             }
         });
     }
     else {
-        $('#LocalidadID').empty();
         $('#LocalidadID').append('<option value="">[SELECCIONE UNA LOCALIDAD...]</option>');
     }
-});
+}
 
 function NuevaPersona() {
     $("#tituloModal").text("Nueva Persona");
@@ -103,7 +109,7 @@ function LimpiarModal() {
     document.getElementById("ProvinciaID").value = 0;
     document.getElementById("LocalidadID").value = 0;
     document.getElementById("emailUsuario").value = "";
-    document.getElementById("FechaNacimiento").value = 0;
+    document.getElementById("FechaNacimiento").value = "";
     document.getElementById("nombrePersonaError").innerHTML = "";
     document.getElementById("domicilioPersonaError").innerHTML = "";
     document.getElementById("tipoDocPersonaError").innerHTML = "";
@@ -194,22 +200,22 @@ function GuardarPersona() {
             dataType: 'json',
             success: function (resultado) {
 
-                if (resultado != "") {      
+                if (resultado != "") {
                     const Toast = Swal.mixin({
-                      toast: true,
-                      position: "bottom-end",
-                      showConfirmButton: false,
-                      timer: 3000,
-                      timerProgressBar: true,
-                      background: '#e2ffd4',
-                      width: "380px",
-                      didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                      }
+                        toast: true,
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        background: '#e2ffd4',
+                        width: "380px",
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        }
                     });
                     Toast.fire({
-                      title: (resultado),
+                        title: (resultado),
                     });
                 }
 
@@ -224,15 +230,15 @@ function GuardarPersona() {
                     timerProgressBar: true,
                     background: '#ffe7e7',
                     didOpen: (toast) => {
-                      toast.onmouseenter = Swal.stopTimer;
-                      toast.onmouseleave = Swal.resumeTimer;
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
                     }
-                  });
-                  Toast.fire({
+                });
+                Toast.fire({
                     icon: "error",
                     title: "Oops...",
                     text: "Disculpe, existió un problema al cargar las personas",
-                  });
+                });
             }
         });
 
@@ -273,6 +279,8 @@ function ModalEditar(personaID) {
             document.getElementById("Telefono").value = mostrarPersona.telefono;
             document.getElementById("Email").value = mostrarPersona.email;
             document.getElementById("ProvinciaID").value = mostrarPersona.provinciaID;
+            BuscarLocalidades();
+
             document.getElementById("LocalidadID").value = mostrarPersona.localidadID;
             document.getElementById("emailUsuario").value = mostrarPersona.emailUsuario;
 
@@ -283,26 +291,26 @@ function ModalEditar(personaID) {
             document.getElementById("FechaNacimiento").value = formatoDate;
             $("#modalPersonas").modal("show");
             $("#tituloModal").text("Editar Persona");
-            console.log(mostrarPersona.usuarioID);
+            console.log(mostrarPersona.localidadID);
         },
         error: function (xhr, status) {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "bottom-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    background: '#ffe7e7',
-                    didOpen: (toast) => {
-                      toast.onmouseenter = Swal.stopTimer;
-                      toast.onmouseleave = Swal.resumeTimer;
-                    }
-                  });
-                  Toast.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Disculpe, existió un problema",
-                  });
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema",
+            });
             console.error('Error details:', xhr, status);
         }
     });
@@ -312,13 +320,13 @@ function ModalEditar(personaID) {
 function EliminarPersona(personaID) {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-          cancelButton: "btn btn-secondary",
-          confirmButton: "btn btn-danger m-2",
+            cancelButton: "btn btn-secondary",
+            confirmButton: "btn btn-danger m-2",
         },
         buttonsStyling: false,
 
-      });
-      swalWithBootstrapButtons.fire({
+    });
+    swalWithBootstrapButtons.fire({
         title: "¿Estás seguro?",
         text: "¡No podrás revertir esto!",
         icon: "question",
@@ -346,23 +354,23 @@ function EliminarPersona(personaID) {
                 success: function (eliminarPersona) {
 
                     // if (!resultado) {
-                        // const Toast = Swal.mixin({
-                        //     toast: true,
-                        //     position: "bottom-end",
-                        //     showConfirmButton: false,
-                        //     timer: 3000,
-                        //     timerProgressBar: true,
-                        //     background: '#fcffe7',
-                        //     didOpen: (toast) => {
-                        //       toast.onmouseenter = Swal.stopTimer;
-                        //       toast.onmouseleave = Swal.resumeTimer;
-                        //     }
-                        //   });
-                        //   Toast.fire({
-                        //     icon: "warning",
-                        //     title: "Oops...",
-                        //     text: "No se puede eliminar, existen registros asociados",
-                        //   });}
+                    // const Toast = Swal.mixin({
+                    //     toast: true,
+                    //     position: "bottom-end",
+                    //     showConfirmButton: false,
+                    //     timer: 3000,
+                    //     timerProgressBar: true,
+                    //     background: '#fcffe7',
+                    //     didOpen: (toast) => {
+                    //       toast.onmouseenter = Swal.stopTimer;
+                    //       toast.onmouseleave = Swal.resumeTimer;
+                    //     }
+                    //   });
+                    //   Toast.fire({
+                    //     icon: "warning",
+                    //     title: "Oops...",
+                    //     text: "No se puede eliminar, existen registros asociados",
+                    //   });}
 
                     ListadoPersonas();
                 },
@@ -379,15 +387,15 @@ function EliminarPersona(personaID) {
                         timerProgressBar: true,
                         background: '#ffe7e7',
                         didOpen: (toast) => {
-                          toast.onmouseenter = Swal.stopTimer;
-                          toast.onmouseleave = Swal.resumeTimer;
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
                         }
-                      });
-                      Toast.fire({
+                    });
+                    Toast.fire({
                         icon: "error",
                         title: "Oops...",
                         text: "Disculpe, existió un problema al eliminar la persona.",
-                      });
+                    });
                 }
             });
 
@@ -399,15 +407,15 @@ function EliminarPersona(personaID) {
                 timerProgressBar: true,
                 background: '#e2ffd4',
                 didOpen: (toast) => {
-                  toast.onmouseenter = Swal.stopTimer;
-                  toast.onmouseleave = Swal.resumeTimer;
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
                 }
-              });
-              Toast.fire({
+            });
+            Toast.fire({
                 icon: "success",
                 title: "¡Borrado!",
                 text: "La persona ha sido eliminada.",
-              });
+            });
         } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
@@ -420,15 +428,15 @@ function EliminarPersona(personaID) {
                 timerProgressBar: true,
                 background: '#ffe7e7',
                 didOpen: (toast) => {
-                  toast.onmouseenter = Swal.stopTimer;
-                  toast.onmouseleave = Swal.resumeTimer;
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
                 }
-              });
-              Toast.fire({
+            });
+            Toast.fire({
                 icon: "error",
                 title: "Anulado",
                 text: "Tu registro está a salvo.",
-              });
+            });
         }
     });
 }
