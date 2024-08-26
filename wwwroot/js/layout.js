@@ -18,17 +18,32 @@ document.addEventListener('DOMContentLoaded', function () {
     const links = document.querySelectorAll('.list-group-item');
     let currentPath = window.location.pathname;
 
-    // Define the default path for the home page
+    // Define el camino por defecto para la página de inicio
     if (currentPath === '/' || currentPath === '/Home' || currentPath === '/Home/Index') {
         currentPath = '/Home/Index';
     }
 
+    // Resalta el enlace activo
     links.forEach(link => {
         const href = link.getAttribute('href');
         if (currentPath === href) {
             link.classList.add('active');
         }
     });
+
+    // Maneja el estado del collapse
+    const isCollapseOpen = getCollapseState();
+
+    // Cierra el collapse si estás en la página de inicio
+    if (currentPath === '/' || currentPath === '/Home' || currentPath === '/Home/Index') {
+        setCollapseState(false); // Asegúrate de cerrar el collapse
+    } else {
+        if (isCollapseOpen) {
+            collapseElement.classList.add('show');
+        } else {
+            collapseElement.classList.remove('show');
+        }
+    }
 });
 
 // Función para obtener el estado del collapse
@@ -41,18 +56,12 @@ function setCollapseState(isOpen) {
     localStorage.setItem('collapseAdminState', isOpen ? 'open' : 'closed');
 }
 
-// Obtener el estado inicial del collapse
-const isCollapseOpen = getCollapseState();
-
 // Configurar el estado inicial del collapse
 const collapseElement = document.getElementById('collapseAdmin');
-if (isCollapseOpen) {
-    collapseElement.classList.add('show');
-} else {
-    collapseElement.classList.remove('show');
+const collapseButton = document.querySelector('[data-bs-target="#collapseAdmin"]');
+
+if (collapseButton) {
+    collapseButton.addEventListener('shown.bs.collapse', () => setCollapseState(true));
+    collapseButton.addEventListener('hidden.bs.collapse', () => setCollapseState(false));
 }
 
-// Escuchar los eventos de cambio de estado del collapse
-const collapseButton = document.querySelector('[data-bs-target="#collapseAdmin"]');
-collapseButton.addEventListener('shown.bs.collapse', () => setCollapseState(true));
-collapseButton.addEventListener('hidden.bs.collapse', () => setCollapseState(false));

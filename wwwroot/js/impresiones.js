@@ -33,6 +33,11 @@ function ImprimirTablaEmpresas() {
         doc.text(str, 17, pageHeight - 10);
     };
 
+    // Add title and date to the first page
+    doc.setFontSize(18);
+    doc.setFontStyle('bold');
+    doc.text('Listado de clientes', 14, 22);
+
     var element = document.getElementById("imprimir-tabla");
 
     //CONVERTIR TABLA HTML A JSON
@@ -53,25 +58,25 @@ function ImprimirTablaEmpresas() {
                 fillColor: [255, 255, 255]
             },
 
-            1: { 
-                fontSize: 7, 
-                overflow: 'hidden', 
-                fillColor: [255, 255, 255] 
+            1: {
+                fontSize: 7,
+                overflow: 'hidden',
+                fillColor: [255, 255, 255]
             },
 
-            2: { 
-                fontSize: 7, 
-                fillColor: [255, 255, 255] 
+            2: {
+                fontSize: 7,
+                fillColor: [255, 255, 255]
             },
 
-            3: { 
-                fontSize: 7,  
-                fillColor: [255, 255, 255] 
+            3: {
+                fontSize: 7,
+                fillColor: [255, 255, 255]
             },
 
-            4: {  
-                fontSize: 7, 
-                fillColor: [255, 255, 255] 
+            4: {
+                fontSize: 7,
+                fillColor: [255, 255, 255]
             },
 
             5: {
@@ -79,14 +84,14 @@ function ImprimirTablaEmpresas() {
                 fontSize: 7,
                 fillColor: [255, 255, 255]
             },
-            
+
             6: {
                 cellWidth: 'auto',
                 fontSize: 7,
                 fillColor: [255, 255, 255]
             },
         },
-        margin: { top: 10 },
+        margin: { top: 30 } // Adjust top margin for title
     });
 
     // ESTO SE LLAMA ANTES DE ABRIR EL PDF PARA QUE MUESTRE EN EL PDF EL NRO TOTAL DE PAGINAS. ACA CALCULA EL TOTAL DE PAGINAS.
@@ -140,6 +145,10 @@ function ImprimirTablaProvincias() {
         doc.text(str, 17, pageHeight - 10);
     };
 
+    doc.setFontSize(18);
+    doc.setFontStyle('bold');
+    doc.text('Listado de provincias', 14, 22);
+
     var element = document.getElementById("imprimir-tabla");
 
     //CONVERTIR TABLA HTML A JSON
@@ -160,7 +169,7 @@ function ImprimirTablaProvincias() {
                 fillColor: [255, 255, 255]
             },
         },
-        margin: { top: 10 },
+        margin: { top: 30 },
     });
 
     // ESTO SE LLAMA ANTES DE ABRIR EL PDF PARA QUE MUESTRE EN EL PDF EL NRO TOTAL DE PAGINAS. ACA CALCULA EL TOTAL DE PAGINAS.
@@ -214,6 +223,10 @@ function ImprimirTablaLocalidades() {
         doc.text(str, 17, pageHeight - 10);
     };
 
+    doc.setFontSize(18);
+    doc.setFontStyle('bold');
+    doc.text('Listado de localidades', 14, 22);
+
     var element = document.getElementById("imprimir-tabla");
 
     //CONVERTIR TABLA HTML A JSON
@@ -244,7 +257,7 @@ function ImprimirTablaLocalidades() {
                 fillColor: [255, 255, 255]
             },
         },
-        margin: { top: 10 },
+        margin: { top: 30 },
     });
 
     // ESTO SE LLAMA ANTES DE ABRIR EL PDF PARA QUE MUESTRE EN EL PDF EL NRO TOTAL DE PAGINAS. ACA CALCULA EL TOTAL DE PAGINAS.
@@ -298,6 +311,10 @@ function ImprimirTablaUsuarios() {
         doc.text(str, 17, pageHeight - 10);
     };
 
+    doc.setFontSize(18);
+    doc.setFontStyle('bold');
+    doc.text('Listado de usuarios', 14, 22);
+
     var element = document.getElementById("imprimir-tabla");
 
     //CONVERTIR TABLA HTML A JSON
@@ -323,7 +340,7 @@ function ImprimirTablaUsuarios() {
                 fillColor: [255, 255, 255]
             },
         },
-        margin: { top: 10 },
+        margin: { top: 30 },
     });
 
     // ESTO SE LLAMA ANTES DE ABRIR EL PDF PARA QUE MUESTRE EN EL PDF EL NRO TOTAL DE PAGINAS. ACA CALCULA EL TOTAL DE PAGINAS.
