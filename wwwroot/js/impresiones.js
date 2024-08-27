@@ -1,5 +1,8 @@
+// Configura el tamaño de la página, por ejemplo, un ancho de 297 mm (A3 horizontal)
+let anchoAmpliado = new jsPDF('landscape', 'mm', [210, 297]);// Landscape A4 (210mm x 297mm)
+
 function ImprimirTablaEmpresas() {
-    var doc = new jsPDF();
+    var doc = anchoAmpliado;
 
     var totalPagesExp = "{total_pages_count_string}"
     var pageContent = function (data) {
@@ -111,7 +114,7 @@ function ImprimirTablaEmpresas() {
 }
 
 function ImprimirTablaProvincias() {
-    var doc = new jsPDF();
+    var doc = anchoAmpliado;
 
     var totalPagesExp = "{total_pages_count_string}"
     var pageContent = function (data) {
@@ -189,7 +192,7 @@ function ImprimirTablaProvincias() {
 }
 
 function ImprimirTablaLocalidades() {
-    var doc = new jsPDF();
+    var doc = anchoAmpliado;
 
     var totalPagesExp = "{total_pages_count_string}"
     var pageContent = function (data) {
@@ -277,7 +280,7 @@ function ImprimirTablaLocalidades() {
 }
 
 function ImprimirTablaUsuarios() {
-    var doc = new jsPDF();
+    var doc = anchoAmpliado;
 
     var totalPagesExp = "{total_pages_count_string}"
     var pageContent = function (data) {

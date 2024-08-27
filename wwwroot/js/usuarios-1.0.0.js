@@ -1,52 +1,52 @@
 window.onload = ListadoUsuarios();
 
 function NuevoUsuario() {
-    $("#tituloModal").text("Nuevo Usuario");
+  $("#tituloModal").text("Nuevo Usuario");
 }
 
 function LimpiarModal() {
-    $("#UsuarioID").val("");
-    $("#username").val("");
-    $("#email").val("");
-    $("#password").val("");
-    $("#RolID").val(0);
-    // document.getElementById("userNameError").innerHTML = "";
-    document.getElementById("emailError").innerHTML = "";
-    document.getElementById("passwordError").innerHTML = "";
+  $("#UsuarioID").val("");
+  $("#username").val("");
+  $("#email").val("");
+  $("#password").val("");
+  $("#RolID").val(0);
+  // document.getElementById("userNameError").innerHTML = "";
+  document.getElementById("emailError").innerHTML = "";
+  document.getElementById("passwordError").innerHTML = "";
 }
 function LimpiarModalEditar() {
-    $("#UsuarioEditarID").val("");
-    $("#emailEditar").val("");
+  $("#UsuarioEditarID").val("");
+  $("#emailEditar").val("");
 }
 
 function ListadoUsuarios() {
-    $.ajax({
-        // la URL para la petición
-        url: '../../Users/ListadoUsuarios',
-        // la información a enviar
-        // (también es posible utilizar una cadena de datos)
-        data: {},
-        // especifica si será una petición POST o GET
-        type: 'GET',
-        // el tipo de información que se espera de respuesta
-        dataType: 'json',
-        // código a ejecutar si la petición es satisfactoria;
-        // la respuesta es pasada como argumento a la función
-        success: function (usuariosMostrar) {
+  $.ajax({
+    // la URL para la petición
+    url: '../../Users/ListadoUsuarios',
+    // la información a enviar
+    // (también es posible utilizar una cadena de datos)
+    data: {},
+    // especifica si será una petición POST o GET
+    type: 'GET',
+    // el tipo de información que se espera de respuesta
+    dataType: 'json',
+    // código a ejecutar si la petición es satisfactoria;
+    // la respuesta es pasada como argumento a la función
+    success: function (usuariosMostrar) {
 
-            $("#modalUsuarios").modal("hide");
-            LimpiarModal()
+      $("#modalUsuarios").modal("hide");
+      LimpiarModal()
 
-            let contenidoTabla = ``;
+      let contenidoTabla = ``;
 
-            $.each(usuariosMostrar, function (index, usuario) {
+      $.each(usuariosMostrar, function (index, usuario) {
 
-                contenidoTabla += `
+        contenidoTabla += `
                 <tr>
                     <td style="text-align: center">${usuario.email}</td>
                     <td style="text-align: center">${usuario.rolNombre}</td>
                     <td style="text-align: right">
-                    <button type="button" class="btn" title="Cambiar Contraseña" onclick="">
+                    <button type="button" class="btn" title="Cambiar Contraseña" onclick="ValidarNuevaContraseña('${usuario.usuarioID}')">
                     <i class="fa-solid fa-arrows-rotate"></i>
                     </button>
                     </td>
@@ -57,302 +57,329 @@ function ListadoUsuarios() {
                     </td>
                 </tr>
              `;
+      });
+
+      document.getElementById("tbody-usuarios").innerHTML = contenidoTabla;
+
+    },
+
+    // código a ejecutar si la petición falla;
+    // son pasados como argumentos a la función
+    // el objeto de la petición en crudo y código de estatus de la petición
+    error: function (xhr, status) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "bottom-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: '#ffe7e7',
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Disculpe, existió un problema al cargar el listado",
+      });
+    }
+  });
+}
+
+function GuardarUsuario() {
+  let email = $("#email").val().trim();
+  let password = $("#password").val().trim();
+  let rol = $("#RolID").val();
+
+  let registrado = true;
+
+  // Validaciones
+  if (email == "") {
+    $("#emailError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El email es requerido.");
+    registrado = false;
+  }
+  if (password == "") {
+    $("#passwordError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  La contraseña es requerida.");
+    registrado = false;
+  }
+
+  // Si todas las validaciones son correctas, proceder a la llamada AJAX
+  if (registrado) {
+    $.ajax({
+      url: '../../Users/GuardarUsuario',
+      data: { Username: email, Email: email, Password: password, rol: rol },
+      type: 'POST',
+      dataType: 'json',
+      success: function (mensaje) {
+
+        if (mensaje != "") {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "bottom-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            background: '#e2ffd4',
+            width: "380px",
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            }
+          });
+          Toast.fire({
+            title: (mensaje),
+          });
+        }
+        ListadoUsuarios();
+      },
+      error: function (xhr, status) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "bottom-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          background: '#ffe7e7',
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Disculpe, existió un problema al guardar el usuario",
+        });
+      }
+    });
+  }
+}
+
+
+function ValidarNuevaContraseña(usuarioID) {
+  Swal.fire({
+    title: "¿Seguro que quiere restablecer la contraseña de este usuario?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Si, seguro",
+    cancelButtonText: "Cancelar"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      RestablecerContrasenia(usuarioID)
+    }
+  });
+}
+
+
+function RestablecerContrasenia(usuarioID) {
+  $.ajax({
+    // la URL para la petición
+    url: '../../Users/RestablecerContrasenia',
+    // la información a enviar
+    // (también es posible utilizar una cadena de datos)
+    data: { UsuarioID: usuarioID },
+    // especifica si será una petición POST o GET
+    type: 'GET',
+    // el tipo de información que se espera de respuesta
+    dataType: 'json',
+    // código a ejecutar si la petición es satisfactoria;
+    // la respuesta es pasada como argumento a la función
+    success: function (data) {
+
+      if (data.success) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Contraseña Restablecida',
+          text: `La nueva contraseña es: ${data.nuevaContrasenia}`,
+          confirmButtonText: 'Aceptar'
+        });
+      }
+      else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: data.errores,
+          confirmButtonText: 'Aceptar'
+        });
+      }
+
+    },
+
+    // código a ejecutar si la petición falla;
+    // son pasados como argumentos a la función
+    // el objeto de la petición en crudo y código de estatus de la petición
+    error: function (xhr, status) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "bottom-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: '#ffe7e7',
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Disculpe, existió un problema al cargar el listado",
+      });
+    }
+  });
+}
+
+function EliminarUsuario(usuarioID) {
+
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      cancelButton: "btn btn-secondary",
+      confirmButton: "btn btn-danger m-2",
+    },
+    buttonsStyling: false,
+
+  });
+  swalWithBootstrapButtons.fire({
+    title: "¿Estás seguro?",
+    text: "¡No podrás revertir esto!",
+    icon: "question",
+    background: '#ffeeee',
+    showCancelButton: true,
+    confirmButtonText: "¡Sí, eliminar!",
+    cancelButtonText: "¡No, cancelar!",
+    reverseButtons: false,
+    width: '350px',
+  }).then((result) => {
+    if (result.isConfirmed) {
+
+      $.ajax({
+        // la URL para la petición
+        url: '../../Users/EliminarUsuario',
+        // la información a enviar
+        // (también es posible utilizar una cadena de datos)
+        data: { UsuarioID: usuarioID },
+        // especifica si será una petición POST o GET
+        type: 'POST',
+        // el tipo de información que se espera de respuesta
+        dataType: 'json',
+        // código a ejecutar si la petición es satisfactoria;
+        // la respuesta es pasada como argumento a la función
+        success: function (resultado) {
+
+          if (!resultado) {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: "bottom-end",
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              background: '#fcffe7',
+              didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+              }
             });
+            Toast.fire({
+              icon: "warning",
+              title: "Oops...",
+              text: "No se puede eliminar, existen registros asociados",
+            });
+          }
 
-            document.getElementById("tbody-usuarios").innerHTML = contenidoTabla;
-
+          ListadoUsuarios();
         },
 
         // código a ejecutar si la petición falla;
         // son pasados como argumentos a la función
         // el objeto de la petición en crudo y código de estatus de la petición
         error: function (xhr, status) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "bottom-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                background: '#ffe7e7',
-                didOpen: (toast) => {
-                  toast.onmouseenter = Swal.stopTimer;
-                  toast.onmouseleave = Swal.resumeTimer;
-                }
-              });
-              Toast.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Disculpe, existió un problema al cargar el listado",
-              });
-        }
-    });
-}
-
-function GuardarUsuario() {
-    let email = $("#email").val().trim();
-    let password = $("#password").val().trim();
-    let rol = $("#RolID").val();
-
-    let registrado = true;
-
-    // Validaciones
-    if (email == "") {
-        $("#emailError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El email es requerido.");
-        registrado = false;
-    }
-    if (password == "") {
-        $("#passwordError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  La contraseña es requerida.");
-        registrado = false;
-    }
-
-    // Si todas las validaciones son correctas, proceder a la llamada AJAX
-    if (registrado) {
-        $.ajax({
-            url: '../../Users/GuardarUsuario',
-            data: { Username: email, Email: email, Password: password, rol: rol },
-            type: 'POST',
-            dataType: 'json',
-            success: function (mensaje) {
-
-                if (mensaje != "") {
-                    const Toast = Swal.mixin({
-                      toast: true,
-                      position: "bottom-end",
-                      showConfirmButton: false,
-                      timer: 3000,
-                      timerProgressBar: true,
-                      background: '#e2ffd4',
-                      width: "380px",
-                      didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                      }
-                    });
-                    Toast.fire({
-                      title: (mensaje),
-                    });
-                  }
-                ListadoUsuarios();
-            },
-            error: function (xhr, status) {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "bottom-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    background: '#ffe7e7',
-                    didOpen: (toast) => {
-                      toast.onmouseenter = Swal.stopTimer;
-                      toast.onmouseleave = Swal.resumeTimer;
-                    }
-                  });
-                  Toast.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Disculpe, existió un problema al guardar el usuario",
-                  });
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "bottom-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            background: '#ffe7e7',
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
             }
-        });
-    }
-}
-
-
-// function AbrirModalEditar(usuarioID) {
-//     console.log(usuarioID)
-//     $.ajax({
-//         // la URL para la petición
-//         url: '../../Users/ListadoUsuarios',
-//         // la información a enviar
-//         // (también es posible utilizar una cadena de datos)
-//         data: { UsuarioID: usuarioID },
-//         // especifica si será una petición POST o GET
-//         type: 'GET',
-//         // el tipo de información que se espera de respuesta
-//         dataType: 'json',
-//         // código a ejecutar si la petición es satisfactoria;
-//         // la respuesta es pasada como argumento a la función
-//         success: function (usuariosMostrar) {
-//             let usuarioMostrar = usuariosMostrar[0];
-
-//             document.getElementById("UsuarioEditarID").value = usuarioID;
-//             document.getElementById("emailEditar").value = usuarioMostrar.email;
-//             $("#tituloModalEditar").text("Editar Usuario");
-//             $("#modalEditarUsuarios").modal("show");
-
-//         },
-
-//         // código a ejecutar si la petición falla;
-//         // son pasados como argumentos a la función
-//         // el objeto de la petición en crudo y código de estatus de la petición
-//         error: function (xhr, status) {
-//             const Toast = Swal.mixin({
-//                 toast: true,
-//                 position: "bottom-end",
-//                 showConfirmButton: false,
-//                 timer: 3000,
-//                 timerProgressBar: true,
-//                 background: '#ffe7e7',
-//                 didOpen: (toast) => {
-//                   toast.onmouseenter = Swal.stopTimer;
-//                   toast.onmouseleave = Swal.resumeTimer;
-//                 }
-//               });
-//               Toast.fire({
-//                 icon: "error",
-//                 title: "Oops...",
-//                 text: "Disculpe, existió un problema al cargar los usuarios",
-//             });
-//         }
-//     });
-// }
-
-function EliminarUsuario(usuarioID) {
-
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          cancelButton: "btn btn-secondary",
-          confirmButton: "btn btn-danger m-2",
-        },
-        buttonsStyling: false,
-
-      });
-      swalWithBootstrapButtons.fire({
-        title: "¿Estás seguro?",
-        text: "¡No podrás revertir esto!",
-        icon: "question",
-        background: '#ffeeee',
-        showCancelButton: true,
-        confirmButtonText: "¡Sí, eliminar!",
-        cancelButtonText: "¡No, cancelar!",
-        reverseButtons: false,
-        width: '350px',
-    }).then((result) => {
-        if (result.isConfirmed) {
-
-            $.ajax({
-                // la URL para la petición
-                url: '../../Users/EliminarUsuario',
-                // la información a enviar
-                // (también es posible utilizar una cadena de datos)
-                data: { UsuarioID: usuarioID },
-                // especifica si será una petición POST o GET
-                type: 'POST',
-                // el tipo de información que se espera de respuesta
-                dataType: 'json',
-                // código a ejecutar si la petición es satisfactoria;
-                // la respuesta es pasada como argumento a la función
-                success: function (resultado) {
-
-                    if (!resultado) {
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: "bottom-end",
-                            showConfirmButton: false,
-                            timer: 3000,
-                            timerProgressBar: true,
-                            background: '#fcffe7',
-                            didOpen: (toast) => {
-                              toast.onmouseenter = Swal.stopTimer;
-                              toast.onmouseleave = Swal.resumeTimer;
-                            }
-                          });
-                          Toast.fire({
-                            icon: "warning",
-                            title: "Oops...",
-                            text: "No se puede eliminar, existen registros asociados",
-                          });
-                    }
-
-                    ListadoUsuarios();
-                },
-
-                // código a ejecutar si la petición falla;
-                // son pasados como argumentos a la función
-                // el objeto de la petición en crudo y código de estatus de la petición
-                error: function (xhr, status) {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: "bottom-end",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        background: '#ffe7e7',
-                        didOpen: (toast) => {
-                          toast.onmouseenter = Swal.stopTimer;
-                          toast.onmouseleave = Swal.resumeTimer;
-                        }
-                      });
-                      Toast.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Disculpe, existió un problema al eliminar el usuario.",
-                      });
-                }
-            });
-
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "bottom-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                background: '#e2ffd4',
-                didOpen: (toast) => {
-                  toast.onmouseenter = Swal.stopTimer;
-                  toast.onmouseleave = Swal.resumeTimer;
-                }
-              });
-              Toast.fire({
-                icon: "success",
-                title: "¡Borrado!",
-                text: "El usuario ha sido eliminado.",
-              });
-        } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "bottom-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                background: '#ffe7e7',
-                didOpen: (toast) => {
-                  toast.onmouseenter = Swal.stopTimer;
-                  toast.onmouseleave = Swal.resumeTimer;
-                }
-              });
-              Toast.fire({
-                icon: "error",
-                title: "Anulado",
-                text: "Tu registro está a salvo.",
-              });
+          });
+          Toast.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Disculpe, existió un problema al eliminar el usuario.",
+          });
         }
-    });
+      });
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "bottom-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: '#e2ffd4',
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "success",
+        title: "¡Borrado!",
+        text: "El usuario ha sido eliminado.",
+      });
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "bottom-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: '#ffe7e7',
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: "Anulado",
+        text: "Tu registro está a salvo.",
+      });
+    }
+  });
 
 }
 
 function openModalContraseña() {
-    var modal = document.getElementById("ModalContraseña");
-    modal.style.display = "block";
+  var modal = document.getElementById("ModalContraseña");
+  modal.style.display = "block";
 }
 
 function closeModalContraseña() {
-    var modal = document.getElementById("ModalContraseña");
-    modal.style.display = "none";
+  var modal = document.getElementById("ModalContraseña");
+  modal.style.display = "none";
 }
 
 document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") {
-        closeModalContraseña();
-    }
+  if (event.key === "Escape") {
+    closeModalContraseña();
+  }
 });
 
 window.onclick = function (event) {
-    var modal = document.getElementById("ModalContraseña");
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
+  var modal = document.getElementById("ModalContraseña");
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 }

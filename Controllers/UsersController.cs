@@ -34,6 +34,37 @@ public class UsersController : Controller
         return View();
     }
 
+    private string GenerarContraseñaAleatoria(int longitud = 8)
+    {
+        string caracteresPermitidos = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        Random random = new Random();
+        return new string(Enumerable.Repeat(caracteresPermitidos, longitud).Select(s => s[random.Next(s.Length)]).ToArray());
+    }
+
+    public async Task<IActionResult> RestablecerContrasenia(string UsuarioID)
+    {
+        var usuario = await _userManager.FindByIdAsync(UsuarioID);
+        if (usuario == null)
+        {
+            return NotFound("Usuario no encontrado");
+        }
+
+        string nuevaContrasenia = GenerarContraseñaAleatoria();
+
+        //REESTABLECEMOS CONTRASEÑA
+        var token = await _userManager.GeneratePasswordResetTokenAsync(usuario);
+        var resultado = await _userManager.ResetPasswordAsync(usuario, token, nuevaContrasenia);
+
+        if (resultado.Succeeded)
+        {
+            //RETORNAMOS LA NUEVA CONTRASEÑA AL USUARIO PARA MOSTRARLA EN EL MODAL
+            return Json(new { success = true, nuevaContrasenia });
+        }
+
+
+        return Json(new { success = false, errores = "No se pudo reestablecer la contraseña" });
+    }
+
     public JsonResult ListadoUsuarios(string UsuarioID)
     {
         var listadoUsuarios = _context.Users.ToList();
@@ -101,7 +132,7 @@ public class UsersController : Controller
 
         var existePersona = _context.Personas.Where(e => e.UsuarioID == UsuarioID).Count();
 
-        if (existePersona == 0 )
+        if (existePersona == 0)
         {
             var eliminarUsuario = _context.Users.Find(UsuarioID);
             _context.Remove(eliminarUsuario);

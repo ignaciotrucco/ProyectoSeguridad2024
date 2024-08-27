@@ -100,33 +100,25 @@ NORMALIZEDNAME *@
     </div>
 </div>
 
-<!-- Modal Editar -->
-<div class="modal fade" id="modalEditarUsuarios" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-    id="staticBackdrop" data-bs-backdrop="static">
-    <div class="modal-dialog">
+@* <!-- Modal Nueva Contraseña -->
+<div id="contraseñaModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="tituloModalEditar"></h5>
+                <h5 class="modal-title">Nueva Contraseña</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <form>
-                        <div class="col-md-10 mb-10">
-                            <input type="hidden" id="UsuarioEditarID">
-                            <label for="emailEditar" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="emailEditar">
-                        </div>
-                    </form>
-                </div>
+                <p id="nueva-contraseña"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btnGuardar" onclick="">Guardar</button>
-                <button type="button" class="btn btnCancelar" data-bs-dismiss="modal"
-                    onclick="LimpiarModalEditar()">Cancelar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
-</div>
+</div> *@
 
 <!-- Boton modal -->
 <div class="btnAgregar">
