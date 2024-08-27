@@ -6,7 +6,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a style="font-family: 'textos7'; font-size: 16px; font-weight: bold" class="nav-link text-dark list-group-item list-group-item-action list-group-item-light p-3" asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa-solid fa-circle-user"></i> Mi Perfil</a>
+        <a style="font-family: 'textos7'; font-size: 16px; font-weight: bold" class="nav-link text-dark list-group-item list-group-item-action list-group-item-light p-3" asp-area="Identity" asp-page="/Account/Manage/ChangePassword"><i class="fa-solid fa-circle-user"></i> Mi Perfil</a>
     </li>
     <li class="nav-item">
         <form  class="form-inline cerrarSesion" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

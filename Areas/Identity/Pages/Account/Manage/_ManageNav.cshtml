@@ -6,16 +6,16 @@
 <link rel="stylesheet" href="~/css/perfil.css" asp-append-version="true" />
 
 
-<ul class="nav nav-pills flex-column navPerfil">
-    <h4 >Administra tu perfil</h4>
+@* <ul class="nav nav-pills flex-column navPerfil">
+    <h4 >Administra tu perfil</h4> *@
 
     @* <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Perfil</a></li>
     <li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Correo Electrónico</a></li> *@
-    <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Contraseña</a></li>
-    @if (hasExternalLogins)
+    @* <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Contraseña</a></li> *@
+    @* @if (hasExternalLogins)
     {
         <li id="external-logins" class="nav-item"><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">Inicios de sesión externos</a></li>
-    }
+    } *@
     @* <li class="nav-item"><a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a></li> *@
     @* <li class="nav-item"><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Datos Personales</a></li> *@
-</ul>
+@* </ul> *@

@@ -46,8 +46,8 @@ function ListadoUsuarios() {
                     <td style="text-align: center">${usuario.email}</td>
                     <td style="text-align: center">${usuario.rolNombre}</td>
                     <td style="text-align: right">
-                    <button type="button" class="btn" title="Editar" onclick="AbrirModalEditar('${usuario.usuarioID}')">
-                    <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
+                    <button type="button" class="btn" title="Cambiar Contraseña" onclick="">
+                    <i class="fa-solid fa-arrows-rotate"></i>
                     </button>
                     </td>
                     <td style="text-align: left">
@@ -158,54 +158,54 @@ function GuardarUsuario() {
 }
 
 
-function AbrirModalEditar(usuarioID) {
-    console.log(usuarioID)
-    $.ajax({
-        // la URL para la petición
-        url: '../../Users/ListadoUsuarios',
-        // la información a enviar
-        // (también es posible utilizar una cadena de datos)
-        data: { UsuarioID: usuarioID },
-        // especifica si será una petición POST o GET
-        type: 'GET',
-        // el tipo de información que se espera de respuesta
-        dataType: 'json',
-        // código a ejecutar si la petición es satisfactoria;
-        // la respuesta es pasada como argumento a la función
-        success: function (usuariosMostrar) {
-            let usuarioMostrar = usuariosMostrar[0];
+// function AbrirModalEditar(usuarioID) {
+//     console.log(usuarioID)
+//     $.ajax({
+//         // la URL para la petición
+//         url: '../../Users/ListadoUsuarios',
+//         // la información a enviar
+//         // (también es posible utilizar una cadena de datos)
+//         data: { UsuarioID: usuarioID },
+//         // especifica si será una petición POST o GET
+//         type: 'GET',
+//         // el tipo de información que se espera de respuesta
+//         dataType: 'json',
+//         // código a ejecutar si la petición es satisfactoria;
+//         // la respuesta es pasada como argumento a la función
+//         success: function (usuariosMostrar) {
+//             let usuarioMostrar = usuariosMostrar[0];
 
-            document.getElementById("UsuarioEditarID").value = usuarioID;
-            document.getElementById("emailEditar").value = usuarioMostrar.email;
-            $("#tituloModalEditar").text("Editar Usuario");
-            $("#modalEditarUsuarios").modal("show");
+//             document.getElementById("UsuarioEditarID").value = usuarioID;
+//             document.getElementById("emailEditar").value = usuarioMostrar.email;
+//             $("#tituloModalEditar").text("Editar Usuario");
+//             $("#modalEditarUsuarios").modal("show");
 
-        },
+//         },
 
-        // código a ejecutar si la petición falla;
-        // son pasados como argumentos a la función
-        // el objeto de la petición en crudo y código de estatus de la petición
-        error: function (xhr, status) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "bottom-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                background: '#ffe7e7',
-                didOpen: (toast) => {
-                  toast.onmouseenter = Swal.stopTimer;
-                  toast.onmouseleave = Swal.resumeTimer;
-                }
-              });
-              Toast.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Disculpe, existió un problema al cargar los usuarios",
-            });
-        }
-    });
-}
+//         // código a ejecutar si la petición falla;
+//         // son pasados como argumentos a la función
+//         // el objeto de la petición en crudo y código de estatus de la petición
+//         error: function (xhr, status) {
+//             const Toast = Swal.mixin({
+//                 toast: true,
+//                 position: "bottom-end",
+//                 showConfirmButton: false,
+//                 timer: 3000,
+//                 timerProgressBar: true,
+//                 background: '#ffe7e7',
+//                 didOpen: (toast) => {
+//                   toast.onmouseenter = Swal.stopTimer;
+//                   toast.onmouseleave = Swal.resumeTimer;
+//                 }
+//               });
+//               Toast.fire({
+//                 icon: "error",
+//                 title: "Oops...",
+//                 text: "Disculpe, existió un problema al cargar los usuarios",
+//             });
+//         }
+//     });
+// }
 
 function EliminarUsuario(usuarioID) {
 
