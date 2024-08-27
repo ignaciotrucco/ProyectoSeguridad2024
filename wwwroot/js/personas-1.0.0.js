@@ -119,11 +119,13 @@ function LimpiarModal() {
     document.getElementById("emailPersonaError").innerHTML = "";
     document.getElementById("localidadPersonaError").innerHTML = "";
     document.getElementById("provinciaPersonaError").innerHTML = "";
+    document.getElementById("usuarioPersonaError").innerHTML = "";
 }
 
 function GuardarPersona() {
     let personaid = document.getElementById("PersonaID").value;
     let nombre = document.getElementById("Nombre").value.trim();
+    let usuarioID = document.getElementById("emailUsuario").value.trim();
     let domicilio = document.getElementById("Domicilio").value.trim();
     let tipdoc = document.getElementById("TipoDocumentoID").value;
     let nrodoc = document.getElementById("NroDoc").value.trim();
@@ -137,6 +139,10 @@ function GuardarPersona() {
 
     if (nombre == "") {
         $("#nombrePersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El nombre es requerido.")
+        registrado = false;
+    }
+    if (usuarioID == "") {
+        $("#usuarioPersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El usuario es requerido.")
         registrado = false;
     }
 
