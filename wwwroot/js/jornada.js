@@ -29,7 +29,7 @@ function NuevoRegistro() {
     $("#tituloModal").text("Nueva Jornada")
 }
 
-function LimpiarModal() {
+function LimpiarModalJornada() {
     $("#JornadaID").val(0);
     $("#EmpresaID").val(0);
     $("#Lugar").val("");
@@ -66,7 +66,7 @@ function ListadoJornadas() {
         success: function (listadoJornadas) {
 
             $("#modalJornada").modal("hide");
-            LimpiarModal();
+            LimpiarModalJornada();
 
             let contenidoTabla = ``;
 
@@ -212,6 +212,69 @@ function GuardarJornadaLaboral() {
     });
 }
 
+function ModalEditar(jornadaLaboralID) {
+
+    $.ajax({
+        // la URL para la petición
+        url: '../../JornadaLaboral/ListadoJornadas',
+        // la información a enviar
+        // (también es posible utilizar una cadena de datos)
+        data: { JornadaLaboralID: jornadaLaboralID },
+        // especifica si será una petición POST o GET
+        type: 'DELETE',
+        // el tipo de información que se espera de respuesta
+        dataType: 'json',
+        // código a ejecutar si la petición es satisfactoria;
+        // la respuesta es pasada como argumento a la función
+        success: function (listadoJornadas) {
+
+            let listadoJornada = listadoJornadas[0];
+
+            $("#JornadaID").val(jornadaLaboralID);
+            $("#tituloModal").text("Editar Jornada")
+            $("#EmpresaID").val(listadoJornada.empresaID);
+            $("#Lugar").val(listadoJornada.lugar);
+            $("#HsEntrada").val(listadoJornada.HorarioEntradaString);
+            $("#HsSalida").val(listadoJornada.HorarioSalidaString);
+            $("#fechaEspecialInput").val(listadoJornada.DiaEspecialString);
+            document.getElementById("checkboxPrincipal").checked = listadoJornada.dia
+            document.getElementById("lunes").checked = listadoJornada.lunes;
+            document.getElementById("martes").checked = listadoJornada.martes;
+            document.getElementById("miercoles").checked = listadoJornada.miercoles;
+            document.getElementById("jueves").checked = listadoJornada.jueves;
+            document.getElementById("viernes").checked = listadoJornada.viernes;
+            document.getElementById("sabado").checked = listadoJornada.sabado;
+            document.getElementById("domingo").checked = listadoJornada.domingo;
+            $("#modalJornada").modal("show");
+
+        },
+
+        // código a ejecutar si la petición falla;
+        // son pasados como argumentos a la función
+        // el objeto de la petición en crudo y código de estatus de la petición
+        error: function (xhr, status) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema al cargar las localidades",
+            });
+        }
+    });
+
+}
+
 function EliminarJornadaLaboral(jornadaLaboralID) {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -334,4 +397,10 @@ function EliminarJornadaLaboral(jornadaLaboralID) {
             });
         }
     });
+}
+
+function LimpiarModalAsignar() {
+    $("#AsignacionJornadaID").val(0);
+    $("#PersonaID").val(0);
+    $("#JornadaLaboralID").val(0);
 }

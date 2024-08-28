@@ -190,7 +190,7 @@ function RestablecerContrasenia(usuarioID) {
     // la respuesta es pasada como argumento a la función
     success: function (data) {
 
-      if (data.success) {
+      if (data) {
         Swal.fire({
           icon: 'success',
           title: 'Contraseña Restablecida',

@@ -40,7 +40,7 @@ public class JornadaLaboralController : Controller
 
         var jornada = _context.JornadaLaboral.ToList();
         jornada.Add(new JornadaLaboral { JornadaLaboralID = 0, Lugar = "[SELECCIONE LA JORNADA . . ]" });
-        ViewBag.JornadaLaboralID = new SelectList(jornada.OrderBy(t => t.Lugar), "JornadaLaboralID", "Lugar");
+        ViewBag.JornadaLaboralID = new SelectList(jornada.OrderBy(t => t.Lugar), "JornadaLaboralID", "InfoJornada");
 
         return View();
     }
