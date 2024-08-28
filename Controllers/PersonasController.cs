@@ -153,7 +153,7 @@ public class PersonasController : Controller
 
         if (PersonaID == 0)
         {
-            var existePersona = _context.Personas.Where(e => e.NumeroDocumento == NumeroDocumento).Count();
+            var existePersona = _context.Personas.Where(e => e.NumeroDocumento == NumeroDocumento || e.Telefono == Telefono).Count();
             if (existePersona == 0)
             {
                 var nuevaPersona = new Persona
@@ -183,7 +183,7 @@ public class PersonasController : Controller
             var editarPersona = _context.Personas.Where(e => e.PersonaID == PersonaID).SingleOrDefault();
             if (editarPersona != null)
             {
-                var existePersonaEditar = _context.Personas.Where(e => e.NumeroDocumento == NumeroDocumento && e.PersonaID != PersonaID).Count();
+                var existePersonaEditar = _context.Personas.Where(e => e.NumeroDocumento == NumeroDocumento && e.PersonaID != PersonaID || e.Telefono == Telefono && e.PersonaID != PersonaID).Count();
 
                 if (existePersonaEditar == 0)
                 {
