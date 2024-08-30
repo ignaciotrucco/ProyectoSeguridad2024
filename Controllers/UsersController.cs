@@ -30,6 +30,7 @@ public class UsersController : Controller
     {
         var roles = _context.Roles.ToList();
         ViewBag.RolID = new SelectList(roles.OrderBy(t => t.Name), "Name", "Name");
+        ViewBag.RolIDBuscar = new SelectList(roles.OrderBy(t => t.Name), "Name", "Name");
 
         return View();
     }
@@ -65,35 +66,55 @@ public class UsersController : Controller
         return Json(new { success = false, errores = "No se pudo reestablecer la contraseña" });
     }
 
-    public JsonResult ListadoUsuarios(string UsuarioID)
+    public JsonResult ListadoUsuarios(string UsuarioID, string rolIDbuscar)
     {
         var listadoUsuarios = _context.Users.ToList();
-        if (UsuarioID != null)
+
+        if (!string.IsNullOrEmpty(UsuarioID))
         {
-            listadoUsuarios = _context.Users.Where(l => l.Id == UsuarioID).ToList();
+            listadoUsuarios = listadoUsuarios.Where(l => l.Id == UsuarioID).ToList();
+        }
+
+        if (!string.IsNullOrEmpty(rolIDbuscar))
+        {
+            // Filtrar usuarios que tienen el rol con el nombre especificado
+            var roleId = _context.Roles.Where(r => r.Name == rolIDbuscar).Select(r => r.Id).FirstOrDefault();
+
+            if (!string.IsNullOrEmpty(roleId))
+            {
+                listadoUsuarios = listadoUsuarios.Where(u =>
+                    _context.UserRoles.Any(ur => ur.UserId == u.Id && ur.RoleId == roleId)
+                ).ToList();
+            }
         }
 
         List<VistaUsuarios> usuariosMostrar = new List<VistaUsuarios>();
+
         foreach (var usuario in listadoUsuarios)
         {
             var rolNombre = "";
-            //POR CADA USUARIO VAMOS A BUSCAR SI TIENE ROL ASIGNADO
-            var rolUsuario = _context.UserRoles.Where(l => l.UserId == usuario.Id).FirstOrDefault();
+
+            // Buscar el rol asignado al usuario
+            var rolUsuario = _context.UserRoles.FirstOrDefault(l => l.UserId == usuario.Id);
             if (rolUsuario != null)
             {
                 rolNombre = _context.Roles.Where(l => l.Id == rolUsuario.RoleId).Select(r => r.Name).FirstOrDefault();
             }
+
             var usuarioMostrar = new VistaUsuarios
             {
                 UsuarioID = usuario.Id,
                 Email = usuario.Email,
                 RolNombre = rolNombre,
             };
+
             usuariosMostrar.Add(usuarioMostrar);
         }
 
         return Json(usuariosMostrar);
     }
+
+
 
     public async Task<JsonResult> GuardarUsuario(string Username, string Email, string Password, string rol)
     {

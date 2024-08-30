@@ -20,12 +20,13 @@ function LimpiarModalEditar() {
 }
 
 function ListadoUsuarios() {
+  let rolIDbuscar = $("#RolIDBuscar").val();
   $.ajax({
     // la URL para la petición
     url: '../../Users/ListadoUsuarios',
     // la información a enviar
     // (también es posible utilizar una cadena de datos)
-    data: {},
+    data: {rolIDbuscar: rolIDbuscar},
     // especifica si será una petición POST o GET
     type: 'GET',
     // el tipo de información que se espera de respuesta

@@ -23,8 +23,21 @@
     </div>
 </div>
 
+
 <!-- Tabla -->
 <div class="card m-4">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-auto">
+                @Html.DropDownList("RolIDBuscar", null, "¡Filtrá por Roles!", htmlAttributes: new
+                    {
+                        @class = "form-control",
+                        @id = "RolIDBuscar",
+                        @onchange = "ListadoUsuarios()"
+                    })
+            </div>
+        </div>
+    </div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-striped mt-1" id="imprimir-tabla">
@@ -56,12 +69,16 @@ NORMALIZEDNAME *@
             <div class="modal-body">
                 <div class="row">
                     <div class="d-flex">
-                        <p class="campoObligatorio">Los campos marcados con un asterisco (<span class="asterisco">*</span>) son obligatorios <b>|</b> Click en <i style="color: rgb(48, 126, 235);" class="fa-solid fa-circle-info"></i> para más información.</p>
+                        <p class="campoObligatorio">Los campos marcados con un asterisco (<span
+                                class="asterisco">*</span>) son obligatorios <b>|</b> Click en <i
+                                style="color: rgb(48, 126, 235);" class="fa-solid fa-circle-info"></i> para más
+                            información.</p>
                     </div>
                     <form>
                         <div class="col-md-10 mb-8">
                             <input type="hidden" id="UsuarioID">
-                            @* <label for="username" class="form-label d-flex">Nombre de Usuario<p class="asterisco">*</p></label>
+                            @* <label for="username" class="form-label d-flex">Nombre de Usuario<p
+                            class="asterisco">*</p></label>
                             <input type="text" class="form-control" id="username" autocomplete="new-text">
                             <span id="userNameError" class="textoError"></span> *@
                             @* <br> *@
@@ -71,15 +88,16 @@ NORMALIZEDNAME *@
                             <span id="emailError" class="textoError"></span>
                             <br>
                             <label for="password" class="form-label d-flex">Contraseña<p class="asterisco">*</p>
-                            <div class="question-icon" onclick="openModalContraseña()">
-                                <i class="fa-solid fa-circle-info"></i>
-                            </div>
+                                <div class="question-icon" onclick="openModalContraseña()">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </div>
                             </label>
                             <input type="password" class="form-control" id="password" autocomplete="new-password">
                             <span id="passwordError" class="textoError"></span>
                             <br>
                             <div>
-                                <label for="RolID" class="form-label d-flex">Elige el rol del usuario<p class="asterisco">*</p></label>
+                                <label for="RolID" class="form-label d-flex">Elige el rol del usuario<p
+                                        class="asterisco">*</p></label>
                                 @Html.DropDownList("RolID", null, htmlAttributes: new
                                     {
                                         @class =
@@ -102,22 +120,22 @@ NORMALIZEDNAME *@
 
 @* <!-- Modal Nueva Contraseña -->
 <div id="contraseñaModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Nueva Contraseña</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p id="nueva-contraseña"></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Nueva Contraseña</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+<p id="nueva-contraseña"></p>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
 </div> *@
 
 <!-- Boton modal -->
