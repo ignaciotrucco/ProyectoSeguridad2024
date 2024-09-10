@@ -162,11 +162,18 @@ public class EmpresasController : Controller
 
     public JsonResult EliminarEmpresa(int EmpresaID)
     {
-        var eliminarEmpresa = _context.Empresas.Find(EmpresaID);
-        _context.Remove(eliminarEmpresa);
-        _context.SaveChanges();
+        bool eliminado = false;
 
+        var existeJornada = _context.JornadaLaboral.Where(e => e.EmpresaID == EmpresaID).Count();
 
-        return Json(eliminarEmpresa);
+        if (existeJornada == 0)
+        {
+            var eliminarEmpresa = _context.Empresas.Find(EmpresaID);
+            _context.Remove(eliminarEmpresa);
+            _context.SaveChanges();
+            eliminado = true;
+        }
+
+        return Json(eliminado);
     }
 }

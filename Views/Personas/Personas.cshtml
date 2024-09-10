@@ -89,7 +89,7 @@
                                         <i class="fa-solid fa-circle-info"></i>
                                     </div>
                                 </label>
-                                <input type="number" class="form-control" id="NroDoc">
+                                <input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control" id="NroDoc">
                                 <span id="nroDocPersonaError" class="textoError"></span>
                             </div>
                             <div class="col-md-3">

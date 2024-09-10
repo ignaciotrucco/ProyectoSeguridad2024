@@ -113,8 +113,9 @@ public class LocalidadesController : Controller
         bool eliminado = false;
 
         var existePersona = _context.Personas.Where(e => e.LocalidadID == LocalidadID).Count();
+        var existeEmpresa = _context.Empresas.Where(e => e.LocalidadID == LocalidadID).Count();
 
-        if (existePersona == 0)
+        if (existePersona == 0 && existeEmpresa == 0)
         {
             var eliminarLocalidad = _context.Localidades.Find(LocalidadID);
             _context.Remove(eliminarLocalidad);

@@ -56,9 +56,7 @@ public class JornadaLaboralController : Controller
 
         if (JornadaLaboralID != null)
         {
-            listadoJornadas = listadoJornadas
-                .Where(l => l.jornada.JornadaLaboralID == JornadaLaboralID)
-                .ToList();
+            listadoJornadas = listadoJornadas.Where(l => l.jornada.JornadaLaboralID == JornadaLaboralID).ToList();
         }
 
         var mostrarJornadas = listadoJornadas.Select(m => new VistaJornadaLaboral
@@ -216,11 +214,88 @@ public class JornadaLaboralController : Controller
 
     public JsonResult EliminarJornadaLaboral(int JornadaLaboralID)
     {
-        var eliminarJornada = _context.JornadaLaboral.Find(JornadaLaboralID);
-        _context.Remove(eliminarJornada);
-        _context.SaveChanges();
+        bool eliminado = false;
 
-        return Json(eliminarJornada);
+        var existeAsignacion = _context.AsignacionJornadas.Where(e => e.JornadaLaboralID == JornadaLaboralID).Count();
+
+        if (existeAsignacion == 0)
+        {
+            var eliminarJornada = _context.JornadaLaboral.Find(JornadaLaboralID);
+            _context.Remove(eliminarJornada);
+            _context.SaveChanges();
+            eliminado = true;
+        }
+
+
+        return Json(eliminado);
     }
+
+    public JsonResult MostrarAsignacion(int? AsignacionJornadaID)
+    {
+        var mostrarAsignacion = _context.AsignacionJornadas
+    .Join(_context.JornadaLaboral,
+        asignacion => asignacion.JornadaLaboralID,
+        jornada => jornada.JornadaLaboralID,
+        (asignacion, jornada) => new { asignacion, jornada })
+    .Join(_context.Personas,
+        asignacionJornada => asignacionJornada.asignacion.PersonaID,
+        persona => persona.PersonaID,
+        (asignacionJornada, persona) => new { asignacionJornada.asignacion, asignacionJornada.jornada, persona })
+    .ToList();
+
+
+        if (AsignacionJornadaID != null)
+        {
+            mostrarAsignacion = mostrarAsignacion.Where(m => m.asignacion.AsignacionJornadaID == AsignacionJornadaID).ToList();
+        }
+
+        var vistaAsignacion = mostrarAsignacion.Select(v => new VistaAsignacion
+        {
+            AsignacionJornadaID = v.asignacion.AsignacionJornadaID,
+            PersonaID = v.persona.PersonaID,
+            PersonaNombre = v.persona.NombreCompleto,
+            JornadaLaboralID = v.jornada.JornadaLaboralID,
+            InfoJornada = v.jornada.InfoJornada
+        }).ToList();
+
+
+        return Json(vistaAsignacion);
+    }
+
+    public JsonResult GuardarAsignacion(int AsignacionJornadaID, int PersonaID, int JornadaLaboralID)
+    {
+        string resultado = "";
+
+        if (AsignacionJornadaID == 0)
+        {
+            var nuevaAsignacion = new AsignacionJornada
+            {
+                PersonaID = PersonaID,
+                JornadaLaboralID = JornadaLaboralID,
+            };
+            _context.Add(nuevaAsignacion);
+            _context.SaveChanges();
+            resultado = "agg";
+        }
+        else
+        {
+            var editarAsignacion = _context.AsignacionJornadas.Where(e => e.AsignacionJornadaID == AsignacionJornadaID).SingleOrDefault();
+            if (editarAsignacion != null)
+            {
+                editarAsignacion.PersonaID = PersonaID;
+                editarAsignacion.JornadaLaboralID = JornadaLaboralID;
+                _context.SaveChanges();
+                resultado = "edit";
+            }
+        }
+
+
+        return Json(resultado);
+    }
+
+    // public JsonResult EliminarAsignacion(int AsignacionJornadaID)
+    // {
+
+    // }
 
 }

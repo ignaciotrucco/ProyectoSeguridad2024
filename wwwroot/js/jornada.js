@@ -1,4 +1,5 @@
 window.onload = ListadoJornadas();
+window.onload = ListadoAsignacion();
 
 // Obtenemos el checkbox principal, el contenedor de los checkboxes adicionales y el campo de fecha especial
 const checkboxPrincipal = document.getElementById('checkboxPrincipal');
@@ -46,6 +47,10 @@ function LimpiarModalJornada() {
     $("#HsEntrada").val(""); // Limpia el campo de hora de entrada
     $("#HsSalida").val(""); // Limpia el campo de hora de salida
     $("#checkboxsAdicionales").hide();
+    document.getElementById("empresaIdError").innerHTML = "";
+    document.getElementById("lugarError").innerHTML = "";
+    document.getElementById("HsEntradaError").innerHTML = "";
+    document.getElementById("HsSalidaError").innerHTML = "";
 }
 
 
@@ -58,7 +63,7 @@ function ListadoJornadas() {
         // (también es posible utilizar una cadena de datos)
         data: {},
         // especifica si será una petición POST o GET
-        type: 'DELETE',
+        type: 'GET',
         // el tipo de información que se espera de respuesta
         dataType: 'json',
         // código a ejecutar si la petición es satisfactoria;
@@ -127,7 +132,7 @@ function ListadoJornadas() {
             Toast.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Disculpe, existió un problema al cargar las localidades",
+                text: "Disculpe, existió un problema al cargar las jornadas",
             });
         }
     });
@@ -136,7 +141,7 @@ function ListadoJornadas() {
 
 function GuardarJornadaLaboral() {
     let empresa = $("#EmpresaID").val();
-    let lugar = $("#Lugar").val();
+    let lugar = $("#Lugar").val().trim();
     let dia = $("#checkboxPrincipal").is(":checked"); // Convertir a booleano
     let diaEspecial = dia ? null : $("#fechaEspecialInput").val(); // Null si Dia es true
     let lunes = $("#lunes").is(":checked");
@@ -149,71 +154,96 @@ function GuardarJornadaLaboral() {
     let horaEntrada = $("#HsEntrada").val();
     let horaSalida = $("#HsSalida").val();
 
-    $.ajax({
-        url: '../../JornadaLaboral/GuardarJornadaLaboral',
-        data: {
-            EmpresaID: empresa,
-            Lugar: lugar,
-            Dia: dia,
-            DiaEspecial: diaEspecial,
-            Lunes: lunes,
-            Martes: martes,
-            Miercoles: miercoles,
-            Jueves: jueves,
-            Viernes: viernes,
-            Sabado: sabado,
-            Domingo: domingo,
-            HorarioEntrada: horaEntrada,
-            HorarioSalida: horaSalida
-        },
-        type: 'POST',
-        dataType: 'json',
-        success: function (resultado) {
-            if (resultado != "") {
+    let guardado = true;
+
+    if (empresa == 0) {
+        $("#empresaIdError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  La empresa es requerida")
+        guardado = false;
+    }
+    if (lugar == "") {
+        $("#lugarError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El lugar es requerido")
+        guardado = false;
+    }
+
+    if (horaEntrada == "") {
+        $("#HsEntradaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El horario es requerido")
+        guardado = false;
+    }
+    if (horaSalida == "") {
+        $("#HsSalidaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El horario es requerido")
+        guardado = false;
+    }
+
+    if (guardado) {
+
+        $.ajax({
+            url: '../../JornadaLaboral/GuardarJornadaLaboral',
+            data: {
+                EmpresaID: empresa,
+                Lugar: lugar,
+                Dia: dia,
+                DiaEspecial: diaEspecial,
+                Lunes: lunes,
+                Martes: martes,
+                Miercoles: miercoles,
+                Jueves: jueves,
+                Viernes: viernes,
+                Sabado: sabado,
+                Domingo: domingo,
+                HorarioEntrada: horaEntrada,
+                HorarioSalida: horaSalida
+            },
+            type: 'POST',
+            dataType: 'json',
+            success: function (resultado) {
+                if (resultado != "") {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        background: '#e2ffd4',
+                        width: "380px",
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        }
+                    });
+                    Toast.fire({
+                        title: (resultado),
+                    });
+                }
+                window.location.reload();
+                ListadoJornadas();
+            },
+            error: function (xhr, status) {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: "bottom-end",
                     showConfirmButton: false,
                     timer: 3000,
                     timerProgressBar: true,
-                    background: '#e2ffd4',
-                    width: "380px",
+                    background: '#ffe7e7',
                     didOpen: (toast) => {
                         toast.onmouseenter = Swal.stopTimer;
                         toast.onmouseleave = Swal.resumeTimer;
                     }
                 });
                 Toast.fire({
-                    title: (resultado),
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Disculpe, existió un problema al cargar la jornada",
                 });
             }
+        });
 
-            ListadoJornadas();
-        },
-        error: function (xhr, status) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "bottom-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                background: '#ffe7e7',
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
-                }
-            });
-            Toast.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Disculpe, existió un problema al cargar las localidades",
-            });
-        }
-    });
+    }
+
 }
 
 function ModalEditar(jornadaLaboralID) {
-
+    $("#tituloModal").text("Editar Jornada")
     $.ajax({
         // la URL para la petición
         url: '../../JornadaLaboral/ListadoJornadas',
@@ -221,7 +251,7 @@ function ModalEditar(jornadaLaboralID) {
         // (también es posible utilizar una cadena de datos)
         data: { JornadaLaboralID: jornadaLaboralID },
         // especifica si será una petición POST o GET
-        type: 'DELETE',
+        type: 'GET',
         // el tipo de información que se espera de respuesta
         dataType: 'json',
         // código a ejecutar si la petición es satisfactoria;
@@ -231,13 +261,13 @@ function ModalEditar(jornadaLaboralID) {
             let listadoJornada = listadoJornadas[0];
 
             $("#JornadaID").val(jornadaLaboralID);
-            $("#tituloModal").text("Editar Jornada")
+            $("#modalJornada").modal("show");
             $("#EmpresaID").val(listadoJornada.empresaID);
             $("#Lugar").val(listadoJornada.lugar);
-            $("#HsEntrada").val(listadoJornada.HorarioEntradaString);
-            $("#HsSalida").val(listadoJornada.HorarioSalidaString);
-            $("#fechaEspecialInput").val(listadoJornada.DiaEspecialString);
+            $("#HsEntrada").val(listadoJornada.horarioEntradaString);
+            $("#HsSalida").val(listadoJornada.horarioSalidaString);
             document.getElementById("checkboxPrincipal").checked = listadoJornada.dia
+            $("#fechaEspecialInput").val(listadoJornada.diaEspecialString);
             document.getElementById("lunes").checked = listadoJornada.lunes;
             document.getElementById("martes").checked = listadoJornada.martes;
             document.getElementById("miercoles").checked = listadoJornada.miercoles;
@@ -245,7 +275,7 @@ function ModalEditar(jornadaLaboralID) {
             document.getElementById("viernes").checked = listadoJornada.viernes;
             document.getElementById("sabado").checked = listadoJornada.sabado;
             document.getElementById("domingo").checked = listadoJornada.domingo;
-            $("#modalJornada").modal("show");
+
 
         },
 
@@ -268,7 +298,7 @@ function ModalEditar(jornadaLaboralID) {
             Toast.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Disculpe, existió un problema al cargar las localidades",
+                text: "Disculpe, existió un problema al cargar el listado",
             });
         }
     });
@@ -309,28 +339,30 @@ function EliminarJornadaLaboral(jornadaLaboralID) {
                 dataType: 'json',
                 // código a ejecutar si la petición es satisfactoria;
                 // la respuesta es pasada como argumento a la función
-                success: function (eliminarJornada) {
+                success: function (resultado) {
 
-                    // if (!resultado) {
-                    // const Toast = Swal.mixin({
-                    //     toast: true,
-                    //     position: "bottom-end",
-                    //     showConfirmButton: false,
-                    //     timer: 3000,
-                    //     timerProgressBar: true,
-                    //     background: '#fcffe7',
-                    //     didOpen: (toast) => {
-                    //       toast.onmouseenter = Swal.stopTimer;
-                    //       toast.onmouseleave = Swal.resumeTimer;
-                    //     }
-                    //   });
-                    //   Toast.fire({
-                    //     icon: "warning",
-                    //     title: "Oops...",
-                    //     text: "No se puede eliminar, existen registros asociados",
-                    //   });}
+                    if (!resultado) {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "bottom-end",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            background: '#fcffe7',
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "warning",
+                            title: "Oops...",
+                            text: "No se puede eliminar, existen registros asociados",
+                        });
+                    }
 
                     ListadoJornadas();
+                    window.location.reload();
                 },
 
                 // código a ejecutar si la petición falla;
@@ -403,4 +435,210 @@ function LimpiarModalAsignar() {
     $("#AsignacionJornadaID").val(0);
     $("#PersonaID").val(0);
     $("#JornadaLaboralID").val(0);
+    document.getElementById("PersonaError").innerHTML = "";
+    document.getElementById("JornadaLaboralError").innerHTML = "";
+}
+
+function NuevaAsignacion() {
+    $("#tituloModalAsignacion").text("Nueva Asignacion")
+}
+
+function ListadoAsignacion() {
+
+    $.ajax({
+        // la URL para la petición
+        url: '../../JornadaLaboral/MostrarAsignacion',
+        // la información a enviar
+        // (también es posible utilizar una cadena de datos)
+        data: {},
+        // especifica si será una petición POST o GET
+        type: 'GET',
+        // el tipo de información que se espera de respuesta
+        dataType: 'json',
+        // código a ejecutar si la petición es satisfactoria;
+        // la respuesta es pasada como argumento a la función
+        success: function (vistaAsignacion) {
+
+            $("#modalEmpleadoJornada").modal("hide");
+            LimpiarModalAsignar();
+
+            let tabla = ``;
+
+            $.each(vistaAsignacion, function (index, asignacion) {
+
+
+                tabla += `
+    <tr>
+        <td style="text-align: center">${asignacion.personaNombre}</td>
+        <td style="text-align: center">${asignacion.infoJornada}</td>
+        <td style="text-align: right">
+        <button type="button" class="btn" title="Editar" onclick="ModalEditarAsignacion(${asignacion.asignacionJornadaID})">
+        <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
+        </button>
+        </td>
+        <td style="text-align: left">
+        <button type="button" class="btn" title="Eliminar" onclick="">
+        <i class="fa-solid fa-trash" width="20" height="20"></i>
+        </button>
+        </td>
+    </tr>
+ `;
+            });
+
+            document.getElementById("tbody-asignacion").innerHTML = tabla;
+
+
+        },
+
+        // código a ejecutar si la petición falla;
+        // son pasados como argumentos a la función
+        // el objeto de la petición en crudo y código de estatus de la petición
+        error: function (xhr, status) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema al cargar las localidades",
+            });
+        }
+    });
+
+}
+
+function GuardarAsignacion() {
+    let asignacionID = $("#AsignacionJornadaID").val();
+    let personaID = $("#PersonaID").val();
+    let jornadaLaboralID = $("#JornadaLaboralID").val();
+
+    let guardado = true;
+
+    if (personaID == 0) {
+        $("#PersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  La persona es requerida")
+        guardado = false;
+    }
+    if (jornadaLaboralID == 0) {
+        $("#JornadaLaboralError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  La jornada es requerida")
+        guardado = false;
+    }
+
+    if (guardado) {
+
+        $.ajax({
+            url: '../../JornadaLaboral/GuardarAsignacion',
+            data: {
+                AsignacionJornadaID: asignacionID,
+                PersonaID: personaID,
+                JornadaLaboralID: jornadaLaboralID
+            },
+            type: 'POST',
+            dataType: 'json',
+            success: function (resultado) {
+                if (resultado != "") {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        background: '#e2ffd4',
+                        width: "380px",
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        }
+                    });
+                    Toast.fire({
+                        title: (resultado),
+                    });
+                }
+                ListadoAsignacion();
+            },
+            error: function (xhr, status) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "bottom-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: '#ffe7e7',
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Disculpe, existió un problema al cargar las localidades",
+                });
+            }
+        });
+
+    }
+
+}
+
+function ModalEditarAsignacion(asignacionID) {
+
+    $("#tituloModalAsignacion").text("Editar Asignacion");
+
+    $.ajax({
+        // la URL para la petición
+        url: '../../JornadaLaboral/MostrarAsignacion',
+        // la información a enviar
+        // (también es posible utilizar una cadena de datos)
+        data: { AsignacionJornadaID: asignacionID },
+        // especifica si será una petición POST o GET
+        type: 'GET',
+        // el tipo de información que se espera de respuesta
+        dataType: 'json',
+        // código a ejecutar si la petición es satisfactoria;
+        // la respuesta es pasada como argumento a la función
+        success: function (vistaAsignacion) {
+
+            let asignacion = vistaAsignacion[0];
+
+            $("#AsignacionJornadaID").val(asignacionID);
+            $("#modalEmpleadoJornada").modal("show");
+            $("#PersonaID").val(asignacion.personaID);
+            $("#JornadaLaboralID").val(asignacion.jornadaLaboralID);
+
+
+        },
+
+        // código a ejecutar si la petición falla;
+        // son pasados como argumentos a la función
+        // el objeto de la petición en crudo y código de estatus de la petición
+        error: function (xhr, status) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema al cargar las localidades",
+            });
+        }
+    });
+
 }

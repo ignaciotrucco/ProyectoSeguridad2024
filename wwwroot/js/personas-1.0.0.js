@@ -357,26 +357,26 @@ function EliminarPersona(personaID) {
                 dataType: 'json',
                 // código a ejecutar si la petición es satisfactoria;
                 // la respuesta es pasada como argumento a la función
-                success: function (eliminarPersona) {
+                success: function (resultado) {
 
-                    // if (!resultado) {
-                    // const Toast = Swal.mixin({
-                    //     toast: true,
-                    //     position: "bottom-end",
-                    //     showConfirmButton: false,
-                    //     timer: 3000,
-                    //     timerProgressBar: true,
-                    //     background: '#fcffe7',
-                    //     didOpen: (toast) => {
-                    //       toast.onmouseenter = Swal.stopTimer;
-                    //       toast.onmouseleave = Swal.resumeTimer;
-                    //     }
-                    //   });
-                    //   Toast.fire({
-                    //     icon: "warning",
-                    //     title: "Oops...",
-                    //     text: "No se puede eliminar, existen registros asociados",
-                    //   });}
+                    if (!resultado) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        background: '#fcffe7',
+                        didOpen: (toast) => {
+                          toast.onmouseenter = Swal.stopTimer;
+                          toast.onmouseleave = Swal.resumeTimer;
+                        }
+                      });
+                      Toast.fire({
+                        icon: "warning",
+                        title: "Oops...",
+                        text: "No se puede eliminar, existen registros asociados",
+                      });}
 
                     ListadoPersonas();
                 },

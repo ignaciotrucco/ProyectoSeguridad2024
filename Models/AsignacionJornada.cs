@@ -9,3 +9,11 @@ public class AsignacionJornada
     public int PersonaID { get; set; }
     public int JornadaLaboralID { get; set; }
 }
+
+public class VistaAsignacion {
+    public int AsignacionJornadaID { get; set; }
+    public int PersonaID { get; set; }
+    public string? PersonaNombre {get; set;}
+    public int JornadaLaboralID { get; set; }
+    public string? InfoJornada {get; set;}
+}

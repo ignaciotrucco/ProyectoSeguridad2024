@@ -109,7 +109,7 @@
                     <div class="boton-normal">
                       <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar"
                         data-bs-toggle="modal" data-bs-target="#modalEmpleadoJornada" data-bs-target="#staticBackdrop"
-                        onclick="NuevoRegistro()">
+                        onclick="NuevaAsignacion()">
                         <i class="fa-solid fa-plus"></i>
                       </button>
                     </div>
@@ -128,7 +128,7 @@
                         <th scope="col"></th>
                       </tr>
                     </thead>
-                    <tbody id="tbody-empresas"></tbody>
+                    <tbody id="tbody-asignacion"></tbody>
                   </table>
                 </div>
               </div>
@@ -156,16 +156,17 @@
         <form>
           <div class="row">
             <div class="col-md-6">
-              <input type="hidden" id="JornadaID">
+              <input type="hidden" id="JornadaID" value="0">
               <label for="EmpresaID" class="form-label d-flex">Cliente<p class="asterisco">*</p>
               </label>
               @Html.DropDownList("EmpresaID", null, htmlAttributes: new { @class = "form-control" })
+              <span id="empresaIdError" class="textoError"></span>
             </div>
             <div class="col-md-6">
               <label for="Lugar" class="form-label d-flex">Lugar<p class="asterisco">*</p>
               </label>
               <input type="text" class="form-control" id="Lugar" style="text-transform:uppercase">
-              <span id="domicilioEmpresaError" class="textoError"></span>
+              <span id="lugarError" class="textoError"></span>
             </div>
           </div>
           <div class="row justify-content-center">
@@ -173,12 +174,12 @@
               <label for="HsEntrada" class="form-label d-flex">Entrada<p class="asterisco">*</p>
               </label>
               <input type="time" class="form-control" id="HsEntrada">
-              <span id="cuitError" class="textoError"></span>
+              <span id="HsEntradaError" class="textoError"></span>
             </div>
             <div class="col-md-2 mt-3">
               <label for="HsSalida" class="form-label d-flex">Salida<p class="asterisco">*</p></label>
               <input type="time" class="form-control" id="HsSalida">
-              <span id="telefonoEmpresaError" class="textoError"></span>
+              <span id="HsSalidaError" class="textoError"></span>
             </div>
             <!-- Campo de fecha especial visible por defecto -->
             <div class="col-md-3" style="margin-top: 19px;" id="fechaEspecial">
@@ -253,7 +254,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="tituloModal"></h5>
+        <h5 class="modal-title" id="tituloModalAsignacion"></h5>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -263,7 +264,7 @@
           </div>
           <form>
             <div class="col-md-12 mb-2">
-              <input type="hidden" id="AsignacionJornadaID">
+              <input type="hidden" id="AsignacionJornadaID" value="0">
               <label for="PersonaID" class="form-label d-flex">Empleado<p class="asterisco">*</p>
               </label>
               @Html.DropDownList("PersonaID", null, htmlAttributes: new { @class = "form-control" })
@@ -278,7 +279,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btnGuardar" onclick="GuardarEmpleadoJornada()">Guardar</button>
+        <button type="button" class="btn btnGuardar" onclick="GuardarAsignacion()">Guardar</button>
         <button type="button" class="btn btnCancelar" data-bs-dismiss="modal" onclick="LimpiarModalAsignar()">Cancelar</button>
       </div>
     </div>

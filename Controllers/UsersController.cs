@@ -152,8 +152,9 @@ public class UsersController : Controller
         bool eliminado = false;
 
         var existePersona = _context.Personas.Where(e => e.UsuarioID == UsuarioID).Count();
+        var existeEmpresa = _context.Empresas.Where(e => e.UsuarioID == UsuarioID).Count();
 
-        if (existePersona == 0)
+        if (existePersona == 0 && existeEmpresa == 0)
         {
             var eliminarUsuario = _context.Users.Find(UsuarioID);
             _context.Remove(eliminarUsuario);
