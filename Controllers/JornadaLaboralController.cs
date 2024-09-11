@@ -295,7 +295,7 @@ public class JornadaLaboralController : Controller
 
     // public JsonResult EliminarAsignacion(int AsignacionJornadaID)
     // {
-
+    //     var eliminar
     // }
 
 }

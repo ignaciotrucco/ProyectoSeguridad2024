@@ -140,6 +140,7 @@ function ListadoJornadas() {
 }
 
 function GuardarJornadaLaboral() {
+    let jornadaLaboralID = $("#JornadaID").val();
     let empresa = $("#EmpresaID").val();
     let lugar = $("#Lugar").val().trim();
     let dia = $("#checkboxPrincipal").is(":checked"); // Convertir a booleano
@@ -179,6 +180,7 @@ function GuardarJornadaLaboral() {
         $.ajax({
             url: '../../JornadaLaboral/GuardarJornadaLaboral',
             data: {
+                JornadaLaboralID: jornadaLaboralID,
                 EmpresaID: empresa,
                 Lugar: lugar,
                 Dia: dia,
@@ -214,8 +216,10 @@ function GuardarJornadaLaboral() {
                         title: (resultado),
                     });
                 }
-                window.location.reload();
                 ListadoJornadas();
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000); // 1000 milisegundos = 1 segundo                
             },
             error: function (xhr, status) {
                 const Toast = Swal.mixin({
@@ -258,7 +262,7 @@ function ModalEditar(jornadaLaboralID) {
         // la respuesta es pasada como argumento a la función
         success: function (listadoJornadas) {
 
-            let listadoJornada = listadoJornadas[0];
+            listadoJornada = listadoJornadas[0];
 
             $("#JornadaID").val(jornadaLaboralID);
             $("#modalJornada").modal("show");
@@ -267,14 +271,23 @@ function ModalEditar(jornadaLaboralID) {
             $("#HsEntrada").val(listadoJornada.horarioEntradaString);
             $("#HsSalida").val(listadoJornada.horarioSalidaString);
             document.getElementById("checkboxPrincipal").checked = listadoJornada.dia
-            $("#fechaEspecialInput").val(listadoJornada.diaEspecialString);
-            document.getElementById("lunes").checked = listadoJornada.lunes;
-            document.getElementById("martes").checked = listadoJornada.martes;
-            document.getElementById("miercoles").checked = listadoJornada.miercoles;
-            document.getElementById("jueves").checked = listadoJornada.jueves;
-            document.getElementById("viernes").checked = listadoJornada.viernes;
-            document.getElementById("sabado").checked = listadoJornada.sabado;
-            document.getElementById("domingo").checked = listadoJornada.domingo;
+
+            if (listadoJornada.dia == false) {
+                var fechaEspecial = new Date(listadoJornada.diaEspecial);
+                var fechaFormateada = fechaEspecial.toISOString().split('T')[0]; // Convierte a yyyy-MM-dd
+                $("#fechaEspecialInput").val(fechaFormateada);
+            }
+            else {
+                $("#fechaEspecial").hide();
+                $("#checkboxsAdicionales").show();
+                document.getElementById("lunes").checked = listadoJornada.lunes;
+                document.getElementById("martes").checked = listadoJornada.martes;
+                document.getElementById("miercoles").checked = listadoJornada.miercoles;
+                document.getElementById("jueves").checked = listadoJornada.jueves;
+                document.getElementById("viernes").checked = listadoJornada.viernes;
+                document.getElementById("sabado").checked = listadoJornada.sabado;
+                document.getElementById("domingo").checked = listadoJornada.domingo;
+            }
 
 
         },
@@ -362,7 +375,9 @@ function EliminarJornadaLaboral(jornadaLaboralID) {
                     }
 
                     ListadoJornadas();
-                    window.location.reload();
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1000); // 1000 milisegundos = 1 segundo
                 },
 
                 // código a ejecutar si la petición falla;

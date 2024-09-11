@@ -12,4 +12,5 @@ public class TurnoLaboral
     public DateTime TurnoLaboralFin { get; set;}
     public string? Latitud { get; set;}
     public string? Longitud {get; set;}
+    public bool Estado {get; set;}
 }
