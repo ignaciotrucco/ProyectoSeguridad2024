@@ -6,8 +6,8 @@ using ProyectoSeguridad2024.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace ProyectoSeguridad2024.Controllers
-{
+namespace ProyectoSeguridad2024.Controllers;
+
     [Authorize]
     public class FichajeController : Controller
     {
@@ -22,7 +22,7 @@ namespace ProyectoSeguridad2024.Controllers
             _rolManager = rolManager;
         }
 
-        public async Task<IActionResult> Fichaje() // Cambiado a async
+        public async Task<IActionResult> Fichaje()
         {
             var usuarioLogueadoID = _userManager.GetUserId(HttpContext.User);
             string nombreUsuario = "No se encontró el usuario";
@@ -45,7 +45,13 @@ namespace ProyectoSeguridad2024.Controllers
 
             ViewBag.NombreTitulo = nombreUsuario;
 
-            return View(); // Asegúrate de que el View() esté bien definido
+            return View(); 
         }
-    }
+
+        public IActionResult FichajeHistorial()
+        {
+            return View();
+        }
+
 }
+
