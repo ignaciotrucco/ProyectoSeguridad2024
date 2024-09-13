@@ -1,38 +1,50 @@
 window.onload = HistorialFichajes();
 
 function HistorialFichajes() {
+
+    let personaID = $("#PersonaID").val()
+
     $.ajax({
         // la URL para la petición
         url: '../../Fichaje/HistorialFichajes',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: {},
+        data: {PersonaID: personaID},
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
         dataType: 'json',
         // código a ejecutar si la petición es satisfactoria;
         // la respuesta es pasada como argumento a la función
-        success: function (listadoFichajes) {
+        success: function (mostrarFichajes) {
 
-        
+
 
             let contenidoTabla = ``;
 
-            $.each(listadoFichajes, function (index, turno) {
+            $.each(mostrarFichajes, function (index, turno) {
 
-                contenidoTabla += `
+                if (turno.estado == true) {
+                    contenidoTabla += `
                 <tr>
-                    <td style="text-align: center">${turno.turnoLaboralID}</td>
-                    <td style="text-align: center">${turno.usuarioID}</td>
-                    <td style="text-align: center">${turno.jornadaLaboralID}</td>
-                    <td style="text-align: center">${turno.fechaFichaje}</td>
-                    <td style="text-align: center">${turno.momento}</td>
-                    <td style="text-align: center">${turno.latitud}</td>
-                    <td style="text-align: center">${turno.longitud}</td>
-                    <td style="text-align: center">${turno.estado}</td>
+                    <td style="text-align: center">${turno.nombreEmpleado}</td>
+                    <td style="text-align: center">${turno.jornada}</td>
+                    <td style="text-align: center">${turno.momentoString}</td>
+                    <td style="text-align: center">${turno.fechaFichajeString}</td>
                 </tr>
              `;
+                }
+                else {
+                    contenidoTabla += `
+                <tr class="bg-danger p-2" style="--bs-bg-opacity: .5;">
+                    <td style="text-align: center">${turno.nombreEmpleado}</td>
+                    <td style="text-align: center">${turno.jornada}</td>
+                    <td style="text-align: center">${turno.momentoString}</td>
+                    <td style="text-align: center">${turno.fechaFichajeString}</td>
+                </tr>
+             `;
+                }
+
             });
 
             document.getElementById("tbody-jornadaHistorial").innerHTML = contenidoTabla;

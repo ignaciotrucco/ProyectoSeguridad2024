@@ -6,6 +6,7 @@ using ProyectoSeguridad2024.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProyectoFinal2024.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ProyectoSeguridad2024.Controllers;
 
@@ -51,6 +52,10 @@ public class FichajeController : Controller
 
     public IActionResult FichajeHistorial()
     {
+        var personas = _context.Personas.ToList();
+        personas.Add(new Persona { PersonaID = 0, NombreCompleto = "[FILTRA POR PERSONAS]" });
+        ViewBag.PersonaID = new SelectList(personas.OrderBy(t => t.NombreCompleto), "PersonaID", "NombreCompleto");
+
         return View();
     }
 
@@ -89,7 +94,7 @@ public class FichajeController : Controller
             return Json(new { mensaje = "No se encontró la jornada laboral asociada." });
         }
 
-        //EXTRAEMOS SOLO LA PARTE DE HORA Y MINUTO
+        // EXTRAEMOS SOLO LA PARTE DE HORA Y MINUTO
         var horaFichaje = fechaFichaje.TimeOfDay;
         var horaEntrada = jornadaLaboral.HorarioEntrada.TimeOfDay;
         var horaSalida = jornadaLaboral.HorarioSalida.TimeOfDay;
@@ -97,6 +102,7 @@ public class FichajeController : Controller
         bool esEntrada = Momento == Momento.Entrada;
         bool esValido = false;
 
+        // VALIDAMOS LA HORA DE FICHAJE
         if (esEntrada)
         {
             esValido = horaFichaje >= horaEntrada;
@@ -106,34 +112,74 @@ public class FichajeController : Controller
             esValido = horaFichaje <= horaSalida;
         }
 
-        if (!esValido)
-        {
-            return Json(new { mensaje = "La hora de fichaje está fuera del rango permitido." });
-        }
-
-        // DESPUES DE LAS VALIDACIONES CREAMOS EL TURNO LABORAL
+        // CREAR EL TURNO LABORAL Y GUARDARLO INDEPENDIENTEMENTE DE SI ES VÁLIDO O NO
         var turnoLaboral = new TurnoLaboral
         {
             UsuarioID = usuarioLogueadoID,
             JornadaLaboralID = jornadaLaboral.JornadaLaboralID,
             FechaFichaje = fechaFichaje,
             Momento = Momento,
-            Estado = esValido
+            Estado = esValido // Se guarda como true si está dentro del horario, false si no.
         };
 
         _context.Add(turnoLaboral);
         _context.SaveChanges();
 
-        return Json(new { mensaje = "Fichaje registrado correctamente." });
+        string mensaje = "";
+        if (esValido)
+        {
+            mensaje = "Fichaje registrado correctamente.";
+        }
+        else
+        {
+            mensaje = "Fichaje fuera del horario permitido, se registró como no válido.";
+        }
+
+        return Json(new { mensaje });
     }
 
 
-    public JsonResult HistorialFichajes()
+
+    public JsonResult HistorialFichajes(int? PersonaID)
     {
-        var listadoFichajes = _context.TurnoLaboral.ToList();
+        var listadoFichajes = _context.TurnoLaboral
+    .Join(_context.JornadaLaboral,
+        turnos => turnos.JornadaLaboralID,
+        jornada => jornada.JornadaLaboralID,
+        (turnos, jornada) => new { turnos, jornada })
+    .Join(_context.AsignacionJornadas,
+        asignacionJornada => asignacionJornada.turnos.JornadaLaboralID,
+        asignacion => asignacion.JornadaLaboralID, 
+        (asignacionJornada, asignacion) => new { asignacionJornada.jornada, asignacionJornada.turnos, asignacion })
+    .Join(_context.Personas,
+        asignacionJornada => asignacionJornada.asignacion.PersonaID,
+        persona => persona.PersonaID,
+        (asignacionJornada, persona) => new { asignacionJornada, persona })
+    .ToList();
+
+    if (PersonaID != null && PersonaID != 0) {
+        listadoFichajes = listadoFichajes.Where(l => l.persona.PersonaID == PersonaID).ToList();
+    }
 
 
-        return Json(listadoFichajes);
+        var mostrarFichajes = listadoFichajes.Select(m => new VistaTurnosLaborales
+        {
+            TurnoLaboralID = m.asignacionJornada.turnos.TurnoLaboralID,
+            UsuarioID = m.asignacionJornada.turnos.UsuarioID,
+            NombreEmpleado = m.persona.NombreCompleto,
+            JornadaLaboralID = m.asignacionJornada.turnos.JornadaLaboralID,
+            Jornada = m.asignacionJornada.jornada.InfoJornada,
+            FechaFichaje = m.asignacionJornada.turnos.FechaFichaje,
+            FechaFichajeString = m.asignacionJornada.turnos.FechaFichaje.ToString("HH:mm"),
+            Momento = m.asignacionJornada.turnos.Momento,
+            MomentoString = m.asignacionJornada.turnos.Momento.ToString().ToUpper(),
+            Latitud = m.asignacionJornada.turnos.Latitud,
+            Longitud = m.asignacionJornada.turnos.Longitud,
+            Estado = m.asignacionJornada.turnos.Estado
+        }).ToList();
+
+
+        return Json(mostrarFichajes);
     }
 
 }
