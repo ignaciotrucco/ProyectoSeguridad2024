@@ -9,11 +9,11 @@
         <div class="card-border-top"></div>
         <span>@ViewBag.NombreTitulo</span>
         <img src="../img/usuario-fondo-negro.png" class="imgUsuario">
-        <button class="botonInicio">Inicio de Jornada</button>
-        <button class="botonFin">Fin de Jornada</button>
+        <button class="botonInicio" onclick="RegistrarMomento(1)">Inicio de Jornada</button>
+        <button class="botonFin" onclick="RegistrarMomento(2)">Fin de Jornada</button>
     </div>
 </div>
 
 @section Scripts {
-    @* <script src="~/js/provincias-1.0.0.js"></script> *@
+    <script src="~/js/fichaje.js"></script>
 }

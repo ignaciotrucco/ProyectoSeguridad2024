@@ -42,11 +42,14 @@
             <table class="table table-striped mt-1" id="imprimir-tabla">
                 <thead>
                     <tr>
-                        <th scope="col" style="text-align: center">EMPLEADO</th>
-                        <th scope="col" style="text-align: center">JORNADA</th>
-                        <th scope="col" style="text-align: center">CLIENTE</th>
-                        <th scope="col" style="text-align: center">ENTRADA</th>
-                        <th scope="col" style="text-align: center">SALIDA</th>
+                        <th scope="col" style="text-align: center">turnoLaboralID</th>
+                        <th scope="col" style="text-align: center">usuarioID</th>
+                        <th scope="col" style="text-align: center">jornadaLaboralID</th>
+                        <th scope="col" style="text-align: center">fechaFichaje</th>
+                        <th scope="col" style="text-align: center">momento</th>
+                        <th scope="col" style="text-align: center">latitud</th>
+                        <th scope="col" style="text-align: center">longitud</th>
+                        <th scope="col" style="text-align: center">estado</th>
                     </tr>
                 </thead>
                 <tbody id="tbody-jornadaHistorial"></tbody>
@@ -56,6 +59,5 @@
 </div>
 
 @section Scripts {
-    @* <script src="~/js/fichajesHistorial-1.0.0.js"></script>
-    <script src="~/js/impresiones.js"></script> *@
+    <script src="~/js/fichaje.js"></script>
 }
