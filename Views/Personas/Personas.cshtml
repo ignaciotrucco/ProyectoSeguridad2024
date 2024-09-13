@@ -89,7 +89,7 @@
                                         <i class="fa-solid fa-circle-info"></i>
                                     </div>
                                 </label>
-                                <input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control" id="NroDoc">
+                                <input type="text" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control" id="NroDoc">
                                 <span id="nroDocPersonaError" class="textoError"></span>
                             </div>
                             <div class="col-md-3">
@@ -153,11 +153,7 @@
         <h2>Ejemplos de teléfonos</h2>
         <hr>
         <p>Formatos de números de celular válidos para Argentina.</p>
-        <p>• 12-3456</p>
-        <p>• 15 12-3456</p>
-        <p>• 3562 12-3456</p>
-        <p>• 3562 15 12-3456</p>
-        <p>• +54 9 3562 12-3456</p>
+        <p>• 54 3562 123456</p>
         <hr>
         <div class="modal-footerAyuda">
             <button class="botonEntendido" onclick="closeModalTel()">Entendido</button>
@@ -174,7 +170,7 @@
         <p>• 4429878 (7 dígitos)</p>
         <p>• 44298786 (8 dígitos)</p>
         <p>Formatos de CUIL/CUIT válidos para Argentina.</p>
-        <p>• 23-12345678-6</p>
+        <p>• 23123456786 (11 dígitos)</p>
         <hr>
         <div class="modal-footerAyuda">
             <button class="botonEntendido" onclick="closeModalDni()">Entendido</button>

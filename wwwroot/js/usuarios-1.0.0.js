@@ -164,7 +164,7 @@ function ValidarNuevaContraseña(usuarioID) {
     title: "¿Seguro que quiere restablecer la contraseña de este usuario?",
     icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: "#3085d6",
+    confirmButtonColor: "#606060",
     cancelButtonColor: "#d33",
     confirmButtonText: "Si, seguro",
     cancelButtonText: "Cancelar"
@@ -181,25 +181,33 @@ function RestablecerContrasenia(usuarioID) {
     // la URL para la petición
     url: '../../Users/RestablecerContrasenia',
     // la información a enviar
-    // (también es posible utilizar una cadena de datos)
     data: { UsuarioID: usuarioID },
     // especifica si será una petición POST o GET
     type: 'GET',
     // el tipo de información que se espera de respuesta
     dataType: 'json',
     // código a ejecutar si la petición es satisfactoria;
-    // la respuesta es pasada como argumento a la función
     success: function (data) {
-
       if (data) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Contraseña Restablecida',
-          text: `La nueva contraseña es: ${data.nuevaContrasenia}`,
-          confirmButtonText: 'Aceptar'
+        const nuevaContrasenia = data.nuevaContrasenia;        
+        navigator.clipboard.writeText(nuevaContrasenia).then(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Contraseña Restablecida (Copiada al portapapeles)',
+            text: `La nueva contraseña es: ${nuevaContrasenia}`,
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: "#606060",
+          });
+        }).catch(err => {
+          console.error('Error al copiar al portapapeles: ', err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo copiar la contraseña al portapapeles.',
+            confirmButtonText: 'Aceptar'
+          });
         });
-      }
-      else {
+      } else {
         Swal.fire({
           icon: 'error',
           title: 'Error',
@@ -207,12 +215,8 @@ function RestablecerContrasenia(usuarioID) {
           confirmButtonText: 'Aceptar'
         });
       }
-
     },
-
     // código a ejecutar si la petición falla;
-    // son pasados como argumentos a la función
-    // el objeto de la petición en crudo y código de estatus de la petición
     error: function (xhr, status) {
       const Toast = Swal.mixin({
         toast: true,

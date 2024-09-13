@@ -167,8 +167,22 @@ function GuardarPersona() {
     }
 
     if (fechanac == 0) {
-        $("#fechaPersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Fecha requerida.")
+        $("#fechaPersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Fecha requerida.");
         registrado = false;
+    } else {
+        const fechaNacimiento = new Date(fechanac);
+        const fechaActual = new Date();
+        const edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
+        const mes = fechaActual.getMonth() - fechaNacimiento.getMonth();
+    
+        if (mes < 0 || (mes === 0 && fechaActual.getDate() < fechaNacimiento.getDate())) {
+            edad--;
+        }
+    
+        if (edad < 18) {
+            $("#fechaPersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Debe ser mayor de 18 años.");
+            registrado = false;
+        }
     }
 
     if (email == "") {

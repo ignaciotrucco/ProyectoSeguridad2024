@@ -45,7 +45,7 @@ public class JornadaLaboralController : Controller
         return View();
     }
 
-    public JsonResult ListadoJornadas(int? JornadaLaboralID)
+    public JsonResult ListadoJornadas(int? JornadaLaboralID, string busqueda)
     {
         var listadoJornadas = _context.JornadaLaboral
             .Join(_context.Empresas, // incluye la tabla Empresas
@@ -57,6 +57,19 @@ public class JornadaLaboralController : Controller
         if (JornadaLaboralID != null)
         {
             listadoJornadas = listadoJornadas.Where(l => l.jornada.JornadaLaboralID == JornadaLaboralID).ToList();
+        }
+
+        // FILTRAR POR CUALQUIER CAMPO SI SE PROPORCIONA UN TERMMINO DE BUSQUEDA
+        if (!string.IsNullOrEmpty(busqueda))
+        {
+            listadoJornadas = listadoJornadas.Where(p =>
+            p.jornada.Lugar.Contains(busqueda) ||
+            p.jornada.Dia.ToString().Contains(busqueda) || 
+            (p.jornada.Dia ? null : p.jornada.DiaEspecial.ToString("dd/MM/yyyy")).Contains(busqueda) || 
+            p.empresa.RazonSocial.Contains(busqueda) ||
+            p.jornada.HorarioEntrada.ToString("HH:mm").Contains(busqueda) || 
+            p.jornada.HorarioSalida.ToString("HH:mm").Contains(busqueda) 
+        ).ToList();
         }
 
         var mostrarJornadas = listadoJornadas.Select(m => new VistaJornadaLaboral
@@ -230,7 +243,7 @@ public class JornadaLaboralController : Controller
         return Json(eliminado);
     }
 
-    public JsonResult MostrarAsignacion(int? AsignacionJornadaID)
+    public JsonResult MostrarAsignacion(int? AsignacionJornadaID, string busqueda)
     {
         var mostrarAsignacion = _context.AsignacionJornadas
     .Join(_context.JornadaLaboral,
@@ -247,6 +260,15 @@ public class JornadaLaboralController : Controller
         if (AsignacionJornadaID != null)
         {
             mostrarAsignacion = mostrarAsignacion.Where(m => m.asignacion.AsignacionJornadaID == AsignacionJornadaID).ToList();
+        }
+
+        // FILTRAR POR CUALQUIER CAMPO SI SE PROPORCIONA UN TÉRMINO DE BÚSQUEDA
+        if (!string.IsNullOrEmpty(busqueda))
+        {
+            mostrarAsignacion = mostrarAsignacion.Where(p =>
+            p.persona.NombreCompleto.Contains(busqueda) || 
+            p.jornada.InfoJornada.ToString().Contains(busqueda) 
+        ).ToList();
         }
 
         var vistaAsignacion = mostrarAsignacion.Select(v => new VistaAsignacion

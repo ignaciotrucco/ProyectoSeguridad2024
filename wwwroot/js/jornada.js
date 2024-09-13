@@ -53,15 +53,24 @@ function LimpiarModalJornada() {
     document.getElementById("HsSalidaError").innerHTML = "";
 }
 
+// ESCUCHA EL EVENTO 'KEYUP' EN EL CAMPO DE BÚSQUEDA CON ID 'INPUTBUSQUEDA'
+// CADA VEZ QUE EL USUARIO ESCRIBE, SE CAPTURA EL VALOR ACTUAL Y SE LLAMA A LA FUNCIÓN LISTADOPERSONAS
+// PARA FILTRAR LA LISTA DE PERSONAS SEGÚN EL TEXTO INGRESADO.
+$(document).ready(function () {
+    $('#inputBusquedaAñadir').on('keyup', function () {
+        let busqueda = $(this).val();
+        ListadoJornadas(busqueda);
+    });
+});
 
-function ListadoJornadas() {
+function ListadoJornadas(busqueda) {
 
     $.ajax({
         // la URL para la petición
         url: '../../JornadaLaboral/ListadoJornadas',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: {},
+        data: { busqueda: busqueda },
         // especifica si será una petición POST o GET
         type: 'GET',
         // el tipo de información que se espera de respuesta
@@ -458,14 +467,24 @@ function NuevaAsignacion() {
     $("#tituloModalAsignacion").text("Nueva Asignacion")
 }
 
-function ListadoAsignacion() {
+// ESCUCHA EL EVENTO 'KEYUP' EN EL CAMPO DE BÚSQUEDA CON ID 'INPUTBUSQUEDA'
+// CADA VEZ QUE EL USUARIO ESCRIBE, SE CAPTURA EL VALOR ACTUAL Y SE LLAMA A LA FUNCIÓN LISTADOPERSONAS
+// PARA FILTRAR LA LISTA DE PERSONAS SEGÚN EL TEXTO INGRESADO.
+$(document).ready(function () {
+    $('#inputBusquedaAsignar').on('keyup', function () {
+        let busqueda = $(this).val();
+        ListadoJornadas(busqueda);
+    });
+});
+
+function ListadoAsignacion(busqueda) {
 
     $.ajax({
         // la URL para la petición
         url: '../../JornadaLaboral/MostrarAsignacion',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: {},
+        data: { busqueda: busqueda },
         // especifica si será una petición POST o GET
         type: 'GET',
         // el tipo de información que se espera de respuesta
