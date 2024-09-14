@@ -473,18 +473,18 @@ function NuevaAsignacion() {
 $(document).ready(function () {
     $('#inputBusquedaAsignar').on('keyup', function () {
         let busqueda = $(this).val();
-        ListadoJornadas(busqueda);
+        ListadoAsignacion(busquedaAsignar);
     });
 });
 
-function ListadoAsignacion(busqueda) {
+function ListadoAsignacion(busquedaAsignar) {
 
     $.ajax({
         // la URL para la petición
         url: '../../JornadaLaboral/MostrarAsignacion',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { busqueda: busqueda },
+        data: { busquedaAsignar: busquedaAsignar },
         // especifica si será una petición POST o GET
         type: 'GET',
         // el tipo de información que se espera de respuesta

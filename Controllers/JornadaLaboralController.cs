@@ -65,10 +65,10 @@ public class JornadaLaboralController : Controller
             listadoJornadas = listadoJornadas.Where(p =>
             p.jornada.Lugar.Contains(busqueda) ||
             p.jornada.Dia.ToString().Contains(busqueda) || 
-            (p.jornada.Dia ? null : p.jornada.DiaEspecial.ToString("dd/MM/yyyy")).Contains(busqueda) || 
-            p.empresa.RazonSocial.Contains(busqueda) ||
-            p.jornada.HorarioEntrada.ToString("HH:mm").Contains(busqueda) || 
-            p.jornada.HorarioSalida.ToString("HH:mm").Contains(busqueda) 
+            p.jornada.DiaEspecial.ToString("dd/MM/yyyy").Contains(busqueda) ||
+            p.empresa.RazonSocial.Contains(busqueda)
+            // p.jornada.HorarioEntrada.ToString("HH:mm").Contains(busqueda) || 
+            // p.jornada.HorarioSalida.ToString("HH:mm").Contains(busqueda) 
         ).ToList();
         }
 
@@ -243,7 +243,7 @@ public class JornadaLaboralController : Controller
         return Json(eliminado);
     }
 
-    public JsonResult MostrarAsignacion(int? AsignacionJornadaID, string busqueda)
+    public JsonResult MostrarAsignacion(int? AsignacionJornadaID, string busquedaAsignar)
     {
         var mostrarAsignacion = _context.AsignacionJornadas
     .Join(_context.JornadaLaboral,
@@ -263,11 +263,11 @@ public class JornadaLaboralController : Controller
         }
 
         // FILTRAR POR CUALQUIER CAMPO SI SE PROPORCIONA UN TÉRMINO DE BÚSQUEDA
-        if (!string.IsNullOrEmpty(busqueda))
+        if (!string.IsNullOrEmpty(busquedaAsignar))
         {
             mostrarAsignacion = mostrarAsignacion.Where(p =>
-            p.persona.NombreCompleto.Contains(busqueda) || 
-            p.jornada.InfoJornada.ToString().Contains(busqueda) 
+            p.persona.NombreCompleto.Contains(busquedaAsignar) || 
+            p.jornada.InfoJornada.Contains(busquedaAsignar) 
         ).ToList();
         }
 

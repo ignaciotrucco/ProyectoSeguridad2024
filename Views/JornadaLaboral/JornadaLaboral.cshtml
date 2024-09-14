@@ -37,17 +37,17 @@
                     <div class="input-group m-2">
                       <span class="input-group-text" id="basic-addon1"><i
                           class="fa-regular fa-calendar-days"></i></span>
-                      <input type="text" style="width:12rem !important" id="inputBusquedaAñadir"
-                        class="form-control inputBusqueda" placeholder="BUSCAR..." style="text-transform:uppercase">
+                      <input type="text" style="width:12rem !important; text-transform:uppercase" id="inputBusquedaAñadir"
+                        class="form-control inputBusqueda" placeholder="BUSCAR...">
                     </div>
-                    <button class="btn btnImprimir mt-2" onclick="ImprimirTablaEmpresas()">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="btn-text">Imprimir</span>
-                    </button>
                   </div>
                   <div class="col-auto">
                     <!-- Boton modal -->
                     <div class="boton-normal">
+                      <button class="btn btnImprimir mt-2" onclick="ImprimirTablaJorAñadidas()">
+                        <i class="fa-solid fa-download"></i>
+                        <span class="btn-text">Imprimir</span>
+                      </button>
                       <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar"
                         data-bs-toggle="modal" data-bs-target="#modalJornada" data-bs-target="#staticBackdrop"
                         onclick="NuevoRegistro()">
@@ -60,7 +60,7 @@
 
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table table-striped mt-1" id="imprimir-tabla">
+                  <table class="table table-striped mt-1" id="imprimir-tablaAñadida">
                     <thead>
                       <tr>
                         <th scope="col" style="text-align: center">CLIENTE</th>
@@ -104,13 +104,17 @@
                   <div class="col-auto me-auto">
                     <div class="input-group m-2">
                       <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
-                      <input type="text" style="width:12rem !important" id="inputBusquedaAsignar"
-                        class="form-control inputBusqueda" placeholder="BUSCAR..." style="text-transform:uppercase">
+                      <input type="text" style="width:12rem !important; text-transform:uppercase" id="inputBusquedaAsignar"
+                        class="form-control inputBusqueda" placeholder="BUSCAR...">
                     </div>
                   </div>
                   <div class="col-auto">
                     <!-- Boton modal -->
                     <div class="boton-normal">
+                      <button class="btn btnImprimir" onclick="ImprimirTablaJorAsignadas()">
+                        <i class="fa-solid fa-download"></i>
+                        <span class="btn-text">Imprimir</span>
+                      </button>
                       <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar"
                         data-bs-toggle="modal" data-bs-target="#modalEmpleadoJornada" data-bs-target="#staticBackdrop"
                         onclick="NuevaAsignacion()">
@@ -245,7 +249,8 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btnGuardar" onclick="GuardarJornadaLaboral()">Guardar</button>
-      <button type="button" class="btn btnCancelar" data-bs-dismiss="modal" onclick="LimpiarModalJornada()">Cancelar</button>
+      <button type="button" class="btn btnCancelar" data-bs-dismiss="modal"
+        onclick="LimpiarModalJornada()">Cancelar</button>
     </div>
   </div>
 </div>
@@ -284,7 +289,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btnGuardar" onclick="GuardarAsignacion()">Guardar</button>
-        <button type="button" class="btn btnCancelar" data-bs-dismiss="modal" onclick="LimpiarModalAsignar()">Cancelar</button>
+        <button type="button" class="btn btnCancelar" data-bs-dismiss="modal"
+          onclick="LimpiarModalAsignar()">Cancelar</button>
       </div>
     </div>
   </div>
@@ -292,4 +298,5 @@
 
 @section Scripts {
   <script src="~/js/jornada.js"></script>
+  <script src="~/js/impresiones.js"></script>
 }
