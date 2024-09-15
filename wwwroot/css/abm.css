@@ -85,6 +85,25 @@ h5 {
     font-family: 'textos3';
 }
 
+.referenciaColor {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.referenciaTexto {
+    display: flex;
+    align-items: center;
+    font-family: 'textos12';
+    font-size: 18px;
+}
+
+.referenciaContainer {
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+}
+
 .asterisco {
     color: red;
     cursor: default;
@@ -553,7 +572,7 @@ input:checked+.slider:before {
     .table-responsive>.table {
         min-width: 90px !important;
     }
-    
+
     .table-responsive>.table>thead>tr>th,
     .table-responsive>.table>tbody>tr>th,
     .table-responsive>.table>tfoot>tr>th,
@@ -577,10 +596,12 @@ input:checked+.slider:before {
         font-size: small !important;
         width: 5px !important;
     }
-    
-    .btn-text { /* Texto boton imprimir oculto en formato celular */
+
+    .btn-text {
+        /* Texto boton imprimir oculto en formato celular */
         display: none;
     }
+
     #checkboxsAdicionales .d-flex {
         flex-direction: column;
     }
@@ -594,24 +615,42 @@ input:checked+.slider:before {
         display: none;
     }
 
-    .input-group{
+    .input-group {
         width: 85%;
     }
 
-    .filtro{
+    .filtro {
         font-size: 10px;
     }
 
-    .hover-iconPequeño{
+    .hover-iconPequeño {
         font-size: 18px;
     }
 
-    .spanJornada{
+    .spanJornada {
         display: none;
     }
 
-    .inputBusquedaResponsivo{
-        border-radius: 5px 5px!important;
+    .inputBusquedaResponsivo {
+        border-radius: 5px 5px !important;
+    }
+
+    .referenciaTexto {
+        font-size: small;
+    }
+
+    .colorFueraDeHorario{
+        margin-left: 5px;
+    }
+
+    .referenciaColor {
+        width: 10px;
+        height: 10px;
+    }
+
+    .referenciaContainer {
+        flex-direction: column; 
+        align-items: flex-end; 
     }
 }
 
@@ -621,14 +660,14 @@ input:checked+.slider:before {
     }
 
 }
-    
+
 @media (min-width: 768px) {
     .modal-contentAyuda {
         width: 30%;
         top: 0 !important;
     }
 
-    .infoTabla{
+    .infoTabla {
         display: none;
     }
 }

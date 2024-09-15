@@ -26,14 +26,24 @@
 <!-- Tabla -->
 <div class="card m-4">
     <div class="card-header">
-        <div class="row">
-            <div class="col-auto">
-                <div class="input-group m-2">
-                    </label>
-		        @Html.DropDownList("PersonaID", null, htmlAttributes: new { @class = "form-control filtro", @onchange = "HistorialFichajes()" })                </div>
-            </div>
+    <div class="row align-items-center">
+    <div class="col-auto">
+        <div class="input-group m-2">
+            @Html.DropDownList("PersonaID", null, htmlAttributes: new { @class = "form-control filtro", @onchange = "HistorialFichajes()" })
         </div>
     </div>
+    <div class="col-auto ms-auto referenciaContainer">
+        <div class="me-2 d-flex align-items-center">
+            <span class="referenciaColor colorFueraDeHorario" style="background-color: #d2828a;"></span>
+            <span class="referenciaTexto colorFueraDeHorario">Fuera de horario</span>
+        </div>
+        <div class="me-2 d-flex align-items-center">
+            <span class="referenciaColor" style="background-color: #87d282;"></span>
+            <span class="referenciaTexto">Dentro de horario</span>
+        </div>
+    </div>
+</div>
+</div>
     <div class="card-body">
         <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
             <table class="table table-striped mt-1" id="imprimir-tabla">
