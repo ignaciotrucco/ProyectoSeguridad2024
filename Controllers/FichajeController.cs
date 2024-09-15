@@ -61,11 +61,10 @@ public class FichajeController : Controller
 
     public JsonResult RegistrarMomento(Momento Momento)
     {
+        string mensaje = "";
+
         // OBTENEMOS EL ID DEL USUARIO LOGUEADO
         var usuarioLogueadoID = _userManager.GetUserId(HttpContext.User);
-
-        // OBTENEMOS LA FECHA Y HORA ACTUAL
-        var fechaFichaje = DateTime.Now;
 
         // BUSCAMOS LA PERSONA ASOCIADA A ESE USUARIO
         var persona = _context.Personas
@@ -73,7 +72,7 @@ public class FichajeController : Controller
 
         if (persona == null)
         {
-            return Json(new { mensaje = "No se encontró la persona asociada al usuario logueado." });
+            mensaje = "No se encontró la persona asociada al usuario logueado.";
         }
 
         // BUSCAMOS LA ASIGNACION DE JORNADA PARA LA PERSONA
@@ -82,7 +81,7 @@ public class FichajeController : Controller
 
         if (asignacionJornada == null)
         {
-            return Json(new { mensaje = "No se encontró una jornada laboral asignada para el usuario logueado." });
+            mensaje = "No se encontró una jornada laboral asignada para el usuario logueado.";
         }
 
         // OBTENEMOS LA JORNADA LABORAL CORRESPONDIENTE A LA ASIGNACION
@@ -91,23 +90,22 @@ public class FichajeController : Controller
 
         if (jornadaLaboral == null)
         {
-            return Json(new { mensaje = "No se encontró la jornada laboral asociada." });
+            mensaje = "No se encontró la jornada laboral asociada.";
         }
 
         // EXTRAEMOS SOLO LA PARTE DE HORA Y MINUTO
-        var horaFichaje = fechaFichaje.TimeOfDay;
+        var horaFichaje = DateTime.Now.TimeOfDay;
         var horaEntrada = jornadaLaboral.HorarioEntrada.TimeOfDay;
         var horaSalida = jornadaLaboral.HorarioSalida.TimeOfDay;
 
-        bool esEntrada = Momento == Momento.Entrada;
         bool esValido = false;
 
         // VALIDAMOS LA HORA DE FICHAJE
-        if (esEntrada)
+        if (Momento == Momento.Entrada)
         {
             esValido = horaFichaje >= horaEntrada;
         }
-        else
+        else if (Momento == Momento.Salida)
         {
             esValido = horaFichaje <= horaSalida;
         }
@@ -117,7 +115,7 @@ public class FichajeController : Controller
         {
             UsuarioID = usuarioLogueadoID,
             JornadaLaboralID = jornadaLaboral.JornadaLaboralID,
-            FechaFichaje = fechaFichaje,
+            FechaFichaje = DateTime.Now,
             Momento = Momento,
             Estado = esValido // Se guarda como true si está dentro del horario, false si no.
         };
@@ -125,62 +123,121 @@ public class FichajeController : Controller
         _context.Add(turnoLaboral);
         _context.SaveChanges();
 
-        string mensaje = "";
         if (esValido)
         {
             mensaje = "Fichaje registrado correctamente.";
         }
         else
         {
-            mensaje = "Fichaje fuera del horario permitido, se registró como no válido.";
+            mensaje = "Fichaje fuera del horario permitido";
         }
 
-        return Json(new { mensaje });
+        return Json(mensaje);
     }
 
 
 
     public JsonResult HistorialFichajes(int? PersonaID)
     {
-        var listadoFichajes = _context.TurnoLaboral
-    .Join(_context.JornadaLaboral,
-        turnos => turnos.JornadaLaboralID,
-        jornada => jornada.JornadaLaboralID,
-        (turnos, jornada) => new { turnos, jornada })
-    .Join(_context.AsignacionJornadas,
-        asignacionJornada => asignacionJornada.turnos.JornadaLaboralID,
-        asignacion => asignacion.JornadaLaboralID, 
-        (asignacionJornada, asignacion) => new { asignacionJornada.jornada, asignacionJornada.turnos, asignacion })
-    .Join(_context.Personas,
-        asignacionJornada => asignacionJornada.asignacion.PersonaID,
-        persona => persona.PersonaID,
-        (asignacionJornada, persona) => new { asignacionJornada, persona })
-    .ToList();
+        List<VistaTurno> VistaTurnoLaboral = new List<VistaTurno>();
 
-    if (PersonaID != null && PersonaID != 0) {
-        listadoFichajes = listadoFichajes.Where(l => l.persona.PersonaID == PersonaID).ToList();
-    }
+        var listadoTurnos = _context.TurnoLaboral.ToList();
+        var jornadaLaboral = _context.JornadaLaboral.ToList();
+        var asignacionJornada = _context.AsignacionJornadas.ToList();
+        var personas = _context.Personas.ToList();
 
-
-        var mostrarFichajes = listadoFichajes.Select(m => new VistaTurnosLaborales
+        if (PersonaID != 0 && PersonaID != null)
         {
-            TurnoLaboralID = m.asignacionJornada.turnos.TurnoLaboralID,
-            UsuarioID = m.asignacionJornada.turnos.UsuarioID,
-            NombreEmpleado = m.persona.NombreCompleto,
-            JornadaLaboralID = m.asignacionJornada.turnos.JornadaLaboralID,
-            Jornada = m.asignacionJornada.jornada.InfoJornada,
-            FechaFichaje = m.asignacionJornada.turnos.FechaFichaje,
-            FechaFichajeString = m.asignacionJornada.turnos.FechaFichaje.ToString("HH:mm"),
-            Momento = m.asignacionJornada.turnos.Momento,
-            MomentoString = m.asignacionJornada.turnos.Momento.ToString().ToUpper(),
-            Latitud = m.asignacionJornada.turnos.Latitud,
-            Longitud = m.asignacionJornada.turnos.Longitud,
-            Estado = m.asignacionJornada.turnos.Estado
-        }).ToList();
+            //BUSCAR LA PERSONA CORRESPONDIENTE A LA PERSONAID PROPORCIONADA
+            var personaFiltrada = personas.SingleOrDefault(p => p.PersonaID == PersonaID);
 
+            if (personaFiltrada != null)
+            {
+                //FILTRADO POR PERSONAS
+                listadoTurnos = listadoTurnos.Where(l => l.UsuarioID == personaFiltrada.UsuarioID).ToList();
+            }
+        }
 
-        return Json(mostrarFichajes);
+        foreach (var listadoTurno in listadoTurnos)
+        {
+
+            var persona = personas.SingleOrDefault(p => p.UsuarioID == listadoTurno.UsuarioID);
+
+            if (persona != null)
+            {
+
+                var personasMostrar = VistaTurnoLaboral.Where(p => p.UsuarioID == listadoTurno.UsuarioID).SingleOrDefault();
+
+                var jornada = jornadaLaboral.Where(j => j.JornadaLaboralID == listadoTurno.JornadaLaboralID).SingleOrDefault();
+
+                var asignacion = asignacionJornada.Where(a => a.PersonaID == persona.PersonaID).SingleOrDefault();
+
+                if (personasMostrar == null)
+                {
+                    personasMostrar = new VistaTurno
+                    {
+                        UsuarioID = listadoTurno.UsuarioID,
+                        PersonaID = persona.PersonaID,
+                        NombreEmpleado = persona.NombreCompleto,
+                        VistaTurnosLaborales = new List<VistaTurnosLaborales>()
+                    };
+                    VistaTurnoLaboral.Add(personasMostrar);
+                }
+
+                var mostrarTurnos = new VistaTurnosLaborales
+                {
+                    TurnoLaboralID = listadoTurno.TurnoLaboralID,
+                    JornadaLaboralID = listadoTurno.JornadaLaboralID,
+                    Jornada = jornada.InfoJornada,
+                    FechaFichaje = listadoTurno.FechaFichaje,
+                    FechaFichajeString = listadoTurno.FechaFichaje.ToString("HH:mm"),
+                    Momento = listadoTurno.Momento,
+                    MomentoString = listadoTurno.Momento.ToString().ToUpper(),
+                    Estado = listadoTurno.Estado
+                };
+                personasMostrar.VistaTurnosLaborales.Add(mostrarTurnos);
+            }
+        }
+
+        return Json(VistaTurnoLaboral);
     }
 
+
+
+    // var listadoFichajes = _context.TurnoLaboral
+    //     .Join(_context.JornadaLaboral,
+    //         turnos => turnos.JornadaLaboralID,
+    //         jornada => jornada.JornadaLaboralID,
+    //         (turnos, jornada) => new { turnos, jornada })
+    //     .Join(_context.AsignacionJornadas,
+    //         asignacionJornada => asignacionJornada.turnos.JornadaLaboralID,
+    //         asignacion => asignacion.JornadaLaboralID, 
+    //         (asignacionJornada, asignacion) => new { asignacionJornada.jornada, asignacionJornada.turnos, asignacion })
+    //     .Join(_context.Personas,
+    //         asignacionJornada => asignacionJornada.asignacion.PersonaID,
+    //         persona => persona.PersonaID,
+    //         (asignacionJornada, persona) => new { asignacionJornada, persona })
+    //     .ToList();
+
+    //     if (PersonaID != null && PersonaID != 0) {
+    //         listadoFichajes = listadoFichajes.Where(l => l.persona.PersonaID == PersonaID).ToList();
+    //     }
+
+
+    //         var mostrarFichajes = listadoFichajes.Select(m => new VistaTurnosLaborales
+    //         {
+    //             TurnoLaboralID = m.asignacionJornada.turnos.TurnoLaboralID,
+    //             UsuarioID = m.asignacionJornada.turnos.UsuarioID,
+    //             NombreEmpleado = m.persona.NombreCompleto,
+    //             JornadaLaboralID = m.asignacionJornada.turnos.JornadaLaboralID,
+    //             Jornada = m.asignacionJornada.jornada.InfoJornada,
+    //             FechaFichaje = m.asignacionJornada.turnos.FechaFichaje,
+    //             FechaFichajeString = m.asignacionJornada.turnos.FechaFichaje.ToString("HH:mm"),
+    //             Momento = m.asignacionJornada.turnos.Momento,
+    //             MomentoString = m.asignacionJornada.turnos.Momento.ToString().ToUpper(),
+    //             Latitud = m.asignacionJornada.turnos.Latitud,
+    //             Longitud = m.asignacionJornada.turnos.Longitud,
+    //             Estado = m.asignacionJornada.turnos.Estado
+    //         }).ToList();
 }
 

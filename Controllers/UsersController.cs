@@ -148,21 +148,35 @@ public class UsersController : Controller
 
     public JsonResult EliminarUsuario(string UsuarioID)
     {
-
+        var usuarioLogueadoID = _userManager.GetUserId(HttpContext.User);
+        int motivo = 0;
         bool eliminado = false;
 
-        var existePersona = _context.Personas.Where(e => e.UsuarioID == UsuarioID).Count();
-        var existeEmpresa = _context.Empresas.Where(e => e.UsuarioID == UsuarioID).Count();
-
-        if (existePersona == 0 && existeEmpresa == 0)
+        if (usuarioLogueadoID == UsuarioID)
         {
-            var eliminarUsuario = _context.Users.Find(UsuarioID);
-            _context.Remove(eliminarUsuario);
-            _context.SaveChanges();
-            eliminado = true;
+            motivo = 1;
+        }
+        else
+        {
+            var existePersona = _context.Personas.Where(e => e.UsuarioID == UsuarioID).Count();
+            var existeEmpresa = _context.Empresas.Where(e => e.UsuarioID == UsuarioID).Count();
+
+            if (existePersona == 0 && existeEmpresa == 0)
+            {
+                var eliminarUsuario = _context.Users.Find(UsuarioID);
+                _context.Users.Remove(eliminarUsuario);
+                _context.SaveChanges();
+                eliminado = true;
+            }
+            else
+            {
+                motivo = 2;
+            }
         }
 
-        return Json(eliminado);
+        // Devolver la respuesta con el resultado de la operación y el motivo
+        return Json(new { eliminado, motivo });
     }
+
 
 }

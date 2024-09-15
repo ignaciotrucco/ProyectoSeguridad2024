@@ -26,7 +26,7 @@ function ListadoUsuarios() {
     url: '../../Users/ListadoUsuarios',
     // la información a enviar
     // (también es posible utilizar una cadena de datos)
-    data: {rolIDbuscar: rolIDbuscar},
+    data: { rolIDbuscar: rolIDbuscar },
     // especifica si será una petición POST o GET
     type: 'GET',
     // el tipo de información que se espera de respuesta
@@ -189,7 +189,7 @@ function RestablecerContrasenia(usuarioID) {
     // código a ejecutar si la petición es satisfactoria;
     success: function (data) {
       if (data) {
-        const nuevaContrasenia = data.nuevaContrasenia;        
+        const nuevaContrasenia = data.nuevaContrasenia;
         navigator.clipboard.writeText(nuevaContrasenia).then(() => {
           Swal.fire({
             icon: 'success',
@@ -276,7 +276,27 @@ function EliminarUsuario(usuarioID) {
         // la respuesta es pasada como argumento a la función
         success: function (resultado) {
 
-          if (!resultado) {
+          if (resultado.motivo == 1) {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: "bottom-end",
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              background: '#fcffe7',
+              didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+              }
+            });
+            Toast.fire({
+              icon: "warning",
+              title: "Oops...",
+              text: "No se puede eliminar porque es el usuario logueado",
+            });
+          }
+
+          else if (resultado.motivo == 2) {
             const Toast = Swal.mixin({
               toast: true,
               position: "bottom-end",

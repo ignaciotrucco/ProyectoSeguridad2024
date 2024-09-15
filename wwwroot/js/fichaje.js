@@ -16,36 +16,78 @@ function HistorialFichajes() {
         dataType: 'json',
         // código a ejecutar si la petición es satisfactoria;
         // la respuesta es pasada como argumento a la función
-        success: function (mostrarFichajes) {
+        success: function (VistaTurnoLaboral) {
 
 
 
             let contenidoTabla = ``;
 
-            $.each(mostrarFichajes, function (index, turno) {
+            $.each(VistaTurnoLaboral, function (index, persona) {
 
-                if (turno.estado == true) {
-                    contenidoTabla += `
-                <tr>
-                    <td style="text-align: center">${turno.nombreEmpleado}</td>
-                    <td style="text-align: center">${turno.jornada}</td>
-                    <td style="text-align: center">${turno.momentoString}</td>
-                    <td style="text-align: center">${turno.fechaFichajeString}</td>
-                </tr>
-             `;
-                }
-                else {
-                    contenidoTabla += `
-                <tr class="bg-danger p-2" style="--bs-bg-opacity: .5;">
-                    <td style="text-align: center">${turno.nombreEmpleado}</td>
-                    <td style="text-align: center">${turno.jornada}</td>
-                    <td style="text-align: center">${turno.momentoString}</td>
-                    <td style="text-align: center">${turno.fechaFichajeString}</td>
-                </tr>
-             `;
-                }
+                
+                contenidoTabla += `
+                    <tr>
+                        <td style="text-align: center"><b>${persona.nombreEmpleado}</b></td>
+                        <td style="text-align: center"></td>
+                        <td style="text-align: center"></td>
+                        <td style="text-align: center"></td>
+                    </tr>
+                `;
 
-            });
+                $.each(persona.vistaTurnosLaborales, function (index, turno) {
+
+                    if (turno.estado == true) {
+                        contenidoTabla += `
+                        <tr>
+                            <td style="text-align: center"></td>
+                            <td style="text-align: center">${turno.jornada}</td>
+                            <td style="text-align: center">${turno.momentoString}</td>
+                            <td style="text-align: center">${turno.fechaFichajeString}</td>
+                        </tr>
+                    `;
+                    }
+                    else {
+                        contenidoTabla += `
+                        <tr class="bg-danger p-2" style="--bs-bg-opacity: .5;">
+                            <td style="text-align: center"></td>
+                            <td style="text-align: center">${turno.jornada}</td>
+                            <td style="text-align: center">${turno.momentoString}</td>
+                            <td style="text-align: center">${turno.fechaFichajeString}</td>
+                        </tr>
+                    `;
+                    }
+                    
+    
+                    
+    
+                 });
+
+             });
+
+            // $.each(mostrarFichajes, function (index, turno) {
+
+            //     if (turno.estado == true) {
+            //         contenidoTabla += `
+            //     <tr>
+            //         <td style="text-align: center">${turno.nombreEmpleado}</td>
+            //         <td style="text-align: center">${turno.jornada}</td>
+            //         <td style="text-align: center">${turno.momentoString}</td>
+            //         <td style="text-align: center">${turno.fechaFichajeString}</td>
+            //     </tr>
+            //  `;
+            //     }
+            //     else {
+            //         contenidoTabla += `
+            //     <tr class="bg-danger p-2" style="--bs-bg-opacity: .5;">
+            //         <td style="text-align: center">${turno.nombreEmpleado}</td>
+            //         <td style="text-align: center">${turno.jornada}</td>
+            //         <td style="text-align: center">${turno.momentoString}</td>
+            //         <td style="text-align: center">${turno.fechaFichajeString}</td>
+            //     </tr>
+            //  `;
+            //     }
+
+            // });
 
             document.getElementById("tbody-jornadaHistorial").innerHTML = contenidoTabla;
 
@@ -83,8 +125,8 @@ function RegistrarMomento(momento) {
         data: {
             Momento: momento
         },
-        success: function (resupuesta) {
-            alert(resupuesta.mensaje);
+        success: function (mensaje) {
+            alert(mensaje);
         },
         error: function (xhr, status, error) {
             alert("Error al registrar el fichaje: " + error);

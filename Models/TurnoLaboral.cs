@@ -20,6 +20,14 @@ public enum Momento {
     Salida
 }
 
+public class VistaTurno {
+    public int TurnoLaboralID { get; set;}
+    public string? UsuarioID { get; set;}
+    public int PersonaID {get; set;}
+    public string? NombreEmpleado {get; set;}
+    public List<VistaTurnosLaborales> VistaTurnosLaborales {get; set;}
+}
+
 public class VistaTurnosLaborales {
     public int TurnoLaboralID { get; set;}
     public string? UsuarioID { get; set;}
