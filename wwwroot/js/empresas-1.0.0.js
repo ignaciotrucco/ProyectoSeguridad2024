@@ -90,17 +90,17 @@ function ListadoEmpresas(busqueda) {
                     <td style="text-align: center">${empresa.razonSocial}</td>
                     <td style="text-align: center">${empresa.cuit_Cdi}</td>
                     <td style="text-align: center">${empresa.telefono}</td>
-                    <td style="text-align: center">${empresa.email}</td>
-                    <td style="text-align: center">${empresa.provinciaNombre}</td>
-                    <td style="text-align: center">${empresa.localidadNombre}</td>
+                    <td style="text-align: center" class="ocultar-en-767px">${empresa.email}</td>
+                    <td style="text-align: center" class="ocultar-en-767px">${empresa.provinciaNombre}</td>
+                    <td style="text-align: center" class="ocultar-en-767px">${empresa.localidadNombre}</td>
                     <td style="text-align: center">${empresa.domicilio}</td>
                     <td style="text-align: right">
-                    <button type="button" class="btn" title="Editar" onclick="AbrirModalEditar(${empresa.empresaID})">
+                    <button type="button" class="btn ocultar-en-767px" title="Editar" onclick="AbrirModalEditar(${empresa.empresaID})">
                     <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
                     </button>
                     </td>
                     <td style="text-align: left">
-                    <button type="button" class="btn" title="Eliminar" onclick="EliminarEmpresa(${empresa.empresaID})">
+                    <button type="button" class="btn ocultar-en-767px" title="Eliminar" onclick="EliminarEmpresa(${empresa.empresaID})">
                     <i class="fa-solid fa-trash" width="20" height="20"></i>
                     </button>
                     </td>
@@ -471,6 +471,44 @@ document.addEventListener("keydown", function (event) {
 
 window.onclick = function (event) {
     var modal = document.getElementById("ModalCuit");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+function openModalInfoTablas() {
+    var modal = document.getElementById("ModalInfoTablas");
+    modal.style.display = "block";
+}
+
+function closeModalInfoTablas() {
+    var modal = document.getElementById("ModalInfoTablas");
+    modal.style.display = "none";
+}
+
+function handleEntendido() {
+    closeModalInfoTablas();
+    openModalImpresion();
+}
+
+function openModalImpresion() {
+    var modal = document.getElementById("ModalImpresion");
+    modal.style.display = "block";
+}
+
+function closeModalImpresion() {
+    var modal = document.getElementById("ModalImpresion");
+    modal.style.display = "none";
+}
+
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+        closeModalInfoTablas();
+    }
+});
+
+window.onclick = function (event) {
+    var modal = document.getElementById("ModalInfoTablas");
     if (event.target == modal) {
         modal.style.display = "none";
     }

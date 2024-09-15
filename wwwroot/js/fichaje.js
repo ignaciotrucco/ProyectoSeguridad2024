@@ -9,7 +9,7 @@ function HistorialFichajes() {
         url: '../../Fichaje/HistorialFichajes',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: {PersonaID: personaID},
+        data: { PersonaID: personaID },        
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -112,7 +112,7 @@ function HistorialFichajes() {
             Toast.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Disculpe, existió un problema al cargar las empresas",
+                text: "Disculpe, existió un problema al cargar los fichajes",
             });
         }
     });
@@ -125,12 +125,40 @@ function RegistrarMomento(momento) {
         data: {
             Momento: momento
         },
-        success: function (mensaje) {
-            alert(mensaje);
+        success: function (respuesta) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            if (respuesta.mensaje.includes("correctamente")) {
+                Toast.fire({
+                    icon: "success",
+                    title: respuesta.mensaje,
+                    background: '#e0f7fa',
+                });
+            } else {
+                Toast.fire({
+                    icon: "warning",
+                    title: "Oops...",
+                    text: respuesta.mensaje,
+                    background: '#fcffe7',
+                });
+            }
         },
         error: function (xhr, status, error) {
-            alert("Error al registrar el fichaje: " + error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: "Error al registrar el fichaje: " + error,
+            });
         }
     });
-
 }

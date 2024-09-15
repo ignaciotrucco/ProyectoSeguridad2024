@@ -10,8 +10,7 @@
         <div class="mt-3">
             <div class="row">
                 <div class="col-auto me-auto">
-                    <h1 class="hover-icon">HISTORIAL DE FICHAJES <i class="fas fa-business-time icon"></i>
-                    </h1>
+                    <h1 class="hover-icon hover-iconPequeño">HISTORIAL DE FICHAJES <i class="fas fa-business-time icon"></i></h1>
                 </div>
                 <div class="col-auto">
                     <button class="btn btnImprimir mt-2" onclick="ImprimirTablaFichajes()">
@@ -31,8 +30,7 @@
             <div class="col-auto">
                 <div class="input-group m-2">
                     </label>
-                    @Html.DropDownList("PersonaID", null, htmlAttributes: new { @class = "form-control", @onchange = "HistorialFichajes()" })
-                </div>
+		        @Html.DropDownList("PersonaID", null, htmlAttributes: new { @class = "form-control filtro", @onchange = "HistorialFichajes()" })                </div>
             </div>
         </div>
     </div>

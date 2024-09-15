@@ -125,17 +125,6 @@ h5 {
     height: 140px;
   } */
 
-@media (max-width: 767px) {
-    .cardPersonas {
-        margin-bottom: 1rem;
-        font-size: large;
-    }
-
-    .cardbodyPersonas {
-        height: 100px;
-    }
-}
-
 h1 {
     font-family: 'textos5';
     cursor: default;
@@ -429,17 +418,6 @@ label.custom-checkbox {
     transition: background-color 0.3s ease;
 }
 
-@media (max-width: 767px) {
-    #checkboxsAdicionales .d-flex {
-        flex-direction: column;
-    }
-
-    #checkboxsAdicionales .custom-checkbox {
-        display: block;
-        margin-bottom: 10px;
-    }
-}
-
 .custom-checkbox:hover input~.checkmark {
     background-color: #ccc;
 }
@@ -550,11 +528,20 @@ input:checked+.slider:before {
 .table-responsive>.table>thead>tr>td,
 .table-responsive>.table>tbody>tr>td,
 .table-responsive>.table>tfoot>tr>td {
-    white-space: nowrap;
     padding: 0.5rem;
 }
 
 @media (max-width: 767px) {
+
+    .cardPersonas {
+        margin-bottom: 1rem;
+        font-size: large;
+    }
+
+    .cardbodyPersonas {
+        height: 100px;
+    }
+
     .table-responsive {
         display: block;
         width: 100%;
@@ -564,9 +551,9 @@ input:checked+.slider:before {
     }
 
     .table-responsive>.table {
-        min-width: 500px !important;
+        min-width: 90px !important;
     }
-
+    
     .table-responsive>.table>thead>tr>th,
     .table-responsive>.table>tbody>tr>th,
     .table-responsive>.table>tfoot>tr>th,
@@ -588,14 +575,61 @@ input:checked+.slider:before {
     td {
         text-align: left !important;
         font-size: small !important;
+        width: 5px !important;
+    }
+    
+    .btn-text { /* Texto boton imprimir oculto en formato celular */
+        display: none;
+    }
+    #checkboxsAdicionales .d-flex {
+        flex-direction: column;
+    }
+
+    #checkboxsAdicionales .custom-checkbox {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .ocultar-en-767px {
+        display: none;
+    }
+
+    .input-group{
+        width: 85%;
+    }
+
+    .filtro{
+        font-size: 10px;
+    }
+
+    .hover-iconPequeño{
+        font-size: 18px;
+    }
+
+    .spanJornada{
+        display: none;
+    }
+
+    .inputBusquedaResponsivo{
+        border-radius: 5px 5px!important;
+    }
+}
+
+@media (max-width: 550px) {
+    .ocultar-en-550px {
+        display: none;
     }
 
 }
-
+    
 @media (min-width: 768px) {
     .modal-contentAyuda {
         width: 30%;
         top: 0 !important;
+    }
+
+    .infoTabla{
+        display: none;
     }
 }
 

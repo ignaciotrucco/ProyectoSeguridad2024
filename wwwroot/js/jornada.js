@@ -99,17 +99,17 @@ function ListadoJornadas(busqueda) {
                 contenidoTabla += `
     <tr>
         <td style="text-align: center">${jornada.nombreEmpresa}</td>
-        <td style="text-align: center">${jornada.lugar}</td>
+        <td style="text-align: center" class="ocultar-en-767px">${jornada.lugar}</td>
         <td style="text-align: center">${diasColumna}</td>
         <td style="text-align: center">${jornada.horarioEntradaString}</td>
         <td style="text-align: center">${jornada.horarioSalidaString}</td>
         <td style="text-align: right">
-        <button type="button" class="btn" title="Editar" onclick="ModalEditar(${jornada.jornadaLaboralID})">
+        <button type="button" class="btn ocultar-en-767px" title="Editar" onclick="ModalEditar(${jornada.jornadaLaboralID})">
         <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
         </button>
         </td>
         <td style="text-align: left">
-        <button type="button" class="btn" title="Eliminar" onclick="EliminarJornadaLaboral(${jornada.jornadaLaboralID})">
+        <button type="button" class="btn ocultar-en-767px" title="Eliminar" onclick="EliminarJornadaLaboral(${jornada.jornadaLaboralID})">
         <i class="fa-solid fa-trash" width="20" height="20"></i>
         </button>
         </td>
@@ -408,7 +408,7 @@ function EliminarJornadaLaboral(jornadaLaboralID) {
                     Toast.fire({
                         icon: "error",
                         title: "Oops...",
-                        text: "Disculpe, existió un problema al eliminar la persona.",
+                        text: "Disculpe, existió un problema al eliminar la jornada.",
                     });
                 }
             });
@@ -428,7 +428,7 @@ function EliminarJornadaLaboral(jornadaLaboralID) {
             Toast.fire({
                 icon: "success",
                 title: "¡Borrado!",
-                text: "La persona ha sido eliminada.",
+                text: "La jornada ha sido eliminada.",
             });
         } else if (
             /* Read more about handling dismissals below */
@@ -543,7 +543,7 @@ function ListadoAsignacion(busquedaAsignar) {
             Toast.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Disculpe, existió un problema al cargar las localidades",
+                text: "Disculpe, existió un problema al cargar las jornadas",
             });
         }
     });
@@ -614,7 +614,7 @@ function GuardarAsignacion() {
                 Toast.fire({
                     icon: "error",
                     title: "Oops...",
-                    text: "Disculpe, existió un problema al cargar las localidades",
+                    text: "Disculpe, existió un problema al cargar las jornadas",
                 });
             }
         });
@@ -670,9 +670,46 @@ function ModalEditarAsignacion(asignacionID) {
             Toast.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Disculpe, existió un problema al cargar las localidades",
+                text: "Disculpe, existió un problema al cargar las jornadas",
             });
         }
     });
+}
 
+function openModalInfoTablas() {
+    var modal = document.getElementById("ModalInfoTablas");
+    modal.style.display = "block";
+}
+
+function closeModalInfoTablas() {
+    var modal = document.getElementById("ModalInfoTablas");
+    modal.style.display = "none";
+}
+
+function handleEntendido() {
+    closeModalInfoTablas();
+    openModalImpresion();
+}
+
+function openModalImpresion() {
+    var modal = document.getElementById("ModalImpresion");
+    modal.style.display = "block";
+}
+
+function closeModalImpresion() {
+    var modal = document.getElementById("ModalImpresion");
+    modal.style.display = "none";
+}
+
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+        closeModalInfoTablas();
+    }
+});
+
+window.onclick = function (event) {
+    var modal = document.getElementById("ModalInfoTablas");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }

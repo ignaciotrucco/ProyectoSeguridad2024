@@ -10,7 +10,7 @@
         <div class="mt-3">
             <div class="row">
                 <div class="col-auto me-auto">
-                    <h1 class="hover-icon">GESTIÓN DE USUARIOS <i class="fas fa-user-plus icon"></i></h1>
+                    <h1 class="hover-icon hover-iconPequeño">GESTIÓN DE USUARIOS <i class="fas fa-user-plus icon"></i></h1>
                 </div>
                 <div class="col-auto">
                     <button class="btn btnImprimir mt-2" onclick="ImprimirTablaUsuarios()">
@@ -27,14 +27,19 @@
 <!-- Tabla -->
 <div class="card m-4">
     <div class="card-header">
-        <div class="row">
+        <div class="row align-items-center">
             <div class="col-auto">
                 @Html.DropDownList("RolIDBuscar", null, "¡Filtrá por Roles!", htmlAttributes: new
                     {
-                        @class = "form-control",
+                        @class = "form-control filtro",
                         @id = "RolIDBuscar",
                         @onchange = "ListadoUsuarios()"
                     })
+            </div>
+            <div class="col-auto ms-auto infoTabla">
+                <div title="Info" class="question-icon" onclick="openModalInfoTablas()">
+                    <i class="fa-solid fa-circle-info"></i>
+                </div>
             </div>
         </div>
     </div>
@@ -46,7 +51,7 @@
                         <th scope="col" style="text-align: center">USUARIO</th>
                         <th scope="col" style="text-align: center">ROL</th>
                         <th scope="col"></th>
-                        <th scope="col"></th>
+                        <th scope="col" class="ocultar-en-767px"></th>
                     </tr>
                 </thead>
                 <tbody id="tbody-usuarios"></tbody>
@@ -118,26 +123,6 @@ NORMALIZEDNAME *@
     </div>
 </div>
 
-@* <!-- Modal Nueva Contraseña -->
-<div id="contraseñaModal" class="modal" tabindex="-1" role="dialog">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
-<div class="modal-header">
-<h5 class="modal-title">Nueva Contraseña</h5>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
-</div>
-<div class="modal-body">
-<p id="nueva-contraseña"></p>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-</div>
-</div>
-</div>
-</div> *@
-
 <!-- Boton modal -->
 <div class="btnAgregar">
     <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar" data-bs-toggle="modal"
@@ -155,6 +140,33 @@ NORMALIZEDNAME *@
         <hr>
         <div class="modal-footerAyuda">
             <button class="botonEntendido" onclick="closeModalContraseña()">Entendido</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ayuda Tablas -->
+<div id="ModalInfoTablas" class="modalAyuda" onclick="closeModalInfoTablas()">
+    <div class="modal-contentAyuda">
+        <h2>Registros ocultos:</h2>
+        <p>• Acción Eliminar</p>
+        <hr>
+        <h2 style="font-size: medium">Los mismos están disponibles girando de forma horizontal el dispositivo móvil.
+        </h2>
+        <hr>
+        <div class="modal-footerAyuda">
+            <button class="botonEntendido" onclick="handleEntendido()">Siguiente</button>
+        </div>
+    </div>
+</div>
+
+<div id="ModalImpresion" class="modalAyuda" onclick="closeModalImpresion()">
+    <div class="modal-contentAyuda">
+        <h2>¡Atención!</h2>
+        <p>Para imprimir la tabla con todos los registros debemos presionar el botón de imprimir con el dispositivo de
+            forma horizontal.</p>
+        <hr>
+        <div class="modal-footerAyuda">
+            <button class="botonEntendido" onclick="closeModalImpresion()">Entendido</button>
         </div>
     </div>
 </div>

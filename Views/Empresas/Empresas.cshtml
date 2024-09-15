@@ -26,12 +26,17 @@
 <!-- Tabla -->
 <div class="card m-4">
     <div class="card-header">
-        <div class="row">
+        <div class="row align-items-center">
             <div class="col-auto">
                 <div class="input-group m-2">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
                     <input type="text" id="inputBusqueda" class="form-control inputBusqueda" placeholder="Buscar..."
                         style="text-transform:uppercase">
+                </div>
+            </div>
+            <div class="col-auto ms-auto infoTabla">
+                <div title="Info" class="question-icon" onclick="openModalInfoTablas()">
+                    <i class="fa-solid fa-circle-info"></i>
                 </div>
             </div>
         </div>
@@ -45,12 +50,12 @@
                         <th scope="col" style="text-align: center">RAZÓN SOCIAL</th>
                         <th scope="col" style="text-align: center">CUIT</th>
                         <th scope="col" style="text-align: center">TELÉFONO</th>
-                        <th scope="col" style="text-align: center">EMAIL</th>
-                        <th scope="col" style="text-align: center">PROVINCIA</th>
-                        <th scope="col" style="text-align: center">LOCALIDAD</th>
+                        <th scope="col" style="text-align: center" class="ocultar-en-767px">EMAIL</th>
+                        <th scope="col" style="text-align: center" class="ocultar-en-767px">PROVINCIA</th>
+                        <th scope="col" style="text-align: center" class="ocultar-en-767px">LOCALIDAD</th>
                         <th scope="col" style="text-align: center">DOMICILIO</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
+                        <th scope="col" class="ocultar-en-767px"></th>
+                        <th scope="col" class="ocultar-en-767px"></th>
                     </tr>
                 </thead>
                 <tbody id="tbody-empresas"></tbody>
@@ -191,6 +196,37 @@
         <hr>
         <div class="modal-footerAyuda">
             <button class="botonEntendido" onclick="closeModalCuit()">Entendido</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ayuda Tablas -->
+<div id="ModalInfoTablas" class="modalAyuda" onclick="closeModalInfoTablas()">
+    <div class="modal-contentAyuda">
+        <h2>Registros ocultos:</h2>
+        <p>• Email</p>
+        <p>• Provincia</p>
+        <p>• Localidad</p>
+        <p>• Acción Editar</p>
+        <p>• Acción Eliminar</p>
+        <hr>
+        <h2 style="font-size: medium">Los mismos están disponibles girando de forma horizontal el dispositivo móvil.
+        </h2>
+        <hr>
+        <div class="modal-footerAyuda">
+            <button class="botonEntendido" onclick="handleEntendido()">Siguiente</button>
+        </div>
+    </div>
+</div>
+
+<div id="ModalImpresion" class="modalAyuda" onclick="closeModalImpresion()">
+    <div class="modal-contentAyuda">
+        <h2>¡Atención!</h2>
+        <p>Para imprimir la tabla con todos los registros debemos presionar el botón de imprimir con el dispositivo de
+            forma horizontal.</p>
+        <hr>
+        <div class="modal-footerAyuda">
+            <button class="botonEntendido" onclick="closeModalImpresion()">Entendido</button>
         </div>
     </div>
 </div>
