@@ -64,7 +64,7 @@ public class JornadaLaboralController : Controller
         {
             listadoJornadas = listadoJornadas.Where(p =>
             p.jornada.Lugar.Contains(busqueda) ||
-            p.jornada.Dia.ToString().Contains(busqueda) || 
+            p.jornada.Dia.ToString().Contains(busqueda) ||
             p.jornada.DiaEspecial.ToString("dd/MM/yyyy").Contains(busqueda) ||
             p.empresa.RazonSocial.Contains(busqueda)
             // p.jornada.HorarioEntrada.ToString("HH:mm").Contains(busqueda) || 
@@ -266,8 +266,8 @@ public class JornadaLaboralController : Controller
         if (!string.IsNullOrEmpty(busquedaAsignar))
         {
             mostrarAsignacion = mostrarAsignacion.Where(p =>
-            p.persona.NombreCompleto.Contains(busquedaAsignar) || 
-            p.jornada.InfoJornada.Contains(busquedaAsignar) 
+            p.persona.NombreCompleto.Contains(busquedaAsignar) ||
+            p.jornada.InfoJornada.Contains(busquedaAsignar)
         ).ToList();
         }
 
@@ -277,7 +277,21 @@ public class JornadaLaboralController : Controller
             PersonaID = v.persona.PersonaID,
             PersonaNombre = v.persona.NombreCompleto,
             JornadaLaboralID = v.jornada.JornadaLaboralID,
-            InfoJornada = v.jornada.InfoJornada
+            InfoJornada = v.jornada.InfoJornada,
+            Dia = v.jornada.Dia,
+            DiasSemana = v.jornada.Dia ? AgruparDias(new[]
+            {
+                v.jornada.Lunes ? "Lunes" : null,
+                v.jornada.Martes ? "Martes" : null,
+                v.jornada.Miercoles ? "Miércoles" : null,
+                v.jornada.Jueves ? "Jueves" : null,
+                v.jornada.Viernes ? "Viernes" : null,
+                v.jornada.Sabado ? "Sábado" : null,
+                v.jornada.Domingo ? "Domingo" : null
+            }.Where(d => d != null).ToArray()) : null,
+            DiaEspecial = v.jornada.DiaEspecial,
+            // CONVERTIMOS DIAESPECIAL A CADENA DE TEXTO SOLO SI DIA ES FALSO
+            DiaEspecialString = v.jornada.Dia ? null : v.jornada.DiaEspecial.ToString("dd/MM/yyyy"),
         }).ToList();
 
 

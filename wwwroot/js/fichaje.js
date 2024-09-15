@@ -125,7 +125,7 @@ function RegistrarMomento(momento) {
         data: {
             Momento: momento
         },
-        success: function (respuesta) {
+        success: function (mensaje) {
             const Toast = Swal.mixin({
                 toast: true,
                 position: "bottom-end",
@@ -138,17 +138,17 @@ function RegistrarMomento(momento) {
                 }
             });
 
-            if (respuesta.mensaje.includes("correctamente")) {
+            if (mensaje.includes("correctamente")) {
                 Toast.fire({
                     icon: "success",
-                    title: respuesta.mensaje,
+                    title: mensaje,
                     background: '#e0f7fa',
                 });
             } else {
                 Toast.fire({
                     icon: "warning",
                     title: "Oops...",
-                    text: respuesta.mensaje,
+                    text: mensaje,
                     background: '#fcffe7',
                 });
             }

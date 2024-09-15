@@ -500,11 +500,21 @@ function ListadoAsignacion(busquedaAsignar) {
 
             $.each(vistaAsignacion, function (index, asignacion) {
 
+                let diasEnColumna;
+
+                //DETERMINA QUE VALOR MOSTRAR EN LA COLUMNA DIAS
+                if (asignacion.dia) {
+                    diasEnColumna = asignacion.diasSemana;
+                }
+                else {
+                    diasEnColumna = asignacion.diaEspecialString;
+                }
 
                 tabla += `
     <tr>
         <td style="text-align: center">${asignacion.personaNombre}</td>
         <td style="text-align: center">${asignacion.infoJornada}</td>
+        <td style="text-align: center">${diasEnColumna}</td>
         <td style="text-align: right">
         <button type="button" class="btn" title="Editar" onclick="ModalEditarAsignacion(${asignacion.asignacionJornadaID})">
         <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
