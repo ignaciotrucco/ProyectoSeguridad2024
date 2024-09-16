@@ -534,6 +534,7 @@ input:checked+.slider:before {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     font-size: 0.8rem;
+    max-height: 400px !important;
 }
 
 .table-responsive>.table {
@@ -567,6 +568,19 @@ input:checked+.slider:before {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         font-size: 0.7rem;
+        max-height: 560px !important;
+    }
+
+    .btnAgregar {
+        scale: 140%;
+    }
+
+    .fa-plus{
+        margin-bottom: 9px;
+    }
+
+    .textBtnAgregar{
+        display: none;
     }
 
     .table-responsive>.table {
