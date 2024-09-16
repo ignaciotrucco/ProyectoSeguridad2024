@@ -190,7 +190,7 @@ public class FichajeController : Controller
                     JornadaLaboralID = listadoTurno.JornadaLaboralID,
                     Jornada = jornada.InfoJornada,
                     FechaFichaje = listadoTurno.FechaFichaje,
-                    FechaFichajeString = listadoTurno.FechaFichaje.ToString("HH:mm"),
+                    FechaFichajeString = listadoTurno.FechaFichaje.ToString("dddd dd MMM yyyy - HH:mm"),
                     Momento = listadoTurno.Momento,
                     MomentoString = listadoTurno.Momento.ToString().ToUpper(),
                     Estado = listadoTurno.Estado
