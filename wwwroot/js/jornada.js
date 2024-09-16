@@ -98,8 +98,8 @@ function ListadoJornadas(busqueda) {
 
                 contenidoTabla += `
     <tr>
-        <td style="text-align: center">${jornada.nombreEmpresa}</td>
-        <td style="text-align: center" class="ocultar-en-767px">${jornada.lugar}</td>
+        <td style="text-align: center" class="ocultar-en-767px">${jornada.nombreEmpresa}</td>
+        <td style="text-align: center">${jornada.lugar}</td>
         <td style="text-align: center">${diasColumna}</td>
         <td style="text-align: center">${jornada.horarioEntradaString}</td>
         <td style="text-align: center">${jornada.horarioSalidaString}</td>
@@ -516,12 +516,12 @@ function ListadoAsignacion(busquedaAsignar) {
         <td style="text-align: center">${asignacion.infoJornada}</td>
         <td style="text-align: center">${diasEnColumna}</td>
         <td style="text-align: right">
-        <button type="button" class="btn" title="Editar" onclick="ModalEditarAsignacion(${asignacion.asignacionJornadaID})">
+        <button type="button" class="btn ocultar-en-767px" title="Editar" onclick="ModalEditarAsignacion(${asignacion.asignacionJornadaID})">
         <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
         </button>
         </td>
         <td style="text-align: left">
-        <button type="button" class="btn" title="Eliminar" onclick="">
+        <button type="button" class="btn ocultar-en-767px" title="Eliminar" onclick="">
         <i class="fa-solid fa-trash" width="20" height="20"></i>
         </button>
         </td>
@@ -719,6 +719,34 @@ document.addEventListener("keydown", function (event) {
 
 window.onclick = function (event) {
     var modal = document.getElementById("ModalInfoTablas");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+function openModalInfoTablas2() {
+    var modal = document.getElementById("ModalInfoTablas2");
+    modal.style.display = "block";
+}
+
+function closeModalInfoTablas2() {
+    var modal = document.getElementById("ModalInfoTablas2");
+    modal.style.display = "none";
+}
+
+function handleEntendido() {
+    closeModalInfoTablas2();
+    openModalImpresion();
+}
+
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+        closeModalInfoTablas2();
+    }
+});
+
+window.onclick = function (event) {
+    var modal = document.getElementById("ModalInfoTablas2");
     if (event.target == modal) {
         modal.style.display = "none";
     }
