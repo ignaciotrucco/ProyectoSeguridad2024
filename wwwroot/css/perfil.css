@@ -38,6 +38,8 @@ h4 {
 input {
     margin-top: 1rem;
     font-family: 'textos3' !important;
+    border-color:  #7e7e7e !important;
+    background-color: rgb(235, 235, 235) !important;
 }
 
 .btn-primary,
@@ -64,11 +66,6 @@ input {
     color: black;
 }
 
-input{
-    border-color:  #7e7e7e !important;
-    background-color: rgb(235, 235, 235) !important;
-}
-
 @media (max-width: 767px) {
     .navPerfil {
         padding: 5px !important;
@@ -77,4 +74,19 @@ input{
         box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.349) !important;
     }
 
+    .form-floating{
+        scale: 90%;    
+    }
+
+    input{
+        scale: 98%;    
+    }
+
+    button{
+        scale: 90%;    
+    }
+
+    .row{
+        margin-top: 5rem;
+    }
 }
