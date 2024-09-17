@@ -521,7 +521,7 @@ function ListadoAsignacion(busquedaAsignar) {
         </button>
         </td>
         <td style="text-align: left">
-        <button type="button" class="btn ocultar-en-767px" title="Eliminar" onclick="">
+        <button type="button" class="btn ocultar-en-767px" title="Eliminar" onclick="EliminarAsignacion(${asignacion.asignacionJornadaID})">
         <i class="fa-solid fa-trash" width="20" height="20"></i>
         </button>
         </td>
@@ -681,6 +681,134 @@ function ModalEditarAsignacion(asignacionID) {
                 icon: "error",
                 title: "Oops...",
                 text: "Disculpe, existió un problema al cargar las jornadas",
+            });
+        }
+    });
+}
+
+function EliminarAsignacion(asignacionID) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            cancelButton: "btn btn-secondary",
+            confirmButton: "btn btn-danger m-2",
+        },
+        buttonsStyling: false,
+
+    });
+    swalWithBootstrapButtons.fire({
+        title: "¿Estás seguro?",
+        text: "¡No podrás revertir esto!",
+        icon: "question",
+        background: '#ffeeee',
+        showCancelButton: true,
+        confirmButtonText: "¡Sí, eliminar!",
+        cancelButtonText: "¡No, cancelar!",
+        reverseButtons: false,
+        width: '350px',
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            $.ajax({
+                // la URL para la petición
+                url: '../../JornadaLaboral/EliminarAsignacion',
+                // la información a enviar
+                // (también es posible utilizar una cadena de datos)
+                data: { AsignacionJornadaID: asignacionID },
+                // especifica si será una petición POST o GET
+                type: 'POST',
+                // el tipo de información que se espera de respuesta
+                dataType: 'json',
+                // código a ejecutar si la petición es satisfactoria;
+                // la respuesta es pasada como argumento a la función
+                success: function (resultado) {
+
+                    if (!resultado) {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "bottom-end",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            background: '#fcffe7',
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "warning",
+                            title: "Oops...",
+                            text: "No se puede eliminar, existen registros asociados",
+                        });
+                    }
+
+                    ListadoJornadas();
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1000); // 1000 milisegundos = 1 segundo
+                },
+
+                // código a ejecutar si la petición falla;
+                // son pasados como argumentos a la función
+                // el objeto de la petición en crudo y código de estatus de la petición
+                error: function (xhr, status) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        background: '#ffe7e7',
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        }
+                    });
+                    Toast.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Disculpe, existió un problema al eliminar la asignación.",
+                    });
+                }
+            });
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#e2ffd4',
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "success",
+                title: "¡Borrado!",
+                text: "La asignación ha sido eliminada.",
+            });
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "Anulado",
+                text: "Tu registro está a salvo.",
             });
         }
     });

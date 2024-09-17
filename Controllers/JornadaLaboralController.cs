@@ -329,9 +329,13 @@ public class JornadaLaboralController : Controller
         return Json(resultado);
     }
 
-    // public JsonResult EliminarAsignacion(int AsignacionJornadaID)
-    // {
-    //     var eliminar
-    // }
+    public JsonResult EliminarAsignacion(int AsignacionJornadaID)
+    {
+        var eliminarAsignacion = _context.AsignacionJornadas.Find(AsignacionJornadaID);
+        _context.Remove(eliminarAsignacion);
+        _context.SaveChanges();
+
+        return Json(eliminarAsignacion);
+    }
 
 }

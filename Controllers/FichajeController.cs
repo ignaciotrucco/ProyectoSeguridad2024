@@ -53,7 +53,7 @@ public class FichajeController : Controller
     public IActionResult FichajeHistorial()
     {
         var personas = _context.Personas.ToList();
-        personas.Add(new Persona { PersonaID = 0, NombreCompleto = "[FILTRA POR PERSONAS]" });
+        personas.Add(new Persona { PersonaID = 0, NombreCompleto = "[TODOS]" });
         ViewBag.PersonaID = new SelectList(personas.OrderBy(t => t.NombreCompleto), "PersonaID", "NombreCompleto");
 
         return View();
@@ -73,6 +73,7 @@ public class FichajeController : Controller
         if (persona == null)
         {
             mensaje = "No se encontró la persona asociada al usuario logueado.";
+            return Json(mensaje);
         }
 
         // BUSCAMOS LA ASIGNACION DE JORNADA PARA LA PERSONA
@@ -82,6 +83,7 @@ public class FichajeController : Controller
         if (asignacionJornada == null)
         {
             mensaje = "No se encontró una jornada laboral asignada para el usuario logueado.";
+            return Json(mensaje);
         }
 
         // OBTENEMOS LA JORNADA LABORAL CORRESPONDIENTE A LA ASIGNACION
@@ -91,6 +93,52 @@ public class FichajeController : Controller
         if (jornadaLaboral == null)
         {
             mensaje = "No se encontró la jornada laboral asociada.";
+            return Json(mensaje);
+        }
+
+        // VALIDACIÓN DEL DÍA
+        var diaActual = DateTime.Now.DayOfWeek; //DIA ACTUAL
+        bool diaValido = false;
+
+        // SI DIA ES VERDADERO VALIDAMOS LOS DIAS DE LA SEMANA
+        if (jornadaLaboral.Dia)
+        {
+            switch (diaActual)
+            {
+                case DayOfWeek.Monday:
+                    diaValido = jornadaLaboral.Lunes;
+                    break;
+                case DayOfWeek.Tuesday:
+                    diaValido = jornadaLaboral.Martes;
+                    break;
+                case DayOfWeek.Wednesday:
+                    diaValido = jornadaLaboral.Miercoles;
+                    break;
+                case DayOfWeek.Thursday:
+                    diaValido = jornadaLaboral.Jueves;
+                    break;
+                case DayOfWeek.Friday:
+                    diaValido = jornadaLaboral.Viernes;
+                    break;
+                case DayOfWeek.Saturday:
+                    diaValido = jornadaLaboral.Sabado;
+                    break;
+                case DayOfWeek.Sunday:
+                    diaValido = jornadaLaboral.Domingo;
+                    break;
+            }
+        }
+        else
+        {
+            //SI DIA ES FALSO VALIDA EL DIA ESPECIAL
+            diaValido = DateTime.Now.Date == jornadaLaboral.DiaEspecial.Date;
+        }
+
+        //SI EL DIA NO ES VALIDO ENVIAMOS MENSAJE DE ERROR ANTES DE GUARDAR EL FICHAJE
+        if (!diaValido)
+        {
+            mensaje = "El fichaje no está permitido en este día.";
+            return Json(mensaje);
         }
 
         // EXTRAEMOS SOLO LA PARTE DE HORA Y MINUTO
@@ -98,26 +146,47 @@ public class FichajeController : Controller
         var horaEntrada = jornadaLaboral.HorarioEntrada.TimeOfDay;
         var horaSalida = jornadaLaboral.HorarioSalida.TimeOfDay;
 
+        // DEFINIMOS EL MARGEN DE 10 MINUTOS
+        TimeSpan margen = TimeSpan.FromMinutes(10);
+
         bool esValido = false;
 
         // VALIDAMOS LA HORA DE FICHAJE
         if (Momento == Momento.Entrada)
         {
-            esValido = horaFichaje >= horaEntrada;
+            //PERMITE FICHAR SOLO ENTRE LA HORA DE ENTRADA Y 10 MINUTOS DESPUES
+            esValido = horaFichaje > horaEntrada && horaFichaje <= horaEntrada.Add(margen);
         }
         else if (Momento == Momento.Salida)
         {
-            esValido = horaFichaje <= horaSalida;
+            //PERMITE FICHAR SOLO EXACTAMENTE A LA HORA DE SALIDA O 10 MINUTOS DESPUES
+            esValido = horaFichaje >= horaSalida && horaFichaje <= horaSalida.Add(margen);
         }
 
-        // CREAR EL TURNO LABORAL Y GUARDARLO INDEPENDIENTEMENTE DE SI ES VÁLIDO O NO
+        // VALIDAR SI YA HAY UN FICHAJE PARA HOY DEL MISMO TIPO
+        var fechaFichaje = DateTime.Today;
+        var fichajeExistente = _context.TurnoLaboral
+            .Where(t => t.UsuarioID == usuarioLogueadoID
+                        && t.JornadaLaboralID == jornadaLaboral.JornadaLaboralID
+                        && t.FechaFichaje.Date == fechaFichaje.Date
+                        && t.Momento == Momento) // Validar el momento
+            .SingleOrDefault();
+
+        if (fichajeExistente != null)
+        {
+            mensaje = $"Ya se ha registrado un fichaje de tipo '{Momento}' para hoy.";
+            return Json(mensaje);
+        }
+
+
+        // CREA EL TURNO LABORAL Y LO GUARDA INDEPENDIENTEMENTE DE SI ES VÁLIDO O NO
         var turnoLaboral = new TurnoLaboral
         {
             UsuarioID = usuarioLogueadoID,
             JornadaLaboralID = jornadaLaboral.JornadaLaboralID,
             FechaFichaje = DateTime.Now,
             Momento = Momento,
-            Estado = esValido // Se guarda como true si está dentro del horario, false si no.
+            Estado = esValido //SE GUARDA COMO TRUE SI FUE A HORARIO, SINO ES FALSE 
         };
 
         _context.Add(turnoLaboral);
@@ -137,7 +206,7 @@ public class FichajeController : Controller
 
 
 
-    public JsonResult HistorialFichajes(int? PersonaID)
+    public JsonResult HistorialFichajes(int? PersonaID, DateTime? FechaDesde, DateTime? FechaHasta)
     {
         List<VistaTurno> VistaTurnoLaboral = new List<VistaTurno>();
 
@@ -156,6 +225,11 @@ public class FichajeController : Controller
                 //FILTRADO POR PERSONAS
                 listadoTurnos = listadoTurnos.Where(l => l.UsuarioID == personaFiltrada.UsuarioID).ToList();
             }
+        }
+
+        if (FechaDesde != null && FechaHasta != null)
+        {
+            listadoTurnos = listadoTurnos.Where(l => l.FechaFichaje >= FechaDesde && l.FechaFichaje <= FechaHasta).ToList();
         }
 
         foreach (var listadoTurno in listadoTurnos)
