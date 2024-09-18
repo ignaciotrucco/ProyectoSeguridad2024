@@ -320,6 +320,20 @@ label {
     color: rgb(223, 0, 0);
 }
 
+.btn .fa-info {
+    color: rgba(0, 0, 0, 0.747);
+}
+
+.btn .fa-info :hover {
+    scale: 103%;
+    transition: ease-in-out 0.3s;
+    color: rgb(0, 78, 223);
+}
+
+.btn .fa-info:active {
+    box-shadow: none;
+}
+
 /* Animaciones Modal */
 .modal {
     animation: fadeIn 0.3s ease-in-out;
@@ -373,6 +387,36 @@ p {
     padding: 10px 20px;
     cursor: pointer;
 }
+
+/* Modal Datos Completos */
+.modalDatos {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    z-index: 99999;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.4s ease-in-out;
+    overflow: hidden;
+    cursor: default; 
+}
+
+.modal-contentDatos {
+    background-color: #dddddd;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    border-radius: 5px 5px 5px 5px;
+}
+
+/* .parrafoDatos{
+    font-weight: 'bold' !important;
+} */
 
 /* Acordeon Jornada Laboral */
 
@@ -682,6 +726,10 @@ input:checked+.slider:before {
     }
 
     .infoTabla {
+        display: none;
+    }
+
+    .mostrar-en-767px{
         display: none;
     }
 }

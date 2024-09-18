@@ -88,20 +88,27 @@ function ListadoEmpresas(busqueda) {
                 contenidoTabla += `
                 <tr>
                     <td style="text-align: center">${empresa.razonSocial}</td>
-                    <td style="text-align: center">${empresa.cuit_Cdi}</td>
-                    <td style="text-align: center">${empresa.telefono}</td>
+                    <td style="text-align: center" class="ocultar-en-767px">${empresa.cuit_Cdi}</td>
+                    <td style="text-align: center" class="ocultar-en-767px">${empresa.telefono}</td>
                     <td style="text-align: center" class="ocultar-en-767px">${empresa.email}</td>
                     <td style="text-align: center" class="ocultar-en-767px">${empresa.provinciaNombre}</td>
                     <td style="text-align: center" class="ocultar-en-767px">${empresa.localidadNombre}</td>
                     <td style="text-align: center">${empresa.domicilio}</td>
                     <td style="text-align: right">
-                    <button type="button" class="btn ocultar-en-767px" title="Editar" onclick="AbrirModalEditar(${empresa.empresaID})">
+                    <button type="button" class="btn" title="Editar" onclick="AbrirModalEditar(${empresa.empresaID})">
                     <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
                     </button>
                     </td>
                     <td style="text-align: left">
-                    <button type="button" class="btn ocultar-en-767px" title="Eliminar" onclick="EliminarEmpresa(${empresa.empresaID})">
+                    <button type="button" class="btn" title="Eliminar" onclick="EliminarEmpresa(${empresa.empresaID})">
                     <i class="fa-solid fa-trash" width="20" height="20"></i>
+                    </button>
+                    </td>
+                    <td style="text-align: left">
+                    <button type="button" class="btn mostrar-en-767px" title="Detalles" onclick="mostrarModal('${empresa.razonSocial}',
+                     '${empresa.cuit_Cdi}', '${empresa.telefono}', '${empresa.email}', '${empresa.provinciaNombre}', '${empresa.localidadNombre}',
+                      '${empresa.domicilio}')">
+                    <i class="fa-solid fa-info" width="20" height="20"></i>
                     </button>
                     </td>
                 </tr>
@@ -276,7 +283,6 @@ function AbrirModalEditar(empresaID) {
 
             $("#LocalidadID").val(mostrarEmpresas.localidadID);
             $("#domicilio").val(mostrarEmpresas.domicilio);
-            $("#UsuarioID").val(mostrarEmpresas.emailUsuario);
             $("#modalEmpresas").modal("show");
             $("#tituloModal").text("Editar Cliente");
         },
@@ -513,6 +519,32 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 }
+
+function mostrarModal(razonSocial, cuit, telefono, email, provincia, localidad, domicilio) {
+    $('#razonSocial').text('Razón Social: ' + razonSocial);
+    $('#cuit').text('CUIT: ' + cuit);
+    $('#telefono').text('Teléfono: ' + telefono);
+    $('#email').text('Email: ' + email);
+    $('#provincia').text('Provincia: ' + provincia);
+    $('#localidad').text('Localidad: ' + localidad);
+    $('#domicilio').text('Domicilio: ' + domicilio);
+
+    $('#modalDetalles').show();
+}
+
+function cerrarModal() {
+    // Oculta el modal
+    document.getElementById('modalDetalles').style.display = "none";
+}
+
+// Cierra el modal al hacer clic fuera de él
+window.onclick = function(event) {
+    const modal = document.getElementById('modalDetalles');
+    if (event.target === modal) {
+        cerrarModal();
+    }
+}
+
 
 $(document).ready(function () {
     $('#Cuit').mask('00-00000000-0');

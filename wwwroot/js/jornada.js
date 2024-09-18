@@ -98,19 +98,25 @@ function ListadoJornadas(busqueda) {
 
                 contenidoTabla += `
     <tr>
-        <td style="text-align: center" class="ocultar-en-767px">${jornada.nombreEmpresa}</td>
-        <td style="text-align: center">${jornada.lugar}</td>
-        <td style="text-align: center">${diasColumna}</td>
-        <td style="text-align: center">${jornada.horarioEntradaString}</td>
-        <td style="text-align: center">${jornada.horarioSalidaString}</td>
+        <td style="text-align: center">${jornada.nombreEmpresa}</td>
+        <td style="text-align: center" class="ocultar-en-767px">${jornada.lugar}</td>
+        <td style="text-align: center" class="ocultar-en-767px">${diasColumna}</td>
+        <td style="text-align: center" class="ocultar-en-767px">${jornada.horarioEntradaString}</td>
+        <td style="text-align: center" class="ocultar-en-767px">${jornada.horarioSalidaString}</td>
         <td style="text-align: right">
-        <button type="button" class="btn ocultar-en-767px" title="Editar" onclick="ModalEditar(${jornada.jornadaLaboralID})">
+        <button type="button" class="btn" title="Editar" onclick="ModalEditar(${jornada.jornadaLaboralID})">
         <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
         </button>
         </td>
         <td style="text-align: left">
-        <button type="button" class="btn ocultar-en-767px" title="Eliminar" onclick="EliminarJornadaLaboral(${jornada.jornadaLaboralID})">
+        <button type="button" class="btn" title="Eliminar" onclick="EliminarJornadaLaboral(${jornada.jornadaLaboralID})">
         <i class="fa-solid fa-trash" width="20" height="20"></i>
+        </button>
+        </td>
+        <td style="text-align: left">
+        <button type="button" class="btn mostrar-en-767px" title="Detalles" onclick="mostrarModal1('${jornada.nombreEmpresa}',
+        '${jornada.lugar}', '${diasColumna}', '${jornada.horarioEntradaString}','${jornada.horarioSalidaString}')">
+        <i class="fa-solid fa-info" width="20" height="20"></i>
         </button>
         </td>
     </tr>
@@ -513,16 +519,22 @@ function ListadoAsignacion(busquedaAsignar) {
                 tabla += `
     <tr>
         <td style="text-align: center">${asignacion.personaNombre}</td>
-        <td style="text-align: center">${asignacion.infoJornada}</td>
-        <td style="text-align: center">${diasEnColumna}</td>
+        <td style="text-align: center" class="ocultar-en-767px">${asignacion.infoJornada}</td>
+        <td style="text-align: center" class="ocultar-en-767px">${diasEnColumna}</td>
         <td style="text-align: right">
-        <button type="button" class="btn ocultar-en-767px" title="Editar" onclick="ModalEditarAsignacion(${asignacion.asignacionJornadaID})">
+        <button type="button" class="btn" title="Editar" onclick="ModalEditarAsignacion(${asignacion.asignacionJornadaID})">
         <i class="fa-solid fa-pen-to-square" width="20" height="20"></i>
         </button>
         </td>
         <td style="text-align: left">
-        <button type="button" class="btn ocultar-en-767px" title="Eliminar" onclick="EliminarAsignacion(${asignacion.asignacionJornadaID})">
+        <button type="button" class="btn" title="Eliminar" onclick="EliminarAsignacion(${asignacion.asignacionJornadaID})">
         <i class="fa-solid fa-trash" width="20" height="20"></i>
+        </button>
+        </td>
+        <td style="text-align: left">
+        <button type="button" class="btn mostrar-en-767px" title="Detalles" onclick="mostrarModal2('${asignacion.personaNombre}',
+        '${asignacion.infoJornada}', '${diasEnColumna}')">
+        <i class="fa-solid fa-info" width="20" height="20"></i>
         </button>
         </td>
     </tr>
@@ -877,5 +889,47 @@ window.onclick = function (event) {
     var modal = document.getElementById("ModalInfoTablas2");
     if (event.target == modal) {
         modal.style.display = "none";
+    }
+}
+
+function mostrarModal1(nombreEmpresa, lugar, diasColumna, horarioEntradaString, horarioSalidaString) {
+    $('#nombreEmpresa').text('Cliente: ' + nombreEmpresa);
+    $('#lugar').text('Lugar: ' + lugar);
+    $('#diasColumna').text('Dia / Días: ' + diasColumna);
+    $('#horarioEntradaString').text('Horario de entrada: ' + horarioEntradaString);
+    $('#horarioSalidaString').text('Horario de salida: ' + horarioSalidaString);
+    $('#modalDetalles1').show();
+}
+
+function cerrarModal1() {
+    // Oculta el modal
+    document.getElementById('modalDetalles1').style.display = "none";
+}
+
+// Cierra el modal al hacer clic fuera de él
+window.onclick = function(event) {
+    const modal = document.getElementById('modalDetalles1');
+    if (event.target === modal) {
+        cerrarModal1();
+    }
+}
+
+function mostrarModal2(personaNombre, infoJornada, diasEnColumna) {
+    $('#personaNombre').text('Empleado: ' + personaNombre);
+    $('#infoJornada').text('Lugar y Hora: ' + infoJornada);
+    $('#diasEnColumna').text('Dia / Días: ' + diasEnColumna);
+    $('#modalDetalles2').show();
+}
+
+function cerrarModal2() {
+    // Oculta el modal
+    document.getElementById('modalDetalles2').style.display = "none";
+}
+
+// Cierra el modal al hacer clic fuera de él
+window.onclick = function(event) {
+    const modal = document.getElementById('modalDetalles2');
+    if (event.target === modal) {
+        cerrarModal2();
     }
 }
