@@ -14,7 +14,8 @@
                 </div>
                 <div class="col-auto">
                     <div class="d-flex align-items-center">
-                        <select class="form-select me-2 inputBusqueda" aria-label="Default select example" id="rolBuscar" onchange="ListadoPersonas()">
+                        <select class="form-select me-2 inputBusqueda" aria-label="Default select example"
+                            id="rolBuscar" onchange="ListadoPersonas()">
                             <option value="" selected>Todos/as</option>
                             <option value="c2a508f9-bc7d-401a-bad0-ae590ad7d5cb">Empleados/as</option>
                             <option value="989ee0a4-d29b-4faf-a3bb-fcdb7bd9e296">Administradores/as</option>
@@ -192,4 +193,10 @@
 
 @section Scripts {
     <script src="~/js/personas-1.0.0.js"></script>
+    <script>
+        // Obtiene la fecha actual en el formato YYYY-MM-DD
+        const today = new Date().toISOString().split('T')[0];
+        // Establece el valor máximo en el campo de entrada
+        document.getElementById('FechaNacimiento').setAttribute('max', today);
+    </script>
 }
