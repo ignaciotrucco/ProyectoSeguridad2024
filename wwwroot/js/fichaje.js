@@ -1,5 +1,3 @@
-window.onload = HistorialFichajes();
-
 function HistorialFichajes() {
 
     let personaID = $("#PersonaID").val()
@@ -94,7 +92,7 @@ function HistorialFichajes() {
             Toast.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Disculpe, existió un problema al cargar los fichajes",
+                text: "Disculpe, existió un problema al carga el listado",
             });
         }
     });

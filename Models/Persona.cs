@@ -45,4 +45,5 @@ public class VistaPersonas
     public string? Domicilio { get; set;}
     public string? Email { get; set;}
     public int NumeroDocumento {get; set;}
+    public string? RolPersona {get; set;}
 }

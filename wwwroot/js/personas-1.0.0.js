@@ -12,9 +12,14 @@ $(document).ready(function () {
 
 
 function ListadoPersonas(busqueda) {
+
+    let rolBuscar = $("#rolBuscar").val();
+
     $.ajax({
         url: '../../Personas/ListadoPersonas',
-        data: { busqueda: busqueda },  // PASA EL TERMINO DE BUSQUEDA AL CONTROLADOR
+        data: { busqueda: busqueda,
+            RolBuscar: rolBuscar
+         },  // PASA EL TERMINO DE BUSQUEDA AL CONTROLADOR
         type: 'POST',
         dataType: 'json',
         success: function (personasMostrar) {
@@ -32,23 +37,24 @@ function ListadoPersonas(busqueda) {
                     <img src="../img/usuario-fondo-negro.png" class="card-img-top">
                     <div class="card-body cardbodyPersonas">
                         <h4 class="cardPersonas card-title">${persona.nombreCompleto}</h4>
+                        <p class="cardPersonas card-text">(${persona.rolPersona})</p>
                         <p class="cardPersonas card-text">${persona.tipoDocumentoNombre} - ${persona.numeroDocumento}</p>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="datosPersona list-group-item">${persona.localidadNombre} - ${persona.provinciaNombre}</li>
-                        <li class="datosPersona list-group-item">Télefono: ${persona.telefono}</li>
-                        <li class="datosPersona list-group-item">Domicilio: ${persona.domicilio}</li>
+                        <li class="datosPersona list-group-item">${persona.telefono}</li>
+                        <li class="datosPersona list-group-item">${persona.domicilio}</li>
                         <li class="datosPersona list-group-item">${persona.email}</li>
-                        <li class="datosPersona list-group-item">Nacido el: ${persona.fechaNacimientoString}</li>
-                        <li class="btnPersonas list-group-item">
+                        <li class="datosPersona list-group-item">Nacimiento: ${persona.fechaNacimientoString}</li>
+                    </ul>
+                    <div class="btnPersonas">
                         <button type="button" class="btn btn-dark" title="Editar" onclick="ModalEditar(${persona.personaID})">
-                        Editar
+                            Editar
                         </button>
                         <button type="button" class="btn btn-danger" title="Eliminar" onclick="EliminarPersona(${persona.personaID})">
-                        Eliminar
+                            Eliminar
                         </button>
-                        </li>
-                    </ul>
+                    </div>
                 </div> 
             </div>        
 
@@ -265,20 +271,6 @@ function GuardarPersona() {
     }
 
 }
-
-{/* <div class="col-lg-3 col-md-3 col-sm-12">
-    <div class="card"">
-    <img src="../img/img_usuario.png" class="card-img-top">
-        <div class="card-body" id="cbody-personas">
-            <h5 class="card-title text-center">${persona.nombreCompleto} - ${persona.localidadID}</h5>
-            <p class="card-text">${persona.telefono}</p>
-            <p class="card-text">${persona.domicilio}</p>
-            <p class="card-text">${persona.email}</p>
-            <p class="card-text">${persona.tipoDocumentoID} - ${persona.numeroDocumento}</p>
-            <p class="card-text">${persona.fechaNacimiento}</p>
-        </div>
-</div>
-                </div > */}
 
 
 function ModalEditar(personaID) {

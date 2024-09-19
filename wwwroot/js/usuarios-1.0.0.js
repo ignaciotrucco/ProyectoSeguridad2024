@@ -233,7 +233,7 @@ function RestablecerContrasenia(usuarioID) {
       Toast.fire({
         icon: "error",
         title: "Oops...",
-        text: "Disculpe, existió un problema al cargar el listado",
+        text: "Disculpe, existió un problema al cambiar la contraseña",
       });
     }
   });

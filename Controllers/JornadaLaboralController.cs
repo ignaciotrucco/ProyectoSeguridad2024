@@ -83,7 +83,7 @@ public class JornadaLaboralController : Controller
             // ASIGNAMOS LA FECHA ESPECIAL DEL OBJETO JORNADA
             DiaEspecial = m.jornada.DiaEspecial,
             // CONVERTIMOS DIAESPECIAL A CADENA DE TEXTO SOLO SI DIA ES FALSO
-            DiaEspecialString = m.jornada.Dia ? null : m.jornada.DiaEspecial.ToString("dd/MM/yyyy"),
+            DiaEspecialString = m.jornada.Dia ? null : m.jornada.DiaEspecial.ToString("ddd dd MMM yyyy"),
             // ASIGNAMOS EL VALOR DEL CAMPO LUNES DEL OBJETO JORNADA
             Lunes = m.jornada.Lunes,
             // ASIGNAMOS EL VALOR DEL CAMPO MARTES DEL OBJETO JORNADA
@@ -291,7 +291,7 @@ public class JornadaLaboralController : Controller
             }.Where(d => d != null).ToArray()) : null,
             DiaEspecial = v.jornada.DiaEspecial,
             // CONVERTIMOS DIAESPECIAL A CADENA DE TEXTO SOLO SI DIA ES FALSO
-            DiaEspecialString = v.jornada.Dia ? null : v.jornada.DiaEspecial.ToString("dd/MM/yyyy"),
+            DiaEspecialString = v.jornada.Dia ? null : v.jornada.DiaEspecial.ToString("ddd dd MMM yyyy"),
         }).ToList();
 
 

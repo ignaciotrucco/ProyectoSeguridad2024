@@ -100,7 +100,7 @@ h5 {
 
 .referenciaContainer {
     display: flex;
-    flex-direction: row; 
+    flex-direction: row;
     align-items: center;
 }
 
@@ -137,7 +137,7 @@ h5 {
     color: rgb(0, 0, 0);
     font-family: 'textos13';
     margin-bottom: 1rem;
-
+    position: relative; /* Necesario para posicionar el contenedor de botones absolutamente dentro de la tarjeta */
 }
 
 /* .cardbodyPersonas {
@@ -216,13 +216,33 @@ label {
     font-family: 'textos3';
 }
 
-.btnPersonas {
-    text-align: center;
+/* Contenedor de botones */
+.btnPersonas { 
     display: flex;
-    justify-content: space-around;
-    background-color: #b1b1b1;
-    font-family: 'textos3';
+    justify-content: center; /* Centra los botones horizontalmente */
+    background-color: #b1b1b1; /* Color de fondo */
+    font-family: 'textos3'; /* Familia de fuentes */
+    position: absolute; /* Posiciona el contenedor de botones */
+    bottom: 0; /* Ajusta la distancia desde la parte superior de la tarjeta */
+    left: 0; /* Ajusta la distancia desde la parte izquierda de la tarjeta */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho de la tarjeta */
+    height: 33%; /* Ajusta el alto del contenedor de botones para que solo cubra una parte de la tarjeta */
+    align-items: center; /* Centra los botones verticalmente */
+    z-index: 10; /* Asegura que el contenedor de botones esté por encima del contenido */
+    display: none; /* Inicialmente oculto */
+    padding: 10px; /* Espacio interno para los botones */
+    gap: 10px; /* Espacio entre los botones */
+    transition: opacity 2s ease, visibility 2s ease; /* Transiciones suaves para opacidad y visibilidad */
+    opacity: 0; /* Inicialmente oculto */
+    visibility: hidden; /* Oculta el contenedor de botones */
 }
+
+.cardPersonas:hover .btnPersonas {
+    display: flex; /* Mostrar el contenedor cuando se hace hover */
+    opacity: 1; /* Hacer visible */
+    visibility: visible; /* Hacer visible */
+}
+
 
 .btnPersonas:focus {
     box-shadow: none;
@@ -402,7 +422,7 @@ p {
     background-color: rgba(0, 0, 0, 0.4);
     animation: fadeIn 0.4s ease-in-out;
     overflow: hidden;
-    cursor: default; 
+    cursor: default;
 }
 
 .modal-contentDatos {
@@ -619,11 +639,11 @@ input:checked+.slider:before {
         scale: 140%;
     }
 
-    .fa-plus{
+    .fa-plus {
         margin-bottom: 9px;
     }
 
-    .textBtnAgregar{
+    .textBtnAgregar {
         display: none;
     }
 
@@ -697,7 +717,7 @@ input:checked+.slider:before {
         font-size: small;
     }
 
-    .colorFueraDeHorario{
+    .colorFueraDeHorario {
         margin-left: 5px;
     }
 
@@ -707,8 +727,8 @@ input:checked+.slider:before {
     }
 
     .referenciaContainer {
-        flex-direction: column; 
-        align-items: flex-end; 
+        flex-direction: column;
+        align-items: flex-end;
     }
 }
 
@@ -729,7 +749,7 @@ input:checked+.slider:before {
         display: none;
     }
 
-    .mostrar-en-767px{
+    .mostrar-en-767px {
         display: none;
     }
 }

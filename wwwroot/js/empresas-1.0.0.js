@@ -138,7 +138,7 @@ function ListadoEmpresas(busqueda) {
             Toast.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Disculpe, existió un problema al cargar las empresas",
+                text: "Disculpe, existió un problema al cargar el listado",
             });
         }
     });

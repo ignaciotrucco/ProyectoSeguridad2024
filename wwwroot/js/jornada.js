@@ -147,7 +147,7 @@ function ListadoJornadas(busqueda) {
             Toast.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Disculpe, existió un problema al cargar las jornadas",
+                text: "Disculpe, existió un problema al cargar el listado",
             });
         }
     });
@@ -565,7 +565,7 @@ function ListadoAsignacion(busquedaAsignar) {
             Toast.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Disculpe, existió un problema al cargar las jornadas",
+                text: "Disculpe, existió un problema al cargar el listado",
             });
         }
     });
@@ -636,7 +636,7 @@ function GuardarAsignacion() {
                 Toast.fire({
                     icon: "error",
                     title: "Oops...",
-                    text: "Disculpe, existió un problema al cargar las jornadas",
+                    text: "Disculpe, existió un problema al guardar la asignación",
                 });
             }
         });
@@ -692,7 +692,7 @@ function ModalEditarAsignacion(asignacionID) {
             Toast.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Disculpe, existió un problema al cargar las jornadas",
+                text: "Disculpe, existió un problema al cargar el listado",
             });
         }
     });

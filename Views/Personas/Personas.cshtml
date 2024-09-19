@@ -13,10 +13,17 @@
                     <h1 class="hover-icon">PERSONAS <i class="fas fa-id-card icon"></i></h1>
                 </div>
                 <div class="col-auto">
-                    <div class="input-group mt-2">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
-                        <input type="text" id="inputBusqueda" class="form-control inputBusqueda" placeholder="Buscar..."
-                            style="text-transform:uppercase">
+                    <div class="d-flex align-items-center">
+                        <select class="form-select me-2 inputBusqueda" aria-label="Default select example" id="rolBuscar" onchange="ListadoPersonas()">
+                            <option value="" selected>Todos/as</option>
+                            <option value="c2a508f9-bc7d-401a-bad0-ae590ad7d5cb">Empleados/as</option>
+                            <option value="989ee0a4-d29b-4faf-a3bb-fcdb7bd9e296">Administradores/as</option>
+                        </select>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
+                            <input type="text" id="inputBusqueda" class="form-control inputBusqueda"
+                                placeholder="Buscar..." style="text-transform:uppercase">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -26,6 +33,7 @@
         <div class="row mt-3" id="cbody-personas"></div>
     </div>
 </div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="modalPersonas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
@@ -89,7 +97,9 @@
                                         <i class="fa-solid fa-circle-info"></i>
                                     </div>
                                 </label>
-                                <input type="text" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control" id="NroDoc">
+                                <input type="text" maxlength="11"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control"
+                                    id="NroDoc">
                                 <span id="nroDocPersonaError" class="textoError"></span>
                             </div>
                             <div class="col-md-3">
@@ -141,9 +151,11 @@
 
 <!-- Boton modal -->
 <div class="btnAgregar">
-    <button type="button" class="btn btn-secondary btn-circle btn-lg d-flex" style="padding-bottom: 2px;" title="Agregar" data-bs-toggle="modal"
-        data-bs-target="#modalPersonas" data-bs-target="#staticBackdrop" onclick="NuevaPersona()">
-        <i class="fa-solid fa-plus mt-1"></i><h5 style="margin-left: 3px; padding-top: 1px;" class="textBtnAgregar">Nueva Persona</h5>
+    <button type="button" class="btn btn-secondary btn-circle btn-lg d-flex" style="padding-bottom: 2px;"
+        title="Agregar" data-bs-toggle="modal" data-bs-target="#modalPersonas" data-bs-target="#staticBackdrop"
+        onclick="NuevaPersona()">
+        <i class="fa-solid fa-plus mt-1"></i>
+        <h5 style="margin-left: 3px; padding-top: 1px;" class="textBtnAgregar">Nueva Persona</h5>
     </button>
 </div>
 

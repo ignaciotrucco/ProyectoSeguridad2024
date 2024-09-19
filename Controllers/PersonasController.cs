@@ -52,7 +52,7 @@ public class PersonasController : Controller
         return Json(localidades);
     }
 
-    public JsonResult ListadoPersonas(int? PersonaID, string busqueda)
+    public JsonResult ListadoPersonas(int? PersonaID, string busqueda, string RolBuscar)
     {
         // LISTADO COMPLETO DE PERSONAS CON SUS RELACIONES
         var listadoPersonas = _context.Personas
@@ -82,26 +82,51 @@ public class PersonasController : Controller
             );
         };
 
-        var personasMostrar = listadoPersonas
-            .Select(p => new VistaPersonas
+        // FILTRAR POR ROL SI SE SELECCIONA UNO
+        if (!string.IsNullOrEmpty(RolBuscar))
+        {
+            var personasConRol = _context.UserRoles
+                .Where(ur => ur.RoleId == RolBuscar)  // Comparar directamente con el ID del rol
+                .Select(ur => ur.UserId)
+                .ToList();
+
+            listadoPersonas = listadoPersonas.Where(p => personasConRol.Contains(p.UsuarioID));
+        }
+
+        List<VistaPersonas> personasMostrar = new List<VistaPersonas>();
+
+        foreach (var persona in listadoPersonas)
+        {
+            var rolNombre = "";
+
+            var rolUsuario = _context.UserRoles.Where(r => r.UserId == persona.UsuarioID).SingleOrDefault();
+            if (rolUsuario != null)
             {
-                PersonaID = p.PersonaID,
-                LocalidadID = p.LocalidadID,
-                LocalidadNombre = p.Localidad.Nombre,
-                ProvinciaID = p.Localidad.ProvinciaID,
-                ProvinciaNombre = p.Localidad.Provincia.Nombre,
-                TipoDocumentoID = p.TipoDocumentoID,
-                TipoDocumentoNombre = p.TipoDocumentos.Nombre,
-                UsuarioID = p.UsuarioID,
-                NombreCompleto = p.NombreCompleto,
-                FechaNacimiento = p.FechaNacimiento,
-                FechaNacimientoString = p.FechaNacimiento.ToString("dd/MM/yyyy"),
-                Telefono = p.Telefono,
-                Domicilio = p.Domicilio,
-                Email = p.Email,
-                NumeroDocumento = p.NumeroDocumento,
-                EmailUsuario = _context.Users.Where(u => u.Id == p.UsuarioID).Select(u => u.Email).FirstOrDefault()
-            }).ToList();
+                rolNombre = _context.Roles.Where(l => l.Id == rolUsuario.RoleId).Select(r => r.Name).FirstOrDefault();
+            }
+
+            var personaMostrar = new VistaPersonas
+            {
+                PersonaID = persona.PersonaID,
+                LocalidadID = persona.LocalidadID,
+                LocalidadNombre = persona.Localidad.Nombre,
+                ProvinciaID = persona.Localidad.ProvinciaID,
+                ProvinciaNombre = persona.Localidad.Provincia.Nombre,
+                TipoDocumentoID = persona.TipoDocumentoID,
+                TipoDocumentoNombre = persona.TipoDocumentos.Nombre,
+                UsuarioID = persona.UsuarioID,
+                NombreCompleto = persona.NombreCompleto,
+                FechaNacimiento = persona.FechaNacimiento,
+                FechaNacimientoString = persona.FechaNacimiento.ToString("dd/MM/yyyy"),
+                Telefono = persona.Telefono,
+                Domicilio = persona.Domicilio,
+                Email = persona.Email,
+                NumeroDocumento = persona.NumeroDocumento,
+                EmailUsuario = _context.Users.Where(u => u.Id == persona.UsuarioID).Select(u => u.Email).FirstOrDefault(),
+                RolPersona = rolNombre
+            };
+            personasMostrar.Add(personaMostrar);
+        }
 
         return Json(personasMostrar);
     }
