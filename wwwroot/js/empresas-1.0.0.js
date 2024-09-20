@@ -520,13 +520,13 @@ window.onclick = function (event) {
     }
 }
 
-function mostrarModal(razonSocial, cuit, telefono, email, provincia, localidad, domicilio) {
+function mostrarModal(razonSocial, cuit_Cdi, telefono, email, provinciaNombre, localidadNombre, domicilio) {
     $('#razonSocial').text('Razón Social: ' + razonSocial);
-    $('#cuit').text('CUIT: ' + cuit);
+    $('#cuit_Cdi').text('CUIT: ' + cuit_Cdi);
     $('#telefono').text('Teléfono: ' + telefono);
     $('#email').text('Email: ' + email);
-    $('#provincia').text('Provincia: ' + provincia);
-    $('#localidad').text('Localidad: ' + localidad);
+    $('#provinciaNombre').text('Provincia: ' + provinciaNombre);
+    $('#localidadNombre').text('Localidad: ' + localidadNombre);
     $('#domicilio').text('Domicilio: ' + domicilio);
 
     $('#modalDetalles').show();

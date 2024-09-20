@@ -25,6 +25,10 @@
                             <input type="text" id="inputBusqueda" class="form-control inputBusqueda"
                                 placeholder="Buscar..." style="text-transform:uppercase">
                         </div>
+                        <button class="btn btnImprimir mt-2" onclick="ImprimirTablaPersonas()">
+                        <i class="fa-solid fa-download"></i>
+                        <span class="btn-text">Imprimir</span>
+                    </button>
                     </div>
                 </div>
             </div>
@@ -150,6 +154,24 @@
     </div>
 </div>
 
+<!-- Tabla para impresiones -->
+<table class="table table-striped mt-1 tablaOculta" id="imprimir-tabla">
+    <thead>
+        <tr>
+            <th scope="col" style="text-align: center">NOMBRE COMPLETO</th>
+            <th scope="col" style="text-align: center">ROL</th>
+            <th scope="col" style="text-align: center">DOCUMENTO</th>
+            <th scope="col" style="text-align: center">PROVINCIA</th>
+            <th scope="col" style="text-align: center">LOCALIDAD</th>
+            <th scope="col" style="text-align: center">DOMICILIO</th>
+            <th scope="col" style="text-align: center">TELEFONO</th>
+            <th scope="col" style="text-align: center">EMAIL</th>
+            <th scope="col" style="text-align: center">NACIMIENTO</th>
+        </tr>
+    </thead>
+    <tbody id="tbody-personasImprimir"></tbody>
+</table>
+
 <!-- Boton modal -->
 <div class="btnAgregar">
     <button type="button" class="btn btn-secondary btn-circle btn-lg d-flex" style="padding-bottom: 2px;"
@@ -193,6 +215,7 @@
 
 @section Scripts {
     <script src="~/js/personas-1.0.0.js"></script>
+    <script src="~/js/impresiones.js"></script>
     <script>
         // Obtiene la fecha actual en el formato YYYY-MM-DD
         const today = new Date().toISOString().split('T')[0];

@@ -1,4 +1,5 @@
 window.onload = ListadoPersonas();
+window.onload = TablaImprimir();
 
 // ESCUCHA EL EVENTO 'KEYUP' EN EL CAMPO DE BÚSQUEDA CON ID 'INPUTBUSQUEDA'
 // CADA VEZ QUE EL USUARIO ESCRIBE, SE CAPTURA EL VALOR ACTUAL Y SE LLAMA A LA FUNCIÓN LISTADOPERSONAS
@@ -67,6 +68,62 @@ function ListadoPersonas(busqueda) {
         error: function (xhr, status) {
             console.log('Disculpe, existió un problema al cargar el listado');
             console.error('Error details:', xhr, status);
+        }
+    });
+}
+
+function TablaImprimir() {
+
+    $.ajax({
+        url: '../../Personas/ListadoPersonas',
+        data: {},  
+        type: 'POST',
+        dataType: 'json',
+        success: function (personasMostrar) {
+
+            let contenidoTabla = ``;
+
+            $.each(personasMostrar, function (index, persona) {
+                contenidoTabla += `
+                <tr>
+                    <td style="text-align: center">${persona.nombreCompleto}</td>
+                    <td style="text-align: center">${persona.rolPersona}</td>
+                    <td style="text-align: center">${persona.tipoDocumentoNombre} - ${persona.numeroDocumento}</td>
+                    <td style="text-align: center">${persona.provinciaNombre}</td>
+                    <td style="text-align: center">${persona.localidadNombre}</td>
+                    <td style="text-align: center">${persona.domicilio}</td>
+                    <td style="text-align: center">${persona.telefono}</td>
+                    <td style="text-align: center">${persona.email}</td>                
+                    <td style="text-align: center">${persona.fechaNacimientoString}</td>                               
+                </tr>
+             `;
+            });
+
+            document.getElementById("tbody-personasImprimir").innerHTML = contenidoTabla;
+
+        },
+
+        // código a ejecutar si la petición falla;
+        // son pasados como argumentos a la función
+        // el objeto de la petición en crudo y código de estatus de la petición
+        error: function (xhr, status) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema al cargar el listado",
+            });
         }
     });
 }

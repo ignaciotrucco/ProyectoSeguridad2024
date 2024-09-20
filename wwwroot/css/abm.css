@@ -615,6 +615,10 @@ input:checked+.slider:before {
     padding: 0.5rem;
 }
 
+.tablaOculta{
+    display: none;
+}
+
 @media (max-width: 767px) {
 
     .cardPersonas {
