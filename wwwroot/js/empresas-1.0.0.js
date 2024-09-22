@@ -1,4 +1,5 @@
 window.onload = ListadoEmpresas();
+window.onload = TablaImprimir();
 
 function NuevoRegistro() {
     $("#tituloModal").text("Nuevo Cliente")
@@ -144,6 +145,102 @@ function ListadoEmpresas(busqueda) {
     });
 }
 
+function TablaImprimir() {
+
+    $.ajax({
+        // la URL para la petición
+        url: '../../Empresas/ListadoEmpresas',
+        // la información a enviar
+        // (también es posible utilizar una cadena de datos)
+        data: {}, // PASA EL TERMINO DE BUSQUEDA AL CONTROLADOR
+        // especifica si será una petición POST o GET
+        type: 'POST',
+        // el tipo de información que se espera de respuesta
+        dataType: 'json',
+        // código a ejecutar si la petición es satisfactoria;
+        // la respuesta es pasada como argumento a la función
+        success: function (mostrarEmpresa) {
+
+            let contenidoTabla = ``;
+
+            $.each(mostrarEmpresa, function (index, empresa) {
+
+                contenidoTabla += `
+                <tr>
+                    <td style="text-align: center">${empresa.razonSocial}</td>
+                    <td style="text-align: center">${empresa.cuit_Cdi}</td>
+                    <td style="text-align: center">${empresa.telefono}</td>
+                    <td style="text-align: center">${empresa.email}</td>
+                    <td style="text-align: center">${empresa.provinciaNombre}</td>
+                    <td style="text-align: center">${empresa.localidadNombre}</td>
+                    <td style="text-align: center">${empresa.domicilio}</td>
+                </tr>
+             `;
+            });
+
+            document.getElementById("tbody-empresasImprimir").innerHTML = contenidoTabla;
+
+        },
+
+        // código a ejecutar si la petición falla;
+        // son pasados como argumentos a la función
+        // el objeto de la petición en crudo y código de estatus de la petición
+        error: function (xhr, status) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema al cargar el listado",
+            });
+        }
+    });
+
+}
+
+$(document).ready(function() {
+    //FUNCION PARA OBTENER EL USUARIOID DESDE LA URL
+    function getUsuarioIDFromUrl() {
+        const pathArray = window.location.pathname.split('/');
+        return pathArray[pathArray.length - 1];  // Obtiene el último segmento de la URL (usuarioID)
+    }
+
+    //GUARDAMOS EN UNA VARIABLE EL USUARIO OBTENIDO EN LA URL
+    var usuarioID = getUsuarioIDFromUrl();
+
+    //PETICION AJAX PARA OBTENER EMAIL DEL USUARIO
+    $.ajax({
+        url: '/Users/ListadoUsuarios', 
+        async: false,
+        type: 'GET',
+        data: { UsuarioID: usuarioID },
+        success: function(usuariosMostrar) {
+            let usuarioMostrar = usuariosMostrar[0]
+            // Pegar el email del usuario en el input del modal
+            $("#UsuarioID").val(usuarioMostrar.email); 
+            // Abrir el modal automáticamente
+            $("#modalEmpresas").modal('show');
+            $("#tituloModal").text("Nuevo Cliente")
+        },
+        error: function() {
+            alert('Error al obtener los datos del usuario.');
+        }
+    });
+
+});
+
+
+
 function GuardarEmpresa() {
 
     let empresaID = $("#EmpresaID").val();
@@ -283,6 +380,7 @@ function AbrirModalEditar(empresaID) {
 
             $("#LocalidadID").val(mostrarEmpresas.localidadID);
             $("#domicilio").val(mostrarEmpresas.domicilio);
+            $("#UsuarioID").val(mostrarEmpresas.emailUsuario)
             $("#modalEmpresas").modal("show");
             $("#tituloModal").text("Editar Cliente");
         },

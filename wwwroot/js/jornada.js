@@ -1,5 +1,7 @@
 window.onload = ListadoJornadas();
 window.onload = ListadoAsignacion();
+window.onload = ListadoJornadasImprimir();
+window.onload = ListadoAsignacionImprimir();
 
 // Obtenemos el checkbox principal, el contenedor de los checkboxes adicionales y el campo de fecha especial
 const checkboxPrincipal = document.getElementById('checkboxPrincipal');
@@ -153,6 +155,81 @@ function ListadoJornadas(busqueda) {
     });
 
 }
+
+
+function ListadoJornadasImprimir() {
+
+    $.ajax({
+        // la URL para la petición
+        url: '../../JornadaLaboral/ListadoJornadas',
+        // la información a enviar
+        // (también es posible utilizar una cadena de datos)
+        data: { },
+        // especifica si será una petición POST o GET
+        type: 'GET',
+        // el tipo de información que se espera de respuesta
+        dataType: 'json',
+        // código a ejecutar si la petición es satisfactoria;
+        // la respuesta es pasada como argumento a la función
+        success: function (listadoJornadas) {
+
+
+            let contenidoTabla = ``;
+
+            $.each(listadoJornadas, function (index, jornada) {
+
+                let diasColumna;
+
+                //DETERMINA QUE VALOR MOSTRAR EN LA COLUMNA DIAS
+                if (jornada.dia) {
+                    diasColumna = jornada.diasSemana;
+                }
+                else {
+                    diasColumna = jornada.diaEspecialString;
+                }
+
+                contenidoTabla += `
+    <tr>
+        <td style="text-align: center">${jornada.nombreEmpresa}</td>
+        <td style="text-align: center" class="ocultar-en-767px">${jornada.lugar}</td>
+        <td style="text-align: center" class="ocultar-en-767px">${diasColumna}</td>
+        <td style="text-align: center" class="ocultar-en-767px">${jornada.horarioEntradaString}</td>
+        <td style="text-align: center" class="ocultar-en-767px">${jornada.horarioSalidaString}</td>
+    </tr>
+ `;
+            });
+
+            document.getElementById("tbody-jornadalaboralImprimir").innerHTML = contenidoTabla;
+
+
+        },
+
+        // código a ejecutar si la petición falla;
+        // son pasados como argumentos a la función
+        // el objeto de la petición en crudo y código de estatus de la petición
+        error: function (xhr, status) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema al cargar el listado",
+            });
+        }
+    });
+
+}
+
 
 function GuardarJornadaLaboral() {
     let jornadaLaboralID = $("#JornadaID").val();
@@ -571,6 +648,77 @@ function ListadoAsignacion(busquedaAsignar) {
     });
 
 }
+
+function ListadoAsignacionImprimir() {
+
+    $.ajax({
+        // la URL para la petición
+        url: '../../JornadaLaboral/MostrarAsignacion',
+        // la información a enviar
+        // (también es posible utilizar una cadena de datos)
+        data: { },
+        // especifica si será una petición POST o GET
+        type: 'GET',
+        // el tipo de información que se espera de respuesta
+        dataType: 'json',
+        // código a ejecutar si la petición es satisfactoria;
+        // la respuesta es pasada como argumento a la función
+        success: function (vistaAsignacion) {
+
+
+            let tabla = ``;
+
+            $.each(vistaAsignacion, function (index, asignacion) {
+
+                let diasEnColumna;
+
+                //DETERMINA QUE VALOR MOSTRAR EN LA COLUMNA DIAS
+                if (asignacion.dia) {
+                    diasEnColumna = asignacion.diasSemana;
+                }
+                else {
+                    diasEnColumna = asignacion.diaEspecialString;
+                }
+
+                tabla += `
+    <tr>
+        <td style="text-align: center">${asignacion.personaNombre}</td>
+        <td style="text-align: center" class="ocultar-en-767px">${asignacion.infoJornada}</td>
+        <td style="text-align: center" class="ocultar-en-767px">${diasEnColumna}</td>
+    </tr>
+ `;
+            });
+
+            document.getElementById("tbody-asignacionImprimir").innerHTML = tabla;
+
+
+        },
+
+        // código a ejecutar si la petición falla;
+        // son pasados como argumentos a la función
+        // el objeto de la petición en crudo y código de estatus de la petición
+        error: function (xhr, status) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema al cargar el listado",
+            });
+        }
+    });
+
+} 
 
 function GuardarAsignacion() {
     let asignacionID = $("#AsignacionJornadaID").val();

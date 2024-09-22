@@ -42,19 +42,40 @@ function ListadoUsuarios() {
 
       $.each(usuariosMostrar, function (index, usuario) {
 
+        // Variable para el título e ícono del botón de agregar
+        let tituloAgregar = '';
+        let iconoAgregar = '';
+
+        // Condición para cambiar título e ícono según el rol
+        if (usuario.rolNombre === 'CLIENTE') {
+          tituloAgregar = 'Agregar Cliente';
+          iconoAgregar = 'fa-solid fa-users'; // Ícono para agregar cliente
+        } 
+        else {
+          tituloAgregar = 'Agregar Persona';
+          iconoAgregar = 'fa-regular fa-id-card'; // Ícono para agregar persona
+        }
+
+
         contenidoTabla += `
                 <tr>
                     <td style="text-align: center">${usuario.email}</td>
                     <td style="text-align: center">${usuario.rolNombre}</td>
                     <td style="text-align: right">
-                    <button type="button" class="btn" title="Cambiar Contraseña" onclick="ValidarNuevaContraseña('${usuario.usuarioID}')">
-                    <i class="fa-solid fa-arrows-rotate"></i>
-                    </button>
+                    <td style="text-align: left">
+                      <button type="button" class="btn" title="${tituloAgregar}" onclick="RedirigirSegunRol('${usuario.usuarioID}', '${usuario.rolNombre}')">
+                        <i class="${iconoAgregar}"></i>
+                      </button>
                     </td>
                     <td style="text-align: left">
-                    <button type="button" class="btn ocultar-en-767px" title="Eliminar" onclick="EliminarUsuario('${usuario.usuarioID}')">
-                    <i class="fa-solid fa-trash" width="20" height="20"></i>
-                    </button>
+                      <button type="button" class="btn" title="Cambiar Contraseña" onclick="ValidarNuevaContraseña('${usuario.usuarioID}')">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                      </button>
+                    </td>
+                    <td style="text-align: left">
+                      <button type="button" class="btn ocultar-en-767px" title="Eliminar" onclick="EliminarUsuario('${usuario.usuarioID}')">
+                        <i class="fa-solid fa-trash" width="20" height="20"></i>
+                      </button>
                     </td>
                 </tr>
              `;
@@ -87,6 +108,15 @@ function ListadoUsuarios() {
       });
     }
   });
+}
+
+function RedirigirSegunRol(usuarioID, rolNombre) {
+  if (rolNombre == "ADMINISTRADOR" || rolNombre == "EMPLEADO") {
+    window.location.href = `/Personas/Personas/${usuarioID}`;
+  }
+  else {
+    window.location.href = `/Empresas/Empresas/${usuarioID}`;
+  }
 }
 
 function GuardarUsuario() {
@@ -436,13 +466,13 @@ function handleEntendido() {
 
 document.addEventListener("keydown", function (event) {
   if (event.key === "Escape") {
-      closeModalInfoTablas();
+    closeModalInfoTablas();
   }
 });
 
 window.onclick = function (event) {
   var modal = document.getElementById("ModalInfoTablas");
   if (event.target == modal) {
-      modal.style.display = "none";
+    modal.style.display = "none";
   }
 }

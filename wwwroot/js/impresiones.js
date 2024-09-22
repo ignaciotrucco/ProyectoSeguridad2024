@@ -1,119 +1,76 @@
-// Configura el tamaño de la página, por ejemplo, un ancho de 297 mm (A3 horizontal)
-let anchoAmpliado = new jsPDF('landscape', 'mm', [210, 297]);// Landscape A4 (210mm x 297mm)
-
+let anchoAmpliado = new jsPDF('landscape', 'mm', [210, 297]); // Landscape A4 (210mm x 297mm)
 
 function ImprimirTablaJorAñadidas() {
     var doc = anchoAmpliado;
 
-    var totalPagesExp = "{total_pages_count_string}"
+    var totalPagesExp = "{total_pages_count_string}";
     var pageContent = function (data) {
 
         var pageHeight = doc.internal.pageSize.height || doc.internal.pageSize.getHeight();
         var pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
 
-        //FOOTER
-        var str = "Página " + data.pageCount;
-        // Total page number plugin only available in jspdf v1.0+
-        if (typeof doc.putTotalPages == 'function') {
+        // FOOTER
+        var str = "Página " + doc.internal.getNumberOfPages();
+        if (typeof doc.putTotalPages === 'function') {
             str = str + " de " + totalPagesExp;
         }
 
-        //ESTABLECER ANCHO DE LINEA
+        // ESTABLECER ANCHO DE LÍNEA
         doc.setLineWidth(8);
 
-        //ESTABLECER COLOR DE LINEA
+        // ESTABLECER COLOR DE LÍNEA
         doc.setDrawColor(238, 238, 238);
 
-        //DIBUJAR UNA LINEA HORIZONTAL
-        doc.line(14, pageHeight - 11, 196, pageHeight - 11);
+        // DIBUJAR UNA LÍNEA HORIZONTAL
+        doc.line(14, pageHeight - 11, pageWidth - 14, pageHeight - 11);
 
-        //ESTABLECER TAMAÑO DE FUENTE
+        // ESTABLECER TAMAÑO Y ESTILO DE FUENTE
         doc.setFontSize(10);
-
-        //ESTABLECER ESTILO DE FUENTE A NEGRITA
         doc.setFontStyle('bold');
 
-        //AGREGAR TEXTO AL PIE DE PAGINA
+        // AGREGAR TEXTO AL PIE DE PÁGINA
         doc.text(str, 17, pageHeight - 10);
     };
 
-    // Add title and date to the first page
+    // Agregar título y fecha a la primera página
     doc.setFontSize(18);
     doc.setFontStyle('bold');
-    doc.text('Listado de Jornadas Añadidas', 14, 22);
+    doc.text('Jornadas Laborales', 14, 22);
 
     var element = document.getElementById("imprimir-tablaAñadida");
 
-    //CONVERTIR TABLA HTML A JSON
+    // CONVERTIR TABLA HTML A JSON
     var res = doc.autoTableHtmlToJson(element);
 
-    // FILTRADO DE COLUMNAS QUE NO SE QUIERE MOSTRAR
-    const filtrarColumnas = res.columns.filter((_, index) => index !== 5 && index !== 6);
-    const filtrarData = res.data.map(row => row.filter((_, index) => index !== 5 && index !== 6));
-
-    doc.autoTable(filtrarColumnas, filtrarData, {
+    doc.autoTable(res.columns, res.data, {
         addPageContent: pageContent,
         theme: 'grid',
         styles: { fillColor: [255, 219, 88] }, // Color amarillo para el encabezado
         columnStyles: {
-            0: {
-                cellWidth: 'auto',
-                fontSize: 8,
-                fillColor: [255, 255, 255]
-            },
-
-            1: {
-                fontSize: 7,
-                overflow: 'hidden',
-                fillColor: [255, 255, 255]
-            },
-
-            2: {
-                fontSize: 7,
-                fillColor: [255, 255, 255]
-            },
-
-            3: {
-                fontSize: 7,
-                fillColor: [255, 255, 255]
-            },
-
-            4: {
-                fontSize: 7,
-                fillColor: [255, 255, 255]
-            },
-
-            5: {
-                cellWidth: 'auto',
-                fontSize: 7,
-                fillColor: [255, 255, 255]
-            },
-
-            6: {
-                cellWidth: 'auto',
-                fontSize: 7,
-                fillColor: [255, 255, 255]
-            },
-
+            0: { cellWidth: 'auto', fontSize: 10, fillColor: [255, 255, 255] },
+            1: { fontSize: 10, fillColor: [255, 255, 255] },
+            2: { fontSize: 10, fillColor: [255, 255, 255] },
+            3: { fontSize: 10, fillColor: [255, 255, 255] },
+            4: { fontSize: 10, fillColor: [255, 255, 255] },
         },
-        margin: { top: 30 } // Adjust top margin for title
+        margin: { top: 30 } // Ajustar margen superior para el título
     });
 
-    // ESTO SE LLAMA ANTES DE ABRIR EL PDF PARA QUE MUESTRE EN EL PDF EL NRO TOTAL DE PAGINAS. ACA CALCULA EL TOTAL DE PAGINAS.
+    // Calcular el total de páginas antes de mostrar el PDF
     if (typeof doc.putTotalPages === 'function') {
         doc.putTotalPages(totalPagesExp);
     }
 
-    //doc.save('InformeSistema.pdf')
-
+    // Abrir el PDF en un nuevo iframe
     var string = doc.output('datauristring');
-    var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
+    var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>";
 
     var x = window.open();
     x.document.open();
     x.document.write(iframe);
     x.document.close();
 }
+
 
 function ImprimirTablaJorAsignadas() {
     var doc = anchoAmpliado;
@@ -124,10 +81,9 @@ function ImprimirTablaJorAsignadas() {
         var pageHeight = doc.internal.pageSize.height || doc.internal.pageSize.getHeight();
         var pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
 
-        //FOOTER
-        var str = "Página " + data.pageCount;
-        // Total page number plugin only available in jspdf v1.0+
-        if (typeof doc.putTotalPages == 'function') {
+        // FOOTER
+        var str = "Página " + doc.internal.getNumberOfPages();
+        if (typeof doc.putTotalPages === 'function') {
             str = str + " de " + totalPagesExp;
         }
 
@@ -137,8 +93,8 @@ function ImprimirTablaJorAsignadas() {
         //ESTABLECER COLOR DE LINEA
         doc.setDrawColor(238, 238, 238);
 
-        //DIBUJAR UNA LINEA HORIZONTAL
-        doc.line(14, pageHeight - 11, 196, pageHeight - 11);
+        // DIBUJAR UNA LÍNEA HORIZONTAL
+        doc.line(14, pageHeight - 11, pageWidth - 14, pageHeight - 11);
 
         //ESTABLECER TAMAÑO DE FUENTE
         doc.setFontSize(10);
@@ -152,18 +108,15 @@ function ImprimirTablaJorAsignadas() {
 
     doc.setFontSize(18);
     doc.setFontStyle('bold');
-    doc.text('Listado de Jornadas Asignadas', 14, 22);
+    doc.text('Jornadas Asignadas por Empleado', 14, 22);
 
     var element = document.getElementById("imprimir-tabla");
 
     //CONVERTIR TABLA HTML A JSON
     var res = doc.autoTableHtmlToJson(element);
 
-    // FILTRADO DE COLUMNAS QUE NO SE QUIERE MOSTRAR
-    const filtrarColumnas = res.columns.filter((_, index) => index !== 2 && index !== 3);
-    const filtrarData = res.data.map(row => row.filter((_, index) => index !== 2 && index !== 3));
 
-    doc.autoTable(filtrarColumnas, filtrarData, {
+    doc.autoTable(res.columns, res.data, {
         addPageContent: pageContent,
         theme: 'grid',
         styles: { fillColor: [255, 219, 88], fontSize: 12 }, // Color amarillo para el encabezado
@@ -174,6 +127,11 @@ function ImprimirTablaJorAsignadas() {
                 fillColor: [255, 255, 255]
             },
             1: {
+                cellWidth: 'auto',
+                fontSize: 12,
+                fillColor: [255, 255, 255]
+            },
+            2: {
                 cellWidth: 'auto',
                 fontSize: 12,
                 fillColor: [255, 255, 255]
@@ -208,7 +166,7 @@ function ImprimirTablaFichajes() {
         var pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
 
         //FOOTER
-        var str = "Página " + data.pageCount;
+        var str = "Página " + doc.internal.getNumberOfPages();
         // Total page number plugin only available in jspdf v1.0+
         if (typeof doc.putTotalPages == 'function') {
             str = str + " de " + totalPagesExp;
@@ -221,7 +179,7 @@ function ImprimirTablaFichajes() {
         doc.setDrawColor(238, 238, 238);
 
         //DIBUJAR UNA LINEA HORIZONTAL
-        doc.line(14, pageHeight - 11, 196, pageHeight - 11);
+        doc.line(14, pageHeight - 11, pageWidth - 14, pageHeight - 11);
 
         //ESTABLECER TAMAÑO DE FUENTE
         doc.setFontSize(10);
@@ -242,11 +200,8 @@ function ImprimirTablaFichajes() {
     //CONVERTIR TABLA HTML A JSON
     var res = doc.autoTableHtmlToJson(element);
 
-    // FILTRADO DE COLUMNAS QUE NO SE QUIERE MOSTRAR
-    const filtrarColumnas = res.columns.filter((_, index) => index !== 4 && index !== 5);
-    const filtrarData = res.data.map(row => row.filter((_, index) => index !== 4 && index !== 5));
 
-    doc.autoTable(filtrarColumnas, filtrarData, {
+    doc.autoTable(res.columns, res.data, {
         addPageContent: pageContent,
         theme: 'grid',
         styles: { fillColor: [255, 219, 88], fontSize: 12 }, // Color amarillo para el encabezado
@@ -301,7 +256,7 @@ function ImprimirTablaEmpresas() {
         var pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
 
         //FOOTER
-        var str = "Página " + data.pageCount;
+        var str = "Página " + doc.internal.getNumberOfPages();
         // Total page number plugin only available in jspdf v1.0+
         if (typeof doc.putTotalPages == 'function') {
             str = str + " de " + totalPagesExp;
@@ -314,7 +269,7 @@ function ImprimirTablaEmpresas() {
         doc.setDrawColor(238, 238, 238);
 
         //DIBUJAR UNA LINEA HORIZONTAL
-        doc.line(14, pageHeight - 11, 196, pageHeight - 11);
+        doc.line(14, pageHeight - 11, pageWidth - 14, pageHeight - 11);
 
         //ESTABLECER TAMAÑO DE FUENTE
         doc.setFontSize(10);
@@ -336,11 +291,7 @@ function ImprimirTablaEmpresas() {
     //CONVERTIR TABLA HTML A JSON
     var res = doc.autoTableHtmlToJson(element);
 
-    // FILTRADO DE COLUMNAS QUE NO SE QUIERE MOSTRAR
-    const filtrarColumnas = res.columns.filter((_, index) => index !== 7 && index !== 8);
-    const filtrarData = res.data.map(row => row.filter((_, index) => index !== 7 && index !== 8));
-
-    doc.autoTable(filtrarColumnas, filtrarData, {
+    doc.autoTable(res.columns, res.data, {
         addPageContent: pageContent,
         theme: 'grid',
         styles: { fillColor: [255, 219, 88] }, // Color amarillo para el encabezado
@@ -413,7 +364,7 @@ function ImprimirTablaProvincias() {
         var pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
 
         //FOOTER
-        var str = "Página " + data.pageCount;
+        var str = "Página " + doc.internal.getNumberOfPages();
         // Total page number plugin only available in jspdf v1.0+
         if (typeof doc.putTotalPages == 'function') {
             str = str + " de " + totalPagesExp;
@@ -426,7 +377,7 @@ function ImprimirTablaProvincias() {
         doc.setDrawColor(238, 238, 238);
 
         //DIBUJAR UNA LINEA HORIZONTAL
-        doc.line(14, pageHeight - 11, 196, pageHeight - 11);
+        doc.line(14, pageHeight - 11, pageWidth - 14, pageHeight - 11);
 
         //ESTABLECER TAMAÑO DE FUENTE
         doc.setFontSize(10);
@@ -491,7 +442,7 @@ function ImprimirTablaLocalidades() {
         var pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
 
         //FOOTER
-        var str = "Página " + data.pageCount;
+        var str = "Página " + doc.internal.getNumberOfPages();
         // Total page number plugin only available in jspdf v1.0+
         if (typeof doc.putTotalPages == 'function') {
             str = str + " de " + totalPagesExp;
@@ -504,7 +455,7 @@ function ImprimirTablaLocalidades() {
         doc.setDrawColor(238, 238, 238);
 
         //DIBUJAR UNA LINEA HORIZONTAL
-        doc.line(14, pageHeight - 11, 196, pageHeight - 11);
+        doc.line(14, pageHeight - 11, pageWidth - 14, pageHeight - 11);
 
         //ESTABLECER TAMAÑO DE FUENTE
         doc.setFontSize(10);
@@ -579,7 +530,7 @@ function ImprimirTablaUsuarios() {
         var pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
 
         //FOOTER
-        var str = "Página " + data.pageCount;
+        var str = "Página " + doc.internal.getNumberOfPages();
         // Total page number plugin only available in jspdf v1.0+
         if (typeof doc.putTotalPages == 'function') {
             str = str + " de " + totalPagesExp;
@@ -592,7 +543,7 @@ function ImprimirTablaUsuarios() {
         doc.setDrawColor(238, 238, 238);
 
         //DIBUJAR UNA LINEA HORIZONTAL
-        doc.line(14, pageHeight - 11, 196, pageHeight - 11);
+        doc.line(14, pageHeight - 11, pageWidth - 14, pageHeight - 11);
 
         //ESTABLECER TAMAÑO DE FUENTE
         doc.setFontSize(10);
@@ -614,8 +565,8 @@ function ImprimirTablaUsuarios() {
     var res = doc.autoTableHtmlToJson(element);
 
     // FILTRADO DE COLUMNAS QUE NO SE QUIERE MOSTRAR
-    const filtrarColumnas = res.columns.filter((_, index) => index !== 2 && index !== 3);
-    const filtrarData = res.data.map(row => row.filter((_, index) => index !== 2 && index !== 3));
+    const filtrarColumnas = res.columns.filter((_, index) => index !== 2 && index !== 3 && index !== 4);
+    const filtrarData = res.data.map(row => row.filter((_, index) => index !== 2 && index !== 3 && index !== 4));
 
     doc.autoTable(filtrarColumnas, filtrarData, {
         addPageContent: pageContent,
@@ -662,7 +613,7 @@ function ImprimirTablaPersonas() {
         var pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
 
         //FOOTER
-        var str = "Página " + data.pageCount;
+        var str = "Página " + doc.internal.getNumberOfPages();
         // Total page number plugin only available in jspdf v1.0+
         if (typeof doc.putTotalPages == 'function') {
             str = str + " de " + totalPagesExp;
@@ -675,7 +626,7 @@ function ImprimirTablaPersonas() {
         doc.setDrawColor(238, 238, 238);
 
         //DIBUJAR UNA LINEA HORIZONTAL
-        doc.line(14, pageHeight - 11, 196, pageHeight - 11);
+        doc.line(14, pageHeight - 11, pageWidth - 14, pageHeight - 11);
 
         //ESTABLECER TAMAÑO DE FUENTE
         doc.setFontSize(10);

@@ -50,10 +50,10 @@
                   <div class="col-auto">
                     <!-- Boton modal -->
                     <div class="boton-normal">
-                      <button class="btn btnImprimir mt-2" onclick="ImprimirTablaJorAñadidas()">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="btn-text">Imprimir</span>
-                      </button>
+                      @* <button class="btn btnImprimir mt-2" onclick="ImprimirTablaJorAñadidas()">
+                      <i class="fa-solid fa-download"></i>
+                      <span class="btn-text">Imprimir</span>
+                      </button> *@
                       <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar"
                         data-bs-toggle="modal" data-bs-target="#modalJornada" data-bs-target="#staticBackdrop"
                         onclick="NuevoRegistro()">
@@ -65,8 +65,12 @@
               </div>
 
               <div class="card-body">
+                <button class="btn btnImprimir mb-1" onclick="ImprimirTablaJorAñadidas()">
+                  <i class="fa-solid fa-download"></i>
+                  <span class="btn-text">Imprimir</span>
+                </button>
                 <div class="table-responsive">
-                  <table class="table table-striped mt-1" id="imprimir-tablaAñadida">
+                  <table class="table table-striped mt-1">
                     <thead>
                       <tr>
                         <th scope="col" style="text-align: center">CLIENTE</th>
@@ -91,6 +95,34 @@
   </div>
 </div>
 
+<!-- TABLA JORNADA PARA IMPRIMIR -->
+<table class="table table-striped mt-1 tablaOculta" id="imprimir-tablaAñadida">
+  <thead>
+    <tr>
+      <th scope="col" style="text-align: center">CLIENTE</th>
+      <th scope="col" style="text-align: center">LUGAR</th>
+      <th scope="col" style="text-align: center">DÍA / DÍAS</th>
+      <th scope="col" style="text-align: center">ENTRADA</th>
+      <th scope="col" style="text-align: center">SALIDA</th>
+    </tr>
+  </thead>
+  <tbody id="tbody-jornadalaboralImprimir"></tbody>
+</table>
+
+
+<!-- TABLA JORNADA ASIGNADA PARA IMPRIMIR -->
+<table class="table table-striped mt-1 tablaOculta" id="imprimir-tabla">
+  <thead>
+    <tr>
+      <th scope="col" style="text-align: center">EMPLEADO</th>
+      <th scope="col" style="text-align: center">JORNADA</th>
+      <th scope="col" style="text-align: center">DÍA / DÍAS</th>
+    </tr>
+  </thead>
+  <tbody id="tbody-asignacionImprimir"></tbody>
+</table>
+
+
 <div class="accordion m-4 mt-1" id="accordionPanelsStayOpenExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="panelsStayOpen-headingThree">
@@ -111,9 +143,8 @@
                   <div class="input-group m-2">
                     <span class="input-group-text spanJornada" id="basic-addon1"><i
                         class="fa-regular fa-user"></i></span>
-                    <input type="text" style="width:7rem !important; text-transform:uppercase"
-                      id="inputBusquedaAsignar" class="form-control inputBusqueda inputBusquedaResponsivo"
-                      placeholder="BUSCAR...">
+                    <input type="text" style="width:7rem !important; text-transform:uppercase" id="inputBusquedaAsignar"
+                      class="form-control inputBusqueda inputBusquedaResponsivo" placeholder="BUSCAR...">
                   </div>
                 </div>
                 <div class="col-auto ms-auto infoTabla">
@@ -122,38 +153,41 @@
                   </div>
                 </div>
                 <div class="col-auto">
-                    <!-- Boton modal -->
-                    <div class="boton-normal">
-                      <button class="btn btnImprimir" onclick="ImprimirTablaJorAsignadas()">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="btn-text">Imprimir</span>
-                      </button>
-                      <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar"
-                        data-bs-toggle="modal" data-bs-target="#modalEmpleadoJornada" data-bs-target="#staticBackdrop"
-                        onclick="NuevaAsignacion()">
-                        <i style="margin-bottom: -1px;" class="fa-solid fa-plus"></i>
-                      </button>
-                    </div>
+                  <!-- Boton modal -->
+                  <div class="boton-normal">
+                    @* <button class="btn btnImprimir" onclick="ImprimirTablaJorAsignadas()">
+                    <i class="fa-solid fa-download"></i>
+                    <span class="btn-text">Imprimir</span>
+                    </button> *@
+                    <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar"
+                      data-bs-toggle="modal" data-bs-target="#modalEmpleadoJornada" data-bs-target="#staticBackdrop"
+                      onclick="NuevaAsignacion()">
+                      <i style="margin-bottom: -1px;" class="fa-solid fa-plus"></i>
+                    </button>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-striped mt-1" id="imprimir-tabla">
-                    <thead>
-                      <tr>
-                        <th scope="col" style="text-align: center">EMPLEADO</th>
-                        <th scope="col" style="text-align: center" class="ocultar-en-767px">JORNADA</th>
-                        <th scope="col" style="text-align: center" class="ocultar-en-767px">DÍA / DÍAS</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col" class="mostrar-en-767px"></th>
-                      </tr>
-                    </thead>
-                    <tbody id="tbody-asignacion"></tbody>
-                  </table>
-                </div>
+            <div class="card-body">
+              <button class="btn btnImprimir mb-1" onclick="ImprimirTablaJorAsignadas()">
+                <i class="fa-solid fa-download"></i>
+                <span class="btn-text">Imprimir</span>
+              </button>
+              <div class="table-responsive">
+                <table class="table table-striped mt-1">
+                  <thead>
+                    <tr>
+                      <th scope="col" style="text-align: center">EMPLEADO</th>
+                      <th scope="col" style="text-align: center" class="ocultar-en-767px">JORNADA</th>
+                      <th scope="col" style="text-align: center" class="ocultar-en-767px">DÍA / DÍAS</th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                      <th scope="col" class="mostrar-en-767px"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody-asignacion"></tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -161,6 +195,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 
 <!-- Modal -->
@@ -320,8 +355,9 @@
     <p>• Horario Entrada</p>
     <p>• Horario Salida</p>
     <hr>
-    <h2 style="font-size: medium">Los mismos están disponibles presionado el botón 
-      [<i style="width: 12px; height: 12px; padding-bottom: 2px; color: rgb(58, 58, 58);" class="fa-solid fa-info">  </i>]
+    <h2 style="font-size: medium">Los mismos están disponibles presionado el botón
+      [<i style="width: 12px; height: 12px; padding-bottom: 2px; color: rgb(58, 58, 58);" class="fa-solid fa-info">
+      </i>]
       o girando de forma horizontal el dispositivo.
     </h2>
     <hr>
@@ -335,8 +371,9 @@
   <div class="modal-contentAyuda">
     <h2>¡Atención!</h2>
     <p>Para imprimir la tabla con todos los registros debemos presionar el botón de imprimir
-            [<i style="width: 12px; height: 12px; padding-bottom: 2px; color: rgb(58, 58, 58);" class="fa-solid fa-download">  </i>]
- con el dispositivo de forma horizontal.</p>
+      [<i style="width: 12px; height: 12px; padding-bottom: 2px; color: rgb(58, 58, 58);" class="fa-solid fa-download">
+      </i>]
+      con el dispositivo de forma horizontal.</p>
     <hr>
     <div class="modal-footerAyuda">
       <button class="botonEntendido" onclick="closeModalImpresion()">Entendido</button>
@@ -351,8 +388,9 @@
     <p>• Jornada (Hora)</p>
     <p>• Dia / Días</p>
     <hr>
-    <h2 style="font-size: medium">Los mismos están disponibles presionado el botón 
-      [<i style="width: 12px; height: 12px; padding-bottom: 2px; color: rgb(58, 58, 58);" class="fa-solid fa-info">  </i>]
+    <h2 style="font-size: medium">Los mismos están disponibles presionado el botón
+      [<i style="width: 12px; height: 12px; padding-bottom: 2px; color: rgb(58, 58, 58);" class="fa-solid fa-info">
+      </i>]
       o girando de forma horizontal el dispositivo.
     </h2>
     <hr>
@@ -363,35 +401,35 @@
 </div>
 
 <div id="modalDetalles1" class="modalDatos">
-    <div class="modal-contentDatos">
-        <h2>Jornada Añadida</h2>
+  <div class="modal-contentDatos">
+    <h2>Jornada Añadida</h2>
     <div id="detalleContenido1">
-        <p id="nombreEmpresa"></p>
-        <p id="lugar"></p>
-        <p id="diasColumna"></p>
-        <p id="horarioEntradaString"></p>
-        <p id="horarioSalidaString"></p>
+      <p id="nombreEmpresa"></p>
+      <p id="lugar"></p>
+      <p id="diasColumna"></p>
+      <p id="horarioEntradaString"></p>
+      <p id="horarioSalidaString"></p>
     </div>
     <hr>
     <div class="modal-footerAyuda">
-        <button class="botonEntendido" onclick="cerrarModal1()">Entendido</button>
+      <button class="botonEntendido" onclick="cerrarModal1()">Entendido</button>
     </div>
-</div>
+  </div>
 </div>
 
 <div id="modalDetalles2" class="modalDatos">
-    <div class="modal-contentDatos">
-        <h2>Jornada Asignada</h2>
+  <div class="modal-contentDatos">
+    <h2>Jornada Asignada</h2>
     <div id="detalleContenido2">
-        <p id="personaNombre"></p>
-        <p id="infoJornada"></p>
-        <p id="diasEnColumna"></p>
+      <p id="personaNombre"></p>
+      <p id="infoJornada"></p>
+      <p id="diasEnColumna"></p>
     </div>
     <hr>
     <div class="modal-footerAyuda">
-        <button class="botonEntendido" onclick="cerrarModal2()">Entendido</button>
+      <button class="botonEntendido" onclick="cerrarModal2()">Entendido</button>
     </div>
-</div>
+  </div>
 </div>
 
 @section Scripts {

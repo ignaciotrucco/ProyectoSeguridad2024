@@ -44,7 +44,7 @@
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped mt-1" id="imprimir-tabla">
+            <table class="table table-striped mt-1">
                 <thead>
                     <tr>
                         <th scope="col" style="text-align: center">RAZÓN SOCIAL</th>
@@ -64,6 +64,21 @@
         </div>
     </div>
 </div>
+
+<table class="table table-striped mt-1 tablaOculta" id="imprimir-tabla">
+    <thead>
+        <tr>
+            <th scope="col" style="text-align: center">RAZÓN SOCIAL</th>
+            <th scope="col" style="text-align: center">CUIT</th>
+            <th scope="col" style="text-align: center">TELÉFONO</th>
+            <th scope="col" style="text-align: center">EMAIL</th>
+            <th scope="col" style="text-align: center">PROVINCIA</th>
+            <th scope="col" style="text-align: center">LOCALIDAD</th>
+            <th scope="col" style="text-align: center">DOMICILIO</th>
+        </tr>
+    </thead>
+    <tbody id="tbody-empresasImprimir"></tbody>
+</table>
 
 <!-- Modal -->
 <div class="modal fade" id="modalEmpresas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
@@ -167,9 +182,11 @@
 
 <!-- Boton modal -->
 <div class="btnAgregar">
-    <button type="button" class="btn btn-secondary btn-circle btn-lg d-flex" style="padding-bottom: 2px;" title="Agregar" data-bs-toggle="modal"
-        data-bs-target="#modalEmpresas" data-bs-target="#staticBackdrop" onclick="NuevoRegistro()">
-        <i class="fa-solid fa-plus mt-1"></i><h5 style="margin-left: 3px; padding-top: 1px;" class="textBtnAgregar">Nuevo Cliente</h5>
+    <button type="button" class="btn btn-secondary btn-circle btn-lg d-flex" style="padding-bottom: 2px;"
+        title="Agregar" data-bs-toggle="modal" data-bs-target="#modalEmpresas" data-bs-target="#staticBackdrop"
+        onclick="NuevoRegistro()">
+        <i class="fa-solid fa-plus mt-1"></i>
+        <h5 style="margin-left: 3px; padding-top: 1px;" class="textBtnAgregar">Nuevo Cliente</h5>
     </button>
 </div>
 
@@ -211,10 +228,11 @@
         <p>• Provincia</p>
         <p>• Localidad</p>
         <hr>
-        <h2 style="font-size: medium">Los mismos están disponibles presionado el botón 
-      [<i style="width: 12px; height: 12px; padding-bottom: 2px; color: rgb(58, 58, 58);" class="fa-solid fa-info">  </i>]
-      o girando de forma horizontal el dispositivo.
-    </h2>
+        <h2 style="font-size: medium">Los mismos están disponibles presionado el botón
+            [<i style="width: 12px; height: 12px; padding-bottom: 2px; color: rgb(58, 58, 58);"
+                class="fa-solid fa-info"> </i>]
+            o girando de forma horizontal el dispositivo.
+        </h2>
         <hr>
         <div class="modal-footerAyuda">
             <button class="botonEntendido" onclick="handleEntendido()">Siguiente</button>
@@ -226,8 +244,9 @@
     <div class="modal-contentAyuda">
         <h2>¡Atención!</h2>
         <p>Para imprimir la tabla con todos los registros debemos presionar el botón de imprimir
-            [<i style="width: 12px; height: 12px; padding-bottom: 2px; color: rgb(58, 58, 58);" class="fa-solid fa-download">  </i>]
- con el dispositivo de forma horizontal.</p>
+            [<i style="width: 12px; height: 12px; padding-bottom: 2px; color: rgb(58, 58, 58);"
+                class="fa-solid fa-download"> </i>]
+            con el dispositivo de forma horizontal.</p>
         <hr>
         <div class="modal-footerAyuda">
             <button class="botonEntendido" onclick="closeModalImpresion()">Entendido</button>
@@ -238,20 +257,20 @@
 <div id="modalDetalles" class="modalDatos">
     <div class="modal-contentDatos">
         <h2>Detalles del Cliente</h2>
-    <div id="detalleContenido">
-        <p id="razonSocial"></p>
-        <p id="cuit_Cdi"></p>
-        <p id="telefono"></p>
-        <p id="email"></p>
-        <p id="provinciaNombre"></p>
-        <p id="localidadNombre"></p>
-        <p id="domicilio"></p>
+        <div id="detalleContenido">
+            <p id="razonSocial"></p>
+            <p id="cuit_Cdi"></p>
+            <p id="telefono"></p>
+            <p id="email"></p>
+            <p id="provinciaNombre"></p>
+            <p id="localidadNombre"></p>
+            <p id="domicilio"></p>
+        </div>
+        <hr>
+        <div class="modal-footerAyuda">
+            <button class="botonEntendido" onclick="cerrarModal()">Entendido</button>
+        </div>
     </div>
-    <hr>
-    <div class="modal-footerAyuda">
-        <button class="botonEntendido" onclick="cerrarModal()">Entendido</button>
-    </div>
-</div>
 </div>
 
 @section Scripts {

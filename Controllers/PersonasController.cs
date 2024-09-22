@@ -86,7 +86,7 @@ public class PersonasController : Controller
         if (!string.IsNullOrEmpty(RolBuscar))
         {
             var personasConRol = _context.UserRoles
-                .Where(ur => ur.RoleId == RolBuscar)  // Comparar directamente con el ID del rol
+                .Where(ur => _context.Roles.Any(r => r.Id == ur.RoleId && r.Name == RolBuscar))  // Comparar directamente con el ID del rol
                 .Select(ur => ur.UserId)
                 .ToList();
 

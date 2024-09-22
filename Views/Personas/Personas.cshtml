@@ -17,23 +17,23 @@
                         <select class="form-select me-2 inputBusqueda" aria-label="Default select example"
                             id="rolBuscar" onchange="ListadoPersonas()">
                             <option value="" selected>Todos/as</option>
-                            <option value="c2a508f9-bc7d-401a-bad0-ae590ad7d5cb">Empleados/as</option>
-                            <option value="989ee0a4-d29b-4faf-a3bb-fcdb7bd9e296">Administradores/as</option>
+                            <option value="EMPLEADO">Empleados/as</option>
+                            <option value="ADMINISTRADOR">Administradores/as</option>
                         </select>
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
                             <input type="text" id="inputBusqueda" class="form-control inputBusqueda"
                                 placeholder="Buscar..." style="text-transform:uppercase">
                         </div>
-                        <button class="btn btnImprimir mt-2" onclick="ImprimirTablaPersonas()">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="btn-text">Imprimir</span>
-                    </button>
                     </div>
                 </div>
             </div>
         </div>
         <hr>
+        <button class="btn btnImprimir mb-1" onclick="ImprimirTablaPersonas()">
+            <i class="fa-solid fa-download"></i>
+            <span class="btn-text">Imprimir</span>
+        </button>
         <!-- Card Personas -->
         <div class="row mt-3" id="cbody-personas"></div>
     </div>

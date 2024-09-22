@@ -109,7 +109,7 @@ public class EmpresasController : Controller
 
         if (EmpresaID == 0)
         {
-            var existeEmpresa = _context.Empresas.Where(e => e.Cuit_Cdi == Cuit_Cdi).Count();
+            var existeEmpresa = _context.Empresas.Where(e => e.Cuit_Cdi == Cuit_Cdi || e.UsuarioID == UsuarioIDconvertido).Count();
             if (existeEmpresa == 0)
             {
                 var nuevaEmpresa = new Empresa
@@ -141,7 +141,7 @@ public class EmpresasController : Controller
                 if (existeEmpresaEditar == 0)
                 {
                     editarEmpresa.LocalidadID = LocalidadID;
-                    editarEmpresa.UsuarioID = UsuarioIDconvertido;
+                    // editarEmpresa.UsuarioID = UsuarioIDconvertido;
                     editarEmpresa.RazonSocial = RazonSocial;
                     editarEmpresa.Cuit_Cdi = Cuit_Cdi;
                     editarEmpresa.Telefono = Telefono;
