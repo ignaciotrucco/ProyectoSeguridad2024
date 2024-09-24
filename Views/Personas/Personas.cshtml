@@ -70,7 +70,8 @@
                                 </div>
                                 <div class="col-md-5">
                                     <label for="emailUsuario" class="form-label d-flex">Elige el usuario de esta persona
-                                        <p class="asterisco">*</p></label>
+                                        <p class="asterisco">*</p>
+                                    </label>
                                     @Html.DropDownList("emailUsuario", null, htmlAttributes: new
                                         {
                                             @class =
@@ -224,6 +225,27 @@
             <hr>
             <div class="modal-footerAyuda">
                 <button class="botonEntendido" onclick="closeModalDni()">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalDetalles" class="modalDatos">
+        <div class="modal-contentDatosPersonas">
+            <h2>Detalles de la persona</h2>
+            <hr>
+            <div id="detalleContenido">
+                <p id="nombreCompleto"></p>
+                <p id="fechaNacimientoString"></p>
+                <p id="tipoDocumentoNombre"></p>
+                <p id="telefono"></p>
+                <p id="email"></p>
+                <p id="provinciaNombre"></p>
+                <p id="localidadNombre"></p>
+                <p id="domicilio"></p>
+            </div>
+            <hr>
+            <div class="modal-footerAyuda">
+                <button class="botonEntendido" onclick="cerrarModal()">Entendido</button>
             </div>
         </div>
     </div>
