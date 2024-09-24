@@ -161,6 +161,10 @@ function TablaImprimir() {
         // la respuesta es pasada como argumento a la función
         success: function (mostrarEmpresa) {
 
+            $("#modalEmpresas").modal("hide");
+            LimpiarModal();
+
+
             let contenidoTabla = ``;
 
             $.each(mostrarEmpresa, function (index, empresa) {
@@ -208,38 +212,43 @@ function TablaImprimir() {
 
 }
 
-$(document).ready(function() {
-    //FUNCION PARA OBTENER EL USUARIOID DESDE LA URL
-    function urlUsuarioID() {
-        const pathArray = window.location.pathname.split('/');
-        return pathArray[pathArray.length - 1];  // Obtiene el último segmento de la URL (usuarioID)
-    }
+// $(document).ready(function() {
+//     //FUNCION PARA OBTENER EL USUARIOID DESDE LA URL
+//     function urlUsuarioID() {
+//         const pathArray = window.location.pathname.split('/');
+//         return pathArray[pathArray.length - 1];  // Obtiene el último segmento de la URL (usuarioID)
+//     }
+window.onload = setTimeout("TraerIdUsuario();", 500);
+function TraerIdUsuario() {
 
     //GUARDAMOS EN UNA VARIABLE EL USUARIO OBTENIDO EN LA URL
-    var usuarioID = urlUsuarioID();
+    var usuarioID = $("#idUsuarioTraer").val();
 
-    //PETICION AJAX PARA OBTENER EMAIL DEL USUARIO
-    $.ajax({
-        url: '/Users/ListadoUsuarios',
-        data: { UsuarioID: usuarioID }, 
-        type: 'GET',
-        dataType: 'json',
-        success: function(usuariosMostrar) {
+    if (usuarioID != "") {
+        //PETICION AJAX PARA OBTENER EMAIL DEL USUARIO
+        $.ajax({
+            url: '/Users/ListadoUsuarios',
+            data: { UsuarioID: usuarioID },
+            type: 'GET',
+            dataType: 'json',
+            success: function (usuariosMostrar) {
 
-            console.log(usuariosMostrar);
+                let usuarioMostrar = usuariosMostrar[0];
 
-            let usuarioMostrar = usuariosMostrar[0];
-            
-            $("#UsuarioID").val(usuarioMostrar.email);
-            $("#modalEmpresas").modal('show');
-            $("#tituloModal").text("Nuevo Cliente")
-        },
-        error: function() {
-            alert('Error al obtener los datos del usuario.');
-        }
-    });
+                $("#UsuarioID").val(usuarioMostrar.email);
+                $("#modalEmpresas").modal('show');
+                $("#tituloModal").text("Nuevo Cliente")
+            },
+            error: function () {
+                alert('Error al obtener los datos del usuario.');
+            }
+        });
+    }
 
-});
+}
+
+
+// });
 
 
 
@@ -449,23 +458,24 @@ function EliminarEmpresa(empresaID) {
                 success: function (resultado) {
 
                     if (!resultado) {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: "bottom-end",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        background: '#fcffe7',
-                        didOpen: (toast) => {
-                          toast.onmouseenter = Swal.stopTimer;
-                          toast.onmouseleave = Swal.resumeTimer;
-                        }
-                      });
-                      Toast.fire({
-                        icon: "warning",
-                        title: "Oops...",
-                        text: "No se puede eliminar, existen registros asociados",
-                      }); }
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "bottom-end",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            background: '#fcffe7',
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "warning",
+                            title: "Oops...",
+                            text: "No se puede eliminar, existen registros asociados",
+                        });
+                    }
 
                     ListadoEmpresas();
                 },
@@ -638,7 +648,7 @@ function cerrarModal() {
 }
 
 // Cierra el modal al hacer clic fuera de él
-window.onclick = function(event) {
+window.onclick = function (event) {
     const modal = document.getElementById('modalDetalles');
     if (event.target === modal) {
         cerrarModal();

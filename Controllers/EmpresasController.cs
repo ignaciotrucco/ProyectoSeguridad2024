@@ -23,7 +23,7 @@ public class EmpresasController : Controller
         _userManager = userManager;
     }
 
-    public IActionResult Empresas()
+    public IActionResult Empresas(string id)
     {
 
         var provincias = _context.Provincias.ToList();
@@ -36,6 +36,8 @@ public class EmpresasController : Controller
 
         var usuarios = _context.Users.ToList();
         ViewBag.UsuarioID = new SelectList(usuarios.OrderBy(t => t.Email), "Email", "Email");
+
+        ViewBag.UsuarioIDTraer = id;
 
         return View();
     }

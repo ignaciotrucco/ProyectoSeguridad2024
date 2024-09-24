@@ -51,7 +51,6 @@ function ListadoPersonas(busqueda) {
                         <li class="datosPersona list-group-item">${persona.domicilio}</li>
                         <li class="datosPersona list-group-item">${persona.telefono}</li>
                         <li class="datosPersona list-group-item">${persona.email}</li>
-                        <li class="datosPersona list-group-item">${persona.nombreCompleto}</li>
                         <li class="datosPersona list-group-item">Nacimiento: ${persona.fechaNacimientoString}</li>
                     </ul>
                     <div class="btnPersonas">
@@ -78,38 +77,43 @@ function ListadoPersonas(busqueda) {
     });
 }
 
-$(document).ready(function () {
-    //FUNCION PARA OBTENER EL USUARIOID DESDE LA URL
-    function urlUsuarioID() {
-        const pathArray = window.location.pathname.split('/');
-        return pathArray[pathArray.length - 1];  //OBTIENE EL ULTIMO SEGMENTO DE LA URL(USUARIOID) 
-    }
+
+// //FUNCION PARA OBTENER EL USUARIOID DESDE LA URL
+// function urlUsuarioID() {
+//     const pathArray = window.location.pathname.split('/');
+//     return pathArray[pathArray.length - 1];  //OBTIENE EL ULTIMO SEGMENTO DE LA URL(USUARIOID) 
+// }
+
+window.onload = setTimeout("TraerIdUsuario();", 500);
+function TraerIdUsuario() {
 
     //GUARDAMOS EN UNA VARIABLE EL USUARIO OBTENIDO EN LA URL
-    var usuarioID = urlUsuarioID();
+    var usuarioID = $("#idUsuarioTraer").val();
 
-    //PETICION AJAX PARA OBTENER EMAIL DEL USUARIO
-    $.ajax({
-        url: '/Users/ListadoUsuarios',
-        data: { UsuarioID: usuarioID },
-        type: 'GET',
-        dataType: 'json',
-        success: function (usuariosMostrar) {
+    if (usuarioID != "") {
+        //PETICION AJAX PARA OBTENER EMAIL DEL USUARIO
+        $.ajax({
+            url: '/Users/ListadoUsuarios',
+            data: { UsuarioID: usuarioID },
+            type: 'GET',
+            dataType: 'json',
+            success: function (usuariosMostrar) {
 
-            console.log(usuariosMostrar);
+                let usuarioMostrar = usuariosMostrar[0]
 
-            let usuarioMostrar = usuariosMostrar[0]
+                $("#emailUsuario").val(usuarioMostrar.email);
+                $("#modalPersonas").modal('show');
+                $("#tituloModal").text("Nueva Persona");
+            },
+            error: function () {
+                alert('Error al obtener los datos del usuario.');
+            }
+        });
+    }
+}
 
-            $("#emailUsuario").val(usuarioMostrar.email);
-            $("#modalPersonas").modal('show');
-            $("#tituloModal").text("Nueva Persona");
-        },
-        error: function () {
-            alert('Error al obtener los datos del usuario.');
-        }
-    });
 
-});
+
 
 function TablaImprimir() {
 
@@ -119,6 +123,9 @@ function TablaImprimir() {
         type: 'POST',
         dataType: 'json',
         success: function (personasMostrar) {
+
+            $("#modalPersonas").modal("hide");
+            LimpiarModal();
 
             let contenidoTabla = ``;
 

@@ -23,7 +23,7 @@ public class PersonasController : Controller
         _userManager = userManager;
     }
 
-    public IActionResult Personas()
+    public IActionResult Personas(string id)
     {
         var tipoDocumentos = _context.TipoDocumentos.ToList();
         tipoDocumentos.Add(new TipoDocumento { TipoDocumentoID = 0, Nombre = "[ . . . ]" });
@@ -39,6 +39,8 @@ public class PersonasController : Controller
 
         var usuarios = _context.Users.ToList();
         ViewBag.emailUsuario = new SelectList(usuarios.OrderBy(t => t.Email), "Email", "Email");
+
+        ViewBag.UsuarioID = id;
 
         return View();
     }
