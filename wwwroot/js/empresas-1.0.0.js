@@ -210,25 +210,27 @@ function TablaImprimir() {
 
 $(document).ready(function() {
     //FUNCION PARA OBTENER EL USUARIOID DESDE LA URL
-    function getUsuarioIDFromUrl() {
+    function urlUsuarioID() {
         const pathArray = window.location.pathname.split('/');
         return pathArray[pathArray.length - 1];  // Obtiene el último segmento de la URL (usuarioID)
     }
 
     //GUARDAMOS EN UNA VARIABLE EL USUARIO OBTENIDO EN LA URL
-    var usuarioID = getUsuarioIDFromUrl();
+    var usuarioID = urlUsuarioID();
 
     //PETICION AJAX PARA OBTENER EMAIL DEL USUARIO
     $.ajax({
-        url: '/Users/ListadoUsuarios', 
-        async: false,
+        url: '/Users/ListadoUsuarios',
+        data: { UsuarioID: usuarioID }, 
         type: 'GET',
-        data: { UsuarioID: usuarioID },
+        dataType: 'json',
         success: function(usuariosMostrar) {
-            let usuarioMostrar = usuariosMostrar[0]
-            // Pegar el email del usuario en el input del modal
-            $("#UsuarioID").val(usuarioMostrar.email); 
-            // Abrir el modal automáticamente
+
+            console.log(usuariosMostrar);
+
+            let usuarioMostrar = usuariosMostrar[0];
+            
+            $("#UsuarioID").val(usuarioMostrar.email);
             $("#modalEmpresas").modal('show');
             $("#tituloModal").text("Nuevo Cliente")
         },
