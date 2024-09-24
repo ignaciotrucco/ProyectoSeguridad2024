@@ -718,11 +718,7 @@ input:checked+.slider:before {
     }
 
     .referenciaTexto {
-        font-size: small;
-    }
-
-    .colorFueraDeHorario {
-        margin-left: 5px;
+        font-size: medium;
     }
 
     .referenciaColor {
@@ -734,6 +730,19 @@ input:checked+.slider:before {
         flex-direction: column;
         align-items: flex-end;
     }
+
+    .labelFiltro{
+        font-size: small;
+    }
+
+    .labelFiltroAncho{
+        width: 205px;
+    }
+
+    .anchoDate{
+        width: 100px;
+    }
+
 }
 
 @media (max-width: 550px) {

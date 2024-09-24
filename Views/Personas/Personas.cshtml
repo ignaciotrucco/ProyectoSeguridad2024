@@ -13,213 +13,228 @@
                     <h1 class="hover-icon">PERSONAS <i class="fas fa-id-card icon"></i></h1>
                 </div>
                 <div class="col-auto">
-                    <div class="d-flex align-items-center">
-                        <select class="form-select me-2 inputBusqueda" aria-label="Default select example"
-                            id="rolBuscar" onchange="ListadoPersonas()">
-                            <option value="" selected>Todos/as</option>
-                            <option value="EMPLEADO">Empleados/as</option>
-                            <option value="ADMINISTRADOR">Administradores/as</option>
-                        </select>
-                        <div class="input-group">
-                            <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
-                            <input type="text" id="inputBusqueda" class="form-control inputBusqueda"
-                                placeholder="Buscar..." style="text-transform:uppercase">
-                        </div>
+                    <button class="btn btnImprimir mb-1" onclick="ImprimirTablaPersonas()">
+                        <i class="fa-solid fa-download"></i>
+                        <span class="btn-text">Imprimir</span>
+                    </button>
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-5">
+                <div class="d-flex align-items-center">
+                    <select class="form-select me-2 inputBusqueda" aria-label="Default select example" id="rolBuscar"
+                        onchange="ListadoPersonas()">
+                        <option value="" selected>Todos/as</option>
+                        <option value="EMPLEADO">Empleados/as</option>
+                        <option value="ADMINISTRADOR">Administradores/as</option>
+                    </select>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
+                        <input type="text" id="inputBusqueda" class="form-control inputBusqueda" placeholder="Buscar..."
+                            style="text-transform:uppercase">
                     </div>
                 </div>
             </div>
+
+            <!-- Card Personas -->
+            <div class="row mt-3" id="cbody-personas"></div>
         </div>
-        <hr>
-        <button class="btn btnImprimir mb-1" onclick="ImprimirTablaPersonas()">
-            <i class="fa-solid fa-download"></i>
-            <span class="btn-text">Imprimir</span>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalPersonas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        id="staticBackdrop" data-bs-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloModal"></h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="d-flex">
+                            <p class="campoObligatorio">Los campos marcados con un asterisco (<span
+                                    class="asterisco">*</span>) son obligatorios <b>|</b> Click en <i
+                                    style="color: rgb(48, 126, 235);" class="fa-solid fa-circle-info"></i> para más
+                                información.</p>
+                        </div>
+                        <form>
+                            <div class="row mb-2">
+                                <div class="col-md-7">
+                                    <input type="hidden" id="PersonaID">
+                                    <label for="Nombre" class="form-label d-flex">Nombre Completo<p class="asterisco">*
+                                        </p>
+                                    </label>
+                                    <input type="text" class="form-control" id="Nombre" maxlength="50"
+                                        style="text-transform:uppercase">
+                                    <span id="nombrePersonaError" class="textoError"></span>
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="emailUsuario" class="form-label d-flex">Elige el usuario de esta persona
+                                        <p class="asterisco">*</p></label>
+                                    @Html.DropDownList("emailUsuario", null, htmlAttributes: new
+                                        {
+                                            @class =
+                                             "form-control",
+                                            @id = "emailUsuario"
+                                        });
+                                    <span id="usuarioPersonaError" class="textoError"></span>
+                                </div>
+                                <hr style="color: rgb(46, 46, 46);">
+                                <div class="col-md-6">
+                                    <label for="Domicilio" class="form-label d-flex">Domicilio<p class="asterisco">*</p>
+                                    </label>
+                                    <input type="text" class="form-control" id="Domicilio" maxlength="50"
+                                        style="text-transform:uppercase">>
+                                    <span id="domicilioPersonaError" class="textoError"></span>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="TipoDocumentoID" class="form-label d-flex">Tipo Doc.<p
+                                            class="asterisco">*
+                                        </p></label>
+                                    @Html.DropDownList("TipoDocumentoID", null, htmlAttributes: new
+                                        {
+                                            @class =
+                                             "form-control"
+                                        });
+                                    <span id="tipoDocPersonaError" class="textoError"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="NroDoc" class="form-label d-flex">Número de Documento<p
+                                            class="asterisco">*
+                                        </p>
+                                        <div class="question-icon" onclick="openModalDni()">
+                                            <i class="fa-solid fa-circle-info"></i>
+                                        </div>
+                                    </label>
+                                    <input type="text" maxlength="11"
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control"
+                                        id="NroDoc">
+                                    <span id="nroDocPersonaError" class="textoError"></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="FechaNacimiento" class="form-label d-flex">Fecha de Nac.<p
+                                            class="asterisco">*</p></label>
+                                    <input type="date" id="FechaNacimiento" class="form-control">
+                                    <span id="fechaPersonaError" class="textoError"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="Telefono" class="form-label d-flex">Numero de Télefono<p
+                                            class="asterisco">*
+                                        </p>
+                                        <div class="question-icon" onclick="openModalTel()">
+                                            <i class="fa-solid fa-circle-info"></i>
+                                        </div>
+                                    </label>
+                                    <input type="tel" class="form-control" id="Telefono">
+                                    <span id="telefonoPersonaError" class="textoError"></span>
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="Email" class="form-label d-flex">Email<p class="asterisco">*</p></label>
+                                    <input type="email" class="form-control" id="Email">
+                                    <span id="emailPersonaError" class="textoError"></span>
+                                </div>
+                                <hr style="color: rgb(46, 46, 46);">
+                                <div class="col-md-6">
+                                    <label for="ProvinciaID" class="form-label d-flex">Provincia<p class="asterisco">*
+                                        </p>
+                                    </label>
+                                    @Html.DropDownList("ProvinciaID", null, htmlAttributes: new
+                                        {
+                                            @class =
+                                             "form-control"
+                                        })
+                                    <span id="provinciaPersonaError" class="textoError"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="LocalidadID" class="form-label d-flex">Localidad<p class="asterisco">*
+                                        </p>
+                                    </label>
+                                    @Html.DropDownList("LocalidadID", null, htmlAttributes: new
+                                        {
+                                            @class =
+                                             "form-control"
+                                        })
+                                    <span id="localidadPersonaError" class="textoError"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btnGuardar" onclick="GuardarPersona()">Guardar</button>
+                    <button type="button" class="btn btnCancelar" data-bs-dismiss="modal"
+                        onclick="LimpiarModal()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla para impresiones -->
+    <table class="table table-striped mt-1 tablaOculta" id="imprimir-tabla">
+        <thead>
+            <tr>
+                <th scope="col" style="text-align: center">NOMBRE COMPLETO</th>
+                <th scope="col" style="text-align: center">ROL</th>
+                <th scope="col" style="text-align: center">DOCUMENTO</th>
+                <th scope="col" style="text-align: center">PROVINCIA</th>
+                <th scope="col" style="text-align: center">LOCALIDAD</th>
+                <th scope="col" style="text-align: center">DOMICILIO</th>
+                <th scope="col" style="text-align: center">TELEFONO</th>
+                <th scope="col" style="text-align: center">EMAIL</th>
+                <th scope="col" style="text-align: center">NACIMIENTO</th>
+            </tr>
+        </thead>
+        <tbody id="tbody-personasImprimir"></tbody>
+    </table>
+
+    <!-- Boton modal -->
+    <div class="btnAgregar">
+        <button type="button" class="btn btn-secondary btn-circle btn-lg d-flex" style="padding-bottom: 2px;"
+            title="Agregar" data-bs-toggle="modal" data-bs-target="#modalPersonas" data-bs-target="#staticBackdrop"
+            onclick="NuevaPersona()">
+            <i class="fa-solid fa-plus mt-1"></i>
+            <h5 style="margin-left: 3px; padding-top: 1px;" class="textBtnAgregar">Nueva Persona</h5>
         </button>
-        <!-- Card Personas -->
-        <div class="row mt-3" id="cbody-personas"></div>
     </div>
-</div>
 
-
-<!-- Modal -->
-<div class="modal fade" id="modalPersonas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-    id="staticBackdrop" data-bs-backdrop="static">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="tituloModal"></h5>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="d-flex">
-                        <p class="campoObligatorio">Los campos marcados con un asterisco (<span
-                                class="asterisco">*</span>) son obligatorios <b>|</b> Click en <i
-                                style="color: rgb(48, 126, 235);" class="fa-solid fa-circle-info"></i> para más
-                            información.</p>
-                    </div>
-                    <form>
-                        <div class="row mb-2">
-                            <div class="col-md-7">
-                                <input type="hidden" id="PersonaID">
-                                <label for="Nombre" class="form-label d-flex">Nombre Completo<p class="asterisco">*</p>
-                                </label>
-                                <input type="text" class="form-control" id="Nombre" maxlength="50"
-                                    style="text-transform:uppercase">
-                                <span id="nombrePersonaError" class="textoError"></span>
-                            </div>
-                            <div class="col-md-5">
-                                <label for="emailUsuario" class="form-label d-flex">Elige el usuario de esta persona<p
-                                        class="asterisco">*</p></label>
-                                @Html.DropDownList("emailUsuario", null, htmlAttributes: new
-                                    {
-                                        @class =
-                                         "form-control",
-                                        @id = "emailUsuario"
-                                    });
-                                <span id="usuarioPersonaError" class="textoError"></span>
-                            </div>
-                            <hr style="color: rgb(46, 46, 46);">
-                            <div class="col-md-6">
-                                <label for="Domicilio" class="form-label d-flex">Domicilio<p class="asterisco">*</p>
-                                </label>
-                                <input type="text" class="form-control" id="Domicilio" maxlength="50"
-                                    style="text-transform:uppercase">>
-                                <span id="domicilioPersonaError" class="textoError"></span>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="TipoDocumentoID" class="form-label d-flex">Tipo Doc.<p class="asterisco">*
-                                    </p></label>
-                                @Html.DropDownList("TipoDocumentoID", null, htmlAttributes: new
-                                    {
-                                        @class =
-                                         "form-control"
-                                    });
-                                <span id="tipoDocPersonaError" class="textoError"></span>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="NroDoc" class="form-label d-flex">Número de Documento<p class="asterisco">*
-                                    </p>
-                                    <div class="question-icon" onclick="openModalDni()">
-                                        <i class="fa-solid fa-circle-info"></i>
-                                    </div>
-                                </label>
-                                <input type="text" maxlength="11"
-                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control"
-                                    id="NroDoc">
-                                <span id="nroDocPersonaError" class="textoError"></span>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="FechaNacimiento" class="form-label d-flex">Fecha de Nac.<p
-                                        class="asterisco">*</p></label>
-                                <input type="date" id="FechaNacimiento" class="form-control">
-                                <span id="fechaPersonaError" class="textoError"></span>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="Telefono" class="form-label d-flex">Numero de Télefono<p class="asterisco">*
-                                    </p>
-                                    <div class="question-icon" onclick="openModalTel()">
-                                        <i class="fa-solid fa-circle-info"></i>
-                                    </div>
-                                </label>
-                                <input type="tel" class="form-control" id="Telefono">
-                                <span id="telefonoPersonaError" class="textoError"></span>
-                            </div>
-                            <div class="col-md-5">
-                                <label for="Email" class="form-label d-flex">Email<p class="asterisco">*</p></label>
-                                <input type="email" class="form-control" id="Email">
-                                <span id="emailPersonaError" class="textoError"></span>
-                            </div>
-                            <hr style="color: rgb(46, 46, 46);">
-                            <div class="col-md-6">
-                                <label for="ProvinciaID" class="form-label d-flex">Provincia<p class="asterisco">*</p>
-                                </label>
-                                @Html.DropDownList("ProvinciaID", null, htmlAttributes: new { @class = "form-control" })
-                                <span id="provinciaPersonaError" class="textoError"></span>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="LocalidadID" class="form-label d-flex">Localidad<p class="asterisco">*</p>
-                                </label>
-                                @Html.DropDownList("LocalidadID", null, htmlAttributes: new { @class = "form-control" })
-                                <span id="localidadPersonaError" class="textoError"></span>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btnGuardar" onclick="GuardarPersona()">Guardar</button>
-                <button type="button" class="btn btnCancelar" data-bs-dismiss="modal"
-                    onclick="LimpiarModal()">Cancelar</button>
+    <!-- Modal Ayuda Form -->
+    <div id="ModalTelefono" class="modalAyuda" onclick="closeModalTel()">
+        <div class="modal-contentAyuda">
+            <h2>Ejemplos de teléfonos</h2>
+            <hr>
+            <p>Formatos de números de celular válidos para Argentina.</p>
+            <p>• 54 3562 123456</p>
+            <hr>
+            <div class="modal-footerAyuda">
+                <button class="botonEntendido" onclick="closeModalTel()">Entendido</button>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Tabla para impresiones -->
-<table class="table table-striped mt-1 tablaOculta" id="imprimir-tabla">
-    <thead>
-        <tr>
-            <th scope="col" style="text-align: center">NOMBRE COMPLETO</th>
-            <th scope="col" style="text-align: center">ROL</th>
-            <th scope="col" style="text-align: center">DOCUMENTO</th>
-            <th scope="col" style="text-align: center">PROVINCIA</th>
-            <th scope="col" style="text-align: center">LOCALIDAD</th>
-            <th scope="col" style="text-align: center">DOMICILIO</th>
-            <th scope="col" style="text-align: center">TELEFONO</th>
-            <th scope="col" style="text-align: center">EMAIL</th>
-            <th scope="col" style="text-align: center">NACIMIENTO</th>
-        </tr>
-    </thead>
-    <tbody id="tbody-personasImprimir"></tbody>
-</table>
-
-<!-- Boton modal -->
-<div class="btnAgregar">
-    <button type="button" class="btn btn-secondary btn-circle btn-lg d-flex" style="padding-bottom: 2px;"
-        title="Agregar" data-bs-toggle="modal" data-bs-target="#modalPersonas" data-bs-target="#staticBackdrop"
-        onclick="NuevaPersona()">
-        <i class="fa-solid fa-plus mt-1"></i>
-        <h5 style="margin-left: 3px; padding-top: 1px;" class="textBtnAgregar">Nueva Persona</h5>
-    </button>
-</div>
-
-<!-- Modal Ayuda Form -->
-<div id="ModalTelefono" class="modalAyuda" onclick="closeModalTel()">
-    <div class="modal-contentAyuda">
-        <h2>Ejemplos de teléfonos</h2>
-        <hr>
-        <p>Formatos de números de celular válidos para Argentina.</p>
-        <p>• 54 3562 123456</p>
-        <hr>
-        <div class="modal-footerAyuda">
-            <button class="botonEntendido" onclick="closeModalTel()">Entendido</button>
+    <!-- Modal Ayuda Form -->
+    <div id="ModalDni" class="modalAyuda" onclick="closeModalDni()">
+        <div class="modal-contentAyuda">
+            <h2>Ejemplos de Documentos</h2>
+            <hr>
+            <p>Formatos de DNI válidos para Argentina.</p>
+            <p>• 4429878 (7 dígitos)</p>
+            <p>• 44298786 (8 dígitos)</p>
+            <p>Formatos de CUIL/CUIT válidos para Argentina.</p>
+            <p>• 23123456786 (11 dígitos)</p>
+            <hr>
+            <div class="modal-footerAyuda">
+                <button class="botonEntendido" onclick="closeModalDni()">Entendido</button>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Modal Ayuda Form -->
-<div id="ModalDni" class="modalAyuda" onclick="closeModalDni()">
-    <div class="modal-contentAyuda">
-        <h2>Ejemplos de Documentos</h2>
-        <hr>
-        <p>Formatos de DNI válidos para Argentina.</p>
-        <p>• 4429878 (7 dígitos)</p>
-        <p>• 44298786 (8 dígitos)</p>
-        <p>Formatos de CUIL/CUIT válidos para Argentina.</p>
-        <p>• 23123456786 (11 dígitos)</p>
-        <hr>
-        <div class="modal-footerAyuda">
-            <button class="botonEntendido" onclick="closeModalDni()">Entendido</button>
-        </div>
-    </div>
-</div>
-
-@section Scripts {
-    <script src="~/js/personas-1.0.0.js"></script>
-    <script src="~/js/impresiones.js"></script>
-    <script>
-        // Obtiene la fecha actual en el formato YYYY-MM-DD
-        const today = new Date().toISOString().split('T')[0];
-        // Establece el valor máximo en el campo de entrada
-        document.getElementById('FechaNacimiento').setAttribute('max', today);
-    </script>
-}
+    @section Scripts {
+        <script src="~/js/personas-1.0.0.js"></script>
+        <script src="~/js/impresiones.js"></script>
+        <script>
+            // Obtiene la fecha actual en el formato YYYY-MM-DD
+            const today = new Date().toISOString().split('T')[0];
+            // Establece el valor máximo en el campo de entrada
+            document.getElementById('FechaNacimiento').setAttribute('max', today);
+        </script>
+    }

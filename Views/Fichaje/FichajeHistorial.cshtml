@@ -31,7 +31,7 @@
             <div class="col-auto">
                 <div class="input-group m-2">
                     <div class="ms-2">
-                        <label for="personaID" class="form-label text-dark">Filtra por empleado</label>
+                        <label for="personaID" class="form-label text-dark labelFiltro labelFiltroAncho">Filtra por empleado</label>
                         @Html.DropDownList("PersonaID", null, htmlAttributes: new
                             {
                                 @class = "form-control filtro",
@@ -40,12 +40,12 @@
                     </div>
                     <!-- Contenedor para los inputs de fecha con etiquetas -->
                     <div class="ms-2">
-                        <label for="fechaDesde" class="form-label text-dark">Fecha Desde</label>
-                        <input type="date" id="fechaDesde" class="form-control" onchange="HistorialFichajes()">
+                        <label for="fechaDesde" class="form-label text-dark labelFiltro">Fecha Desde</label>
+                        <input type="date" id="fechaDesde" class="form-control filtro anchoDate" onchange="HistorialFichajes()">
                     </div>
                     <div class="ms-2">
-                        <label for="fechaHasta" class="form-label text-dark">Fecha Hasta</label>
-                        <input type="date" id="fechaHasta" class="form-control" onchange="HistorialFichajes()">
+                        <label for="fechaHasta" class="form-label text-dark labelFiltro">Fecha Hasta</label>
+                        <input type="date" id="fechaHasta" class="form-control filtro anchoDate" onchange="HistorialFichajes()">
                     </div>
                     <!-- Botón añadido al lado de Fecha Hasta -->
                     <div class="ms-2 mt-4">
