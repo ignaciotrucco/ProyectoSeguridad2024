@@ -36,30 +36,29 @@ function ListadoPersonas(busqueda) {
                 contenidoCard += `
             <div class="col-lg-4 col-md-4 col-sm-12">
                 <div class="card cardPersonas">
-                    <img src="../img/usuario-fondo-negro.png" class="card-img-top">
+                    <img src="../img/usuario-fondo-negro.png" class="card-img-top fotoUsuario">
                     <div class="card-body cardbodyPersonas">
                         <h4 class="card-title">
                 ${persona.nombreCompleto.length > 18
                         ? persona.nombreCompleto.split(' ')[0] + ' ' + persona.nombreCompleto.split(' ')[1].charAt(0) + '. ' + persona.nombreCompleto.split(' ')[2]
                         : persona.nombreCompleto}
                         </h4>
-                        <p class="cardPersonas card-text">(${persona.rolPersona})</p>
-                        <p class="cardPersonas card-text">${persona.tipoDocumentoNombre} - ${persona.numeroDocumento}</p>
+                        <p class="cardPersonas card-text">(${persona.rolPersona}) ${persona.tipoDocumentoNombre} - ${persona.numeroDocumento}</p>
                     </div>
-                    <ul class="list-group list-group-flush listaPersona">
-                        <li class="datosPersona list-group-item">${persona.localidadNombre} - ${persona.provinciaNombre}</li>
-                        <li class="datosPersona list-group-item">${persona.domicilio}</li>
-                        <li class="datosPersona list-group-item">${persona.telefono}</li>
-                        <li class="datosPersona list-group-item">${persona.email}</li>
-                        <li class="datosPersona list-group-item">Nacimiento: ${persona.fechaNacimientoString}</li>
-                    </ul>
                     <div class="btnPersonas">
+                    <button type="button" class="btn btn-dark" title="Detalles" onclick="mostrarModal(
+                    '${persona.rolPersona}', '${persona.tipoDocumentoNombre}', '${persona.numeroDocumento}', '${persona.localidadNombre}', 
+                    '${persona.provinciaNombre}', '${persona.domicilio}', '${persona.telefono}', '${persona.email}', '${persona.nombreCompleto}', 
+                    '${persona.fechaNacimientoString}')">
+                        <i class="fa-solid fa-info" width="20" height="20" style="color:white"></i>
+                    </button>
                         <button type="button" class="btn btn-dark" title="Editar" onclick="ModalEditar(${persona.personaID})">
                             Editar
                         </button>
                         <button type="button" class="btn btn-danger" title="Eliminar" onclick="EliminarPersona(${persona.personaID})">
                             Eliminar
                         </button>
+                        
                     </div>
                 </div> 
             </div>        
@@ -76,6 +75,17 @@ function ListadoPersonas(busqueda) {
         }
     });
 }
+
+{/* 
+    <ul class="list-group list-group-flush listaPersona">
+                        
+                    <li class="datosPersona list-group-item">${persona.localidadNombre} - ${persona.provinciaNombre}</li>
+                        <li class="datosPersona list-group-item">${persona.domicilio}</li>
+                        <li class="datosPersona list-group-item">${persona.telefono}</li>
+                        <li class="datosPersona list-group-item">${persona.email}</li>
+                        <li class="datosPersona list-group-item">${persona.nombreCompleto}</li>
+                        <li class="datosPersona list-group-item">Nacimiento: ${persona.fechaNacimientoString}</li>
+    </ul> */}
 
 
 // //FUNCION PARA OBTENER EL USUARIOID DESDE LA URL
@@ -600,6 +610,32 @@ window.onclick = function (event) {
     var modal = document.getElementById("ModalDni");
     if (event.target == modal) {
         modal.style.display = "none";
+    }
+}
+
+function mostrarModal(rolPersona, tipoDocumentoNombre, numeroDocumento, localidadNombre, provinciaNombre, domicilio, telefono, email, nombreCompleto, fechaNacimientoString) {
+    $('#nombreCompleto').text(nombreCompleto + ' - ' + rolPersona);
+    $('#fechaNacimientoString').text('Fecha de nacimiento: ' + fechaNacimientoString);    
+    $('#tipoDocumentoNombre').text(tipoDocumentoNombre  + ': ' + numeroDocumento);
+    $('#telefono').text('Teléfono: ' + telefono);
+    $('#email').text('Email: ' + email);
+    $('#provinciaNombre').text('Provincia: ' + provinciaNombre);
+    $('#localidadNombre').text('Localidad: ' + localidadNombre);
+    $('#domicilio').text('Domicilio: ' + domicilio);
+
+    $('#modalDetalles').show();
+}
+
+function cerrarModal() {
+    // Oculta el modal
+    document.getElementById('modalDetalles').style.display = "none";
+}
+
+// Cierra el modal al hacer clic fuera de él
+window.onclick = function(event) {
+    const modal = document.getElementById('modalDetalles');
+    if (event.target === modal) {
+        cerrarModal();
     }
 }
 
