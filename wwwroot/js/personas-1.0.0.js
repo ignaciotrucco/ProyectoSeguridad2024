@@ -18,9 +18,10 @@ function ListadoPersonas(busqueda) {
 
     $.ajax({
         url: '../../Personas/ListadoPersonas',
-        data: { busqueda: busqueda,
+        data: {
+            busqueda: busqueda,
             RolBuscar: rolBuscar
-         },  // PASA EL TERMINO DE BUSQUEDA AL CONTROLADOR
+        },  // PASA EL TERMINO DE BUSQUEDA AL CONTROLADOR
         type: 'POST',
         dataType: 'json',
         success: function (personasMostrar) {
@@ -33,19 +34,24 @@ function ListadoPersonas(busqueda) {
             $.each(personasMostrar, function (index, persona) {
 
                 contenidoCard += `
-            <div class="col-lg-3 col-md-3 col-sm-12">
+            <div class="col-lg-4 col-md-4 col-sm-12">
                 <div class="card cardPersonas">
                     <img src="../img/usuario-fondo-negro.png" class="card-img-top">
                     <div class="card-body cardbodyPersonas">
-                        <h4 class="cardPersonas card-title">${persona.nombreCompleto}</h4>
+                        <h4 class="card-title">
+                ${persona.nombreCompleto.length > 18
+                        ? persona.nombreCompleto.split(' ')[0] + ' ' + persona.nombreCompleto.split(' ')[1].charAt(0) + '. ' + persona.nombreCompleto.split(' ')[2]
+                        : persona.nombreCompleto}
+                        </h4>
                         <p class="cardPersonas card-text">(${persona.rolPersona})</p>
                         <p class="cardPersonas card-text">${persona.tipoDocumentoNombre} - ${persona.numeroDocumento}</p>
                     </div>
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush listaPersona">
                         <li class="datosPersona list-group-item">${persona.localidadNombre} - ${persona.provinciaNombre}</li>
-                        <li class="datosPersona list-group-item">${persona.telefono}</li>
                         <li class="datosPersona list-group-item">${persona.domicilio}</li>
+                        <li class="datosPersona list-group-item">${persona.telefono}</li>
                         <li class="datosPersona list-group-item">${persona.email}</li>
+                        <li class="datosPersona list-group-item">${persona.nombreCompleto}</li>
                         <li class="datosPersona list-group-item">Nacimiento: ${persona.fechaNacimientoString}</li>
                     </ul>
                     <div class="btnPersonas">
@@ -72,7 +78,7 @@ function ListadoPersonas(busqueda) {
     });
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     //FUNCION PARA OBTENER EL USUARIOID DESDE LA URL
     function urlUsuarioID() {
         const pathArray = window.location.pathname.split('/');
@@ -88,17 +94,17 @@ $(document).ready(function() {
         data: { UsuarioID: usuarioID },
         type: 'GET',
         dataType: 'json',
-        success: function(usuariosMostrar) {
+        success: function (usuariosMostrar) {
 
             console.log(usuariosMostrar);
 
             let usuarioMostrar = usuariosMostrar[0]
-            
-            $("#emailUsuario").val(usuarioMostrar.email); 
+
+            $("#emailUsuario").val(usuarioMostrar.email);
             $("#modalPersonas").modal('show');
             $("#tituloModal").text("Nueva Persona");
         },
-        error: function() {
+        error: function () {
             alert('Error al obtener los datos del usuario.');
         }
     });
@@ -109,7 +115,7 @@ function TablaImprimir() {
 
     $.ajax({
         url: '../../Personas/ListadoPersonas',
-        data: {},  
+        data: {},
         type: 'POST',
         dataType: 'json',
         success: function (personasMostrar) {
@@ -270,11 +276,11 @@ function GuardarPersona() {
         const fechaActual = new Date();
         const edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
         const mes = fechaActual.getMonth() - fechaNacimiento.getMonth();
-    
+
         if (mes < 0 || (mes === 0 && fechaActual.getDate() < fechaNacimiento.getDate())) {
             edad--;
         }
-    
+
         if (edad < 18) {
             $("#fechaPersonaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Debe ser mayor de 18 años.");
             registrado = false;
@@ -456,23 +462,24 @@ function EliminarPersona(personaID) {
                 success: function (resultado) {
 
                     if (!resultado) {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: "bottom-end",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        background: '#fcffe7',
-                        didOpen: (toast) => {
-                          toast.onmouseenter = Swal.stopTimer;
-                          toast.onmouseleave = Swal.resumeTimer;
-                        }
-                      });
-                      Toast.fire({
-                        icon: "warning",
-                        title: "Oops...",
-                        text: "No se puede eliminar, existen registros asociados",
-                      });}
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "bottom-end",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            background: '#fcffe7',
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "warning",
+                            title: "Oops...",
+                            text: "No se puede eliminar, existen registros asociados",
+                        });
+                    }
 
                     ListadoPersonas();
                 },
