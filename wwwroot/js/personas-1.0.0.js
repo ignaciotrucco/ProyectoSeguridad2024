@@ -74,27 +74,26 @@ function ListadoPersonas(busqueda) {
 
 $(document).ready(function() {
     //FUNCION PARA OBTENER EL USUARIOID DESDE LA URL
-    function getUsuarioIDFromUrl() {
+    function urlUsuarioID() {
         const pathArray = window.location.pathname.split('/');
         return pathArray[pathArray.length - 1];  //OBTIENE EL ULTIMO SEGMENTO DE LA URL(USUARIOID) 
     }
 
     //GUARDAMOS EN UNA VARIABLE EL USUARIO OBTENIDO EN LA URL
-    var usuarioID = getUsuarioIDFromUrl();
+    var usuarioID = urlUsuarioID();
 
     //PETICION AJAX PARA OBTENER EMAIL DEL USUARIO
     $.ajax({
         url: '/Users/ListadoUsuarios',
-        async: false,
-        type: 'GET',
         data: { UsuarioID: usuarioID },
+        type: 'GET',
+        dataType: 'json',
         success: function(usuariosMostrar) {
 
             console.log(usuariosMostrar);
 
             let usuarioMostrar = usuariosMostrar[0]
             
-            // document.getElementById("emailUsuario").value = usuarioMostrar.email;
             $("#emailUsuario").val(usuarioMostrar.email); 
             $("#modalPersonas").modal('show');
             $("#tituloModal").text("Nueva Persona");
