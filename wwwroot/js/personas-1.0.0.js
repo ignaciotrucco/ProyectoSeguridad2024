@@ -36,7 +36,7 @@ function ListadoPersonas(busqueda) {
                 contenidoCard += `
             <div class="col-lg-4 col-md-4 col-sm-12">
                 <div class="card cardPersonas">
-                    <img src="../img/usuario-fondo-negro.png" class="card-img-top fotoUsuario">
+                    <img src="../../img/usuario-fondo-negro.png" class="card-img-top fotoUsuario">
                     <div class="card-body cardbodyPersonas">
                         <h4 class="card-title">
                 ${persona.nombreCompleto.length > 18
@@ -58,7 +58,6 @@ function ListadoPersonas(busqueda) {
                         <button type="button" class="btn btn-danger" title="Eliminar" onclick="EliminarPersona(${persona.personaID})">
                             Eliminar
                         </button>
-                        
                     </div>
                 </div> 
             </div>        

@@ -986,18 +986,18 @@ function closeModalInfoTablas() {
 
 function handleEntendido() {
     closeModalInfoTablas();
-    openModalImpresion();
+    // openModalImpresion();
 }
 
-function openModalImpresion() {
-    var modal = document.getElementById("ModalImpresion");
-    modal.style.display = "block";
-}
+// function openModalImpresion() {
+//     var modal = document.getElementById("ModalImpresion");
+//     modal.style.display = "block";
+// }
 
-function closeModalImpresion() {
-    var modal = document.getElementById("ModalImpresion");
-    modal.style.display = "none";
-}
+// function closeModalImpresion() {
+//     var modal = document.getElementById("ModalImpresion");
+//     modal.style.display = "none";
+// }
 
 document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
@@ -1024,7 +1024,7 @@ function closeModalInfoTablas2() {
 
 function handleEntendido() {
     closeModalInfoTablas2();
-    openModalImpresion();
+    // openModalImpresion();
 }
 
 document.addEventListener("keydown", function (event) {
