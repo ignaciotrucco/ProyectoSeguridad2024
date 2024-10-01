@@ -1,0 +1,51 @@
+@{
+    ViewData["Title"] = "Nueva Novedad";
+}
+<link rel="stylesheet" href="~/css/carganovedades.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
+
+<div class="card m-4">
+    <div class="card-header">
+        <h4>Nueva Novedad</h4>
+    </div>
+    <div class="card-body">
+        <form>
+            <input type="hidden" id="NovedadID">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">Fecha y Hora</span>
+                        <input type="datetime-local" class="form-control" id="FechaNovedad">
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="input-group">
+                        @Html.DropDownList("EmpresaID", null, htmlAttributes: new { @class = "form-control" })
+                        <span class="input-group-text" id="basic-addon2">Empresa</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group mb-4">
+                <span class="input-group-text">Observación</span>
+                <textarea class="form-control" id="Observacion"></textarea>
+            </div>
+
+            <div class="input-group mb-4">
+                <input type="file" class="form-control" id="ImgNovedad">
+            </div>
+
+            <button type="button" class="btn btn-secondary" onclick="Guardar()">Enviar</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/novedadesempleado-1.0.0.js"></script>
+    <script>
+        // Obtiene la fecha actual en el formato YYYY-MM-DD
+        const today = new Date().toISOString().split('T')[0];
+        // Establece el valor máximo en el campo de entrada
+        document.getElementById('FechaNovedad').setAttribute('max', today);
+    </script>
+}

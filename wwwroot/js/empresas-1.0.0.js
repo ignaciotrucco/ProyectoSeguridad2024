@@ -1,5 +1,4 @@
 window.onload = ListadoEmpresas();
-window.onload = TablaImprimir();
 
 function NuevoRegistro() {
     $("#tituloModal").text("Nuevo Cliente")
@@ -118,6 +117,7 @@ function ListadoEmpresas(busqueda) {
 
             document.getElementById("tbody-empresas").innerHTML = contenidoTabla;
 
+            TablaImprimir();
         },
 
         // código a ejecutar si la petición falla;
@@ -184,6 +184,7 @@ function TablaImprimir() {
 
             document.getElementById("tbody-empresasImprimir").innerHTML = contenidoTabla;
 
+            window.onload = setTimeout("TraerIdUsuario();", 500);
         },
 
         // código a ejecutar si la petición falla;
@@ -218,7 +219,7 @@ function TablaImprimir() {
 //         const pathArray = window.location.pathname.split('/');
 //         return pathArray[pathArray.length - 1];  // Obtiene el último segmento de la URL (usuarioID)
 //     }
-window.onload = setTimeout("TraerIdUsuario();", 500);
+
 function TraerIdUsuario() {
 
     //GUARDAMOS EN UNA VARIABLE EL USUARIO OBTENIDO EN LA URL

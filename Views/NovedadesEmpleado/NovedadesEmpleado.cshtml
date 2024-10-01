@@ -2,30 +2,59 @@
     ViewData["Title"] = "Carga de Novedades";
 }
 <link rel="stylesheet" href="~/css/carganovedades.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
-  <h1>Carga de Archivos</h1>
+@* <h1>Carga de Archivos</h1>
 
-  <input type="file" id="singleFileUpload" onchange="readURL(this)">
-  <input type="file" id="multipleFileUpload" multiple onchange="readURL(this)">
-  <img id="filePreview" style="display: none;" alt="Previsualizacion del archivo">
+<input type="file" id="singleFileUpload" onchange="readURL(this)">
+<input type="file" id="multipleFileUpload" multiple onchange="readURL(this)">
+<img id="filePreview" style="display: none;" alt="Previsualizacion del archivo">
 
-  <button onclick="submitFiles()">Enviar Archivos</button>
+<button onclick="submitFiles()">Enviar Archivos</button> *@
+
+
+<div class="card m-4">
+    <div class="card-body">
+        <div class="mt-3">
+            <div class="row">
+                <div class="col-auto me-auto">
+                    <h1 class="hover-icon">NOVEDADES <i class="fas fa-users icon"></i></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tabla -->
+<div class="card m-4">
+    <div class="card-header">
+        <div class="row align-items-center">
+            <div class="col-auto">
+                <div class="input-group m-2">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
+                    <input type="text" id="inputBusqueda" class="form-control inputBusqueda" placeholder="Buscar..."
+                        style="text-transform:uppercase">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            
+        </div>
+    </div>
+</div>
+
+<div class="btnAgregar">
+    <a href="~/NovedadesEmpleado/NuevaNovedad" class="btn btn-secondary btn-circle btn-lg d-flex" style="padding-bottom: 2px;" title="Agregar">
+        <i class="fa-solid fa-plus mt-1"></i>
+        <h5 style="margin-left: 3px; padding-top: 1px;" class="textBtnAgregar">Nueva Novedad</h5>
+    </a>
+</div>
+
+
 
 @section Scripts {
     <script src="~/js/novedadesempleado-1.0.0.js"></script>
 }
-
-<div class="card mt-4">
-    <div class="card-body">
-        <table class="table table-striped mt-3">
-            <thead>
-                <tr>
-                    <th scope="col" style="text-align: center">Nombre</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody id="tbody-novedades"></tbody>
-        </table>
-    </div>
-</div>
