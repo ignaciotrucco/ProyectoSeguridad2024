@@ -1,5 +1,4 @@
 window.onload = ListadoEmpresas();
-window.onload = TablaImprimir();
 
 function NuevoRegistro() {
     $("#tituloModal").text("Nuevo Cliente")
@@ -29,29 +28,51 @@ $('#ProvinciaID').change(function () {
 });
 
 function BuscarLocalidades() {
+    $("#LocalidadID").empty();
+
     var provinciaId = $("#ProvinciaID").val();
-    if (provinciaId) {
-        $.ajax({
-            url: '../../Personas/GetLocalidades',
-            type: 'GET',
-            data: { provinciaId: provinciaId },
-            success: function (data) {
-                var localidadDropdown = $('#LocalidadID');
-                localidadDropdown.empty();
-                if (localidadDropdown.length == 0) {
-                    localidadDropdown.append('<option value="">[SELECCIONE UNA LOCALIDAD...]</option>');
+
+    $.ajax({
+        type: 'POST',
+        url: '../../Personas/GetLocalidades',
+        datatype: 'json',
+        data: { provinciaId: provinciaId },
+        success: function (localidades) {
+
+            if (provinciaId == 0) {
+                $("#LocalidadID").append('<option value="' + "0" + '">' + "[SELECCIONE UNA LOCALIDAD]" + '</option>');
+            }
+            else {
+                if (localidades.length == 0) {
+                    $("#LocalidadID").append('<option value="' + "0" + '">' + "[NO EXISTEN LOCALIDADES]" + '</option>');
                 }
                 else {
-                    $.each(data, function (index, item) {
-                        localidadDropdown.append('<option value="' + item.localidadID + '">' + item.nombre + '</option>');
+                    $.each(localidades, function (i, localidad) {
+                        $("#LocalidadID").append('<option value="' + localidad.localidadID + '">' + localidad.nombre + '</option>');
                     });
                 }
             }
-        });
-    } else {
-        $('#LocalidadID').empty();
-        $('#LocalidadID').append('<option value="">[SELECCIONE UNA LOCALIDAD...]</option>');
-    }
+        },
+        error: function (xhr, status) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema al cargar el listado",
+            });
+        }
+    });
 }
 
 // ESCUCHA EL EVENTO 'KEYUP' EN EL CAMPO DE BÚSQUEDA CON ID 'INPUTBUSQUEDA'
@@ -118,6 +139,7 @@ function ListadoEmpresas(busqueda) {
 
             document.getElementById("tbody-empresas").innerHTML = contenidoTabla;
 
+            TablaImprimir();
         },
 
         // código a ejecutar si la petición falla;
@@ -184,6 +206,7 @@ function TablaImprimir() {
 
             document.getElementById("tbody-empresasImprimir").innerHTML = contenidoTabla;
 
+            window.onload = setTimeout("TraerIdUsuario();", 500);
         },
 
         // código a ejecutar si la petición falla;
@@ -218,7 +241,7 @@ function TablaImprimir() {
 //         const pathArray = window.location.pathname.split('/');
 //         return pathArray[pathArray.length - 1];  // Obtiene el último segmento de la URL (usuarioID)
 //     }
-window.onload = setTimeout("TraerIdUsuario();", 500);
+
 function TraerIdUsuario() {
 
     //GUARDAMOS EN UNA VARIABLE EL USUARIO OBTENIDO EN LA URL
@@ -387,7 +410,7 @@ function AbrirModalEditar(empresaID) {
             $("#telefono").val(mostrarEmpresas.telefono);
             $("#email").val(mostrarEmpresas.email);
             $("#ProvinciaID").val(mostrarEmpresas.provinciaID);
-            BuscarLocalidades()
+            // BuscarLocalidades()
 
             $("#LocalidadID").val(mostrarEmpresas.localidadID);
             $("#domicilio").val(mostrarEmpresas.domicilio);

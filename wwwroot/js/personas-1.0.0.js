@@ -1,5 +1,4 @@
 window.onload = ListadoPersonas();
-window.onload = TablaImprimir();
 
 // ESCUCHA EL EVENTO 'KEYUP' EN EL CAMPO DE BÚSQUEDA CON ID 'INPUTBUSQUEDA'
 // CADA VEZ QUE EL USUARIO ESCRIBE, SE CAPTURA EL VALOR ACTUAL Y SE LLAMA A LA FUNCIÓN LISTADOPERSONAS
@@ -66,6 +65,7 @@ function ListadoPersonas(busqueda) {
             });
 
             document.getElementById("cbody-personas").innerHTML = contenidoCard;
+            TablaImprimir();
 
         },
         error: function (xhr, status) {
@@ -74,55 +74,6 @@ function ListadoPersonas(busqueda) {
         }
     });
 }
-
-{/* 
-    <ul class="list-group list-group-flush listaPersona">
-                        
-                    <li class="datosPersona list-group-item">${persona.localidadNombre} - ${persona.provinciaNombre}</li>
-                        <li class="datosPersona list-group-item">${persona.domicilio}</li>
-                        <li class="datosPersona list-group-item">${persona.telefono}</li>
-                        <li class="datosPersona list-group-item">${persona.email}</li>
-                        <li class="datosPersona list-group-item">${persona.nombreCompleto}</li>
-                        <li class="datosPersona list-group-item">Nacimiento: ${persona.fechaNacimientoString}</li>
-    </ul> */}
-
-
-// //FUNCION PARA OBTENER EL USUARIOID DESDE LA URL
-// function urlUsuarioID() {
-//     const pathArray = window.location.pathname.split('/');
-//     return pathArray[pathArray.length - 1];  //OBTIENE EL ULTIMO SEGMENTO DE LA URL(USUARIOID) 
-// }
-
-window.onload = setTimeout("TraerIdUsuario();", 500);
-function TraerIdUsuario() {
-
-    //GUARDAMOS EN UNA VARIABLE EL USUARIO OBTENIDO EN LA URL
-    var usuarioID = $("#idUsuarioTraer").val();
-
-    if (usuarioID != "") {
-        //PETICION AJAX PARA OBTENER EMAIL DEL USUARIO
-        $.ajax({
-            url: '/Users/ListadoUsuarios',
-            data: { UsuarioID: usuarioID },
-            type: 'GET',
-            dataType: 'json',
-            success: function (usuariosMostrar) {
-
-                let usuarioMostrar = usuariosMostrar[0]
-
-                $("#emailUsuario").val(usuarioMostrar.email);
-                $("#modalPersonas").modal('show');
-                $("#tituloModal").text("Nueva Persona");
-            },
-            error: function () {
-                alert('Error al obtener los datos del usuario.');
-            }
-        });
-    }
-}
-
-
-
 
 function TablaImprimir() {
 
@@ -156,6 +107,7 @@ function TablaImprimir() {
 
             document.getElementById("tbody-personasImprimir").innerHTML = contenidoTabla;
 
+            window.onload = setTimeout("TraerIdUsuario();", 500);
         },
 
         // código a ejecutar si la petición falla;
@@ -183,33 +135,101 @@ function TablaImprimir() {
     });
 }
 
+{/* 
+    <ul class="list-group list-group-flush listaPersona">
+                        
+                    <li class="datosPersona list-group-item">${persona.localidadNombre} - ${persona.provinciaNombre}</li>
+                        <li class="datosPersona list-group-item">${persona.domicilio}</li>
+                        <li class="datosPersona list-group-item">${persona.telefono}</li>
+                        <li class="datosPersona list-group-item">${persona.email}</li>
+                        <li class="datosPersona list-group-item">${persona.nombreCompleto}</li>
+                        <li class="datosPersona list-group-item">Nacimiento: ${persona.fechaNacimientoString}</li>
+    </ul> */}
+
+
+// //FUNCION PARA OBTENER EL USUARIOID DESDE LA URL
+// function urlUsuarioID() {
+//     const pathArray = window.location.pathname.split('/');
+//     return pathArray[pathArray.length - 1];  //OBTIENE EL ULTIMO SEGMENTO DE LA URL(USUARIOID) 
+// }
+
+function TraerIdUsuario() {
+
+    //GUARDAMOS EN UNA VARIABLE EL USUARIO OBTENIDO EN LA URL
+    var usuarioID = $("#idUsuarioTraer").val();
+
+    if (usuarioID != "") {
+        //PETICION AJAX PARA OBTENER EMAIL DEL USUARIO
+        $.ajax({
+            url: '/Users/ListadoUsuarios',
+            data: { UsuarioID: usuarioID },
+            type: 'GET',
+            dataType: 'json',
+            success: function (usuariosMostrar) {
+
+                let usuarioMostrar = usuariosMostrar[0]
+
+                $("#emailUsuario").val(usuarioMostrar.email);
+                $("#modalPersonas").modal('show');
+                $("#tituloModal").text("Nueva Persona");
+            },
+            error: function () {
+                alert('Error al obtener los datos del usuario.');
+            }
+        });
+    }
+}
+
 $('#ProvinciaID').change(function () {
     BuscarLocalidades()
 });
 
 function BuscarLocalidades() {
     $("#LocalidadID").empty();
+
     var provinciaId = $("#ProvinciaID").val();
-    if (provinciaId) {
-        $.ajax({
-            url: '../../Personas/GetLocalidades',
-            type: 'GET',
-            data: { ProvinciaId: provinciaId },
-            success: function (localidades) {
+
+    $.ajax({
+        type: 'POST',
+        url: '../../Personas/GetLocalidades',
+        datatype: 'json',
+        data: { provinciaId: provinciaId },
+        success: function (localidades) {
+
+            if (provinciaId == 0) {
+                $("#LocalidadID").append('<option value="' + "0" + '">' + "[SELECCIONE UNA LOCALIDAD]" + '</option>');
+            }
+            else {
                 if (localidades.length == 0) {
-                    $("#LocalidadID").append('<option value="">[SELECCIONE UNA LOCALIDAD...]</option>');
+                    $("#LocalidadID").append('<option value="' + "0" + '">' + "[NO EXISTEN LOCALIDADES]" + '</option>');
                 }
                 else {
-                    $.each(localidades, function (index, localidad) {
+                    $.each(localidades, function (i, localidad) {
                         $("#LocalidadID").append('<option value="' + localidad.localidadID + '">' + localidad.nombre + '</option>');
                     });
                 }
             }
-        });
-    }
-    else {
-        $('#LocalidadID').append('<option value="">[SELECCIONE UNA LOCALIDAD...]</option>');
-    }
+        },
+        error: function (xhr, status) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema al cargar el listado",
+            });
+        }
+    });
 }
 
 function NuevaPersona() {
@@ -403,7 +423,7 @@ function ModalEditar(personaID) {
             document.getElementById("Telefono").value = mostrarPersona.telefono;
             document.getElementById("Email").value = mostrarPersona.email;
             document.getElementById("ProvinciaID").value = mostrarPersona.provinciaID;
-            BuscarLocalidades();
+            // BuscarLocalidades();
 
             document.getElementById("LocalidadID").value = mostrarPersona.localidadID;
             document.getElementById("emailUsuario").value = mostrarPersona.emailUsuario;
@@ -614,8 +634,8 @@ window.onclick = function (event) {
 
 function mostrarModal(rolPersona, tipoDocumentoNombre, numeroDocumento, localidadNombre, provinciaNombre, domicilio, telefono, email, nombreCompleto, fechaNacimientoString) {
     $('#nombreCompleto').text(nombreCompleto + ' - ' + rolPersona);
-    $('#fechaNacimientoString').text('Fecha de nacimiento: ' + fechaNacimientoString);    
-    $('#tipoDocumentoNombre').text(tipoDocumentoNombre  + ': ' + numeroDocumento);
+    $('#fechaNacimientoString').text('Fecha de nacimiento: ' + fechaNacimientoString);
+    $('#tipoDocumentoNombre').text(tipoDocumentoNombre + ': ' + numeroDocumento);
     $('#telefono').text('Teléfono: ' + telefono);
     $('#email').text('Email: ' + email);
     $('#provinciaNombre').text('Provincia: ' + provinciaNombre);
@@ -631,7 +651,7 @@ function cerrarModal() {
 }
 
 // Cierra el modal al hacer clic fuera de él
-window.onclick = function(event) {
+window.onclick = function (event) {
     const modal = document.getElementById('modalDetalles');
     if (event.target === modal) {
         cerrarModal();

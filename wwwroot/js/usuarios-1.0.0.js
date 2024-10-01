@@ -217,16 +217,16 @@ function RestablecerContrasenia(usuarioID) {
     dataType: 'json',
     // código a ejecutar si la petición es satisfactoria;
     success: function (data) {
-      if (data) {
-        const nuevaContrasenia = data.nuevaContrasenia;
+
+      if (data.success) {
         Swal.fire({
           icon: 'success',
           title: 'Contraseña Restablecida',
-          text: `La nueva contraseña es: ${nuevaContrasenia}`,
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: "#606060",
+          text: `La nueva contraseña es: ${data.nuevaContrasenia}`,
+          confirmButtonText: 'Aceptar'
         });
-      } else {
+      }
+      else {
         Swal.fire({
           icon: 'error',
           title: 'Error',
@@ -235,6 +235,37 @@ function RestablecerContrasenia(usuarioID) {
         });
       }
     },
+
+    //   if (data) {
+    //     const nuevaContrasenia = data.nuevaContrasenia;
+    //     navigator.clipboard.writeText(nuevaContrasenia).then(() => {
+    //       Swal.fire({
+    //         icon: 'success',
+    //         title: 'Contraseña Restablecida (Copiada al portapapeles)',
+    //         text: `La nueva contraseña es: ${nuevaContrasenia}`,
+    //         confirmButtonText: 'Aceptar',
+    //         confirmButtonColor: "#606060",
+    //       });
+    //     }).catch(err => {
+    //       console.error('Error al copiar al portapapeles: ', err);
+    //       Swal.fire({
+    //         icon: 'error',
+    //         title: 'Error',
+    //         text: 'No se pudo copiar la contraseña al portapapeles.',
+    //         confirmButtonText: 'Aceptar'
+    //       });
+    //     });
+    //   } else {
+    //     Swal.fire({
+    //       icon: 'error',
+    //       title: 'Error',
+    //       text: data.errores,
+    //       confirmButtonText: 'Aceptar'
+    //     });
+    //   }
+    // },
+
+    
     // código a ejecutar si la petición falla;
     error: function (xhr, status) {
       const Toast = Swal.mixin({

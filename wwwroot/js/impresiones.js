@@ -1,7 +1,7 @@
-let anchoAmpliado = new jsPDF('landscape', 'mm', [210, 297]); // Landscape A4 (210mm x 297mm)
+// let anchoAmpliado = new jsPDF('landscape', 'mm', [210, 297]); // Landscape A4 (210mm x 297mm)
 
 function ImprimirTablaJorAñadidas() {
-    var doc = anchoAmpliado;
+    var doc = new jsPDF('landscape', 'mm', [210, 297]);
 
     var totalPagesExp = "{total_pages_count_string}";
     var pageContent = function (data) {
@@ -157,7 +157,7 @@ function ImprimirTablaJorAñadidas() {
 // }
 
 function ImprimirTablaFichajes() {
-    var doc = anchoAmpliado;
+    var doc = new jsPDF('landscape', 'mm', [210, 297]);
 
     var totalPagesExp = "{total_pages_count_string}"
     var pageContent = function (data) {
@@ -247,7 +247,7 @@ function ImprimirTablaFichajes() {
 }
 
 function ImprimirTablaEmpresas() {
-    var doc = anchoAmpliado;
+    var doc = new jsPDF('landscape', 'mm', [210, 297]);
 
     var totalPagesExp = "{total_pages_count_string}"
     var pageContent = function (data) {
@@ -355,7 +355,7 @@ function ImprimirTablaEmpresas() {
 }
 
 function ImprimirTablaProvincias() {
-    var doc = anchoAmpliado;
+    var doc = new jsPDF('landscape', 'mm', [210, 297]);
 
     var totalPagesExp = "{total_pages_count_string}"
     var pageContent = function (data) {
@@ -433,7 +433,7 @@ function ImprimirTablaProvincias() {
 }
 
 function ImprimirTablaLocalidades() {
-    var doc = anchoAmpliado;
+    var doc = new jsPDF('landscape', 'mm', [210, 297]);
 
     var totalPagesExp = "{total_pages_count_string}"
     var pageContent = function (data) {
@@ -521,7 +521,7 @@ function ImprimirTablaLocalidades() {
 }
 
 function ImprimirTablaUsuarios() {
-    var doc = anchoAmpliado;
+    var doc = new jsPDF('landscape', 'mm', [210, 297]);
 
     var totalPagesExp = "{total_pages_count_string}"
     var pageContent = function (data) {
@@ -604,7 +604,7 @@ function ImprimirTablaUsuarios() {
 }
 
 function ImprimirTablaPersonas() {
-    var doc = anchoAmpliado;
+    var doc = new jsPDF('landscape', 'mm', [210, 297]);
 
     var totalPagesExp = "{total_pages_count_string}"
     var pageContent = function (data) {
