@@ -186,27 +186,50 @@ $('#ProvinciaID').change(function () {
 
 function BuscarLocalidades() {
     $("#LocalidadID").empty();
+
     var provinciaId = $("#ProvinciaID").val();
-    if (provinciaId) {
-        $.ajax({
-            url: '../../Personas/GetLocalidades',
-            type: 'GET',
-            data: { ProvinciaId: provinciaId },
-            success: function (localidades) {
+
+    $.ajax({
+        type: 'POST',
+        url: '../../Personas/GetLocalidades',
+        datatype: 'json',
+        data: { provinciaId: provinciaId },
+        success: function (localidades) {
+
+            if (provinciaId == 0) {
+                $("#LocalidadID").append('<option value="' + "0" + '">' + "[SELECCIONE UNA LOCALIDAD]" + '</option>');
+            }
+            else {
                 if (localidades.length == 0) {
-                    $("#LocalidadID").append('<option value="">[SELECCIONE UNA LOCALIDAD...]</option>');
+                    $("#LocalidadID").append('<option value="' + "0" + '">' + "[NO EXISTEN LOCALIDADES]" + '</option>');
                 }
                 else {
-                    $.each(localidades, function (index, localidad) {
+                    $.each(localidades, function (i, localidad) {
                         $("#LocalidadID").append('<option value="' + localidad.localidadID + '">' + localidad.nombre + '</option>');
                     });
                 }
             }
-        });
-    }
-    else {
-        $('#LocalidadID').append('<option value="">[SELECCIONE UNA LOCALIDAD...]</option>');
-    }
+        },
+        error: function (xhr, status) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema al cargar el listado",
+            });
+        }
+    });
 }
 
 function NuevaPersona() {
@@ -400,7 +423,7 @@ function ModalEditar(personaID) {
             document.getElementById("Telefono").value = mostrarPersona.telefono;
             document.getElementById("Email").value = mostrarPersona.email;
             document.getElementById("ProvinciaID").value = mostrarPersona.provinciaID;
-            BuscarLocalidades();
+            // BuscarLocalidades();
 
             document.getElementById("LocalidadID").value = mostrarPersona.localidadID;
             document.getElementById("emailUsuario").value = mostrarPersona.emailUsuario;
@@ -611,8 +634,8 @@ window.onclick = function (event) {
 
 function mostrarModal(rolPersona, tipoDocumentoNombre, numeroDocumento, localidadNombre, provinciaNombre, domicilio, telefono, email, nombreCompleto, fechaNacimientoString) {
     $('#nombreCompleto').text(nombreCompleto + ' - ' + rolPersona);
-    $('#fechaNacimientoString').text('Fecha de nacimiento: ' + fechaNacimientoString);    
-    $('#tipoDocumentoNombre').text(tipoDocumentoNombre  + ': ' + numeroDocumento);
+    $('#fechaNacimientoString').text('Fecha de nacimiento: ' + fechaNacimientoString);
+    $('#tipoDocumentoNombre').text(tipoDocumentoNombre + ': ' + numeroDocumento);
     $('#telefono').text('Teléfono: ' + telefono);
     $('#email').text('Email: ' + email);
     $('#provinciaNombre').text('Provincia: ' + provinciaNombre);
@@ -628,7 +651,7 @@ function cerrarModal() {
 }
 
 // Cierra el modal al hacer clic fuera de él
-window.onclick = function(event) {
+window.onclick = function (event) {
     const modal = document.getElementById('modalDetalles');
     if (event.target === modal) {
         cerrarModal();

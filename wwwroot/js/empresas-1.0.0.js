@@ -28,29 +28,51 @@ $('#ProvinciaID').change(function () {
 });
 
 function BuscarLocalidades() {
+    $("#LocalidadID").empty();
+
     var provinciaId = $("#ProvinciaID").val();
-    if (provinciaId) {
-        $.ajax({
-            url: '../../Personas/GetLocalidades',
-            type: 'GET',
-            data: { provinciaId: provinciaId },
-            success: function (data) {
-                var localidadDropdown = $('#LocalidadID');
-                localidadDropdown.empty();
-                if (localidadDropdown.length == 0) {
-                    localidadDropdown.append('<option value="">[SELECCIONE UNA LOCALIDAD...]</option>');
+
+    $.ajax({
+        type: 'POST',
+        url: '../../Personas/GetLocalidades',
+        datatype: 'json',
+        data: { provinciaId: provinciaId },
+        success: function (localidades) {
+
+            if (provinciaId == 0) {
+                $("#LocalidadID").append('<option value="' + "0" + '">' + "[SELECCIONE UNA LOCALIDAD]" + '</option>');
+            }
+            else {
+                if (localidades.length == 0) {
+                    $("#LocalidadID").append('<option value="' + "0" + '">' + "[NO EXISTEN LOCALIDADES]" + '</option>');
                 }
                 else {
-                    $.each(data, function (index, item) {
-                        localidadDropdown.append('<option value="' + item.localidadID + '">' + item.nombre + '</option>');
+                    $.each(localidades, function (i, localidad) {
+                        $("#LocalidadID").append('<option value="' + localidad.localidadID + '">' + localidad.nombre + '</option>');
                     });
                 }
             }
-        });
-    } else {
-        $('#LocalidadID').empty();
-        $('#LocalidadID').append('<option value="">[SELECCIONE UNA LOCALIDAD...]</option>');
-    }
+        },
+        error: function (xhr, status) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema al cargar el listado",
+            });
+        }
+    });
 }
 
 // ESCUCHA EL EVENTO 'KEYUP' EN EL CAMPO DE BÚSQUEDA CON ID 'INPUTBUSQUEDA'
@@ -388,7 +410,7 @@ function AbrirModalEditar(empresaID) {
             $("#telefono").val(mostrarEmpresas.telefono);
             $("#email").val(mostrarEmpresas.email);
             $("#ProvinciaID").val(mostrarEmpresas.provinciaID);
-            BuscarLocalidades()
+            // BuscarLocalidades()
 
             $("#LocalidadID").val(mostrarEmpresas.localidadID);
             $("#domicilio").val(mostrarEmpresas.domicilio);
