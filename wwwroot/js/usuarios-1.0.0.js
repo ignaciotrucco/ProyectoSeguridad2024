@@ -205,7 +205,6 @@ function ValidarNuevaContraseña(usuarioID) {
   });
 }
 
-
 function RestablecerContrasenia(usuarioID) {
   $.ajax({
     // la URL para la petición
@@ -220,22 +219,12 @@ function RestablecerContrasenia(usuarioID) {
     success: function (data) {
       if (data) {
         const nuevaContrasenia = data.nuevaContrasenia;
-        navigator.clipboard.writeText(nuevaContrasenia).then(() => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Contraseña Restablecida (Copiada al portapapeles)',
-            text: `La nueva contraseña es: ${nuevaContrasenia}`,
-            confirmButtonText: 'Aceptar',
-            confirmButtonColor: "#606060",
-          });
-        }).catch(err => {
-          console.error('Error al copiar al portapapeles: ', err);
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se pudo copiar la contraseña al portapapeles.',
-            confirmButtonText: 'Aceptar'
-          });
+        Swal.fire({
+          icon: 'success',
+          title: 'Contraseña Restablecida',
+          text: `La nueva contraseña es: ${nuevaContrasenia}`,
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: "#606060",
         });
       } else {
         Swal.fire({
@@ -268,6 +257,69 @@ function RestablecerContrasenia(usuarioID) {
     }
   });
 }
+
+// function RestablecerContrasenia(usuarioID) {
+//   $.ajax({
+//     // la URL para la petición
+//     url: '../../Users/RestablecerContrasenia',
+//     // la información a enviar
+//     data: { UsuarioID: usuarioID },
+//     // especifica si será una petición POST o GET
+//     type: 'GET',
+//     // el tipo de información que se espera de respuesta
+//     dataType: 'json',
+//     // código a ejecutar si la petición es satisfactoria;
+//     success: function (data) {
+//       if (data) {
+//         const nuevaContrasenia = data.nuevaContrasenia;
+//         navigator.clipboard.writeText(nuevaContrasenia).then(() => {
+//           Swal.fire({
+//             icon: 'success',
+//             title: 'Contraseña Restablecida (Copiada al portapapeles)',
+//             text: `La nueva contraseña es: ${nuevaContrasenia}`,
+//             confirmButtonText: 'Aceptar',
+//             confirmButtonColor: "#606060",
+//           });
+//         }).catch(err => {
+//           console.error('Error al copiar al portapapeles: ', err);
+//           Swal.fire({
+//             icon: 'error',
+//             title: 'Error',
+//             text: 'No se pudo copiar la contraseña al portapapeles.',
+//             confirmButtonText: 'Aceptar'
+//           });
+//         });
+//       } else {
+//         Swal.fire({
+//           icon: 'error',
+//           title: 'Error',
+//           text: data.errores,
+//           confirmButtonText: 'Aceptar'
+//         });
+//       }
+//     },
+//     // código a ejecutar si la petición falla;
+//     error: function (xhr, status) {
+//       const Toast = Swal.mixin({
+//         toast: true,
+//         position: "bottom-end",
+//         showConfirmButton: false,
+//         timer: 3000,
+//         timerProgressBar: true,
+//         background: '#ffe7e7',
+//         didOpen: (toast) => {
+//           toast.onmouseenter = Swal.stopTimer;
+//           toast.onmouseleave = Swal.resumeTimer;
+//         }
+//       });
+//       Toast.fire({
+//         icon: "error",
+//         title: "Oops...",
+//         text: "Disculpe, existió un problema al cambiar la contraseña",
+//       });
+//     }
+//   });
+// }
 
 function EliminarUsuario(usuarioID) {
 

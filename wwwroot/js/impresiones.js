@@ -565,8 +565,8 @@ function ImprimirTablaUsuarios() {
     var res = doc.autoTableHtmlToJson(element);
 
     // FILTRADO DE COLUMNAS QUE NO SE QUIERE MOSTRAR
-    const filtrarColumnas = res.columns.filter((_, index) => index !== 2 && index !== 3 && index !== 4);
-    const filtrarData = res.data.map(row => row.filter((_, index) => index !== 2 && index !== 3 && index !== 4));
+    const filtrarColumnas = res.columns.filter((_, index) => index !== 2 && index !== 3 && index !== 4 && index !== 5);
+    const filtrarData = res.data.map(row => row.filter((_, index) => index !== 2 && index !== 3 && index !== 4 && index !== 5));
 
     doc.autoTable(filtrarColumnas, filtrarData, {
         addPageContent: pageContent,

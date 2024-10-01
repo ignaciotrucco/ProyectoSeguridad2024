@@ -83,6 +83,20 @@ body {
     .tarjeta {
         margin-right: 25px !important;
     }
+
+    h1{
+        font-size: 13px;
+    }
+
+    .card-body{
+        scale: 115%;
+    }
+
+    .card-header{
+        scale: 110%;
+    }
+
+    /* .button */
 }
 
 /* Carousel empresas

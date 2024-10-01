@@ -311,7 +311,7 @@ public class JornadaLaboralController : Controller
             };
             _context.Add(nuevaAsignacion);
             _context.SaveChanges();
-            resultado = "agg";
+            resultado = "<i class='fas fa-check-circle'></i> ¡Jornada Asignada agregada correctamente!";
         }
         else
         {
@@ -321,7 +321,7 @@ public class JornadaLaboralController : Controller
                 editarAsignacion.PersonaID = PersonaID;
                 editarAsignacion.JornadaLaboralID = JornadaLaboralID;
                 _context.SaveChanges();
-                resultado = "edit";
+                resultado = "<i class='fas fa-check-circle'></i> ¡Jornada Asignada editada correctamente!";
             }
         }
 
