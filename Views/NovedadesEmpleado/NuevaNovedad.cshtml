@@ -38,9 +38,18 @@
 
             <!-- Elemento para mostrar la imagen seleccionada -->
             <div id="vistaImg" class="mb-4"></div>
-
-            <button type="button" class="btn btn-secondary" onclick="GuardarNovedad()">Enviar</button>
+            <div>
+            <button type="button" style="width: 120px;" class="btn btn-secondary" onclick="GuardarNovedad()">Enviar</button>
+            </div>
         </form>
+    </div>
+</div>
+
+<!-- Modal para mostrar la imagen en grande -->
+<div id="modalImagenGrande" class="modalDatos" style="display: none;">
+    <div class="modal-contentDatos">
+        <span class="close" onclick="cerrarModalImagen()">&times;</span>
+        <img id="imagenGrande" src="" alt="Imagen Grande" style="width: 100%; height: auto;" />
     </div>
 </div>
 

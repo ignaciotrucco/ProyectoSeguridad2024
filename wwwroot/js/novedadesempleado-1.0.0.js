@@ -2,23 +2,29 @@ window.onload = VistaNovedad();
 
 
 function MostrarImagenSeleccionada(input) {
-    // Verificamos si hay un archivo seleccionado
     if (input.files && input.files[0]) {
-        // Creamos un objeto FileReader para leer el archivo
         var reader = new FileReader();
 
-        // Cuando la lectura esté completa, ejecutamos esta función
         reader.onload = function (e) {
             // Mostrar la imagen en un elemento HTML
-            $('#vistaImg').html('<img src="' + e.target.result + '" alt="Imagen seleccionada" width="200" />');
+            $('#vistaImg').html('<img src="' + e.target.result + '" alt="Imagen seleccionada" width="200" style="cursor: pointer;" />');
+            
+            // Añadir evento para abrir el modal al hacer clic
+            $('#vistaImg img').on('click', function () {
+                $('#imagenGrande').attr('src', e.target.result);
+                $('#modalImagenGrande').show();
+            });
         }
 
-        // Leer el archivo como una URL de datos (base64)
         reader.readAsDataURL(input.files[0]);
     } else {
-        // Si no se seleccionó archivo, limpiamos el preview
-        $('#preview').html('');
+        $('#vistaImg').html('');
     }
+}
+
+
+function cerrarModalImagen() {
+    $('#modalImagenGrande').hide();
 }
 
 function VistaNovedad() {
@@ -44,19 +50,23 @@ function VistaNovedad() {
 
 
                 contenidoTabla += `
-                <tr>
-                    <td style="text-align: center">${novedad.personaNombre}</td>
-                </tr>
-                <tr>
-                    <td style="text-align: center">${novedad.empresaNombre}</td>
-                    <td style="text-align: center">
-                        <button type="button" class="btn btn-dark" onclick="DetalleNovedad(${novedad.novedadID})">Detalle</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: center">${novedad.fechaHora}</td>
-                </tr>
-                <hr>
+            <tr>
+                <td style="text-align: left">${novedad.personaNombre}</td>
+            </tr>
+            <tr>
+                <td style="text-align: left">${novedad.empresaNombre}</td>
+                <td style="text-align: right !important; padding-right: 5px">
+                    <button type="button" class="btn btn-dark" onclick="DetalleNovedad(${novedad.novedadID})">Detalle</button>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left">${novedad.fechaHora}</td>
+            </tr>
+            <tr>
+                <td colspan="3" style="padding: 0;">
+                    <hr style="width: 100%;">
+                </td>
+            </tr>
              `;
             });
 
@@ -173,19 +183,23 @@ function DetalleNovedad(novedadID) {
             $('#empresa').text('Cliente: ' + novedadVista.empresaNombre);
             $('#fechaHora').text('Fecha y Hora: ' + novedadVista.fechaHora);
             $('#observacion').text('Observación: ' + novedadVista.observacion);
-            // $('#archivo').text('Archivo: ' + novedadVista.Archivo); // Si tienes archivo
-
+            
             // Mostrar la imagen si está disponible
             let imagenHtml = '';
             if (novedadVista.nombreArchivo) {
-                imagenHtml = `<p>Imagen:</p>
-                  <img src="data:${novedadVista.contentType};base64, ${novedadVista.nombreArchivo}" style="width: 230px; height: 200px;"/>`;
+                imagenHtml = `
+                    <p></p>
+                        <img title="Expandir" src="data:${novedadVista.contentType};base64,${novedadVista.nombreArchivo}" 
+                         style="width: 230px; height: 180px; cursor: pointer; justify-content:center !important;" 
+                         onclick="mostrarImagenGrande(this.src)" id="miImagen" />
+                        <button class="btn btn-dark" title="Descargar" onclick="descargarImagen('${novedadVista.contentType}', '${novedadVista.nombreArchivo}')"><i class="fa-solid fa-file-arrow-down"></i>
+                        </button>
+                `;
             } else {
                 imagenHtml = '<p>No hay imagen disponible.</p>';
             }
 
             $('#archivo').html(imagenHtml);
-                
             $('#modalDetalles').show();
         },
         error: function (xhr, status) {
@@ -193,6 +207,24 @@ function DetalleNovedad(novedadID) {
         }
     });
 }
+
+// Función para descargar la imagen
+function descargarImagen(contentType, base64String) {
+    const enlace = document.createElement('a');
+    enlace.href = `data:${contentType};base64,${base64String}`;
+    enlace.download = 'novedad.png'; 
+
+    document.body.appendChild(enlace);
+    enlace.click();
+    document.body.removeChild(enlace);
+}
+
+
+function mostrarImagenGrande(src) {
+    $('#imagenGrande').attr('src', src);
+    $('#modalImagenGrande').show();
+}
+
 
 function cerrarModal() {
     $('#modalDetalles').hide();
