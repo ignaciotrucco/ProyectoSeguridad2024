@@ -41,7 +41,11 @@
 
     <div class="card-body">
         <div class="table-responsive">
-            
+            <table>
+                <tbody id="vistaNovedades">
+
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -51,6 +55,25 @@
         <i class="fa-solid fa-plus mt-1"></i>
         <h5 style="margin-left: 3px; padding-top: 1px;" class="textBtnAgregar">Nueva Novedad</h5>
     </a>
+</div>
+
+
+<div id="modalDetalles" class="modalDatos">
+    <div class="modal-contentDatos">
+        <h2 class="mb-3">Detalle de Novedad</h2>
+        <div id="detalleContenido">
+            <input type="hidden" id="novedad">
+            <p id="empleado"></p>
+            <p id="empresa"></p>
+            <p id="fechaHora"></p>
+            <p id="observacion"></p>
+            <p id="archivo"></p>
+        </div>
+        <hr>
+        <div class="modal-footerAyuda">
+            <button class="botonEntendido" onclick="cerrarModal()">Entendido</button>
+        </div>
+    </div>
 </div>
 
 

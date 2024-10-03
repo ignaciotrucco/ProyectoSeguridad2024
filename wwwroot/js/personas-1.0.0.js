@@ -261,6 +261,17 @@ function LimpiarModal() {
 }
 
 function GuardarPersona() {
+    $("#nombrePersonaError").html("");
+    $("#usuarioPersonaError").html("");
+    $("#domicilioPersonaError").html("");
+    $("#tipoDocPersonaError").html("");
+    $("#nroDocPersonaError").html("");
+    $("#telefonoPersonaError").html("");
+    $("#fechaPersonaError").html("");
+    $("#emailPersonaError").html("");
+    $("#localidadPersonaError").html("");
+    $("#provinciaPersonaError").html("");
+
     let personaid = document.getElementById("PersonaID").value;
     let nombre = document.getElementById("Nombre").value.trim();
     let usuarioID = document.getElementById("emailUsuario").value.trim();

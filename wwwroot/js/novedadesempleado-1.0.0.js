@@ -1,6 +1,218 @@
-function Guardar() {
-    location.href = `../NovedadesEmpleado/NovedadesEmpleado`;
+window.onload = VistaNovedad();
+
+
+function MostrarImagenSeleccionada(input) {
+    // Verificamos si hay un archivo seleccionado
+    if (input.files && input.files[0]) {
+        // Creamos un objeto FileReader para leer el archivo
+        var reader = new FileReader();
+
+        // Cuando la lectura esté completa, ejecutamos esta función
+        reader.onload = function (e) {
+            // Mostrar la imagen en un elemento HTML
+            $('#vistaImg').html('<img src="' + e.target.result + '" alt="Imagen seleccionada" width="200" />');
+        }
+
+        // Leer el archivo como una URL de datos (base64)
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        // Si no se seleccionó archivo, limpiamos el preview
+        $('#preview').html('');
+    }
 }
+
+function VistaNovedad() {
+
+    $.ajax({
+        // la URL para la petición
+        url: '../../NovedadesEmpleado/Novedades',
+        // la información a enviar
+        // (también es posible utilizar una cadena de datos)
+        data: {  },
+        // especifica si será una petición POST o GET
+        type: 'POST',
+        // el tipo de información que se espera de respuesta
+        dataType: 'json',
+        // código a ejecutar si la petición es satisfactoria;
+        // la respuesta es pasada como argumento a la función
+        success: function (VistaNovedad) {
+
+
+            let contenidoTabla = ``;
+
+            $.each(VistaNovedad, function (index, novedad) {
+
+
+                contenidoTabla += `
+                <tr>
+                    <td style="text-align: center">${novedad.personaNombre}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center">${novedad.empresaNombre}</td>
+                    <td style="text-align: center">
+                        <button type="button" class="btn btn-dark" onclick="DetalleNovedad(${novedad.novedadID})">Detalle</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center">${novedad.fechaHora}</td>
+                </tr>
+                <hr>
+             `;
+            });
+
+            document.getElementById("vistaNovedades").innerHTML = contenidoTabla;
+
+        },
+
+        // código a ejecutar si la petición falla;
+        // son pasados como argumentos a la función
+        // el objeto de la petición en crudo y código de estatus de la petición
+        error: function (xhr, status) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                }
+              });
+              Toast.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema al cargar las localidades",
+              });
+        }
+    });
+}
+
+function GuardarNovedad() {
+    let novedadID = $("#NovedadID").val();
+    let empresaID = $("#EmpresaID").val();
+    let fechaHora = $("#FechaNovedad").val();
+    let observacion = $("#Observacion").val(); 
+    let archivo = $("#ImgNovedad")[0].files[0]; // Obtener el archivo
+
+    // Crear un objeto FormData
+    let formData = new FormData();
+    formData.append("NovedadID", novedadID);
+    formData.append("EmpresaID", empresaID);
+    formData.append("Fecha_Hora", fechaHora);
+    formData.append("Observacion", observacion);
+
+    // Solo añadir el archivo si el usuario lo seleccionó
+    if (archivo) {
+        formData.append("Archivo", archivo);
+    }
+
+    $.ajax({
+        url: '../../NovedadesEmpleado/CargarNovedad',
+        type: 'POST',
+        data: formData, 
+        processData: false, // Impedir que jQuery procese los datos
+        contentType: false, // Impedir que jQuery establezca el tipo de contenido
+        success: function (resultado) {
+            if (resultado != "") {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "bottom-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: '#e2ffd4',
+                    width: "380px",
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    title: (resultado),
+                });
+            }
+
+            setTimeout(() => location.href = '../NovedadesEmpleado/NovedadesEmpleado', 1200);
+        },
+        error: function (xhr, status) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#ffe7e7',
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Disculpe, existió un problema al guardar la novedad",
+            });
+        }
+    });
+}
+
+function DetalleNovedad(novedadID) {
+    console.log(novedadID);
+    $.ajax({
+        url: '../../NovedadesEmpleado/Novedades',
+        data: { NovedadID: novedadID },
+        type: 'POST',
+        dataType: 'json',
+        success: function (VistaNovedad) {
+            let novedadVista = VistaNovedad[0];
+            
+            $('#novedad').val(novedadID);
+            $('#empleado').text('Empleado: ' + novedadVista.personaNombre);
+            $('#empresa').text('Cliente: ' + novedadVista.empresaNombre);
+            $('#fechaHora').text('Fecha y Hora: ' + novedadVista.fechaHora);
+            $('#observacion').text('Observación: ' + novedadVista.observacion);
+            // $('#archivo').text('Archivo: ' + novedadVista.Archivo); // Si tienes archivo
+
+            // Mostrar la imagen si está disponible
+            let imagenHtml = '';
+            if (novedadVista.nombreArchivo) {
+                imagenHtml = `<p>Imagen:</p>
+                  <img src="data:${novedadVista.contentType};base64, ${novedadVista.nombreArchivo}" style="width: 230px; height: 200px;"/>`;
+            } else {
+                imagenHtml = '<p>No hay imagen disponible.</p>';
+            }
+
+            $('#archivo').html(imagenHtml);
+                
+            $('#modalDetalles').show();
+        },
+        error: function (xhr, status) {
+            alert('Error al cargar los datos.');
+        }
+    });
+}
+
+function cerrarModal() {
+    $('#modalDetalles').hide();
+}
+
+
+function cerrarModal() {
+    // Oculta el modal
+    document.getElementById('modalDetalles').style.display = "none";
+}
+
+// Cierra el modal al hacer clic fuera de él
+window.onclick = function (event) {
+    const modal = document.getElementById('modalDetalles');
+    if (event.target === modal) {
+        cerrarModal();
+    }
+}
+
+
 
 // function readURL(input) {
 //     if (input.files && input.files[0]) {

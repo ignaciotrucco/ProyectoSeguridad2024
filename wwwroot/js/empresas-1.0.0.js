@@ -276,6 +276,14 @@ function TraerIdUsuario() {
 
 
 function GuardarEmpresa() {
+    $("#razonSocialError").html("");
+    $("#cuitError").html("");
+    $("#telefonoEmpresaError").html("");
+    $("#emailEmpresaError").html("");
+    $("#domicilioEmpresaError").html("");
+    $("#localidadEmpresaError").html("");
+    $("#provinciaEmpresaError").html("");
+    $("#usuarioEmpresaError").html("");
 
     let empresaID = $("#EmpresaID").val();
     let razonSocial = $("#RazonSocial").val().trim();
@@ -285,6 +293,8 @@ function GuardarEmpresa() {
     let localidadID = $("#LocalidadID").val();
     let domicilio = $("#domicilio").val();
     let usuarioID = $("#UsuarioID").val();
+
+    console.log(usuarioID)
 
     let registrado = true;
 
@@ -320,6 +330,10 @@ function GuardarEmpresa() {
 
     if (localidadID == 0) {
         $("#provinciaEmpresaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  La provincia es requerida.")
+        registrado = false;
+    }
+    if (usuarioID == null) {
+        $("#usuarioEmpresaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El usuario es requerido.")
         registrado = false;
     }
 

@@ -13,6 +13,7 @@ function LimpiarModal() {
   // document.getElementById("userNameError").innerHTML = "";
   document.getElementById("emailError").innerHTML = "";
   document.getElementById("passwordError").innerHTML = "";
+  document.getElementById("rolError").innerHTML = "";
 }
 function LimpiarModalEditar() {
   $("#UsuarioEditarID").val("");
@@ -50,7 +51,7 @@ function ListadoUsuarios() {
         if (usuario.rolNombre === 'CLIENTE') {
           tituloAgregar = 'Agregar Cliente';
           iconoAgregar = 'fa-solid fa-users'; // Ícono para agregar cliente
-        } 
+        }
         else {
           tituloAgregar = 'Agregar Persona';
           iconoAgregar = 'fa-regular fa-id-card'; // Ícono para agregar persona
@@ -120,9 +121,15 @@ function RedirigirSegunRol(usuarioID, rolNombre) {
 }
 
 function GuardarUsuario() {
+  $("#emailError").html("");
+  $("#passwordError").html("");
+  $("#rolError").html("");
+
   let email = $("#email").val().trim();
   let password = $("#password").val().trim();
   let rol = $("#RolID").val();
+
+  console.log(rol);
 
   let registrado = true;
 
@@ -133,6 +140,10 @@ function GuardarUsuario() {
   }
   if (password == "") {
     $("#passwordError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  La contraseña es requerida.");
+    registrado = false;
+  }
+  if (rol == null) {
+    $("#rolError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El rol es requerido.");
     registrado = false;
   }
 
@@ -265,7 +276,7 @@ function RestablecerContrasenia(usuarioID) {
     //   }
     // },
 
-    
+
     // código a ejecutar si la petición falla;
     error: function (xhr, status) {
       const Toast = Swal.mixin({

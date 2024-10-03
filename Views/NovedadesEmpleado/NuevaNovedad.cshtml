@@ -10,12 +10,13 @@
     </div>
     <div class="card-body">
         <form>
-            <input type="hidden" id="NovedadID">
+            <input type="hidden" id="NovedadID" value="0">
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon1">Fecha y Hora</span>
-                        <input type="datetime-local" class="form-control" id="FechaNovedad">
+                        <input value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" type="datetime-local"
+                            class="form-control" id="FechaNovedad" max="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
@@ -32,20 +33,17 @@
             </div>
 
             <div class="input-group mb-4">
-                <input type="file" class="form-control" id="ImgNovedad">
+                <input type="file" class="form-control" id="ImgNovedad" onchange="MostrarImagenSeleccionada(this);">
             </div>
 
-            <button type="button" class="btn btn-secondary" onclick="Guardar()">Enviar</button>
+            <!-- Elemento para mostrar la imagen seleccionada -->
+            <div id="vistaImg" class="mb-4"></div>
+
+            <button type="button" class="btn btn-secondary" onclick="GuardarNovedad()">Enviar</button>
         </form>
     </div>
 </div>
 
 @section Scripts {
     <script src="~/js/novedadesempleado-1.0.0.js"></script>
-    <script>
-        // Obtiene la fecha actual en el formato YYYY-MM-DD
-        const today = new Date().toISOString().split('T')[0];
-        // Establece el valor máximo en el campo de entrada
-        document.getElementById('FechaNovedad').setAttribute('max', today);
-    </script>
 }
