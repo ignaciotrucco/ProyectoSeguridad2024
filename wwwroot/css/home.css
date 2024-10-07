@@ -24,7 +24,7 @@ body {
 }
 
 .carousel-indicators {
-    bottom: 15px;
+    bottom: 10px;
     position: absolute;
     z-index: 15;
 }
@@ -75,13 +75,18 @@ body {
 
 @media (max-width: 767px) {
     .carousel-indicators {
-        bottom: 1px;
+        bottom: -15px;
         position: absolute;
         z-index: 5;
     }
 
     .tarjeta {
-        margin-right: 25px !important;
+        margin-right: 30px !important;
+        scale: 105%;
+    }
+
+    .tarjeta:hover {
+        scale: 106%;
     }
 
     h1{
@@ -96,7 +101,6 @@ body {
         scale: 110%;
     }
 
-    /* .button */
 }
 
 /* Carousel empresas

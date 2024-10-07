@@ -25,18 +25,6 @@
 <!-- Tabla -->
 <div class="card m-4">
     <div class="card-header">
-        <div class="row align-items-center">
-            <div class="col-auto">
-                <div class="ms-2">
-                        <label for="personaID" class="form-label text-dark labelFiltro labelFiltroAncho">Filtra por usuario</label>
-                        @Html.DropDownList("PersonaID", null, htmlAttributes: new
-                            {
-                                @class = "form-control filtro",
-                                @onchange = "VistaDevolucion()"
-                            })
-                    </div>
-            </div>
-        </div>
     </div>
 
 <div class="card-body">

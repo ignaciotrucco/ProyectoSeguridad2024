@@ -24,13 +24,6 @@ public class DevolucionesController : Controller
 
     public IActionResult Devoluciones()
     {
-        // var empresas = _context.Empresas.ToList();
-        // empresas.Add(new Empresa { EmpresaID = 0, RazonSocial = "[TODOS]" });
-        // ViewBag.EmpresaID = new SelectList(empresas.OrderBy(t => t.RazonSocial), "EmpresaID", "RazonSocial");
-
-        var personas = _context.Personas.ToList();
-        personas.Add(new Persona { PersonaID = 0, NombreCompleto = "[TODOS]" });
-        ViewBag.PersonaID = new SelectList(personas.OrderBy(t => t.NombreCompleto), "PersonaID", "NombreCompleto");
 
         return View();
     }
