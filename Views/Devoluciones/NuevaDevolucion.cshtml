@@ -1,0 +1,36 @@
+@{
+    ViewData["Title"] = "Nueva Reseña";
+}
+<link rel="stylesheet" href="~/css/carganovedades.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
+
+<div class="card m-4">
+    <div class="card-header">
+        <h4>Nueva Reseña</h4>
+    </div>
+    <div class="card-body">
+        <form>
+            <input type="hidden" id="DevolucionID" value="0">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">Fecha y Hora</span>
+                        <input value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" type="datetime-local"
+                            class="form-control" id="FechaDevolucion" max="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-4">
+                <span class="input-group-text">Reseña</span>
+                <textarea class="form-control" style="height: 135px;" id="Reseña"></textarea>
+            </div>
+            <div>
+            <button type="button" style="width: 120px;" class="btn btn-secondary" onclick="GuardarDevolucion()">Enviar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/devoluciones-1.0.0.js"></script>
+}

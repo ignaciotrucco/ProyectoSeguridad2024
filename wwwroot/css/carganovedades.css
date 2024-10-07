@@ -33,9 +33,3 @@ span{
     cursor: pointer;
     transition: 0.3s ease-in-out;
 }
-
-.close :hover {
-    font-size: 28px;
-    scale: 102%;
-    color: red;
-}

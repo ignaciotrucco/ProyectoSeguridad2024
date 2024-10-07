@@ -1,6 +1,5 @@
 window.onload = VistaNovedad();
 
-
 function MostrarImagenSeleccionada(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -93,7 +92,7 @@ function VistaNovedad() {
               Toast.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Disculpe, existió un problema al cargar las localidades",
+                text: "Disculpe, existió un problema al cargar las novedades",
               });
         }
     });
@@ -188,7 +187,6 @@ function DetalleNovedad(novedadID) {
             let imagenHtml = '';
             if (novedadVista.nombreArchivo) {
                 imagenHtml = `
-                    <p></p>
                         <img title="Expandir" src="data:${novedadVista.contentType};base64,${novedadVista.nombreArchivo}" 
                          style="width: 230px; height: 180px; cursor: pointer; justify-content:center !important;" 
                          onclick="mostrarImagenGrande(this.src)" id="miImagen" />
