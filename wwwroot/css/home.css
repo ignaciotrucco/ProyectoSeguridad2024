@@ -82,11 +82,11 @@ body {
 
     .tarjeta {
         margin-right: 30px !important;
-        scale: 105%;
+        scale: 100%;
     }
 
     .tarjeta:hover {
-        scale: 106%;
+        scale: 100%;
     }
 
     h1{
@@ -97,8 +97,12 @@ body {
         scale: 115%;
     }
 
+    .cardResponsivas{
+        height: auto;
+    }
+
     .card-header{
-        scale: 110%;
+        padding: 1px;
     }
 
 }

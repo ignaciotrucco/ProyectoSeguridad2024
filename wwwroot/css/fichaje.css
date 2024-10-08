@@ -89,4 +89,12 @@ body{
     .card {
         margin-top: 145px;
     }
+
+    .card .botonInicio  {
+        scale: 115%;
+    }
+
+    .card .botonFin {
+        scale: 115%;
+    }
 }

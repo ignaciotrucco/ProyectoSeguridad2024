@@ -1,5 +1,5 @@
 body {
-  margin-top: 20px;
+  margin-top: 60px;
 }
 
 .tituloSTVA{
@@ -87,10 +87,45 @@ body {
 }
 
 @media (max-width: 768px) {
-  .container{
-    scale: 115%;
-    overflow: hidden; 
-    margin: 0; 
-    margin-top: 25%;
+
+  .container {
+    width: 100%; 
+    margin-top: 50%;
+
   }
+
+  .tituloSTVA{
+    scale: 125%;
+  }
+
+  h6{
+    font-size: 25px !important;
+    text-align: center;
+  }
+
+  p{
+    font-size: 18px !important;
+    text-align: center;
+  }
+
+  input{
+    scale: 108%;
+  }
+
+  .form-floating{
+    scale: 108%;
+    margin-top: 15px;
+  }
+
+  label{
+    scale: 108%;
+    margin-left: -12px;
+  }
+
+  button{
+    scale: 120%;
+    margin-top: 10px;
+  }
+
+  
 }

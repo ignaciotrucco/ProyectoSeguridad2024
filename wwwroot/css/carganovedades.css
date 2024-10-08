@@ -33,3 +33,10 @@ span{
     cursor: pointer;
     transition: 0.3s ease-in-out;
 }
+
+@media (max-width: 767px) {
+    .imgGrande{
+       width: 90% !important;
+       margin-top: 90% !important;
+    }
+}

@@ -773,7 +773,45 @@ input:checked+.slider:before {
         border: 1px solid #888;
         width: 80%;
         border-radius: 5px 5px 5px 5px;
+        margin-top: 50%;
     }
+
+    .modal-contentDatos {
+        background-color: #dddddd;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        border-radius: 5px 5px 5px 5px;
+        margin-top: 50%;
+    }
+
+    .modal-contentAyuda {
+        background-color: #dddddd;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        border-radius: 5px 5px 5px 5px;
+        margin-top: 70%;
+    }
+
+    .modal-title{
+        font-size: medium;
+    }
+
+    .campoObligatorio{
+        font-size: small;
+    }
+
+    .centrarModalCelular{
+        margin-top: 50%;
+    }
+
+    .centrarModalCelular30{
+        margin-top: 30%;
+    }
+
 }
 
 @media (max-width: 550px) {
