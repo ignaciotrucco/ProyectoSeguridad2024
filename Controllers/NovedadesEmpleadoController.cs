@@ -36,8 +36,9 @@ public class NovedadesEmpleadoController : Controller
         return View();
     }
 
-    public JsonResult Novedades(int? NovedadID)
+    public JsonResult Novedades(int? NovedadID, DateTime? FechaDesde, DateTime? FechaHasta)
     {
+        var usuarioLogueadoID = _userManager.GetUserId(HttpContext.User);
         List<VistaNovedad> VistaNovedad = new List<VistaNovedad>();
 
         var listadoNovedades = _context.Novedades.ToList();
@@ -48,6 +49,11 @@ public class NovedadesEmpleadoController : Controller
             listadoNovedades = listadoNovedades.Where(l => l.NovedadID == NovedadID).ToList();
         }
 
+        if (FechaDesde != null && FechaHasta != null)
+        {
+            listadoNovedades = listadoNovedades.Where(l => l.Fecha_Hora >= FechaDesde && l.Fecha_Hora <= FechaHasta).ToList();
+        }
+
         foreach (var listadoNovedad in listadoNovedades)
         {
             var persona = _context.Personas.SingleOrDefault(p => p.UsuarioID == listadoNovedad.UsuarioID);
@@ -56,29 +62,33 @@ public class NovedadesEmpleadoController : Controller
 
             string base64 = "";
             string contentType = "";
-            // Verifica si el archivo no es nulo
+
+            //VERIFICA SI EL ARCHIVO NO ES NULO
             if (archivo != null && archivo.ArchivoBinario != null)
             {
                 base64 = Convert.ToBase64String(archivo.ArchivoBinario);
-                contentType = archivo.ContentType; 
+                contentType = archivo.ContentType;
             }
-
-            var vistaNovedad = new VistaNovedad
+            
+            if (listadoNovedad.UsuarioID == usuarioLogueadoID)
             {
-                NovedadID = listadoNovedad.NovedadID,
-                UsuarioID = listadoNovedad.UsuarioID,
-                ArchivoID = listadoNovedad.ArchivoID,
-                Observacion = listadoNovedad.Observacion,
-                PersonaNombre = persona?.NombreCompleto,
-                EmpresaID = listadoNovedad.EmpresaID,
-                EmpresaNombre = empresa?.RazonSocial,
-                Fecha_Hora = listadoNovedad.Fecha_Hora,
-                FechaHora = listadoNovedad.Fecha_Hora.ToString("dddd dd MMM yyyy - HH:mm"),
-                NombreArchivo = base64,
-                ContentType = archivo?.ContentType
-            };
+                var vistaNovedad = new VistaNovedad
+                {
+                    NovedadID = listadoNovedad.NovedadID,
+                    UsuarioID = listadoNovedad.UsuarioID,
+                    ArchivoID = listadoNovedad.ArchivoID,
+                    Observacion = listadoNovedad.Observacion,
+                    PersonaNombre = persona?.NombreCompleto,
+                    EmpresaID = listadoNovedad.EmpresaID,
+                    EmpresaNombre = empresa?.RazonSocial,
+                    Fecha_Hora = listadoNovedad.Fecha_Hora,
+                    FechaHora = listadoNovedad.Fecha_Hora.ToString("dddd dd MMM yyyy - HH:mm"),
+                    NombreArchivo = base64,
+                    ContentType = archivo?.ContentType
+                };
 
-            VistaNovedad.Add(vistaNovedad);
+                VistaNovedad.Add(vistaNovedad);
+            }
         }
 
         return Json(VistaNovedad);
@@ -90,7 +100,7 @@ public class NovedadesEmpleadoController : Controller
         var usuarioLogueadoID = _userManager.GetUserId(HttpContext.User);
         string resultado = "";
 
-        // Verifica que se haya proporcionado una observación
+        //VERIFICA QUE INGRESE UNA OBSERVACION
         if (!string.IsNullOrEmpty(Observacion))
         {
             // Crea una nueva novedad
@@ -102,7 +112,7 @@ public class NovedadesEmpleadoController : Controller
                 UsuarioID = usuarioLogueadoID
             };
 
-            // Verifica si se ha cargado un archivo
+            //VERIFICA SI SE CARGA UN ARCHIVO
             if (Archivo != null && Archivo.Length > 0)
             {
                 var nuevoArchivo = new Archivo
@@ -112,20 +122,21 @@ public class NovedadesEmpleadoController : Controller
                     NombreArchivo = Archivo.FileName
                 };
 
-                // Agrega el archivo al contexto
+                //SI SE CARGA LO AGREGA AL CONTEXTO
                 _context.Archivos.Add(nuevoArchivo);
-                await _context.SaveChangesAsync(); // Guarda los cambios del archivo
+                await _context.SaveChangesAsync();
 
-                // Asocia el ID del nuevo archivo a la novedad
+                //ASOCIA EL ID DEL NUEVO ARCHIVO A LA NOVEDAD
                 nuevaNovedad.ArchivoID = nuevoArchivo.ArchivoID;
                 resultado = "Novedad cargada exitosamente";
             }
             else
             {
+                //SI NO SE CARGA EL ARCHVIO GUARDA LA NOVEDAD SIMPLE
                 resultado = "Novedad cargada exitosamente!";
             }
 
-            // Agrega la novedad al contexto
+            //AGREGA LA NOVEDAD AL CONTEXTO
             _context.Novedades.Add(nuevaNovedad);
             await _context.SaveChangesAsync(); // Guarda los cambios de la novedad
 

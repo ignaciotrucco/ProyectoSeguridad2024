@@ -15,7 +15,7 @@
         <div class="mt-3">
             <div class="row">
                 <div class="col-auto me-auto">
-                    <h1 class="hover-icon">DEVOLUCIONES <i class="fas fa-comments icon"></i></h1>  
+                    <h1 class="hover-icon">RESEÑAS <i class="fas fa-comments icon"></i></h1>
                 </div>
             </div>
         </div>
@@ -25,24 +25,54 @@
 <!-- Tabla -->
 <div class="card m-4">
     <div class="card-header">
+        <div class="col-auto">
+            <div class="input-group m-2">
+                <div class="ms-2">
+                    <label for="fechaDesde" class="form-label text-dark labelFiltro">Fecha Desde</label>
+                    <input type="date" id="fechaDesde" class="form-control filtro anchoDate" onchange="VistaDevolucion()">
+                </div>
+                <div class="ms-2">
+                    <label for="fechaHasta" class="form-label text-dark labelFiltro">Fecha Hasta</label>
+                    <input type="date" id="fechaHasta" class="form-control filtro anchoDate" onchange="VistaDevolucion()">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table style="width: 100%;">
+                <tbody id="vistaDevoluciones">
+                </tbody>
+            </table>
+        </div>
     </div>
 
-<div class="card-body">
-    <div class="table-responsive">
-        <table style="width: 100%;">
-            <tbody id="vistaDevoluciones">
-            </tbody>
-        </table>
+    <div class="btnAgregar">
+        <a href="~/Devoluciones/NuevaDevolucion" class="btn btn-secondary btn-circle btn-lg d-flex"
+            style="padding-bottom: 2px;" title="Agregar">
+            <i class="fa-solid fa-plus mt-1"></i>
+            <h5 style="margin-left: 3px; padding-top: 1px;" class="textBtnAgregar">Nueva Reseña</h5>
+        </a>
     </div>
-</div>
 
-<div class="btnAgregar">
-    <a href="~/Devoluciones/NuevaDevolucion" class="btn btn-secondary btn-circle btn-lg d-flex" style="padding-bottom: 2px;" title="Agregar">
-        <i class="fa-solid fa-plus mt-1"></i>
-        <h5 style="margin-left: 3px; padding-top: 1px;" class="textBtnAgregar">Nueva Devolución</h5>
-    </a>
-</div>
+    <div id="modalDetalles" class="modalDatos">
+        <div class="modal-contentDatos">
+            <h2 class="mb-3">Detalle de Reseña</h2>
+            <div id="detalleContenido">
+                <input type="hidden" id="devolucion">
+                <p id="cliente"></p>
+                <p id="fechaHora"></p>
+                <p><b>Resultado de la encuesta:</b></p>
+                <ul id="listaEncuestas"></ul>
+                <p id="comentario"></p>
+            </div>
+            <hr>
+            <div class="modal-footerAyuda">
+                <button class="botonEntendido" onclick="cerrarModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
 
-@section Scripts {
-    <script src="~/js/devoluciones-1.0.0.js"></script>
-}
+    @section Scripts {
+        <script src="~/js/devoluciones-1.0.0.js"></script>
+    }

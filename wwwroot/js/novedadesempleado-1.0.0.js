@@ -28,12 +28,15 @@ function cerrarModalImagen() {
 
 function VistaNovedad() {
 
+    let fechaDesde = $("#fechaDesde").val();
+    let fechaHasta = $("#fechaHasta").val();
+
     $.ajax({
         // la URL para la petición
         url: '../../NovedadesEmpleado/Novedades',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: {  },
+        data: {FechaDesde: fechaDesde, FechaHasta: fechaHasta },
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -50,16 +53,16 @@ function VistaNovedad() {
 
                 contenidoTabla += `
             <tr>
-                <td style="text-align: left">${novedad.personaNombre}</td>
+                <td style="text-align: left"><i class="fa-solid fa-user"></i>   ${novedad.personaNombre}</td>
             </tr>
             <tr>
-                <td style="text-align: left">${novedad.empresaNombre}</td>
+                <td style="text-align: left"><i class="fa-solid fa-map-pin"></i>   ${novedad.empresaNombre}</td>
                 <td style="text-align: right !important; padding-right: 5px">
                     <button type="button" class="btn btn-dark" onclick="DetalleNovedad(${novedad.novedadID})">Detalle</button>
                 </td>
             </tr>
             <tr>
-                <td style="text-align: left">${novedad.fechaHora}</td>
+                <td style="text-align: left"><i class="fa-regular fa-calendar-days"></i>   ${novedad.fechaHora}</td>
             </tr>
             <tr>
                 <td colspan="3" style="padding: 0;">
