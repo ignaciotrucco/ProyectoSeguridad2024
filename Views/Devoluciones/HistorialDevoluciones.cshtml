@@ -1,5 +1,5 @@
 @{
-    ViewData["Title"] = "Historial de Fichajes";
+    ViewData["Title"] = "Historial de Reseñas";
 }
 
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
@@ -10,14 +10,8 @@
         <div class="mt-3">
             <div class="row">
                 <div class="col-auto me-auto">
-                    <h1 class="hover-icon hover-iconPequeño">HISTORIAL DE FICHAJES <i
+                    <h1 class="hover-icon hover-iconPequeño">HISTORIAL DE RESEÑAS <i
                             class="fas fa-business-time icon"></i></h1>
-                </div>
-                <div class="col-auto">
-                    <button class="btn btnImprimir mt-2" onclick="ImprimirTablaFichajes()">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="btn-text">Imprimir</span>
-                    </button>
                 </div>
             </div>
         </div>
@@ -30,24 +24,24 @@
         <div class="row align-items-center">
             <div class="col-auto">
                 <div class="input-group m-2">
-                    <div class="ms-2">
-                        <label for="personaID" class="form-label text-dark labelFiltro labelFiltroAncho">Filtra por
-                            empleado</label>
-                        @Html.DropDownList("PersonaID", null, htmlAttributes: new
-                            {
-                                @class = "form-control filtro",
-                                @onchange = "HistorialFichajes()"
-                            })
-                    </div>
+                    @* <div class="ms-2">
+                    <label for="personaID" class="form-label text-dark labelFiltro labelFiltroAncho">Filtra por
+                    empleado</label>
+                    @Html.DropDownList("PersonaID", null, htmlAttributes: new
+                    {
+                    @class = "form-control filtro",
+                    @onchange = "HistorialFichajes()"
+                    })
+                    </div> *@
                     <!-- Contenedor para los inputs de fecha con etiquetas -->
                     <div class="ms-2">
                         <label for="fechaDesde" class="form-label text-dark labelFiltro">Fecha Desde</label>
-                        <input type="date" id="fechaDesde" class="form-control filtro anchoDate"
+                        <input type="date" id="fechaDesdeHistorial" class="form-control filtro anchoDate"
                             onchange="HistorialFichajes()">
                     </div>
                     <div class="ms-2">
                         <label for="fechaHasta" class="form-label text-dark labelFiltro">Fecha Hasta</label>
-                        <input type="date" id="fechaHasta" class="form-control filtro anchoDate"
+                        <input type="date" id="fechaHastaHistorial" class="form-control filtro anchoDate"
                             onchange="HistorialFichajes()">
                     </div>
                     <!-- Botón añadido al lado de Fecha Hasta -->
@@ -55,12 +49,6 @@
                         <button type="button" class="btn btn-secondary BtnlimpiarFiltros"
                             onclick="LimpiarFiltros()">Limpiar
                             Filtros</button>
-                    </div>
-                    <div class="col-auto ms-4 referenciaContainer">
-                        <div class="mt-4 d-flex align-items-center">
-                            <span class="referenciaColor colorFueraDeHorario" style="background-color: #d2828a;"></span>
-                            <span class="referenciaTexto colorFueraDeHorario">Fuera de horario</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -73,20 +61,34 @@
             <table class="table mt-1" id="imprimir-tabla">
                 <thead>
                     <tr>
-                        <th scope="col" style="text-align: center">EMPLEADO</th>
-                        <th scope="col" style="text-align: center">JORNADA</th>
-                        <th scope="col" style="text-align: center">MOMENTO</th>
+                        <th scope="col" style="text-align: center">CLIENTE</th>
                         <th scope="col" style="text-align: center">FECHA Y HORA</th>
+                        <th scope="col" style="text-align: center">COMENTARIO</th>
+                        <th scope="col" style="text-align: center">RESULTADO ENCUESTA</th>
                     </tr>
                 </thead>
-                <tbody id="tbody-jornadaHistorial"></tbody>
+                <tbody id="tbody-historialDevoluciones"></tbody>
             </table>
         </div>
     </div>
 </div>
 
+<div id="modalDetalles" class="modalDatos">
+    <div class="modal-contentDatos">
+        <h2 class="mb-3">Resultado de la encuesta</h2>
+        <div id="detalleContenido">
+            <input type="hidden" id="devolucion">
+            <ul id="listaEncuestas"></ul>
+        </div>
+        <hr>
+        <div class="modal-footerAyuda">
+            <button class="botonEntendido" onclick="cerrarModal()">Cerrar</button>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
-    <script src="~/js/fichaje.js"></script>
+    <script src="~/js/historialDevoluciones.js"></script>
     <script src="~/js/impresiones.js"></script>
-    <script>window.onload = HistorialFichajes();</script>
+    <script>window.onload = HistorialDevoluciones();</script>
 }

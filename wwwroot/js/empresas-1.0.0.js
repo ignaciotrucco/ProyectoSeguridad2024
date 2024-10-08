@@ -33,6 +33,7 @@ function BuscarLocalidades() {
     var provinciaId = $("#ProvinciaID").val();
 
     $.ajax({
+        async: false,
         type: 'POST',
         url: '../../Personas/GetLocalidades',
         datatype: 'json',
@@ -404,6 +405,7 @@ function GuardarEmpresa() {
 function AbrirModalEditar(empresaID) {
     console.log(empresaID);
     $.ajax({
+        async: false,
         // la URL para la petición
         url: '../../Empresas/ListadoEmpresas',
         // la información a enviar
@@ -424,7 +426,7 @@ function AbrirModalEditar(empresaID) {
             $("#telefono").val(mostrarEmpresas.telefono);
             $("#email").val(mostrarEmpresas.email);
             $("#ProvinciaID").val(mostrarEmpresas.provinciaID);
-            // BuscarLocalidades()
+            BuscarLocalidades();
 
             $("#LocalidadID").val(mostrarEmpresas.localidadID);
             $("#domicilio").val(mostrarEmpresas.domicilio);

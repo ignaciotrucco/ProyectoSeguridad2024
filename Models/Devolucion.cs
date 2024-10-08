@@ -12,6 +12,13 @@ public class Devolucion
     public string? Reseña { get; set;}
  }
 
+ public class VistaClienteDevolucion {
+    public int DevolucionID { get; set;}
+    public string? UsuarioID { get; set;}
+    public string? ClienteNombre {get; set;}
+    public List<VistaDevolucion> VistaDevolucion {get; set;}
+}
+
  public class VistaDevolucion {
     public int DevolucionID { get; set;}
     public string? UsuarioID { get; set;}
@@ -19,4 +26,5 @@ public class Devolucion
     public DateTime Fecha_Hora { get; set;}
     public string? FechaHora { get; set;}
     public string? Reseña { get; set;}
+    public string? Encuesta { get; set; }
 }

@@ -52,7 +52,13 @@ public class FichajeController : Controller
 
     public IActionResult FichajeHistorial()
     {
-        var personas = _context.Personas.ToList();
+        var personas = (from persona in _context.Personas
+                        join user in _context.Users on persona.UsuarioID equals user.Id
+                        join userRole in _context.UserRoles on user.Id equals userRole.UserId
+                        join role in _context.Roles on userRole.RoleId equals role.Id
+                        where role.Name == "EMPLEADO"
+                        select persona).ToList();
+
         personas.Add(new Persona { PersonaID = 0, NombreCompleto = "[TODOS]" });
         ViewBag.PersonaID = new SelectList(personas.OrderBy(t => t.NombreCompleto), "PersonaID", "NombreCompleto");
 

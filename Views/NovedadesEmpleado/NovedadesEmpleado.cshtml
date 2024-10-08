@@ -18,7 +18,7 @@
         <div class="mt-3">
             <div class="row">
                 <div class="col-auto me-auto">
-                    <h1 class="hover-icon">NOVEDADES <i class="fas fa-file-lines icon"></i></h1>  
+                    <h1 class="hover-icon">NOVEDADES <i class="fas fa-file-lines icon"></i></h1>
                 </div>
             </div>
         </div>
@@ -31,58 +31,66 @@
         <div class="row align-items-center">
             <div class="col-auto">
                 <div class="input-group m-2">
-                    <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-file-lines"></i></span>
-                    <input type="text" id="inputBusqueda" class="form-control inputBusqueda" placeholder="Buscar..."
-                        style="text-transform:uppercase">
+                    <div class="ms-2">
+                        <label for="fechaDesde" class="form-label text-dark labelFiltro">Fecha Desde</label>
+                        <input type="date" id="fechaDesde" class="form-control filtro anchoDate"
+                            onchange="VistaNovedad()">
+                    </div>
+                    <div class="ms-2">
+                        <label for="fechaHasta" class="form-label text-dark labelFiltro">Fecha Hasta</label>
+                        <input type="date" id="fechaHasta" class="form-control filtro anchoDate"
+                            onchange="VistaNovedad()">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-<div class="card-body">
-    <div class="table-responsive">
-        <table style="width: 100%;">
-            <tbody id="vistaNovedades">
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<div class="btnAgregar">
-    <a href="~/NovedadesEmpleado/NuevaNovedad" class="btn btn-secondary btn-circle btn-lg d-flex" style="padding-bottom: 2px;" title="Agregar">
-        <i class="fa-solid fa-plus mt-1"></i>
-        <h5 style="margin-left: 3px; padding-top: 1px;" class="textBtnAgregar">Nueva Novedad</h5>
-    </a>
-</div>
-
-
-<div id="modalDetalles" class="modalDatos">
-    <div class="modal-contentDatos">
-        <h2 class="mb-3">Detalle de Novedad</h2>
-        <div id="detalleContenido">
-            <input type="hidden" id="novedad">
-            <p id="empleado"></p>
-            <p id="empresa"></p>
-            <p id="fechaHora"></p>
-            <p id="observacion"></p>
-            <p id="archivo"></p>
-        </div>
-        <hr>
-        <div class="modal-footerAyuda">
-            <button class="botonEntendido" onclick="cerrarModal()">Cerrar</button>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table style="width: 100%;">
+                <tbody id="vistaNovedades">
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
 
-<!-- Modal para mostrar la imagen en grande -->
-<div id="modalImagenGrande" class="modalDatos" style="display: none;">
-    <div class="modal-contentDatos">
-        <span class="close" onclick="cerrarModalImagen()">&times;</span>
-        <img id="imagenGrande" src="" alt="Imagen Grande" style="width: 100%; height: auto;" />
+    <div class="btnAgregar">
+        <a href="~/NovedadesEmpleado/NuevaNovedad" class="btn btn-secondary btn-circle btn-lg d-flex"
+            style="padding-bottom: 2px;" title="Agregar">
+            <i class="fa-solid fa-plus mt-1"></i>
+            <h5 style="margin-left: 3px; padding-top: 1px;" class="textBtnAgregar">Nueva Novedad</h5>
+        </a>
     </div>
-</div>
 
 
-@section Scripts {
-    <script src="~/js/novedadesempleado-1.0.0.js"></script>
-}
+    <div id="modalDetalles" class="modalDatos">
+        <div class="modal-contentDatos">
+            <h2 class="mb-3">Detalle de Novedad</h2>
+            <div id="detalleContenido">
+                <input type="hidden" id="novedad">
+                <p id="empleado"></p>
+                <p id="empresa"></p>
+                <p id="fechaHora"></p>
+                <p id="observacion"></p>
+                <p id="archivo"></p>
+            </div>
+            <hr>
+            <div class="modal-footerAyuda">
+                <button class="botonEntendido" onclick="cerrarModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para mostrar la imagen en grande -->
+    <div id="modalImagenGrande" class="modalDatos" style="display: none;">
+        <div class="modal-contentDatos">
+            <span class="close" onclick="cerrarModalImagen()">&times;</span>
+            <img id="imagenGrande" src="" alt="Imagen Grande" style="width: 100%; height: auto;" />
+        </div>
+    </div>
+
+
+    @section Scripts {
+        <script src="~/js/novedadesempleado-1.0.0.js"></script>
+    }

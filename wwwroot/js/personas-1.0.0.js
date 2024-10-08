@@ -190,6 +190,7 @@ function BuscarLocalidades() {
     var provinciaId = $("#ProvinciaID").val();
 
     $.ajax({
+        async: false,
         type: 'POST',
         url: '../../Personas/GetLocalidades',
         datatype: 'json',
@@ -419,6 +420,7 @@ function GuardarPersona() {
 function ModalEditar(personaID) {
 
     $.ajax({
+        async: false,
         url: '../../Personas/ListadoPersonas',
         data: { PersonaID: personaID },
         type: 'POST',
@@ -434,7 +436,7 @@ function ModalEditar(personaID) {
             document.getElementById("Telefono").value = mostrarPersona.telefono;
             document.getElementById("Email").value = mostrarPersona.email;
             document.getElementById("ProvinciaID").value = mostrarPersona.provinciaID;
-            // BuscarLocalidades();
+            BuscarLocalidades();
 
             document.getElementById("LocalidadID").value = mostrarPersona.localidadID;
             document.getElementById("emailUsuario").value = mostrarPersona.emailUsuario;
