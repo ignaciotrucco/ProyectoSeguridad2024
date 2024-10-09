@@ -10,8 +10,7 @@
         <div class="mt-3">
             <div class="row">
                 <div class="col-auto me-auto">
-                    <h1 class="hover-icon hover-iconPequeño">HISTORIAL DE RESEÑAS <i
-                            class="fas fa-business-time icon"></i></h1>
+                    <h1 class="hover-icon hover-iconPequeño">HISTORIAL DE RESEÑAS <i class="fas fa-comments icon"></i></h1>
                 </div>
             </div>
         </div>
@@ -43,8 +42,12 @@
                         <input type="date" id="fechaHastaHistorial" class="form-control filtro anchoDate"
                             onchange="HistorialDevoluciones()">
                     </div>
+                    <div class="ms-2 mt-4 limpiarFiltrosMin">
+                        <button type="button" class="btn btn-secondary" style="height: 30px; width: 40px;"
+                            onclick="LimpiarFiltros()"><i class="fa-solid fa-rotate-right" style="margin-bottom: 2px;"></i></button>
+                    </div>
                     <!-- Botón añadido al lado de Fecha Hasta -->
-                    <div class="ms-2 mt-4">
+                    <div class="ms-2 mt-4 limpiarFiltrosFull">
                         <button type="button" class="btn btn-secondary BtnlimpiarFiltros"
                             onclick="LimpiarFiltros()">Limpiar
                             Filtros</button>

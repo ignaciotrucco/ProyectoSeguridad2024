@@ -138,7 +138,7 @@ h5 {
     color: rgb(0, 0, 0);
     font-family: 'textos13';
     margin-bottom: 1rem;
-    position: relative; /* Necesario para posicionar el contenedor de botones absolutamente dentro de la tarjeta */
+    position: relative; 
 }
 
 .cardbodyPersonas {
@@ -254,8 +254,6 @@ label {
 }
 
 .btnAgregar {
-    /* text-align: right; */
-    /* margin-top: 150px; */
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -446,9 +444,9 @@ p {
     border-radius: 5px 5px 5px 5px;
 }
 
-/* .parrafoDatos{
-    font-weight: 'bold' !important;
-} */
+.modalResenia{
+    margin-top: 10px !important;
+}
 
 /* Acordeon Jornada Laboral */
 
@@ -690,9 +688,8 @@ input:checked+.slider:before {
         font-size: small !important;
         width: 5px !important;
     }
-
+    /* Texto boton imprimir oculto en formato celular */
     .btn-text {
-        /* Texto boton imprimir oculto en formato celular */
         display: none;
     }
 
@@ -708,10 +705,6 @@ input:checked+.slider:before {
     .ocultar-en-767px {
         display: none;
     }
-
-    /* .input-group {
-        width: 85%;
-    } */
 
     .filtro {
         font-size: 13px;
@@ -748,7 +741,7 @@ input:checked+.slider:before {
     }
 
     .labelFiltroAncho{
-        width: 207px;
+        width: 237px;
     }
 
     .contenedorFiltros{
@@ -756,7 +749,7 @@ input:checked+.slider:before {
     }
 
     .anchoDate{
-        width: 100px;
+        width: 115px;
     }
 
     .BtnlimpiarFiltros{
@@ -812,6 +805,9 @@ input:checked+.slider:before {
         margin-top: 30%;
     }
 
+    .limpiarFiltrosFull{
+        display: none !important;
+    }
 }
 
 @media (max-width: 550px) {
@@ -819,6 +815,9 @@ input:checked+.slider:before {
         display: none;
     }
 
+    .referenciaContainer{
+        display: none !important;
+    }
 }
 
 @media (min-width: 768px) {
@@ -827,12 +826,20 @@ input:checked+.slider:before {
         top: 0 !important;
     }
 
+    .referenciaContainerModal{
+        display: none !important;
+    }
+
     .infoTabla {
         display: none;
     }
 
     .mostrar-en-767px {
         display: none;
+    }
+
+    .limpiarFiltrosMin{
+        display: none !important;
     }
 }
 

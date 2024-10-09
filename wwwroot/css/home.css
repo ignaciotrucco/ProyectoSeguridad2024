@@ -86,7 +86,7 @@ body {
     }
 
     .tarjeta:hover {
-        scale: 100%;
+        scale: 101%;
     }
 
     h1{
@@ -97,12 +97,20 @@ body {
         scale: 115%;
     }
 
+    .cardSistema{
+        height: auto;
+    }
+
     .cardResponsivas{
         height: auto;
     }
 
     .card-header{
         padding: 1px;
+    }
+
+    .imgZoom{
+        scale: 105%;
     }
 
 }
