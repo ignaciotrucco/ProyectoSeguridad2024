@@ -102,11 +102,33 @@ function VistaNovedad() {
 }
 
 function GuardarNovedad() {
+    $("#empresaError").html("");
+    $("#fechaError").html("")
+    $("#observacionError").html("");
+
     let novedadID = $("#NovedadID").val();
     let empresaID = $("#EmpresaID").val();
     let fechaHora = $("#FechaNovedad").val();
     let observacion = $("#Observacion").val(); 
     let archivo = $("#ImgNovedad")[0].files[0]; // Obtener el archivo
+
+    let guardado = true;
+
+    if (empresaID == 0) {
+        $("#empresaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Empresa requerida.");
+        guardado = false
+    }
+
+    if (fechaHora == "") {
+        $("#fechaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Fecha y hora requerida.");
+        guardado = false
+    }
+
+    if (observacion == "") {
+        $("#observacionError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Debe cargar una observación.");
+        guardado = false
+    }
+
 
     // Crear un objeto FormData
     let formData = new FormData();
@@ -120,54 +142,58 @@ function GuardarNovedad() {
         formData.append("Archivo", archivo);
     }
 
-    $.ajax({
-        url: '../../NovedadesEmpleado/CargarNovedad',
-        type: 'POST',
-        data: formData, 
-        processData: false, // Impedir que jQuery procese los datos
-        contentType: false, // Impedir que jQuery establezca el tipo de contenido
-        success: function (resultado) {
-            if (resultado != "") {
+    if (guardado) {
+
+        $.ajax({
+            url: '../../NovedadesEmpleado/CargarNovedad',
+            type: 'POST',
+            data: formData, 
+            processData: false, // Impedir que jQuery procese los datos
+            contentType: false, // Impedir que jQuery establezca el tipo de contenido
+            success: function (resultado) {
+                if (resultado != "") {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "bottom-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        background: '#e2ffd4',
+                        width: "380px",
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        }
+                    });
+                    Toast.fire({
+                        title: (resultado),
+                    });
+                }
+    
+                setTimeout(() => location.href = '../NovedadesEmpleado/NovedadesEmpleado', 1200);
+            },
+            error: function (xhr, status) {
                 const Toast = Swal.mixin({
                     toast: true,
                     position: "bottom-end",
                     showConfirmButton: false,
                     timer: 3000,
                     timerProgressBar: true,
-                    background: '#e2ffd4',
-                    width: "380px",
+                    background: '#ffe7e7',
                     didOpen: (toast) => {
                         toast.onmouseenter = Swal.stopTimer;
                         toast.onmouseleave = Swal.resumeTimer;
                     }
                 });
                 Toast.fire({
-                    title: (resultado),
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Disculpe, existió un problema al guardar la novedad",
                 });
             }
+        });
 
-            setTimeout(() => location.href = '../NovedadesEmpleado/NovedadesEmpleado', 1200);
-        },
-        error: function (xhr, status) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "bottom-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                background: '#ffe7e7',
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
-                }
-            });
-            Toast.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Disculpe, existió un problema al guardar la novedad",
-            });
-        }
-    });
+    }
 }
 
 function DetalleNovedad(novedadID) {
