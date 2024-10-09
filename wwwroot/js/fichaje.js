@@ -149,3 +149,19 @@ function RegistrarMomento(momento) {
         }
     });
 }
+
+function openModalReferencia() {
+    var modal = document.getElementById("ModalReferencia");
+    modal.style.display = "block";
+}
+
+function closeModalReferencia() {
+    var modal = document.getElementById("ModalReferencia");
+    modal.style.display = "none";
+}
+
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+        closeModalReferencia();
+    }
+});

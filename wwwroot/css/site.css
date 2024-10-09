@@ -13,20 +13,6 @@ html {
   min-height: 100%;
 }
 
-/* .loader {
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  height: 100%;
-  z-index: 999999;
-  background-color: rgba(249, 249, 249, 0.5); 
-  background-image: url('../img/logoSEGURIDAD.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 150px;
-} */
-
 .loader {
   position: fixed;
   top: 0;
@@ -46,9 +32,9 @@ html {
 .loader::before {
   content: "";
   display: block;
-  width: 50px; /* Adjust the size as needed */
-  height: 50px; /* Adjust the size as needed */
-  background-image: url('../gif/gifloader.gif'); /* Replace with the path to your GIF */
+  width: 50px; 
+  height: 50px; 
+  background-image: url('../gif/gifloader.gif');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -85,9 +71,3 @@ html {
       background: rgba(255, 255, 255, 0);
   }
 }
-/* @media (max-width: 767px) {
-  .loader {
-    left: 0px;
-    top: 85px;
-  }
-}  */

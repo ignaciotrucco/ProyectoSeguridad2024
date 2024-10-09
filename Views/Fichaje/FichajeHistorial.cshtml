@@ -39,6 +39,11 @@
                                 @onchange = "HistorialFichajes()"
                             })
                     </div>
+                    <div style="margin-top: 25px; margin-left: 8px;" class="referenciaContainerModal">
+                        <div title="Info" class="question-icon" onclick="openModalReferencia()">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </div>
+                    </div>
                     <!-- Contenedor para los inputs de fecha con etiquetas -->
                     <div class="ms-2">
                         <label for="fechaDesde" class="form-label text-dark labelFiltro">Fecha Desde</label>
@@ -50,8 +55,14 @@
                         <input type="date" id="fechaHasta" class="form-control filtro anchoDate"
                             onchange="HistorialFichajes()">
                     </div>
+                    <div class="ms-2 mt-4 limpiarFiltrosMin">
+                        <button type="button" class="btn btn-secondary"
+                            style="height: 30px; width: 40px; text-align: center !important;"
+                            onclick="LimpiarFiltros()"><i class="fa-solid fa-rotate-right"
+                                style="margin-bottom: 2px;"></i></button>
+                    </div>
                     <!-- Botón añadido al lado de Fecha Hasta -->
-                    <div class="ms-2 mt-4">
+                    <div class="ms-2 mt-4 limpiarFiltrosFull">
                         <button type="button" class="btn btn-secondary BtnlimpiarFiltros"
                             onclick="LimpiarFiltros()">Limpiar
                             Filtros</button>
@@ -81,6 +92,22 @@
                 </thead>
                 <tbody id="tbody-jornadaHistorial"></tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Referencia Form -->
+<div id="ModalReferencia" class="modalAyuda" onclick="closeModalReferencia()">
+    <div class="modal-contentAyuda">
+        <h2>Referencias</h2>
+        <hr>
+        <div class="mt-4 d-flex align-items-center">
+            <span class="referenciaColor colorFueraDeHorario" style="background-color: #d2828a;"></span>
+            <span class="referenciaTexto colorFueraDeHorario">Fuera de horario</span>
+        </div>
+        <hr>
+        <div class="modal-footerAyuda">
+            <button class="botonEntendido" onclick="closeModalReferencia()">Entendido</button>
         </div>
     </div>
 </div>
