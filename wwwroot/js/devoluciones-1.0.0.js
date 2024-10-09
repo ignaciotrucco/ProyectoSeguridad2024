@@ -178,7 +178,7 @@ function DetalleDevolucion(devolucionID) {
                 //REEMPLAZA COMILLAS DOBLES Y ELIMINA ESPACIOS AL PRINCIPIO Y FINAL 
                 let respuestaLimpia = encuesta.replace(/["{}]/g, '  ').trim();
                 if (respuestaLimpia) { //VERIFICA QUE LA RESPUESTA NO ESTE VACIA
-                    encuestaHTML += '<li>' + respuestaLimpia + '</li>'; //LA AGREGA A LA LISTA
+                    encuestaHTML += '<li>' + respuestaLimpia + '</li>'; //SI NO ES VACIA LA AGREGA A LA LISTA
                 }
             });
 

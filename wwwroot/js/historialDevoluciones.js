@@ -2,13 +2,17 @@ window.onload = HistorialDevoluciones();
 
 function HistorialDevoluciones() {
 
+    let cliente = $("#EmpresaID").val();
+    let fechaDesdeHistorial = $("#fechaDesdeHistorial").val();
+    let fechaHastaHistorial = $("#fechaHastaHistorial").val();
+
     $.ajax({
         async: false,
         // la URL para la petición
         url: '../../Devoluciones/ListadoHistorialDevoluciones',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: {},
+        data: {Cliente: cliente, FechaDesdeHistorial: fechaDesdeHistorial, FechaHastaHistorial: fechaHastaHistorial},
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -78,6 +82,13 @@ function HistorialDevoluciones() {
 
 }
 
+function LimpiarFiltros() {
+    $("#EmpresaID").val(0);
+    $("#fechaDesdeHistorial").val("");
+    $("#fechaHastaHistorial").val("");
+    HistorialDevoluciones();
+}
+
 // function VerEncuesta(devolucionID) {
 //     $.ajax({
 //         async: false,
@@ -91,28 +102,32 @@ function HistorialDevoluciones() {
 //         dataType: 'json',
 //         // código a ejecutar si la petición es satisfactoria
 //         success: function (VistaClienteDevolucion) {
-//             let vista = vistaDevolucion[0]
 
-//             $('#devolucion').val(devolucionID);
+//             console.log(VistaClienteDevolucion);
             
-
-//             // Asumiendo que 'vista.encuesta' es un string delimitado por comas
-//             let encuestasArray = vista.encuesta.split(','); // Cambia ',' por el delimitador correcto
+//             if (vista.encuesta) {
+//             //ENCUESTA ES UN STRING DELIMITADO CON COMAS ENTONCES LO CAMBIAMOS POR EL DELIMITADOR CORRECTO
+//             let encuestasArray = VistaClienteDevolucion.encuesta.split(',');
 //             let encuestaHTML = '';
 
-//             // Itera sobre el array de encuestas para crear una lista
-//             encuestasArray.forEach(function (encuesta) {
-//                 // Reemplaza comillas dobles y elimina espacios al principio y al final
+//             //RECORRE EL ARRAY ENCUESTAS PARA CREAR UNA LISTA
+//             encuestasArray.forEach(function (index, encuesta) {
+//                 //REEMPLAZA COMILLAS DOBLES Y ELIMINA ESPACIOS AL PRINCIPIO Y FINAL
 //                 let respuestaLimpia = encuesta.replace(/["{}]/g, '  ').trim();
-//                 if (respuestaLimpia) { // Verifica que la respuesta no esté vacía
-//                     encuestaHTML += '<li>' + respuestaLimpia + '</li>'; // Agrega la respuesta a la lista
+//                 if (respuestaLimpia) { //VERIFICA QUE LA RESPUESTA NO ESTE VACIA
+//                     encuestaHTML += '<li>' + respuestaLimpia + '</li>'; //SI NO ES VACIA LA AGREGA A LA LISTA
 //                 }
 //             });
 
-//             // Agrega la lista de encuestas al contenedor
-//             $('#listaEncuestas').html(encuestaHTML); // Asegúrate de tener un contenedor para esto
+//             //AGREGA LA LISTA DE ENCUESTAS AL CONTENEDOR
+//             $('#listaEncuesta').html(encuestaHTML);
 
-//             $('#modalDetalles').show();
+//             $('#modalEncuesta').show();
+//             }
+//             else {
+//                 console.log('No hay encuesta disponible');
+//             }
+
 //         },
 //         // código a ejecutar si la petición falla
 //         error: function (xhr, status) {

@@ -672,11 +672,11 @@ window.onclick = function (event) {
 function mostrarModal(razonSocial, cuit_Cdi, telefono, email, provinciaNombre, localidadNombre, domicilio) {
     $('#razonSocial').text('Razón Social: ' + razonSocial);
     $('#cuit_Cdi').text('CUIT: ' + cuit_Cdi);
-    $('#telefono').text('Teléfono: ' + telefono);
-    $('#email').text('Email: ' + email);
+    $('#telefonoDetalle').text('Teléfono: ' + telefono);
+    $('#emailDetalle').text('Email: ' + email);
     $('#provinciaNombre').text('Provincia: ' + provinciaNombre);
     $('#localidadNombre').text('Localidad: ' + localidadNombre);
-    $('#domicilio').text('Domicilio: ' + domicilio);
+    $('#domicilioDetalle').text('Domicilio: ' + domicilio);
 
     $('#modalDetalles').show();
 }

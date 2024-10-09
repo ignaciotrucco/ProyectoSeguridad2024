@@ -36,12 +36,15 @@ public class DevolucionesController : Controller
     }
     public IActionResult HistorialDevoluciones()
     {
+        var empresa = _context.Empresas.ToList();
+        empresa.Add(new Empresa { EmpresaID = 0, RazonSocial = "[SELECCIONE . . ]" });
+        ViewBag.EmpresaID = new SelectList(empresa.OrderBy(t => t.RazonSocial), "EmpresaID", "RazonSocial");
 
         return View();
     }
 
     //LISTADO PARA QUE EL ADMIN VEA TODAS LAS RESEÑAS
-    public JsonResult ListadoHistorialDevoluciones(int? DevolucionID)
+    public JsonResult ListadoHistorialDevoluciones(int? DevolucionID, int? Cliente, DateTime? FechaDesdeHistorial, DateTime? FechaHastaHistorial)
     {
         List<VistaClienteDevolucion> VistaClienteDevolucion = new List<VistaClienteDevolucion>();
 
@@ -52,6 +55,23 @@ public class DevolucionesController : Controller
         if (DevolucionID != null)
         {
             listadoDevoluciones = listadoDevoluciones.Where(l => l.DevolucionID == DevolucionID).ToList();
+        }
+
+        if (Cliente != 0 && Cliente != null)
+        {
+            //BUSCAR LA EMPRESA CORRESPONDIENTE AL CLIENTE PROPORCIONADO
+            var empresaFiltrada = empresas.SingleOrDefault(p => p.EmpresaID == Cliente);
+
+            if (empresaFiltrada != null)
+            {
+                //FILTRADO POR EMPRESAS
+                listadoDevoluciones = listadoDevoluciones.Where(l => l.UsuarioID == empresaFiltrada.UsuarioID).ToList();
+            }
+        }
+
+        if (FechaDesdeHistorial != null && FechaHastaHistorial != null)
+        {
+            listadoDevoluciones = listadoDevoluciones.Where(l => l.Fecha_Hora >= FechaDesdeHistorial && l.Fecha_Hora <= FechaHastaHistorial).ToList();
         }
 
         foreach (var listadoDevolucion in listadoDevoluciones)

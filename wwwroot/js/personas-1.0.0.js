@@ -135,24 +135,6 @@ function TablaImprimir() {
     });
 }
 
-{/* 
-    <ul class="list-group list-group-flush listaPersona">
-                        
-                    <li class="datosPersona list-group-item">${persona.localidadNombre} - ${persona.provinciaNombre}</li>
-                        <li class="datosPersona list-group-item">${persona.domicilio}</li>
-                        <li class="datosPersona list-group-item">${persona.telefono}</li>
-                        <li class="datosPersona list-group-item">${persona.email}</li>
-                        <li class="datosPersona list-group-item">${persona.nombreCompleto}</li>
-                        <li class="datosPersona list-group-item">Nacimiento: ${persona.fechaNacimientoString}</li>
-    </ul> */}
-
-
-// //FUNCION PARA OBTENER EL USUARIOID DESDE LA URL
-// function urlUsuarioID() {
-//     const pathArray = window.location.pathname.split('/');
-//     return pathArray[pathArray.length - 1];  //OBTIENE EL ULTIMO SEGMENTO DE LA URL(USUARIOID) 
-// }
-
 function TraerIdUsuario() {
 
     //GUARDAMOS EN UNA VARIABLE EL USUARIO OBTENIDO EN LA URL
@@ -443,7 +425,7 @@ function ModalEditar(personaID) {
 
             //CONVERTIMOS LA FECHA DE NACIMIENTO EN FORMATO YYYY-MM-DD PARA PODER MOSTRARLO EN EL INPUT
             let fechaNacimiento = new Date(mostrarPersona.fechaNacimiento);
-            let formatoDate = fechaNacimiento.toISOString().split('T')[0]; //SE SEPARAN LAS PARTES DE LA FECHA Y LA HORA PARA PODER MOSTRAR SOLO FECHA QUE SERIA [0];
+            let formatoDate = fechaNacimiento.toISOString().split('T')[0]; //SE SEPARAN LAS PARTES DE LA FECHA Y LA HORA PARA PODER MOSTRAR SOLO FECHA;
 
             document.getElementById("FechaNacimiento").value = formatoDate;
             $("#modalPersonas").modal("show");

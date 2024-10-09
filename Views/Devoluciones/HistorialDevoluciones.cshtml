@@ -24,25 +24,24 @@
         <div class="row align-items-center">
             <div class="col-auto">
                 <div class="input-group m-2">
-                    @* <div class="ms-2">
-                    <label for="personaID" class="form-label text-dark labelFiltro labelFiltroAncho">Filtra por
-                    empleado</label>
-                    @Html.DropDownList("PersonaID", null, htmlAttributes: new
+                    <div class="ms-2">
+                    <label for="EmpresaID" class="form-label text-dark labelFiltro labelFiltroAncho">Filtra por cliente</label>
+                    @Html.DropDownList("EmpresaID", null, htmlAttributes: new
                     {
                     @class = "form-control filtro",
-                    @onchange = "HistorialFichajes()"
+                    @onchange = "HistorialDevoluciones()"
                     })
-                    </div> *@
+                    </div>
                     <!-- Contenedor para los inputs de fecha con etiquetas -->
                     <div class="ms-2">
                         <label for="fechaDesde" class="form-label text-dark labelFiltro">Fecha Desde</label>
                         <input type="date" id="fechaDesdeHistorial" class="form-control filtro anchoDate"
-                            onchange="HistorialFichajes()">
+                            onchange="HistorialDevoluciones()">
                     </div>
                     <div class="ms-2">
                         <label for="fechaHasta" class="form-label text-dark labelFiltro">Fecha Hasta</label>
                         <input type="date" id="fechaHastaHistorial" class="form-control filtro anchoDate"
-                            onchange="HistorialFichajes()">
+                            onchange="HistorialDevoluciones()">
                     </div>
                     <!-- Botón añadido al lado de Fecha Hasta -->
                     <div class="ms-2 mt-4">
@@ -73,19 +72,18 @@
     </div>
 </div>
 
-<div id="modalDetalles" class="modalDatos">
+@* <div id="modalEncuesta" class="modalDatos">
     <div class="modal-contentDatos">
         <h2 class="mb-3">Resultado de la encuesta</h2>
         <div id="detalleContenido">
-            <input type="hidden" id="devolucion">
-            <ul id="listaEncuestas"></ul>
+            <ul id="listaEncuesta"></ul>
         </div>
         <hr>
         <div class="modal-footerAyuda">
             <button class="botonEntendido" onclick="cerrarModal()">Cerrar</button>
         </div>
     </div>
-</div>
+</div> *@
 
 @section Scripts {
     <script src="~/js/historialDevoluciones.js"></script>
