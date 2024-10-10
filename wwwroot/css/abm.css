@@ -74,6 +74,10 @@ h5 {
     cursor: default;
 }
 
+h2, h4{
+    cursor: default;
+}
+
 .textoError {
     color: rgb(217, 136, 136);
     cursor: default;
@@ -633,6 +637,47 @@ input:checked+.slider:before {
     padding: 2px;
 }
 
+.inputImg {
+    position: relative;
+    display: flex;
+    align-items: center; 
+    width: 100%;
+}
+
+.formImg {
+    display: none; 
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #E9ECEF;
+    color: rgb(0, 0, 0);
+    font-family: 'textos3';
+    border-radius: 0.375rem 0px 0px 0.375rem !important;
+    border:  1px #212529;
+    border: 1px solid #6c757d46; 
+}
+
+.file-name {
+    font-size: 16px;
+    color: #333;
+    font-family: 'textos13';
+    display: inline-block;
+    background-color: #808080;
+    color: white;
+    padding: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    box-sizing:border-box;
+}
+
+#Resenia {
+    resize: none;
+}
+
+
 @media (max-width: 767px) {
 
     .cardPersonas {
@@ -813,6 +858,10 @@ input:checked+.slider:before {
 @media (max-width: 550px) {
     .ocultar-en-550px {
         display: none;
+    }
+
+    .modalResenia{
+        margin-top: 45px !important;
     }
 
     .referenciaContainer{

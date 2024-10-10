@@ -3,6 +3,7 @@ window.onload = VistaNovedad();
 function MostrarImagenSeleccionada(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
+        var fileName = input.files[0].name; // Obtener el nombre del archivo
 
         reader.onload = function (e) {
             // Mostrar la imagen en un elemento HTML
@@ -13,11 +14,15 @@ function MostrarImagenSeleccionada(input) {
                 $('#imagenGrande').attr('src', e.target.result);
                 $('#modalImagenGrande').show();
             });
+
+            // Mostrar el nombre del archivo
+            $('#fileName').text(fileName); // Asegúrate de tener un elemento con ID "fileName"
         }
 
         reader.readAsDataURL(input.files[0]);
     } else {
         $('#vistaImg').html('');
+        $('#fileName').text(''); // Limpiar el nombre si no hay archivo
     }
 }
 
