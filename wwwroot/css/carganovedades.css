@@ -73,4 +73,15 @@ span{
     .comentarios{
         height: 45px;
     }
+
+    .file-name{
+        font-size: small !important;
+        height: 60px;
+        width: 69% !important;
+    }
+
+    .custom-file-upload{
+        width: 31% !important;
+    }
+    
 }

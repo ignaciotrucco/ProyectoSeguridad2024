@@ -7,7 +7,7 @@ function MostrarImagenSeleccionada(input) {
 
         reader.onload = function (e) {
             // Mostrar la imagen en un elemento HTML
-            $('#vistaImg').html('<img src="' + e.target.result + '" alt="Imagen seleccionada" width="200" style="cursor: pointer;" />');
+            $('#vistaImg').html('<img src="' + e.target.result + '" alt="Imagen seleccionada" width="200" style="cursor: pointer; box-shadow: 2px 2px 2px grey" />');
             
             // Añadir evento para abrir el modal al hacer clic
             $('#vistaImg img').on('click', function () {
@@ -222,7 +222,7 @@ function DetalleNovedad(novedadID) {
             if (novedadVista.nombreArchivo) {
                 imagenHtml = `
                         <img title="Expandir" src="data:${novedadVista.contentType};base64,${novedadVista.nombreArchivo}" 
-                         style="width: 230px; height: 180px; cursor: pointer; justify-content:center !important;" 
+                         style="width: 230px; height: 180px; cursor: pointer; justify-content:center !important; box-shadow: 2px 2px 2px grey"" 
                          onclick="mostrarImagenGrande(this.src)" id="miImagen" />
                         <button class="btn btn-dark" title="Descargar" onclick="descargarImagen('${novedadVista.contentType}', '${novedadVista.nombreArchivo}')"><i class="fa-solid fa-file-arrow-down"></i>
                         </button>
