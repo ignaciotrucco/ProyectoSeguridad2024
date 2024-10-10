@@ -138,8 +138,7 @@ public class NovedadesEmpleadoController : Controller
 
             //AGREGA LA NOVEDAD AL CONTEXTO
             _context.Novedades.Add(nuevaNovedad);
-            await _context.SaveChangesAsync(); // Guarda los cambios de la novedad
-
+            await _context.SaveChangesAsync(); // GUARDA LOS CAMBIOS
         }
         else
         {

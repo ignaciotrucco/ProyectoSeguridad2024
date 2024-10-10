@@ -18,6 +18,7 @@
                             Hora</span>
                         <input value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" type="datetime-local"
                             class="form-control" id="FechaNovedad" max="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                            <span id="fechaError" class="textoError"></span>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
@@ -25,12 +26,14 @@
                         @Html.DropDownList("EmpresaID", null, htmlAttributes: new { @class = "form-control" })
                         <span class="input-group-text" id="basic-addon2" style="font-family: 'textos3';">Empresa</span>
                     </div>
+                    <span id="empresaError" class="textoError"></span>
                 </div>
             </div>
 
             <div class="input-group mb-4 ">
                 <span class="input-group-text" style="font-family: 'textos3';">Observación</span>
                 <textarea class="form-control" id="Observacion"></textarea>
+                <p id="observacionError" class="textoError"></p>
             </div>
             <div class="input-group mb-4 inputImg">
                 <input type="file" class="form-control formImg" id="ImgNovedad"
