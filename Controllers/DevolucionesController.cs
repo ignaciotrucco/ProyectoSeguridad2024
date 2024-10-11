@@ -157,13 +157,13 @@ public class DevolucionesController : Controller
 
 
     public async Task<IActionResult> CargarObservacion(int DevolucionID, string Resenia, string Encuesta)
-    {
+    {   
         var usuarioLogueadoID = _userManager.GetUserId(HttpContext.User);
+        bool success = false;
+        string resultado;
 
-        // Verifica que se haya proporcionado una Reseña
         if (!string.IsNullOrEmpty(Resenia) && !string.IsNullOrEmpty(Encuesta))
         {
-            // Crea una nueva Reseña
             var nuevaDevolucion = new Devolucion
             {
                 Fecha_Hora = DateTime.Now,
@@ -173,13 +173,17 @@ public class DevolucionesController : Controller
             };
 
             _context.Devoluciones.Add(nuevaDevolucion);
-            await _context.SaveChangesAsync(); // Guarda los cambios de la devolucion
-            return Json(new { success = true, Message = "La devolución se envió correctamente!" });
+            await _context.SaveChangesAsync();
+        
+            success = true;
+            resultado = "<i class='fas fa-check-circle'></i> ¡La devolución se envió correctamente!";
         }
-        else
+        else    
         {
-            return Json(new { success = false, Message = "Debe completar la encuesta." });
+            resultado = "Debe cargar una observación.";
         }
+
+        return Json(new { success = success, resultado = resultado });
     }
 
 }

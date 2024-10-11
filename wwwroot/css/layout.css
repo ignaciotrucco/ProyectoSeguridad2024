@@ -5505,6 +5505,27 @@ textarea.form-control-lg {
   margin: calc(var(--bs-modal-footer-gap) * 0.5);
 }
 
+.collapse-admin-enter {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out;
+}
+
+.collapse-admin-enter-active {
+  height: auto;
+}
+
+.collapse-admin-leave {
+  height: auto;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out;
+}
+
+.collapse-admin-leave-active {
+  height: 0;
+}
+
+
 @media (min-width: 576px) {
   .modal {
     --bs-modal-margin: 1.75rem;

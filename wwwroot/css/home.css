@@ -69,9 +69,9 @@ body {
     transition: ease-in-out 0.3s;
 }
 
-.carousel:hover {
+/* .carousel:hover {
     scale: 101%;
-}
+} */
 
 @media (max-width: 767px) {
     .carousel-indicators {

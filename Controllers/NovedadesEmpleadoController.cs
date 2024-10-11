@@ -128,12 +128,12 @@ public class NovedadesEmpleadoController : Controller
 
                 //ASOCIA EL ID DEL NUEVO ARCHIVO A LA NOVEDAD
                 nuevaNovedad.ArchivoID = nuevoArchivo.ArchivoID;
-                resultado = "Novedad cargada exitosamente";
+                resultado = "<i class='fas fa-check-circle'></i> ¡Novedad cargada exitosamente!";
             }
             else
             {
                 //SI NO SE CARGA EL ARCHVIO GUARDA LA NOVEDAD SIMPLE
-                resultado = "Novedad cargada exitosamente!";
+                resultado = "<i class='fas fa-check-circle'></i> ¡Novedad cargada exitosamente!";
             }
 
             //AGREGA LA NOVEDAD AL CONTEXTO

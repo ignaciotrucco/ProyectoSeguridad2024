@@ -200,7 +200,7 @@ public class FichajeController : Controller
 
         if (esValido)
         {
-            mensaje = "Fichaje registrado correctamente.";
+            mensaje = "<i class='fas fa-check-circle'></i> ¡Fichaje registrado correctamente!";
         }
         else
         {

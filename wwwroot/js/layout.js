@@ -65,3 +65,27 @@ if (collapseButton) {
     collapseButton.addEventListener('hidden.bs.collapse', () => setCollapseState(false));
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    const collapseElement = document.getElementById('collapseAdmin');
+    const triggerElement = document.querySelector('[href="#collapseAdmin"]');
+
+    collapseElement.addEventListener('show.bs.collapse', function() {
+        collapseElement.classList.add('collapse-admin-enter');
+        collapseElement.classList.remove('collapse-admin-leave');
+    });
+
+    collapseElement.addEventListener('shown.bs.collapse', function() {
+        collapseElement.classList.remove('collapse-admin-enter');
+        collapseElement.classList.add('collapse-admin-enter-active');
+    });
+
+    collapseElement.addEventListener('hide.bs.collapse', function() {
+        collapseElement.classList.add('collapse-admin-leave');
+        collapseElement.classList.remove('collapse-admin-enter-active');
+    });
+
+    collapseElement.addEventListener('hidden.bs.collapse', function() {
+        collapseElement.classList.remove('collapse-admin-leave');
+    });
+});
+

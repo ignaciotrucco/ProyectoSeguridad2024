@@ -81,7 +81,7 @@ function GuardarDevolucion() {
 
     // Crear un objeto que contenga las respuestas de la encuesta
     let encuesta = {
-        "¿Que tan satisfecho estas con la calidad general de nuestros servicios de seguridad?": $("input[name='satisfaccion']:checked").val(),
+        "¿Qué tan satisfecho estás con la calidad general de nuestros servicios de seguridad?": $("input[name='satisfaccion']:checked").val(),
         "¿Cómo calificarías la profesionalidad del personal de seguridad asignado a tu propiedad?": $("input[name='profesionalidad']:checked").val(),
         "¿Los guardias de seguridad se muestran atentos y receptivos a tus necesidades?": $("input[name='atencion']:checked").val(),
         "¿El personal de seguridad cumple con los horarios establecidos?": $("input[name='horarios']:checked").val(),
@@ -91,10 +91,24 @@ function GuardarDevolucion() {
 
     // Convertir el objeto de la encuesta a formato JSON
     let encuestaString = JSON.stringify(encuesta);
+    let guardado = true;
 
-    console.log(resenia)
+    $("#encuestaError").html("");
+    $("#comentarioError").html("");
 
+    if (!encuesta["¿Qué tan satisfecho estás con la calidad general de nuestros servicios de seguridad?"]) {
+        $("#encuestaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Debes completar la encuesta.");
+        guardado = false;
+    }
 
+    if (resenia == "") {
+        $("#comentarioError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Debe cargar un comentario.");
+        guardado = false;
+    }
+
+    if (!guardado) {
+        return;
+    }
 
     $.ajax({
         url: '../../Devoluciones/CargarObservacion',
@@ -116,35 +130,22 @@ function GuardarDevolucion() {
                     }
                 });
                 Toast.fire({
-                    title: (response.message),
+                    title: response.resultado,
                 });
-                setTimeout(() => location.href = '../Devoluciones/Devoluciones', 1200);
-            }
-            else {
-                alert(response.message)
+                setTimeout(() => {
+                    location.href = '../Devoluciones/Devoluciones';
+                }, 1200);
+            } else {
+                $("#comentarioError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + response.resultado);
             }
         },
         error: function (xhr, status) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "bottom-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                background: '#ffe7e7',
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
-                }
-            });
-            Toast.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Disculpe, existió un problema al guardar la observacion",
-            });
+            console.log('Error al guardar la devolución:', status);
         }
     });
 }
+
+
 
 function DetalleDevolucion(devolucionID) {
 
