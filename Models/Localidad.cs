@@ -22,3 +22,10 @@ public class VistaLocalidades
     public string? Nombre { get; set;}
     public string? CodigoPostal { get; set;}
 }
+
+public class VistaEmpresasPorLocalidad
+{
+    public int LocalidadID { get; set; }
+    public string NombreLocalidad { get; set; }
+    public int CantidadEmpresas { get; set; }
+}
