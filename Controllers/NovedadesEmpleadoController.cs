@@ -29,9 +29,27 @@ public class NovedadesEmpleadoController : Controller
 
     public IActionResult NuevaNovedad()
     {
-        var empresa = _context.Empresas.ToList();
-        empresa.Add(new Empresa { EmpresaID = 0, RazonSocial = "[SELECCIONE...]" });
-        ViewBag.EmpresaID = new SelectList(empresa.OrderBy(t => t.RazonSocial), "EmpresaID", "RazonSocial");
+        var usuarioLogueado = _userManager.GetUserId(HttpContext.User);
+
+        var persona = _context.Personas.Where(p => p.UsuarioID == usuarioLogueado).FirstOrDefault();
+
+        var personaID = persona?.PersonaID;
+
+        var empresasAsignadas = (from jornada in _context.JornadaLaboral
+                         join asignacion in _context.AsignacionJornadas
+                         on jornada.JornadaLaboralID equals asignacion.JornadaLaboralID
+                         where asignacion.PersonaID == personaID
+                         select new Empresa
+                         {
+                             EmpresaID = jornada.EmpresaID,
+                             RazonSocial = _context.Empresas
+                                 .Where(e => e.EmpresaID == jornada.EmpresaID)
+                                 .Select(e => e.RazonSocial)
+                                 .FirstOrDefault()
+                         }).ToList();   
+
+        empresasAsignadas.Add(new Empresa { EmpresaID = 0, RazonSocial = "[SELECCIONE...]" });
+        ViewBag.EmpresaID = new SelectList(empresasAsignadas.OrderBy(t => t.RazonSocial), "EmpresaID", "RazonSocial");
 
         return View();
     }

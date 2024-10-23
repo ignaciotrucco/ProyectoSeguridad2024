@@ -25,6 +25,8 @@ public class VistaTurno {
     public string? UsuarioID { get; set;}
     public int PersonaID {get; set;}
     public string? NombreEmpleado {get; set;}
+    public int JornadaLaboralID { get; set;}
+    public string? Jornada {get; set;}
     public List<VistaTurnosLaborales> VistaTurnosLaborales {get; set;}
 }
 

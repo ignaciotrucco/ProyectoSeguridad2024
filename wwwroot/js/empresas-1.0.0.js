@@ -236,13 +236,6 @@ function TablaImprimir() {
 
 }
 
-// $(document).ready(function() {
-//     //FUNCION PARA OBTENER EL USUARIOID DESDE LA URL
-//     function urlUsuarioID() {
-//         const pathArray = window.location.pathname.split('/');
-//         return pathArray[pathArray.length - 1];  // Obtiene el último segmento de la URL (usuarioID)
-//     }
-
 function TraerIdUsuario() {
 
     //GUARDAMOS EN UNA VARIABLE EL USUARIO OBTENIDO EN LA URL
@@ -270,11 +263,6 @@ function TraerIdUsuario() {
     }
 
 }
-
-
-// });
-
-
 
 function GuardarEmpresa() {
     $("#razonSocialError").html("");
@@ -645,16 +633,6 @@ function handleEntendido() {
     closeModalInfoTablas();
     // openModalImpresion();
 }
-
-// function openModalImpresion() {
-//     var modal = document.getElementById("ModalImpresion");
-//     modal.style.display = "block";
-// }
-
-// function closeModalImpresion() {
-//     var modal = document.getElementById("ModalImpresion");
-//     modal.style.display = "none";
-// }
 
 document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {

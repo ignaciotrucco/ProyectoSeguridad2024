@@ -44,7 +44,6 @@
                             <i class="fa-solid fa-circle-info"></i>
                         </div>
                     </div>
-                    <!-- Contenedor para los inputs de fecha con etiquetas -->
                     <div class="ms-2">
                         <label for="fechaDesde" class="form-label text-dark labelFiltro">Fecha Desde</label>
                         <input type="date" id="fechaDesde" class="form-control filtro anchoDate"
@@ -58,26 +57,37 @@
                     <div class="ms-2 mt-4 limpiarFiltrosMin">
                         <button type="button" class="btn btn-secondary"
                             style="height: 30px; width: 40px; text-align: center !important;"
-                            onclick="LimpiarFiltros()"><i class="fa-solid fa-rotate-right"
-                                style="margin-bottom: 2px;"></i></button>
+                            onclick="LimpiarFiltros()">
+                            <i class="fa-solid fa-rotate-right" style="margin-bottom: 2px;"></i>
+                        </button>
                     </div>
-                    <!-- Botón añadido al lado de Fecha Hasta -->
+                    <div class="ms-2">
+                        <label for="Momento" class="form-label text-dark">Momento</label>
+                        @Html.DropDownList("Momento", null, htmlAttributes: new
+                            {
+                                @class = "form-control",
+                                @onchange = "HistorialFichajes()"
+                            })
+                    </div>
                     <div class="ms-2 mt-4 limpiarFiltrosFull">
                         <button type="button" class="btn btn-secondary BtnlimpiarFiltros"
-                            onclick="LimpiarFiltros()">Limpiar
-                            Filtros</button>
+                            onclick="LimpiarFiltros()">Limpiar Filtros</button>
                     </div>
                     <div class="col-auto ms-4 referenciaContainer">
                         <div class="mt-4 d-flex align-items-center">
-                            <span class="referenciaColor colorFueraDeHorario" style="background-color: #d2828a;"></span>
-                            <span class="referenciaTexto colorFueraDeHorario">Fuera de horario</span>
+                            <input type="checkbox" id="fueraDeHorarioCheckbox" class="form-check-input"
+                                style="background-color: #d2828a;" onchange="HistorialFichajes()">
+                            <label for="fueraDeHorarioCheckbox" class="referenciaTexto colorFueraDeHorario ms-2 text-dark">Fuera
+                                de horario</label>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+
+
+
 
     <div class="card-body">
         <div class="table-responsive" style="overflow-y: auto;">

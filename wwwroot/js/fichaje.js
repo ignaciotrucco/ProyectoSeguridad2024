@@ -3,6 +3,8 @@ function HistorialFichajes() {
     let personaID = $("#PersonaID").val()
     let fechaDesde = $("#fechaDesde").val();
     let fechaHasta = $("#fechaHasta").val();
+    let momento = $("#Momento").val();
+    let horario = document.getElementById("fueraDeHorarioCheckbox").checked;
 
     $.ajax({
         // la URL para la petición
@@ -12,7 +14,9 @@ function HistorialFichajes() {
         data: {
             PersonaID: personaID,
             FechaDesde: fechaDesde,
-            FechaHasta: fechaHasta
+            FechaHasta: fechaHasta,
+            Momento: momento,
+            Horario: horario
         },
         // especifica si será una petición POST o GET
         type: 'POST',
@@ -32,7 +36,7 @@ function HistorialFichajes() {
                 contenidoTabla += `
                     <tr>
                         <td style="text-align: center"><b>${persona.nombreEmpleado}</b></td>
-                        <td style="text-align: center"></td>
+                        <td style="text-align: center">${persona.jornada}</td>
                         <td style="text-align: center"></td>
                         <td style="text-align: center"></td>
                     </tr>
@@ -44,7 +48,7 @@ function HistorialFichajes() {
                         contenidoTabla += `
                         <tr>
                             <td style="text-align: center"></td>
-                            <td style="text-align: center">${turno.jornada}</td>
+                            <td style="text-align: center"></td>
                             <td style="text-align: center">${turno.momentoString}</td>
                             <td style="text-align: center">${turno.fechaFichajeString}</td>
                         </tr>
@@ -54,7 +58,7 @@ function HistorialFichajes() {
                         contenidoTabla += `
                         <tr class="bg-danger p-2" style="--bs-bg-opacity: .5;">
                             <td style="text-align: center"></td>
-                            <td style="text-align: center">${turno.jornada}</td>
+                            <td style="text-align: center"></td>
                             <td style="text-align: center">${turno.momentoString}</td>
                             <td style="text-align: center">${turno.fechaFichajeString}</td>
                         </tr>
@@ -102,6 +106,7 @@ function LimpiarFiltros() {
     $("#PersonaID").val(0);
     $("#fechaDesde").val("");
     $("#fechaHasta").val("");
+    $("#Momento").val(0);
     HistorialFichajes();
 }
 

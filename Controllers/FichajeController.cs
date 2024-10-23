@@ -62,6 +62,21 @@ public class FichajeController : Controller
         personas.Add(new Persona { PersonaID = 0, NombreCompleto = "[TODOS]" });
         ViewBag.PersonaID = new SelectList(personas.OrderBy(t => t.NombreCompleto), "PersonaID", "NombreCompleto");
 
+        var selectListItmes = new List<SelectListItem>
+        {
+            new SelectListItem { Value = "0", Text = "[SELECCIONE...]"}
+        };
+
+        var enumValues = Enum.GetValues(typeof(Momento)).Cast<Momento>();
+
+        selectListItmes.AddRange(enumValues.Select(e => new SelectListItem
+        {
+            Value = e.GetHashCode().ToString(),
+            Text = e.ToString().ToUpper()
+        }));
+
+        ViewBag.Momento = selectListItmes.OrderBy(s => s.Text).ToList();
+
         return View();
     }
 
@@ -212,7 +227,7 @@ public class FichajeController : Controller
 
 
 
-    public JsonResult HistorialFichajes(int? PersonaID, DateTime? FechaDesde, DateTime? FechaHasta)
+    public JsonResult HistorialFichajes(int? PersonaID, DateTime? FechaDesde, DateTime? FechaHasta, Momento? Momento, bool Horario)
     {
         List<VistaTurno> VistaTurnoLaboral = new List<VistaTurno>();
 
@@ -238,6 +253,16 @@ public class FichajeController : Controller
             listadoTurnos = listadoTurnos.Where(l => l.FechaFichaje >= FechaDesde && l.FechaFichaje <= FechaHasta).ToList();
         }
 
+        if (Momento != 0 && Momento != null)
+        {
+            listadoTurnos = listadoTurnos.Where(l => l.Momento == Momento).ToList();
+        }
+
+        if (Horario == true)
+        {
+            listadoTurnos = listadoTurnos.Where(l => l.Estado == false).ToList();
+        }
+
         foreach (var listadoTurno in listadoTurnos)
         {
 
@@ -259,6 +284,8 @@ public class FichajeController : Controller
                         UsuarioID = listadoTurno.UsuarioID,
                         PersonaID = persona.PersonaID,
                         NombreEmpleado = persona.NombreCompleto,
+                        JornadaLaboralID = listadoTurno.JornadaLaboralID,
+                        Jornada = jornada?.InfoJornada,
                         VistaTurnosLaborales = new List<VistaTurnosLaborales>()
                     };
                     VistaTurnoLaboral.Add(personasMostrar);
@@ -267,8 +294,8 @@ public class FichajeController : Controller
                 var mostrarTurnos = new VistaTurnosLaborales
                 {
                     TurnoLaboralID = listadoTurno.TurnoLaboralID,
-                    JornadaLaboralID = listadoTurno.JornadaLaboralID,
-                    Jornada = jornada.InfoJornada,
+                    // JornadaLaboralID = listadoTurno.JornadaLaboralID,
+                    // Jornada = jornada.InfoJornada,
                     FechaFichaje = listadoTurno.FechaFichaje,
                     FechaFichajeString = listadoTurno.FechaFichaje.ToString("dddd dd MMM yyyy - HH:mm"),
                     Momento = listadoTurno.Momento,
