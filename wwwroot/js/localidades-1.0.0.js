@@ -177,7 +177,20 @@ function GuardarLocalidad() {
             }
         });
     }
-}
+        // Estilos CSS para el toast
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @media (max-width: 600px) {
+                .swal2-toast {
+                    width: 100% !important; 
+                    left: 0 !important; 
+                    right: 0 !important; 
+                    margin: 0; 
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
 
 function ModalEditar(localidadID) {
     $.ajax({

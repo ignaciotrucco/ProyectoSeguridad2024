@@ -154,6 +154,10 @@ h1 {
     cursor: default;
 }
 
+h3{
+    cursor: default;
+}
+
 th {
     font-family: 'textos3';
     font-weight: 'bold';
