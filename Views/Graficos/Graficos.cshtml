@@ -1,78 +1,62 @@
 @{
-    ViewData["Title"] = "Graficos";
+    ViewData["Title"] = "Gráficos";
 }
 
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
 
 <!-- Card Graficos -->
 <div class="row">
+    <!-- Clientes por Localidad -->
     <div class="col-md-6">
-        <div class="card m-4">
+        <div class="card m-2 h-100" style="min-height: 400px;">
             <div class="card-header">
                 <h3 class="hover-icon mt-3" style="font-family: 'textos5';">CLIENTES POR LOCALIDAD <i
                         class="fas fa-users icon"></i></h3>
             </div>
             <div class="card-body">
-                <div>
-                    <div class="row">
-                        <div class="row">
-                            <div class="col-auto">
-                                <div class="card-body">
-                                    <canvas id="grafico-circular-empresas"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <canvas id="grafico-circular-empresas"></canvas>
             </div>
         </div>
     </div>
-</div>
-
-<!-- Card Graficos -->
-<div class="row">
+    
+    <!-- Fichaje de Empleados -->
     <div class="col-md-6">
-        <div class="card m-4">
+        <div class="card m-2 h-100" style="min-height: 400px;">
             <div class="card-header">
-                <h3 class="hover-icon mt-3" style="font-family: 'textos5';">FICHAJE DE EMPLEADOS <i
+                <h3 class="hover-icon mt-3" style="font-family: 'textos5';">FICHAJES DE EMPLEADOS <i
                         class="fas fa-business-time icon"></i></h3>
             </div>
             <div class="card-body">
-                <div>
-                    <div class="row">
-                        <div class="row">
-                            <div class="col-auto">
-                                <div class="card-body">
-                                    <div>
-                                        <label for="form-label text-dark labelFiltro labelFiltroAncho personaSelect">Selecciona un empleado:</label>
-                                        <select class="form-control filtro" aria-label="Default select example" id="personaSelect">
-                                            @foreach (var empleado in ViewBag.PersonaID as SelectList)
-                                            {
-                                                <option value="@empleado.Value">@empleado.Text</option>
-                                            }
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="form-label text-dark labelFiltro labelFiltroAncho" for="fechaDesde">Fecha Desde:</label>
-                                        <input type="date" class="form-control filtro anchoDate" id="fechaDesde" />
-                                    </div>
-
-                                    <div>
-                                        <label class="form-label text-dark labelFiltro labelFiltroAncho" for="fechaHasta">Fecha Hasta:</label>
-                                        <input type="date" class="form-control filtro anchoDate" id="fechaHasta" />
-                                    </div>
-                                    <button onclick="GraficoCircularHistorialFichajes()" class="btn btn-secondary BtnlimpiarFiltros">Generar Gráfico</button>
-                                    <canvas id="grafico-circular-historial-fichajes"></canvas>
-                                </div>
-                            </div>
-                        </div>
+                <div class="row g-2 align-items-center">
+                    <!-- Select de Empleados -->
+                    <div class="col-md-4 col-sm-12">
+                        <label for="personaSelect" class="form-label text-dark">Selecciona:</label>
+                        <select class="form-control" id="personaSelect">
+                            @foreach (var empleado in ViewBag.PersonaID as SelectList)
+                            {
+                                <option value="@empleado.Value">@empleado.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <label class="form-label text-dark" for="fechaDesde">Desde:</label>
+                        <input type="date" class="form-control" id="fechaDesde" />
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <label class="form-label text-dark" for="fechaHasta">Hasta:</label>
+                        <input type="date" class="form-control" id="fechaHasta" />
+                    </div>
+                    <div class="col-md-2 col-sm-12 text-end">
+                        <button onclick="GraficoCircularHistorialFichajes()" title="Generar Gráfico" class="btn btn-secondary mt-4">
+                            Generar
+                        </button>
                     </div>
                 </div>
+                <canvas id="grafico-circular-historial-fichajes"></canvas>
             </div>
         </div>
     </div>
 </div>
-
 
 
 @section Scripts {

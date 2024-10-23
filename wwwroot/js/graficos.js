@@ -1,7 +1,5 @@
 window.onload = GraficoCircularEmpresas();
  
-
-
 let graficoCircularHistorialFichajes;
 let graficoCircularEmpresas;
 
@@ -58,9 +56,9 @@ function GraficoCircularEmpresas(){
 }
 
 function generarColorAleatorio() {
-    const r = 255; 
-    const g = Math.floor(Math.random() * 256); 
-    const b = Math.floor(Math.random() * 100); 
+    const r = Math.floor(Math.random() * 156) + 100; 
+    const g = Math.floor(Math.random() * 156) + 100; 
+    const b = Math.floor(Math.random() * 156) + 100; 
 
     return `rgb(${r}, ${g}, ${b})`;
 }
@@ -77,9 +75,9 @@ function GraficoCircularHistorialFichajes() {
         success: function (resultados) {
             console.log(resultados);
             
-            var labels = ['Fichajes en Horario', 'Fichajes Fuera de Horario'];
+            var labels = ['EN HORARIO (%)', 'FUERA DE HORARIO (%)'];
             var data = [resultados.enHorario, resultados.fueraHorario];
-            var fondo = ['#36A2EB', '#FF6384']; 
+            var fondo = ['#5ca65c', '#d16363'];
             
             if (graficoCircularHistorialFichajes) {
                 graficoCircularHistorialFichajes.destroy();

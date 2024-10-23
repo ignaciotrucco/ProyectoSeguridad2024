@@ -29,6 +29,16 @@ html {
   z-index: 999999;
 }
 
+/* Alertas responsivas formato celular */
+@media (max-width: 600px) {
+  .swal2-toast {
+      width: 100% !important; 
+      left: 0 !important; 
+      right: 0 !important; 
+      margin: 0; 
+  }
+}
+
 .loader::before {
   content: "";
   display: block;
