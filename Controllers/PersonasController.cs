@@ -87,10 +87,14 @@ public class PersonasController : Controller
         // FILTRAR POR ROL SI SE SELECCIONA UNO
         if (!string.IsNullOrEmpty(RolBuscar))
         {
-            var personasConRol = _context.UserRoles
-                .Where(ur => _context.Roles.Any(r => r.Id == ur.RoleId && r.Name == RolBuscar))  // Comparar directamente con el ID del rol
-                .Select(ur => ur.UserId)
-                .ToList();
+            // var personasConRol = _context.UserRoles
+            //     .Where(ur => _context.Roles.Any(r => r.Id == ur.RoleId && r.Name == RolBuscar))  // Comparar directamente con el ID del rol
+            //     .Select(ur => ur.UserId)
+            //     .ToList();
+
+            var roleBuscar = _context.Roles.Where(r => r.Name == RolBuscar).SingleOrDefault();
+            var personasConRol = _context.UserRoles.Where(u => u.RoleId == roleBuscar.Id).Select(ur => ur.UserId).ToList(); 
+
 
             listadoPersonas = listadoPersonas.Where(p => personasConRol.Contains(p.UsuarioID));
         }
