@@ -555,7 +555,7 @@ function NuevaAsignacion() {
 // PARA FILTRAR LA LISTA DE PERSONAS SEGÚN EL TEXTO INGRESADO.
 $(document).ready(function () {
     $('#inputBusquedaAsignar').on('keyup', function () {
-        let busqueda = $(this).val();
+        let busquedaAsignar = $(this).val();
         ListadoAsignacion(busquedaAsignar);
     });
 });

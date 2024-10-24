@@ -867,9 +867,9 @@ input:checked+.slider:before {
         margin-top: 45px !important;
     }
 
-    .referenciaContainer{
+    /* .referenciaContainer{
         display: none !important;
-    }
+    } */
 }
 
 @media (min-width: 768px) {
@@ -878,9 +878,9 @@ input:checked+.slider:before {
         top: 0 !important;
     }
 
-    .referenciaContainerModal{
+    /* .referenciaContainerModal{
         display: none !important;
-    }
+    } */
 
     .infoTabla {
         display: none;

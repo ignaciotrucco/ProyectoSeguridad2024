@@ -108,3 +108,11 @@ function GraficoCircularHistorialFichajes() {
         }
     });
 }
+
+function limpiarFiltrosFichajes() {
+    document.getElementById('fechaDesde').value = '';
+    document.getElementById('fechaHasta').value = '';
+    document.getElementById('personaSelect').selectedIndex = 0;
+
+    GraficoCircularHistorialFichajes();
+}

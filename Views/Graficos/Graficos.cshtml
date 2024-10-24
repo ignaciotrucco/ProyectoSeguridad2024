@@ -3,6 +3,7 @@
 }
 
 <link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/graficos-informes.css" asp-append-version="true" />
 
 <!-- Card Graficos -->
 <div class="row">
@@ -10,28 +11,30 @@
     <div class="col-md-6">
         <div class="card m-2 h-100" style="min-height: 400px;">
             <div class="card-header">
-                <h3 class="hover-icon mt-3" style="font-family: 'textos5';">CLIENTES POR LOCALIDAD <i
-                        class="fas fa-users icon"></i></h3>
+                <h3 class="hover-icon mt-3" style="font-family: 'textos5';">
+                    CLIENTES POR LOCALIDAD <i class="fas fa-users icon"></i>
+                </h3>
             </div>
             <div class="card-body">
-                <canvas id="grafico-circular-empresas"></canvas>
+                <canvas id="grafico-circular-empresas" class="grafico-moderado"></canvas> 
             </div>
         </div>
     </div>
-    
+
     <!-- Fichaje de Empleados -->
     <div class="col-md-6">
         <div class="card m-2 h-100" style="min-height: 400px;">
             <div class="card-header">
-                <h3 class="hover-icon mt-3" style="font-family: 'textos5';">FICHAJES DE EMPLEADOS <i
-                        class="fas fa-business-time icon"></i></h3>
+                <h3 class="hover-icon mt-3" style="font-family: 'textos5';">
+                    FICHAJES DE EMPLEADOS <i class="fas fa-business-time icon"></i>
+                </h3>
             </div>
             <div class="card-body">
                 <div class="row g-2 align-items-center">
                     <!-- Select de Empleados -->
                     <div class="col-md-4 col-sm-12">
                         <label for="personaSelect" class="form-label text-dark">Selecciona:</label>
-                        <select class="form-control" id="personaSelect">
+                        <select class="form-control" id="personaSelect" onchange="GraficoCircularHistorialFichajes()">
                             @foreach (var empleado in ViewBag.PersonaID as SelectList)
                             {
                                 <option value="@empleado.Value">@empleado.Text</option>
@@ -40,19 +43,21 @@
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <label class="form-label text-dark" for="fechaDesde">Desde:</label>
-                        <input type="date" class="form-control" id="fechaDesde" />
+                        <input type="date" class="form-control" id="fechaDesde"
+                            onchange="GraficoCircularHistorialFichajes()" />
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <label class="form-label text-dark" for="fechaHasta">Hasta:</label>
-                        <input type="date" class="form-control" id="fechaHasta" />
+                        <input type="date" class="form-control" id="fechaHasta"
+                            onchange="GraficoCircularHistorialFichajes()" />
                     </div>
                     <div class="col-md-2 col-sm-12 text-end">
-                        <button onclick="GraficoCircularHistorialFichajes()" title="Generar Gráfico" class="btn btn-secondary mt-4">
-                            Generar
+                        <button onclick="limpiarFiltrosFichajes()" onchange="GraficoCircularHistorialFichajes()" title="Limpiar Filtros" class="btn btn-secondary mt-4">
+                            Limpiar
                         </button>
                     </div>
                 </div>
-                <canvas id="grafico-circular-historial-fichajes"></canvas>
+                <canvas id="grafico-circular-historial-fichajes" class="grafico-moderado"></canvas>
             </div>
         </div>
     </div>

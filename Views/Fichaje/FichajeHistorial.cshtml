@@ -39,11 +39,11 @@
                                 @onchange = "HistorialFichajes()"
                             })
                     </div>
-                    <div style="margin-top: 25px; margin-left: 8px;" class="referenciaContainerModal">
+                    @* <div style="margin-top: 25px; margin-left: 8px;" class="referenciaContainerModal">
                         <div title="Info" class="question-icon" onclick="openModalReferencia()">
                             <i class="fa-solid fa-circle-info"></i>
                         </div>
-                    </div>
+                    </div> *@
                     <div class="ms-2">
                         <label for="fechaDesde" class="form-label text-dark labelFiltro">Fecha Desde</label>
                         <input type="date" id="fechaDesde" class="form-control filtro anchoDate"
@@ -70,8 +70,8 @@
                             })
                     </div>
                     <div class="ms-2 mt-4 limpiarFiltrosFull">
-                        <button type="button" class="btn btn-secondary BtnlimpiarFiltros"
-                            onclick="LimpiarFiltros()">Limpiar Filtros</button>
+                        <button type="button" title="Limpiar Filtros" class="btn btn-secondary BtnlimpiarFiltros"
+                            onclick="LimpiarFiltros()"><i class="fa fa-rotate-right fas"></i></button>
                     </div>
                     <div class="col-auto ms-4 referenciaContainer">
                         <div class="mt-4 d-flex align-items-center">
@@ -107,7 +107,7 @@
 </div>
 
 <!-- Modal Referencia Form -->
-<div id="ModalReferencia" class="modalAyuda" onclick="closeModalReferencia()">
+@* <div id="ModalReferencia" class="modalAyuda" onclick="closeModalReferencia()">
     <div class="modal-contentAyuda">
         <h2>Referencias</h2>
         <hr>
@@ -120,7 +120,7 @@
             <button class="botonEntendido" onclick="closeModalReferencia()">Entendido</button>
         </div>
     </div>
-</div>
+</div> *@
 
 @section Scripts {
     <script src="~/js/fichaje.js"></script>
