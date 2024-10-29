@@ -84,12 +84,12 @@ function BuscarLocalidades() {
 // ESCUCHA EL EVENTO 'KEYUP' EN EL CAMPO DE BÚSQUEDA CON ID 'INPUTBUSQUEDA'
 // CADA VEZ QUE EL USUARIO ESCRIBE, SE CAPTURA EL VALOR ACTUAL Y SE LLAMA A LA FUNCIÓN LISTADOPERSONAS
 // PARA FILTRAR LA LISTA DE PERSONAS SEGÚN EL TEXTO INGRESADO.
-$(document).ready(function () {
-    $('#inputBusqueda').on('keyup', function () {
-        let busqueda = $(this).val();
-        ListadoPersonas(busqueda);
-    });
-});
+// $(document).ready(function () {
+//     $('#inputBusqueda').on('keyup', function () {
+//         let busqueda = $(this).val();
+//         ListadoPersonas(busqueda);
+//     });
+// });
 
 
 function ListadoPersonas(busqueda) {

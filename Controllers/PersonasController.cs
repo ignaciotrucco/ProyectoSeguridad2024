@@ -61,12 +61,12 @@ public class PersonasController : Controller
             .Include(l => l.Localidad)
             .Include(p => p.Localidad.Provincia)
             .Include(p => p.TipoDocumentos)
-            .AsQueryable();
+            .ToList();
 
         // FILTRAR POR ID DE PERSONA
         if (PersonaID != null)
         {
-            listadoPersonas = listadoPersonas.Where(l => l.PersonaID == PersonaID);
+            listadoPersonas = listadoPersonas.Where(l => l.PersonaID == PersonaID).ToList();
         }
 
         // FILTRAR POR CUALQUIER CAMPO SI SE PROPORCIONA UN TERMMINO DE BUSQUEDA
@@ -81,7 +81,7 @@ public class PersonasController : Controller
                 p.Telefono.Contains(busqueda) ||
                 p.Email.Contains(busqueda) ||
                 p.Domicilio.Contains(busqueda)
-            );
+            ).ToList();
         };
 
         // FILTRAR POR ROL SI SE SELECCIONA UNO
@@ -96,7 +96,7 @@ public class PersonasController : Controller
             var personasConRol = _context.UserRoles.Where(u => u.RoleId == roleBuscar.Id).Select(ur => ur.UserId).ToList(); 
 
 
-            listadoPersonas = listadoPersonas.Where(p => personasConRol.Contains(p.UsuarioID));
+            listadoPersonas = listadoPersonas.Where(p => personasConRol.Contains(p.UsuarioID)).ToList();
         }
 
         List<VistaPersonas> personasMostrar = new List<VistaPersonas>();
