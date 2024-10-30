@@ -370,7 +370,7 @@ function GuardarPersona() {
                         title: (resultado),
                     });
                 }
-
+                location.href = `../Personas/Personas`;
                 ListadoPersonas();
             },
             error: function (xhr, status) {

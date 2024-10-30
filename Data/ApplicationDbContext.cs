@@ -24,4 +24,5 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Provincia> Provincias {get; set;}
     public DbSet<TipoDocumento> TipoDocumentos {get; set;}
     public DbSet<TurnoLaboral> TurnoLaboral {get; set;}
+    public DbSet<Rubro> Rubros {get; set;}
 }

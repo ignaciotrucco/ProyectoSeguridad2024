@@ -1,25 +1,25 @@
 window.onload = GraficoCircularEmpresas();
- 
+
 let graficoCircularHistorialFichajes;
 let graficoCircularEmpresas;
 
-function GraficoCircularEmpresas(){
+function GraficoCircularEmpresas() {
     $.ajax({
         type: "POST",
-        url: '../../Graficos/GraficoTortaEmpresasPorLocalidad',  
+        url: '../../Graficos/GraficoTortaEmpresasPorLocalidad',
         success: function (vistaEmpresasPorLocalidad) {
-            console.log(vistaEmpresasPorLocalidad); 
-           
+            console.log(vistaEmpresasPorLocalidad);
+
             var labels = [];
             var data = [];
             var fondo = [];
-            
+
             // Iteramos sobre los datos devueltos del servidor
             $.each(vistaEmpresasPorLocalidad, function (index, localidad) {
-                labels.push(localidad.nombreLocalidad); 
-                var color = generarColorAleatorio(); 
+                labels.push(localidad.nombreLocalidad);
+                var color = generarColorAleatorio();
                 fondo.push(color);
-                data.push(localidad.cantidadEmpresas); 
+                data.push(localidad.cantidadEmpresas);
             });
 
             // Destruimos el gráfico previo si existe
@@ -28,7 +28,7 @@ function GraficoCircularEmpresas(){
             }
 
             // Configuración del gráfico
-            var ctxPie = document.getElementById("grafico-circular-empresas").getContext('2d'); 
+            var ctxPie = document.getElementById("grafico-circular-empresas").getContext('2d');
             graficoCircularEmpresas = new Chart(ctxPie, {
                 type: 'pie',
                 data: {
@@ -56,15 +56,15 @@ function GraficoCircularEmpresas(){
 }
 
 function generarColorAleatorio() {
-    const r = Math.floor(Math.random() * 156) + 100; 
-    const g = Math.floor(Math.random() * 156) + 100; 
-    const b = Math.floor(Math.random() * 156) + 100; 
+    const r = Math.floor(Math.random() * 156) + 100;
+    const g = Math.floor(Math.random() * 156) + 100;
+    const b = Math.floor(Math.random() * 156) + 100;
 
     return `rgb(${r}, ${g}, ${b})`;
 }
 
 function GraficoCircularHistorialFichajes() {
-    const personaID = $("#personaSelect").val(); 
+    const personaID = $("#personaSelect").val();
     const fechaDesde = $("#fechaDesde").val();
     const fechaHasta = $("#fechaHasta").val();
 
@@ -74,11 +74,11 @@ function GraficoCircularHistorialFichajes() {
         data: { PersonaID: personaID, FechaDesde: fechaDesde, FechaHasta: fechaHasta },
         success: function (resultados) {
             console.log(resultados);
-            
+
             var labels = ['EN HORARIO (%)', 'FUERA DE HORARIO (%)'];
             var data = [resultados.enHorario, resultados.fueraHorario];
             var fondo = ['#5ca65c', '#d16363'];
-            
+
             if (graficoCircularHistorialFichajes) {
                 graficoCircularHistorialFichajes.destroy();
             }

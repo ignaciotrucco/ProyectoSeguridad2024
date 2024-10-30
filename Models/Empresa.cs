@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using ProyectoSeguridad2024.Models;
 
 namespace ProyectoFinal2024.Models;
 
@@ -8,13 +9,15 @@ public class Empresa
     public int EmpresaID { get; set;}
     public string? UsuarioID { get; set;}
     public int LocalidadID { get; set;}
+    public int RubroID {get; set;}
     public string? RazonSocial { get; set;}
     public string? Domicilio { get; set;}
     public string? Cuit_Cdi { get; set;}
     public string? Telefono { get; set;}
     public string? Email { get; set;}
     public virtual Localidad Localidad {get; set;}
-}
+    public virtual Rubro Rubro {get; set;}
+} 
 
 public class VistaEmpresas
 {
@@ -30,4 +33,6 @@ public class VistaEmpresas
     public string? Domicilio { get; set;}
     public string? UsuarioID { get; set;}
     public string? EmailUsuario {get; set;}
+    public int RubroID {get; set;}
+    public string? RubroNombre {get; set;}
 }
