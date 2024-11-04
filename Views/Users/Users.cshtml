@@ -10,7 +10,8 @@
         <div class="mt-3">
             <div class="row">
                 <div class="col-auto me-auto">
-                    <h1 class="hover-icon hover-iconPequeño">GESTIÓN DE USUARIOS <i class="fas fa-user-plus icon"></i></h1>
+                    <h1 class="hover-icon hover-iconPequeño">GESTIÓN DE USUARIOS <i class="fas fa-user-plus icon"></i>
+                    </h1>
                 </div>
                 <div class="col-auto">
                     <button class="btn btnImprimir mt-2" onclick="ImprimirTablaUsuarios()">
@@ -82,7 +83,7 @@ NORMALIZEDNAME *@
                             información.</p>
                     </div>
                     <form>
-                        <div class="col-md-10 mb-8">
+                        <div class="col-md-10 mb-8" style="width: auto !important;">
                             <input type="hidden" id="UsuarioID">
                             @* <label for="username" class="form-label d-flex">Nombre de Usuario<p
                             class="asterisco">*</p></label>
@@ -91,27 +92,31 @@ NORMALIZEDNAME *@
                             @* <br> *@
                             <label for="email" class="form-label d-flex">Email<p class="asterisco">*</p></label>
                             <input type="email" class="form-control" id="email">
-
                             <span id="emailError" class="textoError"></span>
                             <br>
-                            <label for="password" class="form-label d-flex">Contraseña<p class="asterisco">*</p>
-                                <div class="question-icon" onclick="openModalContraseña()">
-                                    <i class="fa-solid fa-circle-info"></i>
+                            <div class="d-flex align-items-start">
+                                <div class="me-3 flex-grow-1">
+                                    <label for="password" class="form-label d-flex">Contraseña<p class="asterisco">*</p>
+                                        <div class="question-icon" onclick="openModalContraseña()">
+                                            <i class="fa-solid fa-circle-info"></i>
+                                        </div>
+                                    </label>
+                                    <input type="password" class="form-control" id="password"
+                                        autocomplete="new-password">
+                                    <span id="passwordError" class="textoError"></span>
                                 </div>
-                            </label>
-                            <input type="password" class="form-control" id="password" autocomplete="new-password">
-                            <span id="passwordError" class="textoError"></span>
-                            <br>
-                            <div>
-                                <label for="RolID" class="form-label d-flex">Elige el rol del usuario<p
-                                        class="asterisco">*</p></label>
-                                @Html.DropDownList("RolID", null, htmlAttributes: new
-                                    {
-                                        @class =
-                                         "form-control",
-                                        @id = "RolID"
-                                    })
+
+                                <div>
+                                    <label for="RolID" class="form-label d-flex">Rol del usuario<p class="asterisco">*
+                                        </p></label>
+                                    @Html.DropDownList("RolID", null, htmlAttributes: new
+                                        {
+                                            @class = "form-control",
+                                            @id
+                                             = "RolID"
+                                        })
                                     <span id="rolError" class="textoError"></span>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -128,9 +133,11 @@ NORMALIZEDNAME *@
 
 <!-- Boton modal -->
 <div class="btnAgregar">
-    <button type="button" class="btn btn-secondary btn-circle btn-lg d-flex" style="padding-bottom: 2px; title="Agregar" data-bs-toggle="modal"
-        data-bs-target="#modalUsuarios" data-bs-target="#staticBackdrop" onclick="NuevoUsuario()">
-        <i class="fa-solid fa-plus mt-1"></i><h5 style="margin-left: 3px; padding-top: 1px;" class="textBtnAgregar">Nuevo Usuario</h5>
+    <button type="button" class="btn btn-secondary btn-circle btn-lg d-flex" style="padding-bottom: 2px; title="
+        Agregar" data-bs-toggle="modal" data-bs-target="#modalUsuarios" data-bs-target="#staticBackdrop"
+        onclick="NuevoUsuario()">
+        <i class="fa-solid fa-plus mt-1"></i>
+        <h5 style="margin-left: 3px; padding-top: 1px;" class="textBtnAgregar">Nuevo Usuario</h5>
     </button>
 </div>
 

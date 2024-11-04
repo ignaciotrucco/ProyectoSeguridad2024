@@ -4,7 +4,7 @@
 
 <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
 
-
+<!-- Card BIENVENIDO DE NUEVO-->
 <div class="card m-4">
   <div class="card-header">
     <div class="m-3">
@@ -13,9 +13,9 @@
   </div>
   <div class="card-body">
     <div class="carFondo m-3">
-      @* <img src="/img/STVAguardia_1_con_texto.png" width="500px" height="350px"> *@
       <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-indicators">
+          <!-- Botones amarillos carousel-->
           <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="0" class="active"
             aria-current="true" aria-label="Slide 1"></button>
           <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="1"
@@ -27,7 +27,7 @@
           <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="4"
             aria-label="Slide 5"></button>
         </div>
-
+        <!-- Imagenes carousel-->
         <div class="carousel-inner">
           <div class="carousel-item active" data-bs-interval="7000">
             <img src="/img/STVAguardia_1_con_texto.png" class="d-block w-100 imgZoom">
@@ -45,7 +45,7 @@
             <img src="/img/STVAguardia_5_con_texto.png" class="d-block w-100 imgZoom">
           </div>
         </div>
-
+        <!-- Botones "siguiente - anterior" carousel invisibles-->
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
@@ -57,6 +57,7 @@
 
 <hr>
 
+<!-- Card ¿CÓMO FUNCIONA NUESTRO SISTEMA?-->
 <div class="card m-4">
   <div class="card-header">
     <div class="m-3">
@@ -65,12 +66,14 @@
   </div>
   <div class="card-body cardSistema">
     <div class="container-fluid m-3">
-      <div class="row col-md-12 g-4 cardResponsivas">
+      <div class="row col-md-12 g-2 cardResponsivas">
+        <!-- Imagen permisos administrador-->
         <div>
           <div class="card tarjeta h-100">
             <img class="imgZoom" src="/img/cardHome_1.png">
           </div>
         </div>
+        <!-- Imagen permisos empleado y cliente-->
         <div>
           <div class="card tarjeta h-100">
             <img class="imgZoom" src="/img/cardHome_2.png">
@@ -80,134 +83,3 @@
     </div>
   </div>
 </div>
-
-<!-- Encabezado -->
-@* <div class="encabezado text-center m-3">
-<h2 class="display-6">¡Bienvenido de nuevo, @User.Identity?.Name!</h2>
-</div> *@
-
-<!-- Carousel -->
-@* <div class="carFondo m-3">
-<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-<div class="carousel-indicators">
-<button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="0" class="active"
-aria-current="true" aria-label="Slide 1"></button>
-<button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="1" aria-label="Slide 2"></button>
-<button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="2" aria-label="Slide 3"></button>
-<button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="3" aria-label="Slide 4"></button>
-<button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="4" aria-label="Slide 5"></button>
-</div>
-
-<div class="carousel-inner">
-<div class="carousel-item active" data-bs-interval="7000">
-<img src="/img/STVAguardia_1_con_texto.png" class="d-block w-100">
-</div>
-<div class="carousel-item" data-bs-interval="7000">
-<img src="/img/STVAguardia_2_con_texto.png" class="d-block w-100">
-</div>
-<div class="carousel-item" data-bs-interval="7000">
-<img src="/img/STVAguardia_3_con_texto.png" class="d-block w-100">
-</div>
-<div class="carousel-item" data-bs-interval="7000">
-<img src="/img/STVAguardia_4_con_texto.png" class="d-block w-100">
-</div>
-<div class="carousel-item" data-bs-interval="7000">
-<img src="/img/STVAguardia_5_con_texto.png" class="d-block w-100">
-</div>
-</div>
-
-<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-</button>
-<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-</button>
-</div>
-</div> *@
-<!-- Encabezado -->
-@* <div class="encabezado text-center m-3">
-<h2 class="display-6">¿Cómo funciona nuestro sistema?</h2>
-</div> *@
-
-<!-- Cards Permisos Usuarios -->
-@* <div class="container-fluid m-3">
-<div class="row col-md-12 g-4">
-<div>
-<div class="card h-100">
-<img src="/img/cardHome_1.png">
-</div>
-</div>
-<div>
-<div class="card h-100">
-<img src="/img/cardHome_2.png">
-</div>
-</div>
-</div>
-</div> *@
-
-
-@*Carousel empresas
-<div class="encabezado text-center">
-<h2 class="display-6">Empresas que nos eligen día a día</h2>
-</div>
-
-<div class="slider">
-<div class="slide-track">
-<div class="slideCar">
-<img src="/img/carLogoNacion.png" height="50" width="150" />
-</div>
-<div class="slideCar">
-<img src="/img/carLogoSantander.png" height="50" width="300" />
-</div>
-<div class="slideCar">
-<img src="/img/carLogoBancor.png" height="150" width="200" />
-</div>
-<div class="slideCar">
-<img src="/img/carLogoMacro.png" height="50" width="150" />
-</div>
-<div class="slideCar">
-<img src="/img/carLogoAdecoagro.png" height="50" width="150" />
-</div>
-<div class="slideCar">
-<img src="/img/carLogoBalsuar.jpg" height="150" width="200" />
-</div>
-<div class="slideCar">
-<img src="/img/carLogoArgenbal.jpg" height="150" width="200" />
-</div>
-<div class="slideCar">
-<img src="/img/carLogoPiamontesa.png" height="150" width="200" />
-</div>
-<div class="slideCar">
-<img src="/img/carLogoSogima.png" height="150" width="200" />
-</div>
-<div class="slideCar">
-<img src="/img/carLogoLactear.png" height="150" width="200" />
-</div>
-<div class="slideCar">
-<img src="/img/carLogoAgronorte.jpg" height="100" width="100" />
-</div>
-<div class="slideCar">
-<img src="/img/carLogoShell.png" height="50" width="100" />
-</div>
-<div class="slideCar">
-<img src="/img/carLogoYPF.jpg" height="100" width="250" />
-</div>
-<div class="slideCar">
-<img src="/img/carLogoIndecia.png" height="150" width="200" />
-</div>
-</div>
-</div> *@
-
-
-
-@* <div class="carouselEmpresas">
-<div class="carousel-trackEmpresas">
-<div class="carousel-itemEmpresas">
-<img src="/img/carLogoYPF.jpg" height="100" width="250" />
-</div>
-<div class="carousel-itemEmpresas">
-<img src="/img/carLogoYPF.jpg" height="100" width="250" />
-</div>
-<div class="carousel-itemEmpresas">
-<img src="/img/carLogoYPF.jpg" height="100" width="250" />
-</div>
-</div>
-</div> *@

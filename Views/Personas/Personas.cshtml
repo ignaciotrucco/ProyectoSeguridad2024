@@ -31,8 +31,8 @@
                     </select>
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
-                        <input type="text" oninput="ListadoPersonas(this.value)" id="inputBusqueda" class="form-control inputBusqueda" placeholder="Buscar..."
-                            style="text-transform:uppercase">
+                        <input type="text" oninput="ListadoPersonas(this.value)" id="inputBusqueda"
+                            class="form-control inputBusqueda" placeholder="Buscar..." style="text-transform:uppercase">
                     </div>
                 </div>
             </div>
@@ -63,47 +63,45 @@
                                 <div class="col-md-7">
                                     <input type="hidden" id="PersonaID">
                                     <label for="Nombre" class="form-label d-flex">Nombre Completo<p class="asterisco">*
-                                        </p>
-                                    </label>
+                                        </p></label>
                                     <input type="text" class="form-control" id="Nombre" maxlength="50"
                                         style="text-transform:uppercase">
                                     <span id="nombrePersonaError" class="textoError"></span>
                                 </div>
                                 <div class="col-md-5">
                                     <label for="emailUsuario" class="form-label d-flex">Elige el usuario de esta persona
-                                        <p class="asterisco">*</p>
-                                    </label>
+                                        <p class="asterisco">*</p></label>
                                     @Html.DropDownList("emailUsuario", null, htmlAttributes: new
                                         {
                                             @class =
                                              "form-control",
                                             @id = "emailUsuario"
-                                        });
+                                        })
                                     <span id="usuarioPersonaError" class="textoError"></span>
                                 </div>
-                                <hr style="color: rgb(46, 46, 46);" class="d-none d-md-block">
+
+                                <hr style="color: rgb(46, 46, 46);" class="hiddenEn767 d-none d-md-block">
+
                                 <div class="col-md-6">
                                     <label for="Domicilio" class="form-label d-flex">Domicilio<p class="asterisco">*</p>
-                                    </label>
+                                        </label>
                                     <input type="text" class="form-control" id="Domicilio" maxlength="50"
-                                        style="text-transform:uppercase">>
+                                        style="text-transform:uppercase">
                                     <span id="domicilioPersonaError" class="textoError"></span>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="TipoDocumentoID" class="form-label d-flex">Tipo Doc.<p
-                                            class="asterisco">*
-                                        </p></label>
+                                            class="asterisco">*</p></label>
                                     @Html.DropDownList("TipoDocumentoID", null, htmlAttributes: new
                                         {
                                             @class =
                                              "form-control"
-                                        });
+                                        })
                                     <span id="tipoDocPersonaError" class="textoError"></span>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="NroDoc" class="form-label d-flex">Número de Documento<p
-                                            class="asterisco">*
-                                        </p>
+                                            class="asterisco">*</p>
                                         <div class="question-icon" onclick="openModalDni()">
                                             <i class="fa-solid fa-circle-info"></i>
                                         </div>
@@ -120,9 +118,8 @@
                                     <span id="fechaPersonaError" class="textoError"></span>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="Telefono" class="form-label d-flex">Numero de Télefono<p
-                                            class="asterisco">*
-                                        </p>
+                                    <label for="Telefono" class="form-label d-flex">Número de Télefono<p
+                                            class="asterisco">*</p>
                                         <div class="question-icon" onclick="openModalTel()">
                                             <i class="fa-solid fa-circle-info"></i>
                                         </div>
@@ -135,11 +132,12 @@
                                     <input type="email" class="form-control" id="Email">
                                     <span id="emailPersonaError" class="textoError"></span>
                                 </div>
-                                <hr style="color: rgb(46, 46, 46);" class="d-none d-md-block">
+
+                                <hr style="color: rgb(46, 46, 46);" class="hiddenEn767 d-none d-md-block">
+
                                 <div class="col-md-6">
                                     <label for="ProvinciaID" class="form-label d-flex">Provincia<p class="asterisco">*
-                                        </p>
-                                    </label>
+                                        </p></label>
                                     @Html.DropDownList("ProvinciaID", null, htmlAttributes: new
                                         {
                                             @class =
@@ -149,8 +147,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="LocalidadID" class="form-label d-flex">Localidad<p class="asterisco">*
-                                        </p>
-                                    </label>
+                                        </p></label>
                                     @Html.DropDownList("LocalidadID", null, htmlAttributes: new
                                         {
                                             @class =
@@ -160,6 +157,7 @@
                                 </div>
                             </div>
                         </form>
+
                     </div>
                 </div>
                 <div class="modal-footer">

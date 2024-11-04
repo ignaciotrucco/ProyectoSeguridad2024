@@ -697,6 +697,10 @@ input:checked+.slider:before {
         max-height: 560px !important;
     }
 
+    .hiddenEn767{
+        display: none !important;
+    }
+
     .btnAgregar {
         scale: 140%;
     }

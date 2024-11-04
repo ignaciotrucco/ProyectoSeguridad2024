@@ -29,9 +29,10 @@
         <div class="row">
             <div class="col-auto">
                 <div class="input-group m-2">
-                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-magnifying-glass-location icon"></i></span>
-                    <input type="text" id="inputBusqueda" class="form-control inputBusqueda"
-                        placeholder="Buscar..." style="text-transform:uppercase">
+                    <span class="input-group-text" id="basic-addon1"><i
+                            class="fas fa-magnifying-glass-location icon"></i></span>
+                    <input type="text" id="inputBusqueda" class="form-control inputBusqueda" placeholder="Buscar..."
+                        style="text-transform:uppercase">
                 </div>
             </div>
         </div>
@@ -69,19 +70,29 @@
                                 class="asterisco">*</span>) son obligatorios</p>
                     </div>
                     <form>
-                        <div class="col-md-8 mb-2">
+                        <div class="col-md-8 mb-2" style="width: auto !important;">
                             <input type="hidden" id="LocalidadID">
                             <label for="Nombre" class="form-label d-flex">Nombre<p class="asterisco">*</p></label>
                             <input type="text" class="form-control" id="Nombre" style="text-transform:uppercase">
                             <span id="NombreError" class="textoError"></span>
                             <br>
-                            <label for="CP" class="form-label">Código Postal</label>
-                            <input type="text" class="form-control" id="CP">
-                            <br>
-                            <label for="ProvinciaID" class="form-label d-flex">Provincia<p class="asterisco">*</p>
-                            </label>
-                            @Html.DropDownList("ProvinciaID", null, htmlAttributes: new { @class = "form-control" })
-                            <span id="ProvinciaError" class="textoError"></span>
+                            <div class="d-flex align-items-center">
+                                <div class="me-3">
+                                    <label for="CP" class="form-label">Código Postal</label>
+                                    <input type="text" class="form-control" id="CP">
+                                </div>
+                                <div>
+                                    <label for="ProvinciaID" class="form-label d-flex">Provincia<p class="asterisco">*
+                                        </p></label>
+                                    @Html.DropDownList("ProvinciaID", null, htmlAttributes: new
+                                        {
+                                            @class =
+                                             "form-control"
+                                        })
+                                    <span id="ProvinciaError" class="textoError"></span>
+                                </div>
+                            </div>
+
                         </div>
                     </form>
                 </div>
@@ -97,9 +108,11 @@
 
 <!-- Boton Modal -->
 <div class="btnAgregar">
-    <button type="button" class="btn btn-secondary btn-circle btn-lg d-flex" style="padding-bottom: 2px;" title="Agregar" data-bs-toggle="modal"
-        data-bs-target="#modalLocalidades" data-bs-target="#staticBackdrop" onclick="NuevoRegistro()">
-        <i class="fa-solid fa-plus mt-1"></i><h5 style="margin-left: 3px; padding-top: 1px;" class="textBtnAgregar">Nueva Localidad</h5>
+    <button type="button" class="btn btn-secondary btn-circle btn-lg d-flex" style="padding-bottom: 2px;"
+        title="Agregar" data-bs-toggle="modal" data-bs-target="#modalLocalidades" data-bs-target="#staticBackdrop"
+        onclick="NuevoRegistro()">
+        <i class="fa-solid fa-plus mt-1"></i>
+        <h5 style="margin-left: 3px; padding-top: 1px;" class="textBtnAgregar">Nueva Localidad</h5>
     </button>
 </div>
 

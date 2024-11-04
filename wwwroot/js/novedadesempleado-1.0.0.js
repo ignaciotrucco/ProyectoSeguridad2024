@@ -240,6 +240,12 @@ function DetalleNovedad(novedadID) {
     });
 }
 
+function LimpiarFiltros() {
+    $("#fechaDesde").val("");
+    $("#fechaHasta").val("");
+    VistaNovedad();
+}
+
 // Función para descargar la imagen
 function descargarImagen(contentType, base64String) {
     const enlace = document.createElement('a');
@@ -275,7 +281,6 @@ window.onclick = function (event) {
         cerrarModal();
     }
 }
-
 
 
 // function readURL(input) {

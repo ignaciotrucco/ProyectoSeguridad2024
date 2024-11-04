@@ -41,6 +41,17 @@
                         <input type="date" id="fechaHasta" class="form-control filtro anchoDate"
                             onchange="VistaNovedad()">
                     </div>
+                    <div class="ms-2 mt-4 limpiarFiltrosMin">
+                        <button type="button" class="btn btn-secondary"
+                            style="height: 30px; width: 40px; text-align: center !important;"
+                            onclick="LimpiarFiltros()" title="Limpiar Filtros">
+                            <i class="fa-solid fa-rotate-right" style="margin-bottom: 2px;"></i>
+                        </button>
+                    </div>
+                    <div class="ms-2 mt-4 limpiarFiltrosFull">
+                        <button type="button" class="btn btn-secondary BtnlimpiarFiltros"
+                            onclick="LimpiarFiltros()">Limpiar Filtros</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,7 +76,7 @@
 
 
     <div id="modalDetalles" class="modalDatos">
-        <div class="modal-contentDatos">
+        <div class="modal-contentDatos mt-2">
             <h2 class="mb-3">Detalle de Novedad</h2>
             <div id="detalleContenido">
                 <input type="hidden" id="novedad">

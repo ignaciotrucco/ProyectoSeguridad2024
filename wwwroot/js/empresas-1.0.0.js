@@ -293,12 +293,12 @@ function GuardarEmpresa() {
     }
 
     if (cuit == "") {
-        $("#cuitError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El CUIT de la empresa es requerido.")
+        $("#cuitError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  CUIT requerido.")
         registrado = false;
     }
 
     if (telefono == "") {
-        $("#telefonoEmpresaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El teléfono de la empresa es requerido.")
+        $("#telefonoEmpresaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  Teléfono requerido.")
         registrado = false;
     }
 
