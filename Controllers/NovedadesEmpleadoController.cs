@@ -36,20 +36,35 @@ public class NovedadesEmpleadoController : Controller
         var personaID = persona?.PersonaID;
 
         var empresasAsignadas = (from jornada in _context.JornadaLaboral
-                         join asignacion in _context.AsignacionJornadas
-                         on jornada.JornadaLaboralID equals asignacion.JornadaLaboralID
-                         where asignacion.PersonaID == personaID
-                         select new Empresa
-                         {
-                             EmpresaID = jornada.EmpresaID,
-                             RazonSocial = _context.Empresas
-                                 .Where(e => e.EmpresaID == jornada.EmpresaID)
-                                 .Select(e => e.RazonSocial)
-                                 .FirstOrDefault()
-                         }).ToList();   
+                                 join asignacion in _context.AsignacionJornadas
+                                 on jornada.JornadaLaboralID equals asignacion.JornadaLaboralID
+                                 where asignacion.PersonaID == personaID
+                                 select new Empresa
+                                 {
+                                     EmpresaID = jornada.EmpresaID,
+                                     RazonSocial = _context.Empresas
+                                         .Where(e => e.EmpresaID == jornada.EmpresaID)
+                                         .Select(e => e.RazonSocial)
+                                         .FirstOrDefault()
+                                 }).ToList();
 
         empresasAsignadas.Add(new Empresa { EmpresaID = 0, RazonSocial = "[SELECCIONE...]" });
         ViewBag.EmpresaID = new SelectList(empresasAsignadas.OrderBy(t => t.RazonSocial), "EmpresaID", "RazonSocial");
+
+        return View();
+    }
+
+    public IActionResult HistorialNovedades()
+    {
+        var personas = (from persona in _context.Personas
+                        join user in _context.Users on persona.UsuarioID equals user.Id
+                        join userRole in _context.UserRoles on user.Id equals userRole.UserId
+                        join role in _context.Roles on userRole.RoleId equals role.Id
+                        where role.Name == "EMPLEADO"
+                        select persona).ToList();
+
+        personas.Add(new Persona { PersonaID = 0, NombreCompleto = "[TODOS]" });
+        ViewBag.PersonaID = new SelectList(personas.OrderBy(t => t.NombreCompleto), "PersonaID", "NombreCompleto");
 
         return View();
     }
@@ -87,7 +102,7 @@ public class NovedadesEmpleadoController : Controller
                 base64 = Convert.ToBase64String(archivo.ArchivoBinario);
                 contentType = archivo.ContentType;
             }
-            
+
             if (listadoNovedad.UsuarioID == usuarioLogueadoID)
             {
                 var vistaNovedad = new VistaNovedad
@@ -165,9 +180,6 @@ public class NovedadesEmpleadoController : Controller
 
         return Json(resultado);
     }
-
-
-
     private async Task<byte[]> ConvertirAByteArray(IFormFile archivo)
     {
         using (var memoryStream = new MemoryStream())
@@ -176,53 +188,102 @@ public class NovedadesEmpleadoController : Controller
             return memoryStream.ToArray();
         }
     }
+
+    //LISTADO PARA QUE EL ADMIN VEA TODAS LAS RESEÑAS
+    public JsonResult ListadoHistorialNovedades(int? NovedadID, int? Persona, DateTime? FechaDesdeHistorial, DateTime? FechaHastaHistorial)
+    {
+        List<VistaEmpleadoNovedad> VistaEmpleadoNovedad = new List<VistaEmpleadoNovedad>();
+
+        var listadoNovedades = _context.Novedades.ToList();
+        var personas = _context.Personas.ToList();
+        var empresas = _context.Empresas.ToList();
+
+        //FILTRAR POR ID
+        if (NovedadID != null)
+        {
+            listadoNovedades = listadoNovedades.Where(l => l.NovedadID == NovedadID).ToList();
+        }
+
+        if (Persona != 0 && Persona != null)
+        {
+            //BUSCAR LA PERSONA CORRESPONDIENTE AL EMPLEADO PROPORCIONADO
+            var personaFiltrada = personas.Where(p => p.PersonaID == Persona).SingleOrDefault();
+
+            if (personaFiltrada != null)
+            {
+                //FILTRADO POR EMPLEADO
+                listadoNovedades = listadoNovedades.Where(l => l.UsuarioID == personaFiltrada.UsuarioID).ToList();
+            }
+        }
+
+        if (FechaDesdeHistorial != null && FechaHastaHistorial != null)
+        {
+            listadoNovedades = listadoNovedades.Where(l => l.Fecha_Hora >= FechaDesdeHistorial && l.Fecha_Hora <= FechaHastaHistorial).ToList();
+        }
+
+        foreach (var listadoNovedade in listadoNovedades)
+        {
+            var empleado = personas.Where(p => p.UsuarioID == listadoNovedade.UsuarioID).Single();
+            var empresa = empresas.Where(e => e.EmpresaID == listadoNovedade.EmpresaID).Single();
+            var archivo = _context.Archivos.Where(a => a.ArchivoID == listadoNovedade.ArchivoID).SingleOrDefault();
+
+            string base64 = "";
+            string contentType = "";
+
+            //VERIFICA SI EL ARCHIVO NO ES NULO
+            if (archivo != null && archivo.ArchivoBinario != null)
+            {
+                base64 = Convert.ToBase64String(archivo.ArchivoBinario);
+                contentType = archivo.ContentType;
+            }
+
+            if (empleado != null)
+            {
+                var empleadoMostrar = VistaEmpleadoNovedad.Where(e => e.UsuarioID == listadoNovedade.UsuarioID).SingleOrDefault();
+
+                if (empleadoMostrar == null)
+                {
+                    empleadoMostrar = new VistaEmpleadoNovedad
+                    {
+                        NovedadID = listadoNovedade.NovedadID,
+                        UsuarioID = listadoNovedade.UsuarioID,
+                        PersonaID = empleado.PersonaID,
+                        NombreEmpleado = empleado.NombreCompleto,
+                        VistaEmpresa = new List<VistaEmpresa>()
+                    };
+                    VistaEmpleadoNovedad.Add(empleadoMostrar);
+                }
+
+                var empresaMostrar = empleadoMostrar.VistaEmpresa.Where(e => e.EmpresaID == listadoNovedade.EmpresaID).SingleOrDefault();
+
+                if (empresaMostrar == null) {
+                    empresaMostrar = new VistaEmpresa {
+                        EmpresaID = listadoNovedade.EmpresaID,
+                        EmpresaNombre = empresa.RazonSocial,
+                        VistaNovedad = new List<VistaNovedad>()
+                    };
+                    empleadoMostrar.VistaEmpresa.Add(empresaMostrar);
+                }
+
+                var vistaNovedad = new VistaNovedad
+                {
+                    NovedadID = listadoNovedade.NovedadID,
+                    ArchivoID = listadoNovedade.ArchivoID,
+                    Fecha_Hora = listadoNovedade.Fecha_Hora,
+                    FechaHora = listadoNovedade.Fecha_Hora.ToString("dddd dd MMM yyyy - HH:mm"),
+                    Observacion = listadoNovedade.Observacion,
+                    ContentType = contentType,
+                    NombreArchivo = base64,
+                };
+
+                empresaMostrar.VistaNovedad.Add(vistaNovedad);
+            }
+
+        }
+
+        return Json(VistaEmpleadoNovedad);
+    }
+
 }
 
-// public async Task<IActionResult> GuardarArchivo(int personaEmisorID, int personaReceptorID, IFormFile archivo)
-// {
-//     try
-//     {
-//         if (archivo != null && archivo.Length > 0)
-//         {
-//             var nuevoArchivo = new Archivo
-//             {
-//                 ArchivoBinario = await ConvertirAByteArray(archivo),
-//                 ContentType = archivo.ContentType,
-//                 NombreArchivo = archivo.FileName
-//             };
-
-//             _context.Archivos.Add(nuevoArchivo);
-//             await _context.SaveChangesAsync();
-
-//             var nuevoEnvioArchivo = new EnvioArchivo
-//             {
-//                 PersonaEmisorID = personaEmisorID,
-//                 PersonaReceptorID = personaReceptorID,
-//                 ArchivoID = nuevoArchivo.ArchivoID
-//             };
-
-//             _context.EnvioArchivos.Add(nuevoEnvioArchivo);
-//             await _context.SaveChangesAsync();
-
-//             return Json(new { success = true, message = "Archivo guardado exitosamente." });
-//         }
-//         else
-//         {
-//             return Json(new { success = false, message = "No se seleccionó ningún archivo." });
-//         }
-//     }
-//     catch (Exception ex)
-//     {
-//         return Json(new { success = false, message = "Ocurrió un error al guardar el archivo: " + ex.Message });
-//     }
-// }
-
-// private async Task<byte[]> ConvertirAByteArray(IFormFile archivo)
-// {
-//     using (var memoryStream = new MemoryStream())
-//     {
-//         await archivo.CopyToAsync(memoryStream);
-//         return memoryStream.ToArray();
-//     }
-// }
 

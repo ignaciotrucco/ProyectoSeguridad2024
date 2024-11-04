@@ -309,42 +309,42 @@ public class FichajeController : Controller
         return Json(VistaTurnoLaboral);
     }
 
+    public JsonResult ObtenerImagenPersona()
+    {
+        var usuarioLogueado = _userManager.GetUserId(HttpContext.User);
+
+        var persona = _context.Personas
+            .Where(m => m.UsuarioID == usuarioLogueado)
+            .SingleOrDefault();
+
+        if (persona != null && persona.ArchivoID != null)
+        {
+            var imagen = _context.Archivos
+                .Where(a => a.ArchivoID == persona.ArchivoID)
+                .SingleOrDefault();
+
+            if (imagen != null && imagen.ArchivoBinario != null)
+            {
+                string base64 = Convert.ToBase64String(imagen.ArchivoBinario);
+                string contentType = imagen.ContentType;
+
+                // Enviar la imagen en formato base64
+                return Json(new
+                {
+                    ImagenBase64 = $"data:{contentType};base64,{base64}",
+                    ImagenEncontrada = true
+                });
+            }
+        }
+
+        // Si no se encuentra imagen, indicar que no se encontró
+        return Json(new
+        {
+            ImagenEncontrada = false
+        });
+    }
 
 
-    // var listadoFichajes = _context.TurnoLaboral
-    //     .Join(_context.JornadaLaboral,
-    //         turnos => turnos.JornadaLaboralID,
-    //         jornada => jornada.JornadaLaboralID,
-    //         (turnos, jornada) => new { turnos, jornada })
-    //     .Join(_context.AsignacionJornadas,
-    //         asignacionJornada => asignacionJornada.turnos.JornadaLaboralID,
-    //         asignacion => asignacion.JornadaLaboralID, 
-    //         (asignacionJornada, asignacion) => new { asignacionJornada.jornada, asignacionJornada.turnos, asignacion })
-    //     .Join(_context.Personas,
-    //         asignacionJornada => asignacionJornada.asignacion.PersonaID,
-    //         persona => persona.PersonaID,
-    //         (asignacionJornada, persona) => new { asignacionJornada, persona })
-    //     .ToList();
 
-    //     if (PersonaID != null && PersonaID != 0) {
-    //         listadoFichajes = listadoFichajes.Where(l => l.persona.PersonaID == PersonaID).ToList();
-    //     }
-
-
-    //         var mostrarFichajes = listadoFichajes.Select(m => new VistaTurnosLaborales
-    //         {
-    //             TurnoLaboralID = m.asignacionJornada.turnos.TurnoLaboralID,
-    //             UsuarioID = m.asignacionJornada.turnos.UsuarioID,
-    //             NombreEmpleado = m.persona.NombreCompleto,
-    //             JornadaLaboralID = m.asignacionJornada.turnos.JornadaLaboralID,
-    //             Jornada = m.asignacionJornada.jornada.InfoJornada,
-    //             FechaFichaje = m.asignacionJornada.turnos.FechaFichaje,
-    //             FechaFichajeString = m.asignacionJornada.turnos.FechaFichaje.ToString("HH:mm"),
-    //             Momento = m.asignacionJornada.turnos.Momento,
-    //             MomentoString = m.asignacionJornada.turnos.Momento.ToString().ToUpper(),
-    //             Latitud = m.asignacionJornada.turnos.Latitud,
-    //             Longitud = m.asignacionJornada.turnos.Longitud,
-    //             Estado = m.asignacionJornada.turnos.Estado
-    //         }).ToList();
 }
 
