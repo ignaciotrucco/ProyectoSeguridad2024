@@ -10,6 +10,7 @@ public class Persona
     public int LocalidadID { get; set;}
     public int TipoDocumentoID { get; set;}
     public string? UsuarioID {get; set;}
+    public int ArchivoID { get; set; }
     public string? NombreCompleto { get; set;}
     public DateTime FechaNacimiento {get; set;}
     public string? Telefono { get; set;}
@@ -46,4 +47,7 @@ public class VistaPersonas
     public string? Email { get; set;}
     public int NumeroDocumento {get; set;}
     public string? RolPersona {get; set;}
+    public int ArchivoID {get; set;}
+    public string? ContentType { get; set; }
+    public string? NombreArchivo { get; set; }
 }

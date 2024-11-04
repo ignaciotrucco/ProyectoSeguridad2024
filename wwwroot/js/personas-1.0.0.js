@@ -113,10 +113,20 @@ function ListadoPersonas(busqueda) {
 
             $.each(personasMostrar, function (index, persona) {
 
+            let imagenHtml = '';
+            if (persona.nombreArchivo) {
+                imagenHtml = `
+                        <img title="Expandir" src="data:${persona.contentType};base64,${persona.nombreArchivo}" class="card-img-top fotoUsuario">
+                `;
+            }
+            else {
+                imagenHtml = '<img src="../../img/usuario-fondo-negro.png" class="card-img-top fotoUsuario">'
+            }
+
                 contenidoCard += `
             <div class="col-lg-4 col-md-4 col-sm-12">
                 <div class="card cardPersonas">
-                    <img src="../../img/usuario-fondo-negro.png" class="card-img-top fotoUsuario">
+                    ${imagenHtml}
                     <div class="card-body cardbodyPersonas">
                         <h4 class="card-title">
                 ${persona.nombreCompleto.length > 18
@@ -266,6 +276,7 @@ function GuardarPersona() {
     let localidadid = document.getElementById("LocalidadID").value;
     let emailUsuario = document.getElementById("emailUsuario").value;
     let fechanac = document.getElementById("FechaNacimiento").value;
+    let imagenPersona = $("#imgPersona")[0].files[0]; // Obtener la imagen
 
     let registrado = true;
 
@@ -333,25 +344,31 @@ function GuardarPersona() {
     }
 
     if (registrado) {
+        let formData = new FormData();
+        formData.append("PersonaID", personaid);
+        formData.append("LocalidadID", localidadid);
+        formData.append("TipoDocumentoID", tipdoc);
+        formData.append("EmailUsuario", emailUsuario);
+        formData.append("NombreCompleto", nombre);
+        formData.append("FechaNacimiento", fechanac);
+        formData.append("Telefono", telefono);
+        formData.append("Domicilio", domicilio);
+        formData.append("Email", email);
+        formData.append("NumeroDocumento", nrodoc);
+
+        // Verificar si hay una imagen seleccionada antes de agregarla al FormData
+        if (imagenPersona) {
+            formData.append("ImagenPersona", imagenPersona);
+        }
 
         $.ajax({
             url: '../../Personas/GuardarPersonas',
-            data: {
-                PersonaID: personaid,
-                LocalidadID: localidadid,
-                TipoDocumentoID: tipdoc,
-                EmailUsuario: emailUsuario,
-                NombreCompleto: nombre,
-                FechaNacimiento: fechanac,
-                Telefono: telefono,
-                Domicilio: domicilio,
-                Email: email,
-                NumeroDocumento: nrodoc
-            },
+            data: formData,
+            processData: false, // Evitar que jQuery procese los datos
+            contentType: false, // Evitar que jQuery establezca el tipo de contenido
             type: 'POST',
             dataType: 'json',
             success: function (resultado) {
-
                 if (resultado != "") {
                     const Toast = Swal.mixin({
                         toast: true,
@@ -370,7 +387,7 @@ function GuardarPersona() {
                         title: (resultado),
                     });
                 }
-
+                location.href = `../Personas/Personas`;
                 ListadoPersonas();
             },
             error: function (xhr, status) {
@@ -393,9 +410,7 @@ function GuardarPersona() {
                 });
             }
         });
-
     }
-
 }
 
 

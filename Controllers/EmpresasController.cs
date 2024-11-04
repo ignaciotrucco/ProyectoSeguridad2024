@@ -25,6 +25,9 @@ public class EmpresasController : Controller
 
     public IActionResult Empresas(string id)
     {
+        var rubros = _context.Rubros.ToList();
+        rubros.Add(new Rubro { RubroID = 0, Nombre = "[SELECCIONE UN RUBRO]" });
+        ViewBag.RubroID = new SelectList(rubros.OrderBy(r => r.Nombre), "RubroID", "Nombre");
 
         var provincias = _context.Provincias.ToList();
         provincias.Add(new Provincia { ProvinciaID = 0, Nombre = "[SELECCIONE UNA PROVINCIA...]" });
@@ -54,7 +57,7 @@ public class EmpresasController : Controller
     public JsonResult ListadoEmpresas(int? EmpresaID, string busqueda)
     {
         // LISTADO COMPLETO DE EMPRESAS CON SUS RELACIONES
-        var listadoEmpresas = _context.Empresas.Include(l => l.Localidad).Include(p => p.Localidad.Provincia).AsQueryable();
+        var listadoEmpresas = _context.Empresas.Include(l => l.Localidad).Include(p => p.Localidad.Provincia).Include(r => r.Rubro).AsQueryable();
 
         // FILTRAR POR ID DE EMPRESA
         if (EmpresaID != null)
@@ -73,7 +76,8 @@ public class EmpresasController : Controller
                 p.Email.Contains(busqueda) ||
                 p.Localidad.Nombre.Contains(busqueda) ||
                 p.Localidad.Provincia.Nombre.Contains(busqueda) ||
-                p.Domicilio.Contains(busqueda)
+                p.Domicilio.Contains(busqueda) ||
+                p.Rubro.Nombre.Contains(busqueda)
             );
         };
 
@@ -91,13 +95,15 @@ public class EmpresasController : Controller
             ProvinciaNombre = l.Localidad.Provincia.Nombre,
             Domicilio = l.Domicilio,
             UsuarioID = l.UsuarioID,
-            EmailUsuario = _context.Users.Where(u => u.Id == l.UsuarioID).Select(u => u.Email).FirstOrDefault()
+            EmailUsuario = _context.Users.Where(u => u.Id == l.UsuarioID).Select(u => u.Email).FirstOrDefault(),
+            RubroID = l.RubroID,
+            RubroNombre = l.Rubro.Nombre
         }).ToList();
 
         return Json(mostrarEmpresa);
     }
 
-    public JsonResult GuardarEmpresas(int EmpresaID, int LocalidadID, string UsuarioID, string RazonSocial, string Cuit_Cdi, string Telefono, string Email, string Domicilio)
+    public JsonResult GuardarEmpresas(int EmpresaID, int LocalidadID, string UsuarioID, string RazonSocial, string Cuit_Cdi, string Telefono, string Email, string Domicilio, int RubroID)
     {
 
         var usuario = _userManager.FindByEmailAsync(UsuarioID).Result;
@@ -123,7 +129,8 @@ public class EmpresasController : Controller
                     Cuit_Cdi = Cuit_Cdi,
                     Telefono = Telefono,
                     Email = Email,
-                    Domicilio = Domicilio
+                    Domicilio = Domicilio,
+                    RubroID = RubroID
                 };
                 _context.Add(nuevaEmpresa);
                 _context.SaveChanges();
@@ -149,6 +156,7 @@ public class EmpresasController : Controller
                     editarEmpresa.Telefono = Telefono;
                     editarEmpresa.Email = Email;
                     editarEmpresa.Domicilio = Domicilio;
+                    editarEmpresa.RubroID = RubroID;
                     _context.SaveChanges();
                     resultado = "<i class='fas fa-check-circle'></i> ¡Empresa editada correctamente!";
                 }

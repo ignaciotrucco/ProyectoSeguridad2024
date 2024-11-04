@@ -14,6 +14,7 @@ function LimpiarModal() {
     $("#LocalidadID").val(0);
     $("#domicilio").val("");
     $("#UsuarioID").val("");
+    $("#RubroID").val(0);
     $("#razonSocialError").html("");
     $("#cuitError").html("");
     $("#telefonoEmpresaError").html("");
@@ -21,6 +22,8 @@ function LimpiarModal() {
     $("#domicilioEmpresaError").html("");
     $("#localidadEmpresaError").html("");
     $("#provinciaEmpresaError").html("");
+    $("#usuarioEmpresaError").html("");
+    $("#rubroError").html("");
 }
 
 $('#ProvinciaID').change(function () {
@@ -111,6 +114,7 @@ function ListadoEmpresas(busqueda) {
                 contenidoTabla += `
                 <tr>
                     <td style="text-align: center">${empresa.razonSocial}</td>
+                    <td style="text-align: center">${empresa.rubroNombre}</td>
                     <td style="text-align: center" class="ocultar-en-767px">${empresa.cuit_Cdi}</td>
                     <td style="text-align: center" class="ocultar-en-767px">${empresa.telefono}</td>
                     <td style="text-align: center" class="ocultar-en-767px">${empresa.email}</td>
@@ -273,6 +277,7 @@ function GuardarEmpresa() {
     $("#localidadEmpresaError").html("");
     $("#provinciaEmpresaError").html("");
     $("#usuarioEmpresaError").html("");
+    $("#rubroError").html("");
 
     let empresaID = $("#EmpresaID").val();
     let razonSocial = $("#RazonSocial").val().trim();
@@ -282,6 +287,7 @@ function GuardarEmpresa() {
     let localidadID = $("#LocalidadID").val();
     let domicilio = $("#domicilio").val();
     let usuarioID = $("#UsuarioID").val();
+    let rubroID = $("#RubroID").val();
 
     console.log(usuarioID)
 
@@ -325,6 +331,10 @@ function GuardarEmpresa() {
         $("#usuarioEmpresaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El usuario es requerido.")
         registrado = false;
     }
+    if (rubroID == 0) {
+        $("#rubroError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El rubro es requerido.")
+        registrado = false;
+    }
 
     if (registrado) {
 
@@ -338,7 +348,8 @@ function GuardarEmpresa() {
                 Cuit_Cdi: cuit,
                 Telefono: telefono,
                 Email: email,
-                Domicilio: domicilio
+                Domicilio: domicilio,
+                RubroID: rubroID
             },
             type: 'POST',
             dataType: 'json',
@@ -362,6 +373,7 @@ function GuardarEmpresa() {
                         title: (resultado),
                     });
                 }
+                location.href = `../Empresas/Empresas`;
                 ListadoEmpresas();
 
             },
@@ -419,6 +431,7 @@ function AbrirModalEditar(empresaID) {
             $("#LocalidadID").val(mostrarEmpresas.localidadID);
             $("#domicilio").val(mostrarEmpresas.domicilio);
             $("#UsuarioID").val(mostrarEmpresas.emailUsuario)
+            $("#RubroID").val(mostrarEmpresas.rubroID)
             $("#modalEmpresas").modal("show");
             $("#tituloModal").text("Editar Cliente");
         },

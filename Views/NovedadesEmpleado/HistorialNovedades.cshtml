@@ -1,0 +1,98 @@
+@{
+    ViewData["Title"] = "Historial de Reseñas";
+}
+
+<link rel="stylesheet" href="~/css/abm.css" asp-append-version="true" />
+
+<!-- Encabezado ABM -->
+<div class="card m-4">
+    <div class="card-body">
+        <div class="mt-3">
+            <div class="row">
+                <div class="col-auto me-auto">
+                    <h1 class="hover-icon hover-iconPequeño">HISTORIAL DE RESEÑAS <i class="fas fa-comments icon"></i>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tabla -->
+<div class="card m-4">
+    <div class="card-header">
+        <div class="row align-items-center">
+            <div class="col-auto">
+                <div class="input-group m-2">
+                    <div class="ms-2">
+                        <label for="PersonaID" class="form-label text-dark labelFiltro labelFiltroAncho">Filtra por
+                            empleado</label>
+                        @Html.DropDownList("PersonaID", null, htmlAttributes: new
+                            {
+                                @class = "form-control filtro",
+                                @onchange = "HistorialNovedades()"
+                            })
+                    </div>
+                    <!-- Contenedor para los inputs de fecha con etiquetas -->
+                    <div class="ms-2">
+                        <label for="fechaDesde" class="form-label text-dark labelFiltro">Fecha Desde</label>
+                        <input type="date" id="fechaDesdeHistorial" class="form-control filtro anchoDate"
+                            onchange="HistorialNovedades()">
+                    </div>
+                    <div class="ms-2">
+                        <label for="fechaHasta" class="form-label text-dark labelFiltro">Fecha Hasta</label>
+                        <input type="date" id="fechaHastaHistorial" class="form-control filtro anchoDate"
+                            onchange="HistorialNovedades()">
+                    </div>
+                    <div class="ms-2 mt-4 limpiarFiltrosMin">
+                        <button type="button" class="btn btn-secondary" style="height: 30px; width: 40px;"
+                            onclick="LimpiarFiltros()"><i class="fa-solid fa-rotate-right"
+                                style="margin-bottom: 2px;"></i></button>
+                    </div>
+                    <!-- Botón añadido al lado de Fecha Hasta -->
+                    <div class="ms-2 mt-4 limpiarFiltrosFull">
+                        <button type="button" class="btn btn-secondary BtnlimpiarFiltros"
+                            onclick="LimpiarFiltros()">Limpiar
+                            Filtros</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive" style="overflow-y: auto;">
+            <table class="table mt-1" id="imprimir-tabla">
+                <thead>
+                    <tr>
+                        <th scope="col" style="text-align: center">EMPLEADO</th>
+                        <th scope="col" style="text-align: center">CLIENTE</th>
+                        <th scope="col" style="text-align: center">FECHA Y HORA</th>
+                        <th scope="col" style="text-align: center">OBSERVACION</th>
+                        <th scope="col" style="text-align: center">IMAGEN</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-historialDevoluciones"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@* <div id="modalEncuesta" class="modalDatos">
+<div class="modal-contentDatos">
+<h2 class="mb-3">Resultado de la encuesta</h2>
+<div id="detalleContenido">
+<ul id="listaEncuesta"></ul>
+</div>
+<hr>
+<div class="modal-footerAyuda">
+<button class="botonEntendido" onclick="cerrarModal()">Cerrar</button>
+</div>
+</div>
+</div> *@
+
+@section Scripts {
+    <script src="~/js/historialNovedades.js"></script>
+    <script src="~/js/impresiones.js"></script>
+}

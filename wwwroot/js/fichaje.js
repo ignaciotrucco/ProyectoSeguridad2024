@@ -155,18 +155,31 @@ function RegistrarMomento(momento) {
     });
 }
 
-// function openModalReferencia() {
-//     var modal = document.getElementById("ModalReferencia");
-//     modal.style.display = "block";
-// }
+function ImagenPersona() {
+    $.ajax({
+        url: '../../Fichaje/ObtenerImagenPersona',
+        type: 'POST',
+        dataType: 'json',
+        success: function (response) {
+            // Comprobamos si la respuesta contiene una imagen
+            if (response.imagenEncontrada) {
+                // Mostrar imagen desde la base de datos
+                $('#imagenPersona').html('<img src="' + response.imagenBase64 + '" class="imgUsuario">');
+            } else {
+                // Mostrar imagen fija si no se encontró
+                $('#imagenPersona').html('<img src="../img/usuario-fondo-negro.png" class="imgUsuario">');
+            }
+        },
+        error: function (xhr, status, error) {
+            // Mostrar un mensaje de error detallado
+            console.error('Error al cargar la imagen:', error); // Registro del error en la consola
+            console.log('Estado de la solicitud:', status);
+            console.log('Detalles de la respuesta:', xhr);
+        }
+    });
+}
 
-// function closeModalReferencia() {
-//     var modal = document.getElementById("ModalReferencia");
-//     modal.style.display = "none";
-// }
+$(document).ready(function () {
+    ImagenPersona(); // Llamar a la función al cargar el documento
+});
 
-// document.addEventListener("keydown", function (event) {
-//     if (event.key === "Escape") {
-//         closeModalReferencia();
-//     }
-// });

@@ -21,19 +21,19 @@ public class GraficosController : Controller
     }
 
     public IActionResult Graficos()
-{
-    var empleados = _context.Personas
-        .Join(_context.Users, persona => persona.UsuarioID, user => user.Id,
-            (persona, user) => new { persona.PersonaID, persona.NombreCompleto })
-        .ToList();
+    {
+        var empleados = _context.Personas
+            .Join(_context.Users, persona => persona.UsuarioID, user => user.Id,
+                (persona, user) => new { persona.PersonaID, persona.NombreCompleto })
+            .ToList();
 
-    // Agregar un elemento "Todos" al principio de la lista
-    empleados.Insert(0, new { PersonaID = 0, NombreCompleto = "[TODOS]" });
+        // Agregar un elemento "Todos" al principio de la lista
+        empleados.Insert(0, new { PersonaID = 0, NombreCompleto = "[TODOS]" });
 
-    ViewBag.PersonaID = new SelectList(empleados, "PersonaID", "NombreCompleto");
+        ViewBag.PersonaID = new SelectList(empleados, "PersonaID", "NombreCompleto");
 
-    return View();
-}
+        return View();
+    }
 
 
     public JsonResult GraficoTortaEmpresasPorLocalidad()
@@ -56,45 +56,45 @@ public class GraficosController : Controller
                     CantidadEmpresas = empresas.Count()
                 };
                 vistaEmpresasPorLocalidad.Add(localidadEmpresas);
-           }
+            }
         }
 
         return Json(vistaEmpresasPorLocalidad);
     }
 
-    
+
     public JsonResult GraficoHistorialFichajes(int? PersonaID, DateTime? FechaDesde, DateTime? FechaHasta)
-{
-    var listadoTurnos = _context.TurnoLaboral.AsQueryable();
-
-    // Filtros por persona y fechas
-    if (PersonaID.HasValue && PersonaID.Value > 0)
     {
-        var persona = _context.Personas.Find(PersonaID.Value);
-        if (persona != null)
+        var listadoTurnos = _context.TurnoLaboral.AsQueryable();
+
+        // Filtros por persona y fechas
+        if (PersonaID.HasValue && PersonaID.Value > 0)
         {
-            listadoTurnos = listadoTurnos.Where(l => l.UsuarioID == persona.UsuarioID);
+            var persona = _context.Personas.Find(PersonaID.Value);
+            if (persona != null)
+            {
+                listadoTurnos = listadoTurnos.Where(l => l.UsuarioID == persona.UsuarioID);
+            }
         }
+
+        if (FechaDesde.HasValue && FechaHasta.HasValue)
+        {
+            listadoTurnos = listadoTurnos.Where(l => l.FechaFichaje >= FechaDesde && l.FechaFichaje <= FechaHasta);
+        }
+
+        // Cálculo de los porcentajes
+        var totalFichajes = listadoTurnos.Count();
+        var fichajesEnHorario = listadoTurnos.Count(l => l.Estado);
+        var fichajesFueraHorario = totalFichajes - fichajesEnHorario;
+
+        var resultados = new
+        {
+            EnHorario = totalFichajes > 0 ? (fichajesEnHorario * 100.0) / totalFichajes : 0,
+            FueraHorario = totalFichajes > 0 ? (fichajesFueraHorario * 100.0) / totalFichajes : 0
+        };
+
+        return Json(resultados);
     }
-
-    if (FechaDesde.HasValue && FechaHasta.HasValue)
-    {
-        listadoTurnos = listadoTurnos.Where(l => l.FechaFichaje >= FechaDesde && l.FechaFichaje <= FechaHasta);
-    }
-
-    // Cálculo de los porcentajes
-    var totalFichajes = listadoTurnos.Count();
-    var fichajesEnHorario = listadoTurnos.Count(l => l.Estado);
-    var fichajesFueraHorario = totalFichajes - fichajesEnHorario;
-
-    var resultados = new
-    {
-        EnHorario = totalFichajes > 0 ? (fichajesEnHorario * 100.0) / totalFichajes : 0,
-        FueraHorario = totalFichajes > 0 ? (fichajesFueraHorario * 100.0) / totalFichajes : 0
-    };
-
-    return Json(resultados);
-}
 
 
 }

@@ -93,7 +93,7 @@ public class PersonasController : Controller
             //     .ToList();
 
             var roleBuscar = _context.Roles.Where(r => r.Name == RolBuscar).SingleOrDefault();
-            var personasConRol = _context.UserRoles.Where(u => u.RoleId == roleBuscar.Id).Select(ur => ur.UserId).ToList(); 
+            var personasConRol = _context.UserRoles.Where(u => u.RoleId == roleBuscar.Id).Select(ur => ur.UserId).ToList();
 
 
             listadoPersonas = listadoPersonas.Where(p => personasConRol.Contains(p.UsuarioID)).ToList();
@@ -103,12 +103,24 @@ public class PersonasController : Controller
 
         foreach (var persona in listadoPersonas)
         {
+            var imagen = _context.Archivos.Where(i => i.ArchivoID == persona.ArchivoID).SingleOrDefault();
+
             var rolNombre = "";
 
             var rolUsuario = _context.UserRoles.Where(r => r.UserId == persona.UsuarioID).SingleOrDefault();
             if (rolUsuario != null)
             {
                 rolNombre = _context.Roles.Where(l => l.Id == rolUsuario.RoleId).Select(r => r.Name).FirstOrDefault();
+            }
+
+            string base64 = "";
+            string contentType = "";
+
+            //VERIFICA SI EL ARCHIVO NO ES NULO
+            if (imagen != null && imagen.ArchivoBinario != null)
+            {
+                base64 = Convert.ToBase64String(imagen.ArchivoBinario);
+                contentType = imagen.ContentType;
             }
 
             var personaMostrar = new VistaPersonas
@@ -129,7 +141,10 @@ public class PersonasController : Controller
                 Email = persona.Email,
                 NumeroDocumento = persona.NumeroDocumento,
                 EmailUsuario = _context.Users.Where(u => u.Id == persona.UsuarioID).Select(u => u.Email).FirstOrDefault(),
-                RolPersona = rolNombre
+                RolPersona = rolNombre,
+                ArchivoID = persona.ArchivoID,
+                NombreArchivo = base64,
+                ContentType = imagen?.ContentType
             };
             personasMostrar.Add(personaMostrar);
         }
@@ -138,7 +153,7 @@ public class PersonasController : Controller
     }
 
 
-    public JsonResult GuardarPersonas(int PersonaID, int LocalidadID, int TipoDocumentoID, string EmailUsuario, string NombreCompleto, DateTime FechaNacimiento, string Telefono, string Domicilio, string Email, int NumeroDocumento)
+    public async Task<IActionResult> GuardarPersonas(int PersonaID, int LocalidadID, int TipoDocumentoID, string EmailUsuario, string NombreCompleto, DateTime FechaNacimiento, string Telefono, string Domicilio, string Email, int NumeroDocumento, IFormFile ImagenPersona)
     {
         var usuario = _userManager.FindByEmailAsync(EmailUsuario).Result;
 
@@ -167,9 +182,31 @@ public class PersonasController : Controller
                     Email = Email,
                     NumeroDocumento = NumeroDocumento
                 };
+
+                if (ImagenPersona != null && ImagenPersona.Length > 0)
+                {
+                    var nuevaImagen = new Archivo
+                    {
+                        ArchivoBinario = await ConvertirAByteArray(ImagenPersona),
+                        ContentType = ImagenPersona.ContentType,
+                        NombreArchivo = ImagenPersona.FileName
+                    };
+
+                    //SI SE CARGA LO AGREGA AL CONTEXTO
+                    _context.Archivos.Add(nuevaImagen);
+                    await _context.SaveChangesAsync();
+
+                    //ASOCIA EL ID DEL NUEVO ARCHIVO A LA PERSONA
+                    nuevaPersona.ArchivoID = nuevaImagen.ArchivoID;
+                    resultado = "<i class='fas fa-check-circle'></i> ¡Persona agregada correctamente!";
+                }
+                else
+                {
+                    resultado = "<i class='fas fa-check-circle'></i> ¡Persona agregada correctamente!";
+                }
+
                 _context.Add(nuevaPersona);
-                _context.SaveChanges();
-                resultado = "<i class='fas fa-check-circle'></i> ¡Persona agregada correctamente!";
+                await _context.SaveChangesAsync();
             }
             else
             {
@@ -206,6 +243,15 @@ public class PersonasController : Controller
 
 
         return Json(resultado);
+    }
+
+    private async Task<byte[]> ConvertirAByteArray(IFormFile archivo)
+    {
+        using (var memoryStream = new MemoryStream())
+        {
+            await archivo.CopyToAsync(memoryStream);
+            return memoryStream.ToArray();
+        }
     }
 
     public JsonResult EliminarPersona(int PersonaID)

@@ -48,6 +48,7 @@
                 <thead>
                     <tr>
                         <th scope="col" style="text-align: center">RAZÓN SOCIAL</th>
+                        <th scope="col" style="text-align: center">RUBRO</th>
                         <th scope="col" style="text-align: center" class="ocultar-en-767px">CUIT</th>
                         <th scope="col" style="text-align: center" class="ocultar-en-767px">TELÉFONO</th>
                         <th scope="col" style="text-align: center" class="ocultar-en-767px">EMAIL</th>
@@ -166,6 +167,12 @@
                                         @id = "UsuarioID"
                                     })
                                 <span id="usuarioEmpresaError" class="textoError"></span>
+                            </div>
+                            <div class="col-md-6 mb-6">
+                                <label for="RubroID" class="form-label d-flex">Rubro<p class="asterisco">*</p>
+                                </label>
+                                @Html.DropDownList("RubroID", null, htmlAttributes: new { @class = "form-control" })
+                                <span id="rubroError" class="textoError"></span>
                             </div>
                         </div>
                     </form>
