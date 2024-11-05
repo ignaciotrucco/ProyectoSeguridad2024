@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProyectoSeguridad2024.Migrations
 {
     /// <inheritdoc />
-    public partial class MigracionInicial : Migration
+    public partial class Migracion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -181,6 +181,19 @@ namespace ProyectoSeguridad2024.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Rubros",
+                columns: table => new
+                {
+                    RubroID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rubros", x => x.RubroID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TipoDocumentos",
                 columns: table => new
                 {
@@ -201,10 +214,11 @@ namespace ProyectoSeguridad2024.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UsuarioID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     JornadaLaboralID = table.Column<int>(type: "int", nullable: false),
-                    TurnoLaboralInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TurnoLaboralFin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaFichaje = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Momento = table.Column<int>(type: "int", nullable: false),
                     Latitud = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Longitud = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Longitud = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Estado = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -346,6 +360,7 @@ namespace ProyectoSeguridad2024.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UsuarioID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LocalidadID = table.Column<int>(type: "int", nullable: false),
+                    RubroID = table.Column<int>(type: "int", nullable: false),
                     RazonSocial = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Domicilio = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Cuit_Cdi = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -361,6 +376,12 @@ namespace ProyectoSeguridad2024.Migrations
                         principalTable: "Localidades",
                         principalColumn: "LocalidadID",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Empresas_Rubros_RubroID",
+                        column: x => x.RubroID,
+                        principalTable: "Rubros",
+                        principalColumn: "RubroID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -372,6 +393,7 @@ namespace ProyectoSeguridad2024.Migrations
                     LocalidadID = table.Column<int>(type: "int", nullable: false),
                     TipoDocumentoID = table.Column<int>(type: "int", nullable: false),
                     UsuarioID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ArchivoID = table.Column<int>(type: "int", nullable: false),
                     NombreCompleto = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Telefono = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -439,6 +461,11 @@ namespace ProyectoSeguridad2024.Migrations
                 name: "IX_Empresas_LocalidadID",
                 table: "Empresas",
                 column: "LocalidadID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Empresas_RubroID",
+                table: "Empresas",
+                column: "RubroID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Localidades_ProvinciaID",
@@ -509,6 +536,9 @@ namespace ProyectoSeguridad2024.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Rubros");
 
             migrationBuilder.DropTable(
                 name: "Localidades");

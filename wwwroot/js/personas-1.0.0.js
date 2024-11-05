@@ -116,7 +116,7 @@ function ListadoPersonas(busqueda) {
             let imagenHtml = '';
             if (persona.nombreArchivo) {
                 imagenHtml = `
-                        <img title="Expandir" src="data:${persona.contentType};base64,${persona.nombreArchivo}" class="card-img-top fotoUsuario">
+                        <img src="data:${persona.contentType};base64,${persona.nombreArchivo}" class="card-img-top fotoUsuario">
                 `;
             }
             else {

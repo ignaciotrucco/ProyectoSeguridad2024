@@ -61,7 +61,7 @@ function HistorialNovedades() {
                             <td style="text-align: center">${novedad.observacion}</td>
                             <td style="text-align: center">
                                 <img title="Expandir" src="data:${novedad.contentType};base64,${novedad.nombreArchivo}" 
-                                style="width: 230px; height: 180px; cursor: pointer; justify-content:center !important; box-shadow: 2px 2px 2px grey"" 
+                                style="width: 50px; height: 50px; cursor: pointer; justify-content:center !important; box-shadow: 2px 2px 2px grey"" 
                                 onclick="mostrarImagenGrande(this.src)" id="miImagen" />
                             </td>
                         </tr>
@@ -69,7 +69,7 @@ function HistorialNovedades() {
                         }
                         else {
                             contenidoTabla += `
-                        <tr class="bg-danger p-2" style="--bs-bg-opacity: .5;">
+                        <tr>
                             <td style="text-align: center"></td>
                             <td style="text-align: center"></td>
                             <td style="text-align: center">${novedad.fechaHora}</td>
@@ -117,6 +117,16 @@ function HistorialNovedades() {
         }
     });
 }
+
+function mostrarImagenGrande(src) {
+    $('#imagenGrande').attr('src', src);
+    $('#modalImagenGrande').show();
+}
+
+function cerrarModalImagen() {
+    $('#modalImagenGrande').hide();
+}
+
 
 function LimpiarFiltros() {
     $("#PersonaID").val(0);

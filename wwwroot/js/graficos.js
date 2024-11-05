@@ -1,7 +1,11 @@
-window.onload = GraficoCircularEmpresas();
+window.onload = function() {
+    GraficoCircularEmpresas();
+    GraficoCircularEmpresasPorRubro();
+};
 
 let graficoCircularHistorialFichajes;
 let graficoCircularEmpresas;
+let graficoCircularEmpresasPorRubro;
 
 function GraficoCircularEmpresas() {
     $.ajax({
@@ -28,7 +32,7 @@ function GraficoCircularEmpresas() {
             }
 
             // Configuración del gráfico
-            var ctxPie = document.getElementById("grafico-circular-empresas").getContext('2d');
+            var ctxPie = document.getElementById("grafico-circular-empresas-loc").getContext('2d');
             graficoCircularEmpresas = new Chart(ctxPie, {
                 type: 'pie',
                 data: {
@@ -115,4 +119,50 @@ function limpiarFiltrosFichajes() {
     document.getElementById('personaSelect').selectedIndex = 0;
 
     GraficoCircularHistorialFichajes();
+}
+
+function GraficoCircularEmpresasPorRubro() {
+    $.ajax({
+        type: "POST",
+        url: '../../Graficos/GraficoTortaEmpresasPorRubro',
+        success: function (vistaEmpresasPorRubro) {
+            var labels = [];
+            var data = [];
+            var fondo = [];
+
+            $.each(vistaEmpresasPorRubro, function (index, rubro) {
+                labels.push(rubro.nombreRubro);
+                var color = generarColorAleatorio();
+                fondo.push(color);
+                data.push(rubro.cantidadEmpresas);
+            });
+
+            if (graficoCircularEmpresasPorRubro) {
+                graficoCircularEmpresasPorRubro.destroy();
+            }
+
+            var ctxPie = document.getElementById("grafico-circular-empresas-rub").getContext('2d');
+            graficoCircularEmpresasPorRubro = new Chart(ctxPie, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: fondo,
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                    },
+                }
+            });
+        },
+        error: function (error) {
+            console.log('Error al cargar los datos del gráfico: ', error);
+        }
+    });
 }

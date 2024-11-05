@@ -12,8 +12,8 @@ using ProyectoSeguridad2024.Data;
 namespace ProyectoSeguridad2024.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241029231339_TablaRubros")]
-    partial class TablaRubros
+    [Migration("20241104225452_Migracion")]
+    partial class Migracion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

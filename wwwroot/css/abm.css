@@ -639,7 +639,10 @@ input:checked+.slider:before {
 
 .fotoUsuario{
     padding: 2px;
+    width: 300; 
+    height: 300px; 
 }
+
 /* Observacion empleado */
 .inputImg {
     position: relative;
