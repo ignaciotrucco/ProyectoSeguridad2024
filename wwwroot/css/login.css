@@ -145,15 +145,15 @@ body {
 
   @media (max-width: 576px) {
     .tarjeta {
-      width: 100%; /* Asegura que ocupe el ancho completo */
-      max-width: 350px; /* Limita el tamaño máximo para que se mantenga en el contenedor */
-      margin-right: 45px; /* Desplaza un poquito las imágenes hacia la izquierda */
+      width: 100%;
+      max-width: 350px; 
+      margin-right: 45px; 
     }
   
     .imgZoom {
       width: 110%;
       height: auto;
-      max-height: 550px; /* Ajusta el valor según el tamaño deseado */
+      max-height: 550px;
     }
     
     /* Centra las tarjetas */

@@ -37,6 +37,7 @@ function HistorialNovedades() {
                         <td style="text-align: center"></td>
                         <td style="text-align: center"></td>
                         <td style="text-align: center"></td>
+                        <td style="text-align: center"></td>
                     </tr>
                 `;
 
@@ -47,6 +48,7 @@ function HistorialNovedades() {
                         <tr>
                             <td style="text-align: center"><b></b></td>
                             <td style="text-align: center">${empresa.empresaNombre}</td>
+                            <td style="text-align: center"></td>
                             <td style="text-align: center"></td>
                             <td style="text-align: center"></td>
                         </tr>
