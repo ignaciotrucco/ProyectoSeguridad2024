@@ -27,15 +27,22 @@
                 </div>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark" href="~/Home/Index"><i class="fa-solid fa-house"></i> Home</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark" href="~/Fichaje/Fichaje"><i class="fa-solid fa-user-check"></i> Fichaje</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark" href="~/NovedadesEmpleado/NovedadesEmpleado"><i class="fa-solid fa-file-lines"></i> Novedades</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark" href="~/Devoluciones/Devoluciones"><i class="fa-solid fa-comment-dots"></i> ¡Enviá tu reseña!</a>
-                    <!-- Botón de colapsar para la sección Administrar -->
+                    @if (User.IsInRole("EMPLEADO")) {
+                        <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark" href="~/Fichaje/Fichaje"><i class="fa-solid fa-user-check"></i> Fichaje</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark" href="~/NovedadesEmpleado/NovedadesEmpleado"><i class="fa-solid fa-file-lines"></i> Novedades</a>
+                    }
+                    @if (User.IsInRole("CLIENTE")) {
+                        <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark" href="~/Devoluciones/Devoluciones"><i class="fa-solid fa-comment-dots"></i> ¡Enviá tu reseña!</a>
+                    }
+                    
+                    @if (User.IsInRole("ADMINISTRADOR")) {
+
+                        <!-- Botón de colapsar para la sección Administrar -->
                     <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark" data-bs-toggle="collapse" href="#collapseAdmin" role="button" aria-expanded="false" aria-controls="collapseAdmin">
                         <i class="fa-solid fa-arrow-down"></i> Administrar
                     </a>
-    
-                    <!-- Contenido colapsable con jerarquía --> 
+
+                        <!-- Contenido colapsable con jerarquía --> 
                     <div class="collapse ms-3" id="collapseAdmin" data-bs-target="#collapseAdmin">
                         <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark list-administrar" href="~/Graficos/Graficos">
                         <i class="fa-solid fa-chart-pie"></i> Gráficos
@@ -71,6 +78,9 @@
                             <i class="fa-solid fa-location-dot"></i> Provincias
                         </a>
                     </div>
+
+                    }
+                    
                     <a><partial name="_LoginPartial" /> </a>
                 </div>
             </div>

@@ -12,9 +12,9 @@ function HistorialNovedades() {
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
         data: {
-            PersonaID: personaID,
-            FechaDesde: fechaDesde,
-            FechaHasta: fechaHasta,
+            Persona: personaID,
+            FechaDesdeHistorial: fechaDesde,
+            FechaHastaHistorial: fechaHasta,
         },
         // especifica si será una petición POST o GET
         type: 'POST',
@@ -23,8 +23,6 @@ function HistorialNovedades() {
         // código a ejecutar si la petición es satisfactoria;
         // la respuesta es pasada como argumento a la función
         success: function (VistaEmpleadoNovedad) {
-
-
 
             let contenidoTabla = ``;
 
