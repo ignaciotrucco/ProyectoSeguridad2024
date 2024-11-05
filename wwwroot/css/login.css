@@ -1,12 +1,12 @@
 body {
   margin-top: 60px;
-  background: rgb(255,182,35);
-  background: radial-gradient(circle, rgba(255,182,35,0.8) 0%, rgba(0,0,0,0.8) 0%, rgba(255,182,35,0.8) 100%);
+  background: rgb(255, 182, 35);
+  background: radial-gradient(circle, rgba(255, 182, 35, 0.8) 0%, rgba(0, 0, 0, 0.8) 0%, rgba(255, 182, 35, 0.8) 100%);
 }
 
-.tituloSTVA{
+.tituloSTVA {
   width: 220px;
-  height:90px;
+  height: 90px;
 }
 
 .btn-login {
@@ -18,9 +18,10 @@ body {
   background-color: #ffba2f;
 }
 
-.formLogin{
+.formLogin {
   box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.428);
 }
+
 /* Imagen form login */
 .account-block {
   padding: 0;
@@ -54,6 +55,7 @@ body {
   left: 0;
   right: 0;
 }
+
 /* Imagen form login */
 .account-block {
   padding: 0;
@@ -87,45 +89,79 @@ body {
   left: 0;
   right: 0;
 }
+
+/* Card permiso usuarios */
+
+.tarjeta {
+  transition: ease-in-out 0.3s;
+  box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.262);
+}
+
+.tarjeta:hover {
+  scale: 101%;
+}
+
 /* Estilos para dispositivos moviles */
 @media (max-width: 768px) {
 
   .container {
-    width: 100%; 
+    width: 100%;
     margin-top: 35%;
 
   }
 
-  .tituloSTVA{
+  .tituloSTVA {
     scale: 125%;
   }
 
-  h6{
+  h6 {
     font-size: 25px !important;
     text-align: center;
   }
 
-  p{
+  p {
     font-size: 18px !important;
     text-align: center;
   }
 
-  input{
+  input {
     scale: 108%;
   }
 
-  .form-floating{
+  .form-floating {
     scale: 108%;
     margin-top: 15px;
   }
 
-  label{
+  label {
     scale: 108%;
     margin-left: -12px;
   }
 
-  button{
+  button {
     scale: 120%;
     margin-top: 10px;
   }
+
+  @media (max-width: 576px) {
+    .tarjeta {
+      width: 100%; /* Asegura que ocupe el ancho completo */
+      max-width: 350px; /* Limita el tamaño máximo para que se mantenga en el contenedor */
+      margin-right: 45px; /* Desplaza un poquito las imágenes hacia la izquierda */
+    }
+  
+    .imgZoom {
+      width: 110%;
+      height: auto;
+      max-height: 550px; /* Ajusta el valor según el tamaño deseado */
+    }
+    
+    /* Centra las tarjetas */
+    .card-body .row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
 }

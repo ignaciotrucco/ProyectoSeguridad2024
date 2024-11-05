@@ -96,5 +96,21 @@ public class GraficosController : Controller
         return Json(resultados);
     }
 
+    public JsonResult GraficoTortaEmpresasPorRubro()
+{
+    var vistaEmpresasPorRubro = _context.Rubros
+        .Select(r => new
+        {
+            RubroID = r.RubroID,
+            NombreRubro = r.Nombre,
+            CantidadEmpresas = r.Empresas.Count() 
+        })
+        .Where(r => r.CantidadEmpresas > 0) 
+        .ToList();
+
+    return Json(vistaEmpresasPorRubro);
+}
+
+
 
 }
