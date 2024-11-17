@@ -23,6 +23,7 @@ public class EmpresasController : Controller
         _userManager = userManager;
     }
 
+    [Authorize(Roles = "ADMINISTRADOR")]
     public IActionResult Empresas(string id)
     {
         var rubros = _context.Rubros.ToList();

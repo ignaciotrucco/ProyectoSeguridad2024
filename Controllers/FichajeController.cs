@@ -24,6 +24,7 @@ public class FichajeController : Controller
         _rolManager = rolManager;
     }
 
+    [Authorize(Roles = "EMPLEADO")]
     public async Task<IActionResult> Fichaje()
     {
         var usuarioLogueadoID = _userManager.GetUserId(HttpContext.User);
@@ -50,6 +51,7 @@ public class FichajeController : Controller
         return View();
     }
 
+    [Authorize(Roles = "ADMINISTRADOR")]
     public IActionResult FichajeHistorial()
     {
         var personas = (from persona in _context.Personas

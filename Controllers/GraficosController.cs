@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 namespace ProyectoSeguridad2024.Controllers;
 
 [Authorize]
-
 public class GraficosController : Controller
 {
     private ApplicationDbContext _context;
@@ -20,6 +19,7 @@ public class GraficosController : Controller
         _context = context;
     }
 
+    [Authorize(Roles = "ADMINISTRADOR")]
     public IActionResult Graficos()
     {
         var empleados = _context.Personas

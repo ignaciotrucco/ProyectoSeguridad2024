@@ -324,12 +324,17 @@ function ImprimirTablaEmpresas() {
             },
 
             5: {
-                cellWidth: 'auto',
                 fontSize: 7,
                 fillColor: [255, 255, 255]
             },
 
             6: {
+                cellWidth: 'auto',
+                fontSize: 7,
+                fillColor: [255, 255, 255]
+            },
+
+            7: {
                 cellWidth: 'auto',
                 fontSize: 7,
                 fillColor: [255, 255, 255]

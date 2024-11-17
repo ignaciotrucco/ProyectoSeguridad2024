@@ -240,9 +240,10 @@
               <span id="HsSalidaError" class="textoError"></span>
             </div>
             <!-- Campo de fecha especial visible por defecto -->
-            <div class="col-md-3" style="margin-top: 19px;" id="fechaEspecial">
-              <label for="fechaEspecialInput" class="form-label">Día Especial</label>
+            <div class="col-md-3" style="margin-top: 17px;" id="fechaEspecial">
+              <label for="fechaEspecialInput" class="form-label d-flex">Día Especial<p class="asterisco">*</p></label>
               <input type="date" class="form-control" id="fechaEspecialInput">
+              <span id="diaEspecialError" class="textoError"></span>
             </div>
           </div>
           <div class="mt-3 d-flex align-items-center" style="margin-left: -24px;">
@@ -252,11 +253,11 @@
                 <span class="slider"></span>
               </label>
             </div>
-            <label class="form-check-label ms-2 mb-0">Días Laborables</label>
+            <label class="form-check-label ms-2 mb-0 d-flex" style="margin-top: 20px;">Días Laborables<p class="asterisco">*</p></label>
           </div>
 
           <!-- Checkboxes ocultos -->
-          <div id="checkboxsAdicionales" class="col-md-2 mt-3" style="display: none;">
+          <div id="checkboxsAdicionales" class="col-md-2 mt-1" style="display: none;">
             <div class="d-flex">
               <label class="custom-checkbox">
                 <input class="form-check-input" type="checkbox" id="lunes">
@@ -294,6 +295,7 @@
                 DOMINGO
               </label>
             </div>
+              <span id="diaError" class="textoError"></span>
         </form>
       </div>
     </div>

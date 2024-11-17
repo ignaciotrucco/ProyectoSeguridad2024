@@ -22,18 +22,21 @@ public class DevolucionesController : Controller
         _context = context;
         _userManager = userManager;
     }
-
+    [Authorize(Roles = "CLIENTE")]
     public IActionResult Devoluciones()
     {
 
         return View();
     }
 
+    [Authorize(Roles = "CLIENTE")]
     public IActionResult NuevaDevolucion()
     {
 
         return View();
     }
+
+    [Authorize(Roles = "ADMINISTRADOR")]
     public IActionResult HistorialDevoluciones()
     {
         var empresa = _context.Empresas.ToList();

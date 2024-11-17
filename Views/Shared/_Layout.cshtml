@@ -44,18 +44,7 @@
 
                         <!-- Contenido colapsable con jerarquía --> 
                     <div class="collapse ms-3" id="collapseAdmin" data-bs-target="#collapseAdmin">
-                        <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark list-administrar" href="~/Graficos/Graficos">
-                        <i class="fa-solid fa-chart-pie"></i> Gráficos
-                        </a>
-                        <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark list-administrar" href="~/Devoluciones/HistorialDevoluciones">
-                        <i class="fa-solid fa-comments"></i> Historial Reseñas 
-                        </a>
-                        <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark list-administrar" href="~/NovedadesEmpleado/HistorialNovedades">
-                        <i class="fa-regular fa-newspaper"></i> Historial Novedades
-                        </a>
-                        <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark list-administrar" href="~/Fichaje/FichajeHistorial">
-                        <i class="fa-solid fa-business-time"></i> Historial Fichajes
-                        </a>
+                        
                         <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark list-administrar" href="~/JornadaLaboral/JornadaLaboral">
                         <i class="fa-regular fa-calendar-days"></i> Jornadas Laborales
                         </a>
@@ -77,6 +66,25 @@
                         <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark list-administrar" href="~/Provincias/Provincias">
                             <i class="fa-solid fa-location-dot"></i> Provincias
                         </a>
+                    </div>
+
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark" data-bs-toggle="collapse" href="#collapseGraf" role="button" aria-expanded="false" aria-controls="collapseGraf">
+                        <i class="fa-solid fa-arrow-down"></i> Informes
+                    </a>
+
+                    <div class="collapse ms-3" id="collapseGraf" data-bs-target="#collapseGraf">
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark list-administrar" href="~/Graficos/Graficos">
+                        <i class="fa-solid fa-chart-pie"></i> Gráficos
+                        </a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark list-administrar" href="~/Devoluciones/HistorialDevoluciones">
+                        <i class="fa-solid fa-comments"></i> Historial Reseñas 
+                    </a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark list-administrar" href="~/NovedadesEmpleado/HistorialNovedades">
+                        <i class="fa-regular fa-newspaper"></i> Historial Novedades
+                    </a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-dark list-administrar" href="~/Fichaje/FichajeHistorial">
+                        <i class="fa-solid fa-business-time"></i> Historial Fichajes
+                    </a>
                     </div>
 
                     }
