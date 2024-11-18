@@ -87,11 +87,6 @@ public class PersonasController : Controller
         // FILTRAR POR ROL SI SE SELECCIONA UNO
         if (!string.IsNullOrEmpty(RolBuscar))
         {
-            // var personasConRol = _context.UserRoles
-            //     .Where(ur => _context.Roles.Any(r => r.Id == ur.RoleId && r.Name == RolBuscar))  // Comparar directamente con el ID del rol
-            //     .Select(ur => ur.UserId)
-            //     .ToList();
-
             var roleBuscar = _context.Roles.Where(r => r.Name == RolBuscar).SingleOrDefault();
             var personasConRol = _context.UserRoles.Where(u => u.RoleId == roleBuscar.Id).Select(ur => ur.UserId).ToList();
 
@@ -231,8 +226,31 @@ public class PersonasController : Controller
                     editarPersona.Domicilio = Domicilio;
                     editarPersona.Email = Email;
                     editarPersona.NumeroDocumento = NumeroDocumento;
-                    _context.SaveChanges();
-                    resultado = "<i class='fas fa-check-circle'></i> ¡Persona editada correctamente!";
+
+
+                    if (ImagenPersona != null && ImagenPersona.Length > 0)
+                    {
+                        var nuevaImagen = new Archivo
+                        {
+                            ArchivoBinario = await ConvertirAByteArray(ImagenPersona),
+                            ContentType = ImagenPersona.ContentType,
+                            NombreArchivo = ImagenPersona.FileName
+                        };
+
+                        _context.Archivos.Add(nuevaImagen);
+                        await _context.SaveChangesAsync();
+
+                        editarPersona.ArchivoID = nuevaImagen.ArchivoID;
+                        resultado = "<i class='fas fa-check-circle'></i> ¡Persona editada correctamente!";
+
+                    }
+                    else
+                    {
+                        // editarPersona.ArchivoID = null;
+                        resultado = "<i class='fas fa-check-circle'></i> ¡Persona editada correctamente!";
+                    }
+
+                    await _context.SaveChangesAsync();
                 }
                 else
                 {

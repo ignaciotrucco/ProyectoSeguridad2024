@@ -230,8 +230,9 @@ public class JornadaLaboralController : Controller
         bool eliminado = false;
 
         var existeAsignacion = _context.AsignacionJornadas.Where(e => e.JornadaLaboralID == JornadaLaboralID).Count();
+        var existeFichaje = _context.TurnoLaboral.Where(e => e.JornadaLaboralID == JornadaLaboralID).Count();
 
-        if (existeAsignacion == 0)
+        if (existeAsignacion == 0 && existeFichaje == 0)
         {
             var eliminarJornada = _context.JornadaLaboral.Find(JornadaLaboralID);
             _context.Remove(eliminarJornada);

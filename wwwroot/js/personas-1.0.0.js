@@ -26,6 +26,7 @@ function LimpiarModal() {
     document.getElementById("localidadPersonaError").innerHTML = "";
     document.getElementById("provinciaPersonaError").innerHTML = "";
     document.getElementById("usuarioPersonaError").innerHTML = "";
+    $("#imgPersona").val("");
 }
 
 $('#ProvinciaID').change(function () {
@@ -437,6 +438,13 @@ function ModalEditar(personaID) {
 
             document.getElementById("LocalidadID").value = mostrarPersona.localidadID;
             document.getElementById("emailUsuario").value = mostrarPersona.emailUsuario;
+            // if (mostrarPersona.archivoID) {
+            //     document.getElementById("vistaImg").innerHTML = `
+            //         <img src="data:${mostrarPersona.contentType};base64,${mostrarPersona.nombreArchivo}" alt="Imagen actual" style="width: 250px; height: 150px; cursor: pointer;">
+            //     `;
+            // } else {
+            //     document.getElementById("vistaImg").innerHTML = "<p>No hay imagen cargada.</p>";
+            // }
 
             //CONVERTIMOS LA FECHA DE NACIMIENTO EN FORMATO YYYY-MM-DD PARA PODER MOSTRARLO EN EL INPUT
             let fechaNacimiento = new Date(mostrarPersona.fechaNacimiento);
@@ -445,7 +453,6 @@ function ModalEditar(personaID) {
             document.getElementById("FechaNacimiento").value = formatoDate;
             $("#modalPersonas").modal("show");
             $("#tituloModal").text("Editar Persona");
-            console.log(mostrarPersona.localidadID);
         },
         error: function (xhr, status) {
             const Toast = Swal.mixin({
