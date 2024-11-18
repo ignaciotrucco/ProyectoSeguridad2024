@@ -48,7 +48,7 @@
                 <thead>
                     <tr>
                         <th scope="col" style="text-align: center">RAZÓN SOCIAL</th>
-                        <th scope="col" style="text-align: center">RUBRO</th>
+                        <th scope="col" style="text-align: center" class="ocultar-en-767px">RUBRO</th>
                         <th scope="col" style="text-align: center" class="ocultar-en-767px">CUIT</th>
                         <th scope="col" style="text-align: center" class="ocultar-en-767px">TELÉFONO</th>
                         <th scope="col" style="text-align: center" class="ocultar-en-767px">EMAIL</th>
@@ -70,6 +70,7 @@
     <thead>
         <tr>
             <th scope="col" style="text-align: center">RAZÓN SOCIAL</th>
+            <th scope="col" style="text-align: center">RUBRO</th>
             <th scope="col" style="text-align: center">CUIT</th>
             <th scope="col" style="text-align: center">TELÉFONO</th>
             <th scope="col" style="text-align: center">EMAIL</th>
@@ -157,7 +158,7 @@
                         </div>
                         <br class="hiddenEn767">
                         <div class="row">
-                            <div class="col-md-4 mb-6">
+                            <div class="col-md-6 mb-6">
                                 <label for="UsuarioID" class="form-label d-flex">Elija el usuario<p class="asterisco">*
                                     </p></label>
                                 @Html.DropDownList("UsuarioID", null, htmlAttributes: new
@@ -266,6 +267,7 @@
         <h2>Detalles del Cliente</h2>
         <div id="detalleContenido">
             <p id="razonSocial"></p>
+            <p id="rubroNombre"></p>
             <p id="cuit_Cdi"></p>
             <p id="telefonoDetalle"></p>
             <p id="emailDetalle"></p>

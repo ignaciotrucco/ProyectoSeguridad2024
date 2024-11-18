@@ -23,6 +23,7 @@ public class PersonasController : Controller
         _userManager = userManager;
     }
 
+    [Authorize(Roles = "ADMINISTRADOR")]
     public IActionResult Personas(string id)
     {
         var tipoDocumentos = _context.TipoDocumentos.ToList();

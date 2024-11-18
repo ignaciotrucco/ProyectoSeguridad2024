@@ -114,7 +114,7 @@ function ListadoEmpresas(busqueda) {
                 contenidoTabla += `
                 <tr>
                     <td style="text-align: center">${empresa.razonSocial}</td>
-                    <td style="text-align: center">${empresa.rubroNombre}</td>
+                    <td style="text-align: center" class="ocultar-en-767px">${empresa.rubroNombre}</td>
                     <td style="text-align: center" class="ocultar-en-767px">${empresa.cuit_Cdi}</td>
                     <td style="text-align: center" class="ocultar-en-767px">${empresa.telefono}</td>
                     <td style="text-align: center" class="ocultar-en-767px">${empresa.email}</td>
@@ -133,7 +133,7 @@ function ListadoEmpresas(busqueda) {
                     </td>
                     <td style="text-align: left">
                     <button type="button" class="btn mostrar-en-767px" title="Detalles" onclick="mostrarModal('${empresa.razonSocial}',
-                     '${empresa.cuit_Cdi}', '${empresa.telefono}', '${empresa.email}', '${empresa.provinciaNombre}', '${empresa.localidadNombre}',
+                     '${empresa.rubroNombre}','${empresa.cuit_Cdi}', '${empresa.telefono}', '${empresa.email}', '${empresa.provinciaNombre}', '${empresa.localidadNombre}',
                       '${empresa.domicilio}')">
                     <i class="fa-solid fa-info" width="20" height="20"></i>
                     </button>
@@ -199,6 +199,7 @@ function TablaImprimir() {
                 contenidoTabla += `
                 <tr>
                     <td style="text-align: center">${empresa.razonSocial}</td>
+                    <td style="text-align: center">${empresa.rubroNombre}</td>
                     <td style="text-align: center">${empresa.cuit_Cdi}</td>
                     <td style="text-align: center">${empresa.telefono}</td>
                     <td style="text-align: center">${empresa.email}</td>
@@ -660,8 +661,9 @@ window.onclick = function (event) {
     }
 }
 
-function mostrarModal(razonSocial, cuit_Cdi, telefono, email, provinciaNombre, localidadNombre, domicilio) {
+function mostrarModal(razonSocial, rubroNombre, cuit_Cdi, telefono, email, provinciaNombre, localidadNombre, domicilio) {
     $('#razonSocial').text('Razón Social: ' + razonSocial);
+    $('#rubroNombre').text('Rubro: ' + rubroNombre);
     $('#cuit_Cdi').text('CUIT: ' + cuit_Cdi);
     $('#telefonoDetalle').text('Teléfono: ' + telefono);
     $('#emailDetalle').text('Email: ' + email);

@@ -25,7 +25,7 @@ public class UsersController : Controller
         _rolManager = rolManager;
     }
 
-
+    [Authorize(Roles = "ADMINISTRADOR")]
     public IActionResult Users()
     {
         var roles = _context.Roles.ToList();

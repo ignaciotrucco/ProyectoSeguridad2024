@@ -27,7 +27,7 @@ public class JornadaLaboralController : Controller
         _rolManager = rolManager;
     }
 
-
+    [Authorize(Roles = "ADMINISTRADOR")]
     public IActionResult JornadaLaboral()
     {
         var empresa = _context.Empresas.ToList();

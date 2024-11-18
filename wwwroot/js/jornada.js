@@ -53,6 +53,9 @@ function LimpiarModalJornada() {
     document.getElementById("lugarError").innerHTML = "";
     document.getElementById("HsEntradaError").innerHTML = "";
     document.getElementById("HsSalidaError").innerHTML = "";
+    document.getElementById("diaError").innerHTML = "";
+    document.getElementById("diaEspecialError").innerHTML = "";
+
 }
 
 // ESCUCHA EL EVENTO 'KEYUP' EN EL CAMPO DE BÚSQUEDA CON ID 'INPUTBUSQUEDA'
@@ -236,7 +239,7 @@ function GuardarJornadaLaboral() {
     let empresa = $("#EmpresaID").val();
     let lugar = $("#Lugar").val().trim();
     let dia = $("#checkboxPrincipal").is(":checked"); // Convertir a booleano
-    let diaEspecial = dia ? null : $("#fechaEspecialInput").val(); // Null si Dia es true
+    let diaEspecial = $("#fechaEspecialInput").val().trim(); // Día especial
     let lunes = $("#lunes").is(":checked");
     let martes = $("#martes").is(":checked");
     let miercoles = $("#miercoles").is(":checked");
@@ -249,23 +252,45 @@ function GuardarJornadaLaboral() {
 
     let guardado = true;
 
+    // Validación de Empresa
     if (empresa == 0) {
-        $("#empresaIdError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  La empresa es requerida")
-        guardado = false;
-    }
-    if (lugar == "") {
-        $("#lugarError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El lugar es requerido")
+        $("#empresaIdError").html('<i class="fa-solid fa-triangle-exclamation"></i> La empresa es requerida');
         guardado = false;
     }
 
+    // Validación de Lugar
+    if (lugar == "") {
+        $("#lugarError").html('<i class="fa-solid fa-triangle-exclamation"></i> El lugar es requerido');
+        guardado = false;
+    }
+
+    // Validación de Horarios
     if (horaEntrada == "") {
-        $("#HsEntradaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El horario es requerido")
+        $("#HsEntradaError").html('<i class="fa-solid fa-triangle-exclamation"></i> Requerido');
         guardado = false;
     }
     if (horaSalida == "") {
-        $("#HsSalidaError").html('<i class="fa-solid fa-triangle-exclamation"></i>' + "  El horario es requerido")
+        $("#HsSalidaError").html('<i class="fa-solid fa-triangle-exclamation"></i> Requerido');
         guardado = false;
     }
+
+    if (dia) {
+        if (!(lunes || martes || miercoles || jueves || viernes || sabado || domingo)) {
+            $("#diaError").html('<i class="fa-solid fa-triangle-exclamation"></i> Requerido');
+            guardado = false;
+        } else {
+            $("#diaError").html(""); 
+        }
+    } else {
+        if (diaEspecial == "") {
+            $("#diaEspecialError").html('<i class="fa-solid fa-triangle-exclamation"></i> Requerido');
+            guardado = false;
+        } else {
+            $("#diaEspecialError").html(""); 
+        }
+    }
+
+    
 
     if (guardado) {
 

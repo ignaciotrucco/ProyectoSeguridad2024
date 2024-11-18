@@ -22,11 +22,13 @@ public class NovedadesEmpleadoController : Controller
         _userManager = userManager;
     }
 
+    [Authorize(Roles = "EMPLEADO")]
     public IActionResult NovedadesEmpleado()
     {
         return View();
     }
 
+    [Authorize(Roles = "EMPLEADO")]
     public IActionResult NuevaNovedad()
     {
         var usuarioLogueado = _userManager.GetUserId(HttpContext.User);
@@ -53,7 +55,8 @@ public class NovedadesEmpleadoController : Controller
 
         return View();
     }
-
+    
+    [Authorize(Roles = "ADMINISTRADOR")]
     public IActionResult HistorialNovedades()
     {
         var personas = (from persona in _context.Personas

@@ -5525,6 +5525,26 @@ textarea.form-control-lg {
   height: 0;
 }
 
+.collapse-graf-enter {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out;
+}
+
+.collapse-graf-enter-active {
+  height: auto;
+}
+
+.collapse-graf-leave {
+  height: auto;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out;
+}
+
+.collapse-graf-leave-active {
+  height: 0;
+}
+
 
 @media (min-width: 576px) {
   .modal {

@@ -4,146 +4,29 @@ body {
     background-attachment: fixed;
     background-size: cover;
 }
-/* Textos por defecto ocultados */
-h1,
-h2,
-hr,
-h3,
-.btn-link {
-    display: none !important;
-}
 
-/* TItulo administra tu perfil */
-/* h4 {
-    text-align: center !important;
-    font-family: 'textos3';
-    font-size: xx-large;
-    padding-bottom: 10px;
-} */
-/* Container nav */
-/* .navPerfil {
-    background-color: rgb(224, 224, 224);
+h1 {
+    font-size: 5rem;
+    margin: 0;
+}
+p {
+    font-size: 1.5rem;
+    margin: 10px 0;
+}
+.linkHome {
+    text-decoration: none;
+    color: #ffdb65;
+    font-weight: bold;
+    border: 2px solid #ffdb65;
+    padding: 10px 20px;
     border-radius: 5px;
-    gap: 5px !important;
-    padding: 10px;
-    margin-top: 2rem;
-    box-shadow: 2px 2px 1px 0px rgba(0, 0, 0, 0.349);
-    margin-left: 2rem;
-} */
-
-.col-md-6 {
-    margin-top: 6rem !important;
+    transition: background-color 0.3s, color 0.3s;
+}
+.linkHome:hover {
+    background-color: #3b3b3b;
+    color: #000000;
 }
 
-input {
-    margin-top: 1rem;
-    font-family: 'textos13' !important;
-    border-color:  #7e7e7e !important;
-    background-color: rgb(235, 235, 235) !important;
-}
-
-label{
-    font-family: 'textos13' !important;
-}
-
-h4, button{
-    font-family: 'textos7' !important;
-}
-
-.textoError{
-    color: rgb(255, 0, 0);
-    cursor: default;
-    font-family: 'textos13';
-    font-size: 17px !important;
-}
-
-.btn-primary,
-.btn-warning {
-    background-color: #fcc200 !important;
-    border: none !important;
-    color: black !important;
-    box-shadow: 1px 1px 1px 0px gray;
-    transition: ease-in-out 0.3s !important;
-}
-
-.nav-item:hover {
-    border-radius: 5px;
-    scale: 101%;
-}
-
-.nav-link {
-    color: black;
-    background-color: #fcc200 !important;
-    font-family: 'textos3';
-}
-
-.nav-link:hover {
-    color: black;
-}
-
-.formPerfil{
-    background: rgb(209,209,209);
-    background: linear-gradient(353deg, rgba(209,209,209,1) 22%, rgba(0,0,0,0.8015581232492998) 92%);
-}
-
-.card-header{
-    background: #ffdb65;
-}
-
-
-button:active{
-    scale: 102% !important;    
-}
-
-button:hover{
-    scale: 102% !important;    
-}
-
-/* Estilos para dispositivos moviles */
-@media (max-width: 767px) {
-    /* .navPerfil {
-        padding: 5px !important;
-        margin-right: 1rem !important;
-        margin-left: 1rem !important;
-        box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.349) !important;
-    } */
-
-    .cardPerfil{
-        justify-content: center;
-        height: 100% !important;
-        scale: 135%;
-        margin-top: 35px;
-    }
-
-    .textoError{
-        font-size: 12px !important;
-    }
-
-    label{
-        font-size: 12px !important;
-    }
-
-    .form-floating{
-        scale: 95%;    
-    }
-
-    input{
-        scale: 95%;    
-    }
-
-    button{
-        scale: 90%;    
-    }
-
-    button:active{
-        scale: 92% !important;    
-    }
-
-    button:hover{
-        scale: 92% !important;    
-    }
-
-    .row{
-        margin-top: 5rem;
-    }
+#sidebar-wrapper, .container-fluid{
+    display:none
 }

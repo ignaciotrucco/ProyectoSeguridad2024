@@ -18,6 +18,7 @@ public class ProvinciasController : Controller
         _context = context;
     }
 
+    [Authorize(Roles = "ADMINISTRADOR")]
     public IActionResult Provincias()
     {
         return View();

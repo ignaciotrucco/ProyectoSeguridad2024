@@ -20,6 +20,7 @@ public class LocalidadesController : Controller
         _context = context;
     }
 
+    [Authorize(Roles = "ADMINISTRADOR")]
     public IActionResult Localidades()
     {
         var provincias = _context.Provincias.ToList();

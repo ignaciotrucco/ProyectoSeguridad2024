@@ -1,11 +1,6 @@
 window.addEventListener('DOMContentLoaded', event => {
-    // Toggle the side navigation
     const sidebarToggle = document.body.querySelector('#sidebarToggle');
     if (sidebarToggle) {
-        // Uncomment Below to persist sidebar toggle between refreshes
-        // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
-        //     document.body.classList.toggle('sb-sidenav-toggled');
-        // }
         sidebarToggle.addEventListener('click', event => {
             event.preventDefault();
             document.body.classList.toggle('sb-sidenav-toggled');
@@ -18,12 +13,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const links = document.querySelectorAll('.list-group-item');
     let currentPath = window.location.pathname;
 
-    // Define el camino por defecto para la página de inicio
     if (currentPath === '/' || currentPath === '/Home' || currentPath === '/Home/Index') {
         currentPath = '/Home/Index';
     }
 
-    // Resalta el enlace activo
     links.forEach(link => {
         const href = link.getAttribute('href');
         if (currentPath === href) {
@@ -31,61 +24,73 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Maneja el estado del collapse
-    const isCollapseOpen = getCollapseState();
+    const isCollapseAdminOpen = getCollapseState('collapseAdminState');
+    const isCollapseGrafOpen = getCollapseState('collapseGrafState');
 
-    // Cierra el collapse si estás en la página de inicio
     if (currentPath === '/' || currentPath === '/Home' || currentPath === '/Home/Index') {
-        setCollapseState(false); // Asegúrate de cerrar el collapse
+        setCollapseState('collapseAdminState', false);
+        setCollapseState('collapseGrafState', false);
     } else {
-        if (isCollapseOpen) {
-            collapseElement.classList.add('show');
+        if (isCollapseAdminOpen) {
+            collapseAdminElement.classList.add('show');
         } else {
-            collapseElement.classList.remove('show');
+            collapseAdminElement.classList.remove('show');
+        }
+
+        if (isCollapseGrafOpen) {
+            collapseGrafElement.classList.add('show');
+        } else {
+            collapseGrafElement.classList.remove('show');
         }
     }
 });
 
-// Función para obtener el estado del collapse
-function getCollapseState() {
-    return localStorage.getItem('collapseAdminState') === 'open';
+function getCollapseState(key) {
+    return localStorage.getItem(key) === 'open';
 }
 
-// Función para establecer el estado del collapse
-function setCollapseState(isOpen) {
-    localStorage.setItem('collapseAdminState', isOpen ? 'open' : 'closed');
+function setCollapseState(key, isOpen) {
+    localStorage.setItem(key, isOpen ? 'open' : 'closed');
 }
 
-// Configurar el estado inicial del collapse
-const collapseElement = document.getElementById('collapseAdmin');
-const collapseButton = document.querySelector('[data-bs-target="#collapseAdmin"]');
+const collapseAdminElement = document.getElementById('collapseAdmin');
+const collapseGrafElement = document.getElementById('collapseGraf');
 
-if (collapseButton) {
-    collapseButton.addEventListener('shown.bs.collapse', () => setCollapseState(true));
-    collapseButton.addEventListener('hidden.bs.collapse', () => setCollapseState(false));
+const collapseAdminButton = document.querySelector('[data-bs-target="#collapseAdmin"]');
+const collapseGrafButton = document.querySelector('[data-bs-target="#collapseGraf"]');
+
+if (collapseAdminButton) {
+    collapseAdminButton.addEventListener('shown.bs.collapse', () => setCollapseState('collapseAdminState', true));
+    collapseAdminButton.addEventListener('hidden.bs.collapse', () => setCollapseState('collapseAdminState', false));
+}
+
+if (collapseGrafButton) {
+    collapseGrafButton.addEventListener('shown.bs.collapse', () => setCollapseState('collapseGrafState', true));
+    collapseGrafButton.addEventListener('hidden.bs.collapse', () => setCollapseState('collapseGrafState', false));
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    const collapseElement = document.getElementById('collapseAdmin');
-    const triggerElement = document.querySelector('[href="#collapseAdmin"]');
+    const handleCollapseAnimations = (element, enterClass, leaveClass) => {
+        element.addEventListener('show.bs.collapse', function() {
+            element.classList.add(enterClass);
+            element.classList.remove(leaveClass);
+        });
 
-    collapseElement.addEventListener('show.bs.collapse', function() {
-        collapseElement.classList.add('collapse-admin-enter');
-        collapseElement.classList.remove('collapse-admin-leave');
-    });
+        element.addEventListener('shown.bs.collapse', function() {
+            element.classList.remove(enterClass);
+            element.classList.add(`${enterClass}-active`);
+        });
 
-    collapseElement.addEventListener('shown.bs.collapse', function() {
-        collapseElement.classList.remove('collapse-admin-enter');
-        collapseElement.classList.add('collapse-admin-enter-active');
-    });
+        element.addEventListener('hide.bs.collapse', function() {
+            element.classList.add(leaveClass);
+            element.classList.remove(`${enterClass}-active`);
+        });
 
-    collapseElement.addEventListener('hide.bs.collapse', function() {
-        collapseElement.classList.add('collapse-admin-leave');
-        collapseElement.classList.remove('collapse-admin-enter-active');
-    });
+        element.addEventListener('hidden.bs.collapse', function() {
+            element.classList.remove(leaveClass);
+        });
+    };
 
-    collapseElement.addEventListener('hidden.bs.collapse', function() {
-        collapseElement.classList.remove('collapse-admin-leave');
-    });
+    handleCollapseAnimations(collapseAdminElement, 'collapse-admin-enter', 'collapse-admin-leave');
+    handleCollapseAnimations(collapseGrafElement, 'collapse-graf-enter', 'collapse-graf-leave');
 });
-

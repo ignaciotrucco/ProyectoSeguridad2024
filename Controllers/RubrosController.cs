@@ -18,6 +18,7 @@ public class RubrosController : Controller
         _context = context;
     }
 
+    [Authorize(Roles = "ADMINISTRADOR")]
     public IActionResult Rubros()
     {
         return View();
