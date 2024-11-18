@@ -34,18 +34,36 @@ public class JornadaLaboralController : Controller
         empresa.Add(new Empresa { EmpresaID = 0, RazonSocial = "[SELECCIONE LA EMPRESA . . ]" });
         ViewBag.EmpresaID = new SelectList(empresa.OrderBy(t => t.RazonSocial), "EmpresaID", "RazonSocial");
 
-        var persona = _context.Personas.ToList();
-        persona.Add(new Persona { PersonaID = 0, NombreCompleto = "[SELECCIONE EL EMPLEADO . . ]" });
-        ViewBag.PersonaID = new SelectList(persona.OrderBy(t => t.NombreCompleto), "PersonaID", "NombreCompleto");
+        var personas = (from persona in _context.Personas
+                        join user in _context.Users on persona.UsuarioID equals user.Id
+                        join userRole in _context.UserRoles on user.Id equals userRole.UserId
+                        join role in _context.Roles on userRole.RoleId equals role.Id
+                        where role.Name == "EMPLEADO"
+                        select persona).ToList();
+        personas.Add(new Persona { PersonaID = 0, NombreCompleto = "[SELECCIONE EL EMPLEADO . . ]" });
+        ViewBag.PersonaID = new SelectList(personas.OrderBy(t => t.NombreCompleto), "PersonaID", "NombreCompleto");
 
         var jornada = _context.JornadaLaboral.ToList();
         jornada.Add(new JornadaLaboral { JornadaLaboralID = 0, Lugar = "[SELECCIONE LA JORNADA . . ]" });
         ViewBag.JornadaLaboralID = new SelectList(jornada.OrderBy(t => t.Lugar), "JornadaLaboralID", "InfoJornada");
 
+        var empresaFiltrar = _context.Empresas.ToList();
+        empresaFiltrar.Add(new Empresa { EmpresaID = 0, RazonSocial = "¡FILTRÁ POR CLIENTES!"});
+        ViewBag.EmpresaFiltrar = new SelectList(empresaFiltrar.OrderBy(e => e.EmpresaID), "EmpresaID", "RazonSocial");
+
+        var empleadoFiltrar = (from persona in _context.Personas
+                        join user in _context.Users on persona.UsuarioID equals user.Id
+                        join userRole in _context.UserRoles on user.Id equals userRole.UserId
+                        join role in _context.Roles on userRole.RoleId equals role.Id
+                        where role.Name == "EMPLEADO"
+                        select persona).ToList();
+        empleadoFiltrar.Add(new Persona { PersonaID = 0, NombreCompleto = "¡FILTRÁ POR EMPLEADO!" });
+        ViewBag.EmpleadoFiltrar = new SelectList(empleadoFiltrar.OrderBy(t => t.PersonaID), "PersonaID", "NombreCompleto");
+
         return View();
     }
 
-    public JsonResult ListadoJornadas(int? JornadaLaboralID, string busqueda)
+    public JsonResult ListadoJornadas(int? JornadaLaboralID, int? EmpresaID)
     {
         var listadoJornadas = _context.JornadaLaboral
             .Join(_context.Empresas, // incluye la tabla Empresas
@@ -59,20 +77,11 @@ public class JornadaLaboralController : Controller
             listadoJornadas = listadoJornadas.Where(l => l.jornada.JornadaLaboralID == JornadaLaboralID).ToList();
         }
 
-        // FILTRAR POR CUALQUIER CAMPO SI SE PROPORCIONA UN TERMMINO DE BUSQUEDA
-        if (!string.IsNullOrEmpty(busqueda))
-        {
-            listadoJornadas = listadoJornadas.Where(p =>
-            p.jornada.Lugar.Contains(busqueda) ||
-            p.jornada.Dia.ToString().Contains(busqueda) ||
-            p.jornada.DiaEspecial.ToString("dd/MM/yyyy").Contains(busqueda) ||
-            p.empresa.RazonSocial.Contains(busqueda)
-            // p.jornada.HorarioEntrada.ToString("HH:mm").Contains(busqueda) || 
-            // p.jornada.HorarioSalida.ToString("HH:mm").Contains(busqueda) 
-        ).ToList();
+        if (EmpresaID != null && EmpresaID != 0) {
+            listadoJornadas = listadoJornadas.Where(l => l.empresa.EmpresaID == EmpresaID).ToList();
         }
 
-        var mostrarJornadas = listadoJornadas.Select(m => new VistaJornadaLaboral
+        var mostrarJornadas = listadoJornadas.OrderBy(m => m.empresa.RazonSocial).Select(m => new VistaJornadaLaboral
         {
             // ASIGNAMOS EL ID DE LA JORNADA LABORAL DEL OBJETO JORNADA
             JornadaLaboralID = m.jornada.JornadaLaboralID,
@@ -244,7 +253,7 @@ public class JornadaLaboralController : Controller
         return Json(eliminado);
     }
 
-    public JsonResult MostrarAsignacion(int? AsignacionJornadaID, string busquedaAsignar)
+    public JsonResult MostrarAsignacion(int? AsignacionJornadaID, int? Empleado)
     {
         var mostrarAsignacion = _context.AsignacionJornadas
     .Join(_context.JornadaLaboral,
@@ -263,16 +272,11 @@ public class JornadaLaboralController : Controller
             mostrarAsignacion = mostrarAsignacion.Where(m => m.asignacion.AsignacionJornadaID == AsignacionJornadaID).ToList();
         }
 
-        // FILTRAR POR CUALQUIER CAMPO SI SE PROPORCIONA UN TÉRMINO DE BÚSQUEDA
-        if (!string.IsNullOrEmpty(busquedaAsignar))
-        {
-            mostrarAsignacion = mostrarAsignacion.Where(p =>
-            p.persona.NombreCompleto.Contains(busquedaAsignar) ||
-            p.jornada.InfoJornada.Contains(busquedaAsignar)
-        ).ToList();
+        if (Empleado != null && Empleado != 0) {
+            mostrarAsignacion = mostrarAsignacion.Where(m => m.persona.PersonaID == Empleado).ToList();
         }
 
-        var vistaAsignacion = mostrarAsignacion.Select(v => new VistaAsignacion
+        var vistaAsignacion = mostrarAsignacion.OrderBy(v => v.persona.NombreCompleto).Select(v => new VistaAsignacion
         {
             AsignacionJornadaID = v.asignacion.AsignacionJornadaID,
             PersonaID = v.persona.PersonaID,

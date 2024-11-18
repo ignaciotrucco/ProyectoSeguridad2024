@@ -23,14 +23,21 @@ public class GraficosController : Controller
     public IActionResult Graficos()
     {
         var empleados = _context.Personas
-            .Join(_context.Users, persona => persona.UsuarioID, user => user.Id,
-                (persona, user) => new { persona.PersonaID, persona.NombreCompleto })
-            .ToList();
+    .Join(_context.Users, persona => persona.UsuarioID, user => user.Id,
+        (persona, user) => new { persona.PersonaID, persona.NombreCompleto, user.Id })
+    .Join(_context.UserRoles, personaUser => personaUser.Id, userRole => userRole.UserId,
+        (personaUser, userRole) => new { personaUser.PersonaID, personaUser.NombreCompleto, userRole.RoleId })
+    .Join(_context.Roles, userRole => userRole.RoleId, role => role.Id,
+        (userRole, role) => new { userRole.PersonaID, userRole.NombreCompleto, role.Name })
+    .Where(x => x.Name == "EMPLEADO")
+    .Select(x => new { x.PersonaID, x.NombreCompleto })
+    .ToList();
 
         // Agregar un elemento "Todos" al principio de la lista
         empleados.Insert(0, new { PersonaID = 0, NombreCompleto = "[TODOS]" });
 
         ViewBag.PersonaID = new SelectList(empleados, "PersonaID", "NombreCompleto");
+
 
         return View();
     }
@@ -97,19 +104,19 @@ public class GraficosController : Controller
     }
 
     public JsonResult GraficoTortaEmpresasPorRubro()
-{
-    var vistaEmpresasPorRubro = _context.Rubros
-        .Select(r => new
-        {
-            RubroID = r.RubroID,
-            NombreRubro = r.Nombre,
-            CantidadEmpresas = r.Empresas.Count() 
-        })
-        .Where(r => r.CantidadEmpresas > 0) 
-        .ToList();
+    {
+        var vistaEmpresasPorRubro = _context.Rubros
+            .Select(r => new
+            {
+                RubroID = r.RubroID,
+                NombreRubro = r.Nombre,
+                CantidadEmpresas = r.Empresas.Count()
+            })
+            .Where(r => r.CantidadEmpresas > 0)
+            .ToList();
 
-    return Json(vistaEmpresasPorRubro);
-}
+        return Json(vistaEmpresasPorRubro);
+    }
 
 
 

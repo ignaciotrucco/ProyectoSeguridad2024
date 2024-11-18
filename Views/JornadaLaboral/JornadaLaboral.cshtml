@@ -35,11 +35,11 @@
                 <div class="row align-items-center">
                   <div class="col-auto me-auto">
                     <div class="input-group m-2">
-                      <span class="input-group-text spanJornada" id="basic-addon1"><i
-                          class="fa-regular fa-calendar-days"></i></span>
-                      <input type="text" style="width:7rem !important; text-transform:uppercase"
-                        id="inputBusquedaAñadir" class="form-control inputBusqueda inputBusquedaResponsivo"
-                        placeholder="BUSCAR...">
+                        @Html.DropDownList("EmpresaFiltrar", null, htmlAttributes: new
+                          {
+                            @class = "form-control",
+                            @onchange = "ListadoJornadas()"
+                          })
                     </div>
                   </div>
                   <div class="col-auto ms-auto infoTabla">
@@ -51,8 +51,8 @@
                     <!-- Boton modal -->
                     <div class="boton-normal">
                       <button class="btn btnImprimir mt-2" onclick="ImprimirTablaJorAñadidas()">
-                      <i class="fa-solid fa-download"></i>
-                      <span class="btn-text">Imprimir</span>
+                        <i class="fa-solid fa-download"></i>
+                        <span class="btn-text">Imprimir</span>
                       </button>
                       <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar"
                         data-bs-toggle="modal" data-bs-target="#modalJornada" data-bs-target="#staticBackdrop"
@@ -128,10 +128,11 @@
               <div class="row align-items-center">
                 <div class="col-auto me-auto">
                   <div class="input-group m-2">
-                    <span class="input-group-text spanJornada" id="basic-addon1"><i
-                        class="fa-regular fa-user"></i></span>
-                    <input type="text" style="width:7rem !important; text-transform:uppercase" id="inputBusquedaAsignar"
-                      class="form-control inputBusqueda inputBusquedaResponsivo" placeholder="BUSCAR...">
+                    @Html.DropDownList("EmpleadoFiltrar", null, htmlAttributes: new
+                            {
+                                @class = "form-control filtro",
+                                @onchange = "ListadoAsignacion()"
+                            })
                   </div>
                 </div>
                 <div class="col-auto ms-auto infoTabla">
@@ -143,8 +144,8 @@
                   <!-- Boton modal -->
                   <div class="boton-normal">
                     <button class="btn btnImprimir mt-2" onclick="ImprimirTablaJorAsignadas()">
-                    <i class="fa-solid fa-download"></i>
-                    <span class="btn-text">Imprimir</span>
+                      <i class="fa-solid fa-download"></i>
+                      <span class="btn-text">Imprimir</span>
                     </button>
                     <button type="button" class="btn btn-secondary btn-circle btn-lg" title="Agregar"
                       data-bs-toggle="modal" data-bs-target="#modalEmpleadoJornada" data-bs-target="#staticBackdrop"
@@ -253,7 +254,8 @@
                 <span class="slider"></span>
               </label>
             </div>
-            <label class="form-check-label ms-2 mb-0 d-flex" style="margin-top: 20px;">Días Laborables<p class="asterisco">*</p></label>
+            <label class="form-check-label ms-2 mb-0 d-flex" style="margin-top: 20px;">Días Laborables<p
+                class="asterisco">*</p></label>
           </div>
 
           <!-- Checkboxes ocultos -->
@@ -295,7 +297,7 @@
                 DOMINGO
               </label>
             </div>
-              <span id="diaError" class="textoError"></span>
+            <span id="diaError" class="textoError"></span>
         </form>
       </div>
     </div>
