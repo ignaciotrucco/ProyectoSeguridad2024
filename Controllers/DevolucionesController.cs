@@ -114,6 +114,24 @@ public class DevolucionesController : Controller
         return Json(VistaClienteDevolucion);
     }
 
+    public JsonResult VerEncuesta(int DevolucionID)
+    {
+        List<VistaDevolucion> VistaDevolucion = new List<VistaDevolucion>();
+
+        var devoluciones = _context.Devoluciones.Where(d => d.DevolucionID == DevolucionID).ToList();
+
+        foreach (var devolucion in devoluciones)
+        {
+            var verEncuesta = new VistaDevolucion
+            {
+                DevolucionID = devolucion.DevolucionID,
+                Encuesta = devolucion.Encuesta
+            };
+            VistaDevolucion.Add(verEncuesta);
+        }
+        return Json(VistaDevolucion);
+    }
+
     //LISTADO PARA QUE EL CLIENTE VEA SUS PROPIAS RESEÑAS
     public JsonResult Devolucion(int? DevolucionID, DateTime? FechaDesde, DateTime? FechaHasta)
     {
@@ -160,7 +178,7 @@ public class DevolucionesController : Controller
 
 
     public async Task<IActionResult> CargarObservacion(int DevolucionID, string Resenia, string Encuesta)
-    {   
+    {
         var usuarioLogueadoID = _userManager.GetUserId(HttpContext.User);
         bool success = false;
         string resultado;
@@ -177,11 +195,11 @@ public class DevolucionesController : Controller
 
             _context.Devoluciones.Add(nuevaDevolucion);
             await _context.SaveChangesAsync();
-        
+
             success = true;
             resultado = "<i class='fas fa-check-circle'></i> ¡La devolución se envió correctamente!";
         }
-        else    
+        else
         {
             resultado = "Debe cargar una observación.";
         }
