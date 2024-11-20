@@ -84,6 +84,7 @@ h4, button{
 .formPerfil{
     background: rgb(209,209,209);
     background: linear-gradient(353deg, rgba(209,209,209,1) 22%, rgba(0,0,0,0.8015581232492998) 92%);
+    border-radius: 0px 0px 5px 5px;    
 }
 
 .card-header{
