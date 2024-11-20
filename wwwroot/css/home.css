@@ -109,3 +109,9 @@ body {
         scale: 105%;
     }
 }
+
+@media (max-width: 761px) {
+    .card-body{
+        scale: 105%;
+    }
+}
